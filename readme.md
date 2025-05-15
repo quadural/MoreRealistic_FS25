@@ -52,7 +52,7 @@ Fun facts
 * Each MoreRealistic project is started from scratch. I do not copy code from previous game.
 * It can take me dozens of hours (hundred ?) to remove some unwanted vanilla features that would take Giants minutes to remove (say hello FS20111 "damping" value)
 * It seems every piece of equipment I look at is "wrong" (maybe I look too much ?) :
-  * APE50 is not CVT driven IRL
+  * APE50 is not CVT driven IRL (manual gearbox like a motorbike, but shifting lever = rotating the whole left handle. And then, you have a reverser lever.)
   * Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine)
   * Landini REX4 is not a GT version (this is a F version in game)
   * Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all)
