@@ -19,15 +19,23 @@ The same for FS22 => same job and still no time for FS or MR.
 
 
 Why MR25 ?
-I bought the game just before release, 
+I bought the game just before release, I achieved to play almost one hour before trying to mod the game.
+The driving experience was too bad :
+* set manual direction change ON, and try to cultivate a field with base MT635 = unplayable. Each time you shift in reverse, the R1 speed is selected (crawling) and you have to shift all the gears up to get a decent reverse speed.
+* IRL, John Deere 3650 is one of "my" tractor (spent a couple hundred hours driving it) => gearbox is "badly" set in game. (hi-lo lever is not in the right direction, and it feels like driving a powershift tractor)
+* MF 8570 harvesting at 10kph whatever the yield, the crop, the incline...
 
 What can you expect from MoreRealistic ?
-* rolling resistance (something not present in base game engine, but really, really, really important IRL for farming vehicles)
+* rolling resistance (something not present in base game engine, but really, really, really important IRL for farming vehicles) // air resistance too, but not so important
 * better tire forces (example : no more possible to pull more than your weight)
 * earth gravity (this was not the case in FS2011 and 2013)
 * IRL mass (realistic fillType density, no mass limit, better center of mass)
-* MoreRealistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
+* More realistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
 * Engine with proper torque curve (try to compare John Deere 3650 and Landini REX4 120 with or without MR, at work in a hilly field)
+* new transmission management (MR game engine make use of its own function, for automatic shifting too = far more realistic - try making 0-40kph with the MT635 with or without MR, automatic shifting ON) => it can handle hydrostatic transmission (drive 30 seconds the Massey Ferguson 8570 on road without MR and with MR => I can't get back to base game feeling)
+* no automatic brake when going downhill and going faster than max vehicle speed)
+* MR Combines take into account "liters per second" and crops (less yield = faster combine speed. Harvesting less than 100% of the header width = more speed).
+* MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop)
 
 
 
