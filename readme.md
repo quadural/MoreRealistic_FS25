@@ -1,7 +1,11 @@
+---------------------------------------------
 What is MoreRealistic Mod ?
+
 A deep modification of the game to make it enjoyable for me (especially the driving experience since I want the game to be a "driving farming simulator") 
 
+---------------------------------------------
 MoreRealistic history :
+
 IRL, I drove my first tractor at the age of 7 (only the steering wheel, Ford 7000 and IH745)
 I am also a software engineer (but not only)
 I discovered and played LS2009 just before Farming Simulator 2011 was released
@@ -17,15 +21,19 @@ Then, FS19 was released => I had a new job, and no time for playing (more than f
 The same for FS22 => same job and still no time for FS or MR.
 
 
-
+---------------------------------------------
 Why MR25 ?
+
 I bought the game just before release, I achieved to play almost one hour before trying to mod the game.
 The driving experience was too bad :
-* set manual direction change ON, and try to cultivate a field with base MT635 = unplayable. Each time you shift in reverse, the R1 speed is selected (crawling) and you have to shift all the gears up to get a decent reverse speed.
-* IRL, John Deere 3650 is one of "my" tractor (spent a couple hundred hours driving it) => gearbox is "badly" set in game. (hi-lo lever is not in the right direction, and it feels like driving a powershift tractor)
+* just set manual direction change ON, and try to cultivate a field with base MT635 = unplayable. Each time you shift in reverse, the R1 speed is selected (crawling) and you have to shift all the gears up to get a decent reverse speed.
+* IRL, John Deere 3650 is one of "my" tractor (spent a couple hundred hours driving it) => gearbox is "badly" set in game. (hi-lo lever is not in the right direction, and it feels like driving a powershift tractor). Gears ratio differences have also nothing to do with IRL, I couldn't feel driving a 3650
 * MF 8570 harvesting at 10kph whatever the yield, the crop, the incline...
+* This was already more than I could handle : the "simulator" word was lost
 
+---------------------------------------------
 What can you expect from MoreRealistic ?
+
 * rolling resistance (something not present in base game engine, but really, really, really important IRL for farming vehicles) // air resistance too, but not so important
 * better tire forces (example : no more possible to pull more than your weight)
 * earth gravity (this was not the case in FS2011 and 2013)
@@ -36,11 +44,14 @@ What can you expect from MoreRealistic ?
 * no automatic brake when going downhill and going faster than max vehicle speed)
 * MR Combines take into account "liters per second" and crops (less yield = faster combine speed. Harvesting less than 100% of the header width = more speed).
 * MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop)
+* variable center of mass depending on the fill level
 
 
-
-Funfact01 : I bought the game on Steam first. And then, I had to buy it directly from Giants because modding is not welcome on the steam version of the game... (no lua game source)
-Funfact02 : Each MoreRealistic project is started from scratch. I do not copy code from previous game.
-Funfact03 : it can take me dozens of hours (hundred ?) to remove some unwanted vanilla features that would take Giants minutes to remove (say hello FS20111 "damping" value)
-Funfact04 : it seems every piece of equipement I look at is "wrong" (maybe I look too much ?) : APE50 is not CVT driven IRL, Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine), Landini REX4 is not a GT version (this is a F version in game) , Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all, GreatPlains 1500 has the wrong optionnal attachment : this is not a fertilizer unit ! this is the small seeds attachement unit, Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9)
-FunFact05 : in base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears 
+---------------------------------------------
+Fun facts
+* I bought the game on Steam first. And then, I had to buy it directly from Giants because modding is not welcome on the steam version of the game... (no lua game source)
+* Each MoreRealistic project is started from scratch. I do not copy code from previous game.
+* it can take me dozens of hours (hundred ?) to remove some unwanted vanilla features that would take Giants minutes to remove (say hello FS20111 "damping" value)
+* it seems every piece of equipement I look at is "wrong" (maybe I look too much ?) : APE50 is not CVT driven IRL, Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine), Landini REX4 is not a GT version (this is a F version in game) , Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all, GreatPlains 1500 has the wrong optionnal attachment : this is not a fertilizer unit ! this is the small seeds attachement unit, Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9)
+* in base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears
+* a few times, MR25 has been stopped (nearly aborted) because I didn't achieve to "bend" the base game engine like I wanted
