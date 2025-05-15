@@ -26,10 +26,13 @@ What can you expect from MoreRealistic ?
 * better tire forces (example : no more possible to pull more than your weight)
 * earth gravity (this was not the case in FS2011 and 2013)
 * IRL mass (realistic fillType density, no mass limit, better center of mass)
+* MoreRealistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
+* Engine with proper torque curve (try to compare John Deere 3650 and Landini REX4 120 with or without MR, at work in a hilly field)
 
 
 
 Funfact01 : I bought the game on Steam first. And then, I had to buy it directly from Giants because modding is not welcome on the steam version of the game... (no lua game source)
 Funfact02 : Each MoreRealistic project is started from scratch. I do not copy code from previous game.
 Funfact03 : it can take me dozens of hours (hundred ?) to remove some unwanted vanilla features that would take Giants minutes to remove (say hello FS20111 "damping" value)
-Funfact04 : it seems every piece of equipement I look at is "wrong" : APE50 is not CVT driven IRL, Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine), Landini REX4 is not a GT version (this is a F version in game) , Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all)
+Funfact04 : it seems every piece of equipement I look at is "wrong" (maybe I look too much ?) : APE50 is not CVT driven IRL, Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine), Landini REX4 is not a GT version (this is a F version in game) , Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all, GreatPlains 1500 has the wrong optionnal attachment : this is not a fertilizer unit ! this is the small seeds attachement unit, Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9)
+FunFact05 : in base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears 
