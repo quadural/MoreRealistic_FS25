@@ -58,7 +58,7 @@ Fun facts
   * Landini REX4 is not a GT version (this is a F version in game)
   * Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all)
   * GreatPlains 1500 has the wrong optionnal attachment : this is not a fertilizer unit ! this is the small seeds attachement unit
-  * Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9 / and so, not the same weight either
+  * Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9 (and so, not the same weight either)
 * In base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears
 * A few times, MR25 has been stopped (nearly aborted) because I didn't achieve to "bend" the base game engine like I wanted
 * With base game engine, when playing with Giants studio attached to debug and "vehicleDebug" active, the game engine is eating your memory (RAM) => this is fixed with MR engine
