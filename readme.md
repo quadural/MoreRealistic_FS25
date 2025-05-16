@@ -46,6 +46,11 @@ What can you expect from MoreRealistic ?
 * MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop)
 * variable center of mass depending on the fill level
 
+---------------------------------------------
+What you should not expect from MoreRealistic ?
+
+* overriding every piece of equipment in the game, the expansion, the official mods... (It would require me more than 24 hours a day to achieve that in an acceptable time)
+
 
 ---------------------------------------------
 Fun facts
