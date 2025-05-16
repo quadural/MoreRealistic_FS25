@@ -12,7 +12,7 @@ I discovered and played LS2009 just before Farming Simulator 2011 was released
 I started modding with FS2011 -> the game physics was too bad (unrealistic flying tractor. The more weight on the wheels, the more power you get, no rolling resistance, etc etc)  
 So, I created MR11 to get the best driving experience from the vanilla game (and fix many bugs like the farm bales elevator). Once FS2011 with MR was feeling great to me, I released MR11.  
 But it was a bit late : Farming Simulator 2013 was released too, it took me "ages" to make MR11 (thousands hours).  
-Then, I worked on MR13 because vanilla FS2013 was feeling so bad compared to MR11. Another time, it took me a bunch of time to get the "MR engien" ready, and then, I had to convert every piece of equipement to be "MR"... And then expansion vehicles...  
+Then, I worked on MR13 because vanilla FS2013 was feeling so bad compared to MR11. Another time, it took me a bunch of time to get the "MR engine" ready, and then, I had to convert every piece of equipment to be "MR"... And then expansion vehicles...  
 And so, I spent another couple of thousand hours on this one.  
 When FS15 was released, I gave it a try : still not good, I could not feel I was driving a tractor. I check what could be done with modding, but didn't achieve to do anything good (didn't even achieve to apply proper gravity) => so no MR15  
 When FS17 was released, it feeled the same. As usual, it was like playing with "playmobil" tractors. I achieve to make MR17 and spent a lot of time to convert vehicles. Of course, there were even more vehicles than before = I guess I spent the most time on this one (more than 3000 hours ?)  
