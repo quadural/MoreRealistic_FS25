@@ -25,9 +25,10 @@ Why MR25 ?
 
 I bought the game just before release, I achieved to play almost one hour before trying to mod the game.
 The driving experience was too bad :
-* just set manual direction change ON, and try to cultivate a field with base MT635 = unplayable. Each time you shift in reverse, the R1 speed is selected (crawling) and you have to shift all the gears up to get a decent reverse speed.
+* Just set manual direction change to "ON", and try to cultivate a field with base MT635 = unplayable. Each time you shift in reverse, the R1 speed is selected (crawling) and you have to shift all the gears up to get a decent reverse speed. It quickly become unbearable.
 * IRL, John Deere 3650 is one of "my" tractor (spent a couple hundred hours driving it) => gearbox is "badly" set in game. (hi-lo lever is not in the right direction, and it feels like driving a powershift tractor). Gears ratio differences have also nothing to do with IRL, I couldn't feel driving a 3650
 * MF 8570 harvesting at 10kph whatever the yield, the crop, the incline...
+* I bought a Fendt (vario transmission) : driving experience was "disgusting" (in 2 words : flat and dull)
 * This was already more than I could handle : the "simulator" word was lost
 
 ---------------------------------------------
