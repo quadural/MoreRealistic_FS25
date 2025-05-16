@@ -39,8 +39,8 @@ What can you expect from MoreRealistic ?
 * IRL mass (realistic fillType density, no mass limit, better center of mass)
 * More realistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
 * Engine with proper torque curve (try to compare John Deere 3650 and Landini REX4 120 with or without MR, at work in a hilly field)
-* new transmission management (MR game engine make use of its own function, for automatic shifting too = far more realistic - try making 0-40kph with the MT635 with or without MR, automatic shifting ON) => it can handle hydrostatic transmission (drive 30 seconds the Massey Ferguson 8570 on road without MR and with MR => I can't get back to base game feeling)
-* no automatic brake when going downhill and going faster than max vehicle speed)
+* new transmission management (MR game engine make use of its own function, for automatic shifting too = far more realistic - try making 0-40kph with the MT635 with or without MR, automatic shifting ON) => it can handle hydrostatic transmission (drive 30 seconds the Massey Ferguson 8570 on road without MR and with MR => if you love driving by yourself : difficult to get back to base game feeling)
+* no automatic brake when going downhill and going faster than max vehicle speed - let's hope AI is able to brake now
 * MR Combines take into account "liters per second" and crops (less yield = faster combine speed. Harvesting less than 100% of the header width = more speed).
 * MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop)
 * variable center of mass depending on the fill level
