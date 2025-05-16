@@ -47,7 +47,7 @@ What can you expect from MoreRealistic ?
 * variable center of mass depending on the fill level
 
 ---------------------------------------------
-What you should not expect from MoreRealistic ?
+What should you not expect from MoreRealistic ?
 
 * overriding every piece of equipment in the game, the expansion, the official mods... (It would require me more than 24 hours a day to achieve that in an acceptable time)
 
