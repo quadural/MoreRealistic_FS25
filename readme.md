@@ -50,7 +50,7 @@ What can you expect from MoreRealistic ?
 Fun facts
 * I bought the game on Steam first. And then, I had to buy it directly from Giants because modding is not welcome on the steam version of the game... (no lua game source)
 * Each MoreRealistic project is started from scratch. I do not copy code from previous game.
-* It can take me dozens of hours (hundred ?) to remove some unwanted vanilla features that would take Giants minutes to remove (say hello FS20111 "damping" value)
+* It can take me dozens of hours (hundred ?) to remove some unwanted vanilla features that would take Giants minutes to remove (say hello FS2011 "damping" value)
 * It seems every piece of equipment I look at is "wrong" (maybe I look too much ?) :
   * APE50 is not CVT driven IRL (manual gearbox like a motorbike, but shifting lever = rotating the whole left handle. And then, you have a reverser lever.)
   * Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine)
