@@ -60,4 +60,4 @@ Fun facts
   * Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9)
 * In base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears
 * A few times, MR25 has been stopped (nearly aborted) because I didn't achieve to "bend" the base game engine like I wanted
-* With base game engine, when playing with Giants studio attached to debug and "vehicleDebug" ON, the game engine is eating your memory (RAM) => this is fixed with MR engine
+* With base game engine, when playing with Giants studio attached to debug and "vehicleDebug" active, the game engine is eating your memory (RAM) => this is fixed with MR engine
