@@ -5,3 +5,5 @@ Nothing is definitve = every conversion is subject to change.
 I would say it is best to play with "mr" vehicles/equipment only, but there is no known limitation to play with a mix of genuine/mr
 Example : most base game equipment consume less power/draftForce than "mr" = this should not be a problem for a "mr" tractor to pull a "not mr" equipment
 And even a "not mr" tractor should be able to pull a "mr" equipment since "mr physics engine" is applied to everything.
+
+There is no "CVT/Vario" mr transmission by the moment = a "rough" implementation replace the base game one for all the "not mr" vehicles without fixed gears ratios
