@@ -67,4 +67,4 @@ Fun facts
 * In base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears
 * A few times, MR25 has been stopped (nearly aborted) because I didn't achieve to "bend" the base game engine like I wanted
 * With base game engine, when playing with Giants studio attached to debug and "vehicleDebug" active, the game engine is eating your memory (RAM) => this is fixed with MR engine
-* MR is best suited for "hardcore" players who play vanilla game and don't spend time searching for mods => the ones that would never know MR exist
+* MR is best suited for "hardcore" players who play vanilla game and don't spend time searching for mods => the ones that would never know MR exists
