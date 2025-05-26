@@ -45,6 +45,7 @@ What can you expect from MoreRealistic ?
 * MR Combines take into account "liters per second" and crops (less yield = faster combine speed. Harvesting less than 100% of the header width = more speed).
 * MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop)
 * variable center of mass depending on the fill level
+* tires do have a great impact in game now (Example : just try to cross a wet field with a full trailer fitted with narrow road tires)
 
 ---------------------------------------------
 What should you not expect from MoreRealistic ?
