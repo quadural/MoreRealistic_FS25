@@ -36,7 +36,7 @@ What can you expect from MoreRealistic ?
 
 * rolling resistance (something not present in base game engine, but really, really, really important IRL for farming vehicles) // air resistance too, but not so important
 * better tire forces (example : no more possible to pull more than your weight)
-* earth gravity (this was not the case in FS2011 and 2013)
+* earth gravity (this was not the case in base game FS2011 and 2013)
 * IRL mass (realistic fillType density, no mass limit, better center of mass)
 * More realistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
 * Engine with proper torque curve (try to compare John Deere 3650 and Landini REX4 120 with or without MR, at work in a hilly field)
