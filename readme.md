@@ -1,4 +1,4 @@
-if you want to test the mod from github, you have to donwload the lastest zip version of the mod, rename the zip file with "MoreRealistic" only (keeping the zip extension if displayed) and copy-paste it to the mod folder of the game.
+if you want to test the mod from github, you have to download the lastest zip version of the mod, rename the zip file with "MoreRealistic" only (keeping the zip extension if displayed) and copy-paste it to the mods folder of the game.
 
 ---------------------------------------------
 What is MoreRealistic Mod ?
