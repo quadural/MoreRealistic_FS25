@@ -2,6 +2,11 @@ if you want to test the mod from github, you have to download the lastest zip ve
 
 Changelog is available inside the package
 
+! You do not get any privilege by donating !
+This is still an alpha version of the mod and I can't guarantee constant update flow
+I can't guarantee your pc would not explode either :-)
+If you still want to donate = https://buymeacoffee.com/quadural
+
 ---------------------------------------------
 What is MoreRealistic Mod ?
 
@@ -16,7 +21,7 @@ I discovered and played LS2009 just before Farming Simulator 2011 was released
 I started modding with FS2011 -> the game physics was too bad (unrealistic flying tractor. The more weight on the wheels, the more power you get, no rolling resistance, etc etc)  
 So, I created MR11 to get the best driving experience from the vanilla game (and fix many bugs like the farm bales elevator). Once FS2011 with MR was feeling great to me, I released MR11.  
 But it was a bit late : Farming Simulator 2013 was released too, it took me "ages" to make MR11 (thousands hours).  
-Then, I worked on MR13 because vanilla FS2013 was feeling so bad compared to MR11. Another time, it took me a bunch of time to get the "MR engine" ready, and then, I had to convert every piece of equipment to be "MR"... And then expansion vehicles...  
+Then, I worked on MR13 because vanilla FS2013 was feeling so bad compared to MR11. Another time, it took me a bunch of time to get the "MR engine" ready (and mp ready), and then, I had to convert every piece of equipment to be "MR"... And then expansion vehicles...  
 And so, I spent another couple of thousand hours on this one.  
 When FS15 was released, I gave it a try : still not good, I could not feel I was driving a tractor. I check what could be done with modding, but didn't achieve to do anything good (didn't even achieve to apply proper gravity) => so no MR15  
 When FS17 was released, it feeled the same. As usual, it was like playing with "playmobil" tractors. I achieve to make MR17 and spent a lot of time to convert vehicles. Of course, there were even more vehicles than before = I guess I spent the most time on this one (more than 3000 hours ?)  
@@ -43,13 +48,13 @@ What can you expect from MoreRealistic ?
 * earth gravity (this was not the case in base game FS2011 and 2013)
 * IRL mass (realistic fillType density, no mass limit, better center of mass)
 * More realistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
-* Engine with proper torque curve (try to compare John Deere 3650 and Landini REX4 120 with or without MR, at work in a hilly field)
-* new transmission management (MR game engine make use of its own function, for automatic shifting too = far more realistic - try making 0-40kph with the MT635 with or without MR, automatic shifting ON) => it can handle hydrostatic transmission (drive 30 seconds the Massey Ferguson 8570 on road without MR and with MR => if you love driving by yourself : difficult to get back to base game feeling)
-* no automatic brake when going downhill and going faster than max vehicle speed - let's hope AI is able to brake now
+* Engine with proper torque curve (base game = same torque shape for 95% of vehicles)
+* new transmission management (MR game engine make use of its own function, for automatic shifting too = far more realistic - try making 0-40kph with the MT635 with or without MR, automatic shifting ON) => it can handle hydrostatic transmission too (drive 30 seconds the Massey Ferguson 8570 on road without MR and with MR => if you love driving by yourself : this is the mod for you)
+* no more automatic brakes when going downhill, you can "overspeed" now when going downhill - let's hope AI is able to brake :-)
 * MR Combines take into account "liters per second" and crops (less yield = faster combine speed. Harvesting less than 100% of the header width = more speed).
-* MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop)
-* variable center of mass depending on the fill level
-* tires do have a great impact in game now (Example : just try to cross a wet field with a full trailer fitted with narrow road tires)
+* MR Combines are limited by : header max cut speed, combine threshing capacity, engine power (chopping straw = consume more power = maybe less speed if the combine is underpowered in the current crop // unloading on the go = more power consumed too)
+* variable center of mass depending on the fill level (useful for high trailers)
+* tires do have a great impact in game now (Example : just try to cross a wet field with a full trailer fitted with narrow road tires) => base game = same performance whatever the tire set. MR = please try to avoid bad choice (eg: cultivating with narrow tires)
 
 ---------------------------------------------
 What should you not expect from MoreRealistic ?
@@ -66,10 +71,10 @@ Fun facts
   * APE50 is not CVT driven IRL (manual gearbox like a motorbike, but shifting lever = rotating the whole left handle. And then, you have a reverser lever.)
   * Aprilia 125 is not 100Hp at all IRL (especially the current 4 strokes engine)
   * Landini REX4 is not a GT version (this is a F version in game)
-  * Amazone Spreader is not a 3200 model (this is the 2600 version : not the same width at all)
-  * GreatPlains 1500 has the wrong optionnal attachment : this is not a fertilizer unit ! this is the small seeds attachement unit
+  * Amazone Spreader is not a 3200 model (this is the 2600 version)
+  * GreatPlains 1500 has the wrong optional attachment : this is not a fertilizer unit ! this is the small seeds attachement unit
   * Challenger MT635/645 and MT655/665 = not the same engine ! sisu 7.4L and 8.4L / not the same transmission : funk 18/6 and 18/9 (and so, not the same weight either)
 * In base game, more than 90% of vehicles share the same engine (same torque curve, just a factor applied to derate the power). You can't feel the difference between a 8.4L valmet engine and a 3.6L deutz engine => this is not a wanted experience for a driving simulator, especially with manual gears
 * A few times, MR25 has been stopped (nearly aborted) because I didn't achieve to "bend" the base game engine like I wanted
 * With base game engine, when playing with Giants studio attached to debug and "vehicleDebug" active, the game engine is eating your memory (RAM) => this is fixed with MR engine
-* MR is best suited for "hardcore" players who play vanilla game and don't spend time searching for mods => the ones that would never know MR exists
+* MR is best suited for "hardcore" players who play vanilla game and spend time driving their virtual tractors, not searching for mods => the ones that would never know MR exists
