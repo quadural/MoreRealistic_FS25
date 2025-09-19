@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.3" />
+
+    <!--
+        working width = 6.1m (rear roll = 6.25m)
+        hp recommended = 220-270Hp (260hp min on uk website)
+        working speed recommended = 10-15kph
+        weight with double steelRunner, crossCutter Knive front tool and trueCut 610 discs => 8700 kgs
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/vaderstad/carrierXL625/carrierXL625.xml">
+        <attributes>
+            <!-- <set path="vehicle.storeData.name"  value="MR Carrier XL 625"/> -->
+            <set path="vehicle.powerConsumer#maxForce" value="39" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.65 0.1" />
+            <set path="vehicle.base.components.component(0)#mass" value="8400" />
+        </attributes>
+    </parentFile>
+
+</vehicle>

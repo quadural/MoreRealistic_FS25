@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="0.3" />
+
+
+    <!--
+
+        unia ares XL 4.5 H
+
+        base weight with tube roller = 2970kg
+
+        options in game=
+        hydraulic depth regulation
+        edge plate
+
+        total weight = 3050kg
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/unia/aresXL/aresXL.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="2850" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 0.4" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#rotationDamping" value="0.002"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="12" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 0.05" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value ="0.9" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="30" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" forcePointZ="-3.5" />
+
+    <!--
+
+        horsch maestro 24.50 SV 2021 model
+
+        350kg max pressure per rank (but this is not the pressure used in the game => not a direct seeder in this game => something like 230kg is more realistic)
+
+        about 12500kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/maestro2450SV/maestro2450SV.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="7500" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.25 0" />
+            <set path="vehicle.base.components.component(1)#mass" value="2000" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0.2" />
+            <set path="vehicle.base.components.component(2)#mass" value="2000" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 0.2" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="5" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#forceNode" value="maestro2450SV_main_component1" />
+            <set path="vehicle.powerConsumer#maxForce" value="54" /> <!-- draft force : 230*9.81*24 -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="486" /> <!-- 900 rpm sufficient -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="35" /> <!-- air turbine seeds, fertilizer, depression -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="-0.01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="-0.01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.06" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.06" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="250" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="250" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="27" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="27" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="4.7" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="4.7" />
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#yOffset" value="0.03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#yOffset" value="0.03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrFrictionScale" value="0.6" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrFrictionScale" value="0.6" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#yOffset" value="0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#yOffset" value="0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#yOffset" value="-0.04" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#yOffset" value="-0.04" />
+
+            <!-- correct wheels size -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/trelleborg/TM700/580_70R38.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/trelleborg/TM700/580_70R38.xml" />
+
+            <!-- should be 400/60r22.5 but it does not exist in base game -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/trelleborg/T404/560_45R22_5.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/trelleborg/T404/560_45R22_5.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#xOffset" value="0.04" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).innerRim#offset" value="-0.04" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#xOffset" value="0.04" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).innerRim#offset" value="-0.04" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/trelleborg/TM2000/800_65R32.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/trelleborg/TM2000/800_65R32.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1)#price" value="5000" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/trelleborg/TM100/300_95R46.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/trelleborg/TM100/300_95R46.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).additionalWheel#filename" value="$data/shared/wheels/tires/trelleborg/TM100/300_95R46.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).additionalWheel#filename" value="$data/shared/wheels/tires/trelleborg/TM100/300_95R46.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2)#price" value="7000" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).additionalWheel.tire#isInverted" value="true" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).additionalWheel.tire#isInverted" value="true" />
+
+
+            <!-- support wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="300" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="300" />
+
+            <!-- correct tank size for SV -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="2000" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#capacity" value="6000" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 -0.9"/> <!-- seeds -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 1.8 0.5"/> <!-- fertilizer -->
+
+            <!-- animation lowering -->
+            <set path="vehicle.animations.animation(1).part(0)#startRotMaxLimit" value="0 0 10" />
+            <set path="vehicle.animations.animation(1).part(0)#startRotMinLimit" value="0 0 -3" />
+            <set path="vehicle.animations.animation(1).part(1)#startRotMaxLimit" value="0 0 3" />
+            <set path="vehicle.animations.animation(1).part(1)#startRotMinLimit" value="0 0 -10" />
+
+            <set path="vehicle.animations.animation(1).part(2)#startRot" value="0 0 0" />
+
+            <!-- add canola -->
+            <remove path="vehicle.sowingMachine.seedFruitTypeCategories" />
+            <set path="vehicle.sowingMachine.seedFruitTypes" value="MAIZE SORGHUM SUNFLOWER SOYBEAN SUGARBEET COTTON GREENBEAN CANOLA" />
+
+            <!-- fix bad groundAdjustNode and other nodes in the i3d file -->
+            <!-- poor job here -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(4)#node" value="groundAdjustNodeSeederUnitRight02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(4)#translationActive" value="-0.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(4)#translationInactive" value="-0.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(5)#node" value="seederUnitRight02Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(5)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(5)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(6)#node" value="groundAdjustNodeSeederUnitRight03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(6)#translationActive" value="-0.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(6)#translationInactive" value="-0.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(7)#node" value="seederUnitRight03Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(7)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(7)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(8)#node" value="groundAdjustNodeSeederUnitRight04" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(8)#translationActive" value="-1.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(8)#translationInactive" value="-1.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(9)#node" value="seederUnitRight04Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(9)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(9)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(10)#node" value="groundAdjustNodeSeederUnitRight05" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(10)#translationActive" value="-1.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(10)#translationInactive" value="-1.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(11)#node" value="seederUnitRight05Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(11)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(11)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(12)#node" value="groundAdjustNodeSeederUnitRight06" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(12)#translationActive" value="-2.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(12)#translationInactive" value="-2.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(13)#node" value="seederUnitRight06Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(13)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(13)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(14)#node" value="groundAdjustNodeSeederUnitRight07" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(14)#translationActive" value="-2.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(14)#translationInactive" value="-2.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(15)#node" value="seederUnitRight07Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(15)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(15)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(16)#node" value="groundAdjustNodeSeederUnitRight08" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(16)#translationActive" value="-3.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(16)#translationInactive" value="-3.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(17)#node" value="seederUnitRight08Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(17)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(17)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(18)#node" value="groundAdjustNodeSeederUnitRight09" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(18)#translationActive" value="-2.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(18)#translationInactive" value="-2.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(19)#node" value="seederUnitRight09Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(19)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(19)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(20)#node" value="groundAdjustNodeSeederUnitRight10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(20)#translationActive" value="-2.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(20)#translationInactive" value="-2.155 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(21)#node" value="seederUnitRight10Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(21)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(21)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(22)#node" value="groundAdjustNodeSeederUnitRight11" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(22)#translationActive" value="-2.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(22)#translationInactive" value="-2.655 -0.99 -0.934" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(23)#node" value="seederUnitRight11Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(23)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(23)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(24)#node" value="seederUnitLeft10Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(24)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(24)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(25)#node" value="seederUnitLeft11Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(25)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(25)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(26)#node" value="seederUnitLeft12Arm02Ref" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(26)#translationActive" value="0 0.541 0.303" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(26)#translationInactive" value="0 0.541 0.303" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(27)#node" value="seederUnitLeft01BackArmRef" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(27)#translationActive" value="0 0.165 -0.002" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(27)#translationInactive" value="0 0.165 -0.002" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(28)#node" value="seederUnitLeft10BackArmRef" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(28)#translationActive" value="0 0.165 -0.002" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(28)#translationInactive" value="0 0.165 -0.002" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(29)#node" value="seederUnitLeft11BackArmRef" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(29)#translationActive" value="0 0.165 -0.002" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(29)#translationInactive" value="0 0.165 -0.002" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(30)#node" value="seederUnitLeft10Arm01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(30)#translationActive" value="1.75 0.199 -0.02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(30)#translationInactive" value="1.75 0.199 -0.02" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(31)#node" value="seederUnitLeft11Arm01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(31)#translationActive" value="2.25 0.199 -0.02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(31)#translationInactive" value="2.25 0.199 -0.02" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(32)#node" value="seederUnitRight02Arm01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(32)#translationActive" value="-2.25 0.199 -0.02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(32)#translationInactive" value="-2.25 0.199 -0.02" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(33)#node" value="seederUnitRight03Arm01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(33)#translationActive" value="-1.75 0.199 -0.02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(33)#translationInactive" value="-1.75 0.199 -0.02" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(34)#node" value="seederUnitRight02Arm02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(34)#translationActive" value="-2.25 0 0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(34)#translationInactive" value="-2.25 0 0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(35)#node" value="seederUnitRight03Arm02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(35)#translationActive" value="-1.75 0 0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(35)#translationInactive" value="-1.75 0 0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(36)#node" value="seederUnitLeft01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(36)#translationActive" value="0 0 0.411" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(36)#translationInactive" value="0 0 0.411" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(37)#node" value="seederUnitLeft02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(37)#translationActive" value="0 0 0.411" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(37)#translationInactive" value="0 0 0.411" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(38)#node" value="seederUnitLeft03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(38)#translationActive" value="0 0 0.411" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(38)#translationInactive" value="0 0 0.411" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(39)#node" value="seederUnitLeft04" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(39)#translationActive" value="0 0 0.411" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(39)#translationInactive" value="0 0 0.411" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(40)#node" value="seederUnitRight01" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(40)#translationActive" value="0 0 0.411" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(40)#translationInactive" value="0 0 0.411" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(41)#node" value="seederUnitRight02BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(41)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(41)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(42)#node" value="seederUnitRight03BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(42)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(42)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(43)#node" value="seederUnitRight04BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(43)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(43)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(44)#node" value="seederUnitRight05BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(44)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(44)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(45)#node" value="seederUnitRight06BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(45)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(45)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(46)#node" value="seederUnitRight07BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(46)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(46)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(47)#node" value="seederUnitRight08BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(47)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(47)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(48)#node" value="seederUnitRight09BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(48)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(48)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(49)#node" value="seederUnitRight10BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(49)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(49)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(50)#node" value="seederUnitRight11BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(50)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(50)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(51)#node" value="seederUnitRight12BackArm" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(51)#translationActive" value="0 -0.419 0.614" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(51)#translationInactive" value="0 -0.419 0.614" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(52)#node" value="seederUnitRight01BackArmDiscs" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(52)#translationActive" value="-0.008 -0.018 0.256" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(52)#translationInactive" value="-0.008 -0.018 0.256" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(53)#node" value="seederUnitRight06BackArmDiscs" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(53)#translationActive" value="-0.008 -0.018 0.256" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(53)#translationInactive" value="-0.008 -0.018 0.256" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(54)#node" value="seederUnitRight11BackArmDiscs" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(54)#translationActive" value="-0.008 -0.018 0.256" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(54)#translationInactive" value="-0.008 -0.018 0.256" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(55)#node" value="seederUnitRight02BackArmRef" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(55)#translationActive" value="0 0.165 -0.002" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(55)#translationInactive" value="0 0.165 -0.002" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(56)#node" value="seederUnitRight03BackArmRef" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(56)#translationActive" value="0 0.165 -0.002" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(56)#translationInactive" value="0 0.165 -0.002" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

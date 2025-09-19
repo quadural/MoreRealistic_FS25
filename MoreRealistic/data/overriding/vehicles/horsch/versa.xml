@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.3" forcePointZ="-0.7" />
+
+    <!--
+
+        about 1200kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/versa3KR/versa.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1000" /> <!-- virtual wheel masses = already 200kg -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 -0.2" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="10" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0" /> <!-- electric distribution -->
+
+            <!-- no air blower on this drill unit ! -->
+            <remove path="vehicle.sowingMachine.sounds.airBlower" />
+
+            <!-- 900L tank -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.3 0.3"/>
+
+            <!-- 1500L tank -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(2)#node" value="versa_main_component1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(2)#mrAddMassActive" value="100"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(2)#mrAddMassCOMActive" value="0 1.8 0.3"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.6 0.3"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

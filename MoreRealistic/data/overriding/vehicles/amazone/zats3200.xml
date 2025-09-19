@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="spreader" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+
+        this is not a 3200 model
+        it looks like a 2600 model, year 2017
+
+        3200 model = "L" (large, 2.72m wide for loading)
+        2600 model = "S" (Small, 2.23m wide for loading)
+
+        since the decals says 3200, let's pretend this is a 3200
+
+        => 573kg empty weight, without option
+        => option parking rollers
+        => option hydro
+
+        650kg/min maxi
+        30kph maxi
+
+        if we were spreading high dosage (talking of nitrate fertilizer here, max dosage in one pass is something like 500kg/Ha) => we would be limited by speed => 30kph and 42m wide = 126Ha/Hour => 2.1Ha/min = 1050kg/min
+        ingame = 280L/min @18kph and 42m wide => about 222L/ha, so we can spread @30kph => 466L/min (less than 500kg/min)
+        but, maybe the dosage can vary from one map to another, and so, we are limiting the speed as if we were spreading max dosage (500kg/ha)
+        Nearly nobody spread @30kph anyway
+        => 650kg/min maxi and 500kg/ha => 1.3ha/minute maxi => 18.5kph
+        => so, ok with base game speed limit of 18kph
+
+        to be more realistic, we would have to set a max kilos per min value for each spreader, and then apply a specific weight to each solid fertilizer and then check the spreading rate (dosage) for our field (how many kilos per hectare needed)
+        so, since there is only one solid fertilizer ingame, we can keep a fixed value for the speed limit, even if it should also depend on the spreading width ... and the wind speed :-)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/amazone/zats3200/zats3200.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="600"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 0"/>
+
+            <!-- lower low position to help filling from a trailer like IRL -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-10"/>
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="0"/>
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value="0.1"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

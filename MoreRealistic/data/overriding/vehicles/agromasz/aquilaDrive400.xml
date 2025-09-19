@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+
+    <MR>true</MR>
+
+
+    <!--
+
+        5820kg no option
+
+        option in game =
+        front packer
+        ridge markers
+        coulter harrow set
+        Pre-emergence paths
+        SET OF WHEEL MARKS CONDITIONERS
+        HYDRAULIC ADJUSTABLE BAR
+
+        about 700kg more
+        => total 6500kg empty
+
+        it seems there is no brakes on this equipment
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/agromasz/aquilaDrive400/aquilaDrive400.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="15" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="5500" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.1" />
+            <set path="vehicle.base.components.component(1)#mass" value="250" /> <!-- packer -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.5 0" />
+
+            <!-- transport wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+
+
+            <!-- packer wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#brakeFactor" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#brakeFactor" value="0.05"/>
+
+            <!-- no brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+            <set path="vehicle.attachable.brakeForce#maxForce" value="0" />
+
+            <!-- animation-->
+            <set path="vehicle.animations.animation(0).part(0)#startRotLimit" value="0 0 90" /> <!-- joint between packer and seeder -->
+            <set path="vehicle.animations.animation(1).part(23)#upperDistanceToGroundEnd" value="0.85" /> <!-- attacher height when raised in road mode -->
+            <!-- joint between tractor and packer -->
+            <set path="vehicle.animations.animation(1).part(24)#inputAttacherJointIndex" value="1" />
+            <set path="vehicle.animations.animation(1).part(24)#startTime" value="0" />
+            <set path="vehicle.animations.animation(1).part(24)#endTime" value="1" />
+            <set path="vehicle.animations.animation(1).part(24)#lowerRotLimitScaleStart" value="0.05 0 1" />
+            <set path="vehicle.animations.animation(1).part(24)#lowerRotLimitScaleEnd" value="0.05 0 1" />
+
+
+            <set path="vehicle.attachable.inputAttacherJoints#inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 1" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="36" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="7" /> <!-- air turbine -->
+
+            <!-- 2800L fillunit -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.3 0"/>
+
+            <!-- 3250L fillunit 1800+1450 -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.3 0.5"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.3 -0.9"/>
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

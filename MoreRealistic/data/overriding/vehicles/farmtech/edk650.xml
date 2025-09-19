@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+
+    <!--
+        gross weight = 6.5T
+        load capacity = 5T
+        base empty weight = 1.5T (without extension)
+        max drawbar load = 1T
+        internal body dimension = 3490 x 2000
+        Load volume (water level) [m3] = 7,0 (500 + 500 side)
+        tipping angle = 45°/45° (side/rear)
+
+        this trailer is not meant to drive at high speed
+        brake cam 300x90 (9.8Kn max per wheel)
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/farmtech/edk650/edk650.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.1 -0.5"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="0.95"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="68"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="68"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="4"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).objectChange(4)#massActive" value="1300"/>
+
+            <!-- 50cm sides -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(0)#massActive" value="1470"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#capacity" value="3500"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.3 -0.6"/>
+
+            <!-- 50cm sides + 50cm extensions -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(5)#massActive" value="1600"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).fillUnits.fillUnit(0)#capacity" value="7000"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.55 -0.6"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(0)#emptySpeed" value="400"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(1)#emptySpeed" value="160"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(2)#emptySpeed" value="550"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(3)#emptySpeed" value="550"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

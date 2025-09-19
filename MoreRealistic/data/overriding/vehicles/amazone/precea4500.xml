@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.45" forcePointZ="-0.8" />
+
+    <!--
+
+        precea 4500-2C super
+
+        55L per small hopper for seeds
+        1250L for fertilizer in the main tank
+
+        220kg max pressure per element
+
+        1600kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/amazone/precea4500/precea4500.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1150" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 -0.4" />
+
+            <set path="vehicle.base.speedLimit#value" value="15" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="10" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 0.05" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "0.85" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.45" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.45 -1.2"/> <!-- seeds -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.3 0.55"/> <!-- fertilizer -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="13" /> <!-- draft force : 220kg * 9.81 * 6 -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="486" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10" /> <!-- hydraulics : air turbine, overpressure system -->
+
+            <!-- trying to fix bug : seeding element shaking very fast while AI driver is planting
+                 best way to mitigate this = putting bigger wheelshapes, but I don't find any way of doing this properly without access to the i3d file
+            -->
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/caseIH/header4408/header4408.xml">
+        <attributes>
+
+            <!-- MR settings - same as case ih header 4408 -->
+            <!-- 2622kg without stalk choppers -> 3030kg with chopping units -->
+            <set path="vehicle.base.speedLimit#value" value="12" /> <!-- less speed because of the chopping feature -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.4" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="30" />
+            <set path="vehicle.powerConsumer#maxForce" value="16" /> <!-- more draftforce because of the chopping feature -->
+            <set path="vehicle.powerConsumer#forceNode" value="header4409_main_component1" />
+
+            <!-- giants settings -->
+            <set path="vehicle.storeData.name" value="980CR 8-30"/>
+            <set path="vehicle.storeData.brand" value="NEWHOLLAND"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/newHolland/cr980_830/store_cr980_830.png"/>
+
+            <set path="vehicle.storeData.specs.combination(0)#xmlFilename" value="$data/vehicles/newHolland/chSeries/chSeries.xml"/>
+            <set path="vehicle.storeData.specs.combination(1)#xmlFilename" value="$data/vehicles/newHolland/chSeries/chSeries.xml"/>
+
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="true"/>
+
+        </attributes>
+    </parentFile>
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>980CR 8-30</name>
+        <image>$data/vehicles/newHolland/cr980_830/store_cr980_830.png</image>
+        <brand>NEWHOLLAND</brand>
+        <category>cornHeaders</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+
+</vehicle>

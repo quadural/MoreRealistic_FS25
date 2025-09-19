@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" forcePointZ="0.8" />
+
+    <!--
+    base weight : 2002kg
+    weight with double roller tube/flat = 2300kg
+    center of mass = 1.77m from the attacher point
+
+    "deep" mode = 15-17cm
+    "shallow" mode = 8-9cm
+    => difference = about 8cm "height"
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/lemken/smaragd9_500k/smaragd9_500k.xml">
+        <attributes>
+            <set path="vehicle.powerConsumer#maxForce" value="38" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.07" />
+            <set path="vehicle.base.components.component(0)#mass" value="1800" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="25"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="50"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#supportsWheelSink" value="false"/>
+
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="15" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "1" />
+
+            <set path="vehicle.animations.animation(2).part(0)#lowerDistanceToGroundEnd" value="0.55" />
+            <set path="vehicle.animations.animation(2).part(0)#lowerRotationOffsetStart" value="0" />
+            <set path="vehicle.animations.animation(2).part(0)#lowerRotationOffsetEnd" value="0" />
+            <set path="vehicle.workModes.workMode(0)#forceScale" value="0.7" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#fadeOutTime" value="10" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#fadeOutTime" value="10" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#fadeOutTime" value="10" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(3)#fadeOutTime" value="10" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#radius" value="0.22" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#radius" value="0.22" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#radius" value="0.22" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(3)#radius" value="0.22" />
+
+            <!-- IRL there some "slippage" between ground and discs = 0.2 radius really look unnatural at work -->
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(4)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(5)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(6)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(7)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(8)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(9)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(10)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(11)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(12)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(13)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(14)#radius" value="0.27" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(15)#radius" value="0.27" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

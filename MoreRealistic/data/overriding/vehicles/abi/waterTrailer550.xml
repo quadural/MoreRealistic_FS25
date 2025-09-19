@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="waterTrailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+        abi 550 gallons water trailer
+
+        550 gallons (2082 liters)
+
+        axle rating = 6000 lbs (2721kg)
+        empty weight = 1200 lbs (544kg)
+        loaded weight with water = 5800 lbs (2631kg)
+
+        max flow rate = 115 gallon per minute
+        => 435L/min => 7.25L/s (this is the maximum speed possible, IRL, the avg speed would be lower) => for game purpose, we set it to 50%more => 11L/s (player would want a better trailer anyway)
+
+        no brakes
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/abi/waterTrailer550/waterTrailer550.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 -0.3"/>
+            <set path="vehicle.base.components.component(0)#mass" value="410"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="40"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
+
+            <!-- no brake -->
+            <set path="vehicle.attachable.brakeForce#force" value="0"/>
+            <set path="vehicle.attachable.brakeForce#maxForce" value="0"/>
+
+            <!-- fillUnit - varying center of mass function of fillLevel -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 0.7 -0.5"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="11"/>
+
+            <!-- fill trigger -->
+            <set path="vehicle.fillTriggerVehicle#litersPerSecond" value="11"/>
+
+            <!-- fill speed -->
+            <set path="vehicle.waterTrailer#fillLitersPerSecond" value="11"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

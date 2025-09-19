@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/caseIH/terraFlex3020/terraFlex3020.xml">
+        <attributes>
+
+            <!-- MR settings - same as newholland superFlex 25ft -->
+            <set path="vehicle.base.speedLimit#value" value="15" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.4 -0.5" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="12" />
+            <set path="vehicle.powerConsumer#maxForce" value="7" />
+            <set path="vehicle.powerConsumer#forceNode" value="terraFlex3020_main_component1" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

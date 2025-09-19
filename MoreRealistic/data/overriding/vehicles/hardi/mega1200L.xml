@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="sprayer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+        base weight = 1514kg
+        clean water tank = 20L
+        rinse tank = 170L
+        +optional airRide
+        +optional transport wheels
+        => base weight = 1800kg
+
+
+
+        max flow rate with optional pump = 280 liters per minute
+        => 280L/min => 4.7L/s (this is the maximum speed possible, IRL, the avg speed would be lower) => for game purpose, we set it to 50%more => 7L/s
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/hardi/mega1200L/mega1200L.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1720"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 0"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-8" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value="0.65" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="500" />
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="7" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="7" />
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="7"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

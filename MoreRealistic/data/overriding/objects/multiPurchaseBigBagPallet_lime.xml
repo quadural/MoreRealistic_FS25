@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="multipleItemPurchase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <!-- lime bigbag is the same big bag as fertilizer, seeds or feed = 1000L
+        there is no way it could contains 2000L of lime !
+    -->
+
+    <storeData>
+        <name>$l10n_fillType_lime</name>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <functions>
+            <function>$l10n_function_bigBagLime</function>
+        </functions>
+        <image>$data/objects/bigBagPallet/lime/store_bigBagPallet_lime.png</image>
+        <price>225</price>
+        <lifetime>600</lifetime>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>false</canBeSold>
+        <rotation>0</rotation>
+        <brand>NONE</brand>
+        <category>bigbagPallets palletFertilizerHerbicide</category>
+        <financeCategory>OTHER</financeCategory>
+        <vertexBufferMemoryUsage>512</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>256</indexBufferMemoryUsage>
+        <textureMemoryUsage>65536</textureMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+
+        <storeIconRendering>
+            <settings cameraXRot="-15" cameraYRot="35"/>
+        </storeIconRendering>
+        <audioMemoryUsage>0</audioMemoryUsage>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_fillType_lime</typeDesc>
+        <filename>$data/objects/multiPurchaseItem/multiPurchaseItem.i3d</filename>
+        <size width="3.1" length="4.8" height="1.1"/>
+        <components>
+            <component centerOfMass="0 0 0" solverIterationCount="10" mass="100"/>
+        </components>
+    </base>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit fillTypes="lime" capacity="1000" />
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <multipleItemPurchase filename="$data/objects/bigBagPallet/lime/bigBagPallet_lime.xml" isVehicle="true">
+        <offsets>
+            <offset amount="2" offset="0.775 0 0"/>
+            <offset amount="3" offset="0.775 0 0.6"/>
+            <offset amount="5" offset="0.775 0 1.2"/>
+            <offset amount="7" offset="0.775 0 1.8"/>
+        </offsets>
+        <itemPositions>
+            <itemPosition position="0 0 0" rotation="0 0 0"/>
+            <itemPosition position="-1.55 0 0" rotation="0 0 0"/>
+            <itemPosition position="0 0 -1.2" rotation="0 0 0"/>
+            <itemPosition position="-1.55 0 -1.2" rotation="0 0 0"/>
+
+            <itemPosition position="0 0 -2.4" rotation="0 0 0"/>
+            <itemPosition position="-1.55 0 -2.4" rotation="0 0 0"/>
+            <itemPosition position="0 0 -3.6" rotation="0 0 0"/>
+            <itemPosition position="-1.55 0 -3.6" rotation="0 0 0"/>
+        </itemPositions>
+    </multipleItemPurchase>
+
+    <multipleItemPurchaseAmountConfigurations>
+        <multipleItemPurchaseAmountConfiguration name="1" price="0"/>
+        <multipleItemPurchaseAmountConfiguration name="2" price="225"/>
+        <multipleItemPurchaseAmountConfiguration name="3" price="450"/>
+        <multipleItemPurchaseAmountConfiguration name="4" price="675"/>
+        <multipleItemPurchaseAmountConfiguration name="5" price="900"/>
+        <multipleItemPurchaseAmountConfiguration name="6" price="1125"/>
+        <multipleItemPurchaseAmountConfiguration name="7" price="1350"/>
+        <multipleItemPurchaseAmountConfiguration name="8" price="1575"/>
+    </multipleItemPurchaseAmountConfigurations>
+
+</vehicle>

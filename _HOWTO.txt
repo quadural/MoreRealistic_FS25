@@ -1,0 +1,3 @@
+get the latest "MoreRealisticXXXXXX.zip" file
+rename it "MoreRealistic"
+put it into your FS25 mods folder

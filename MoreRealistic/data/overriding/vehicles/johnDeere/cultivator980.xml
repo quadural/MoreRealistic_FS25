@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.2" />
+
+    <!-- http://manuals.deere.com/omview/OMN300064_19/OUO6061_000141D_19_01FEB02_9.htm
+         25 C-Shanks, 15.2cm spacing => 3.8m wide
+         1766+25*3.8 = 1861kgs
+
+         component 2, 3 and 4 = wheel1 350 + wheel2 350 + back hoe 200  = 900 kgs in base game
+
+         only "shallow" mode = 8-9cm
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/johnDeere/cultivator980/cultivator980.xml">
+        <attributes>
+            <set path="vehicle.powerConsumer#maxForce" value="20" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 -0.1" />
+            <set path="vehicle.base.components.component(0)#mass" value="1120" />
+            <set path="vehicle.base.components.component(1)#mass" value="200" />
+            <set path="vehicle.base.components.component(2)#mass" value="200" />
+        </attributes>
+    </parentFile>
+
+</vehicle>

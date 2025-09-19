@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="-0.7" />
+
+    <!--
+
+        total mass = about 5100kg in game
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/unia/fenix3000/fenix3000.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="4070" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 0" />
+            <set path="vehicle.base.components.component(1)#mass" value="250" /> <!-- packer -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="27" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="5" /> <!-- air turbine -->
+
+            <!-- fix visual bug = wheels too close to each other = cleaning plate going through the tire ! -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).additionalWheel#offset" value="-0.92" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).additionalWheel#offset" value="-0.92" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="0"/>
+
+            <!-- air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1.5" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2 0.5"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="tractor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+
+        empty = 7400kg / 5400 front and 2000 rear
+        wheels are set to 500kg in base game (maybe to better handle the huge torque of the engine ?)
+        should be something like 600kg for the 6
+
+        component1 = main
+        component2 = front axle
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/volvo/fh16/fh16.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 2.4"/>
+            <set path="vehicle.base.components.component(0)#mass" value="6100"/>
+            <set path="vehicle.base.components.component(1)#mass" value="700"/>
+
+            <!-- more rotation for the 5th wheel -->
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#lowerRotLimit" value="5 105 12"/>
+
+            <!-- 780 consumption -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(0)#usage" value="75"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(1)#usage" value="4.35"/> <!-- 5.8% -->
+
+            <!-- differential 4x2 = far less torque on the front axle (x-track system, up to 20kph only IRL) -->
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration(0).differentials.differential(2)#torqueRatio" value="0.1"/>
+
+            <!-- 4x2 config suspension -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="200"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#frictionScale" value="1.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#frictionScale" value="1.6"/>
+
+
+            <!-- ATO3812 + axle ratio=5.41  wheels=315/80R22.5 => 0.53775 radius. Normalized wheels = 1m radius => 5.41/0.53775=10.06 -->
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#axleRatio" value="10.06"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGear" value="true"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#reverseGearIndex" value="2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="0.5"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(0)#gearRatio" value="11.73"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(1)#gearRatio" value="9.21"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(2)#gearRatio" value="7.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(3)#gearRatio" value="5.57"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(4)#gearRatio" value="4.35"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(5)#gearRatio" value="3.41"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(6)#gearRatio" value="2.70"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(7)#gearRatio" value="2.12"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(8)#gearRatio" value="1.63"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(9)#gearRatio" value="1.28"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(10)#gearRatio" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(11)#gearRatio" value="0.78"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#gearRatio" value="13.73"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#name" value="R1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#gearRatio" value="10.78"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#name" value="R2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(2)#gearRatio" value="3.16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(2)#name" value="R3"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(3)#gearRatio" value="2.48"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(3)#name" value="R4"/>
+
+            <!-- D17A780 EU6SCR  -->
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#minRpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxRpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#ptoMotorRpmRatio" value="3.15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxForwardSpeed" value="91"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxBackwardSpeed" value="32"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#brakeForce" value="30" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="200" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#rpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#torque" value="1.6"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#rpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#torque" value="2.2"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#torque" value="3.8"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#rpm" value="1200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#torque" value="3.79"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#torque" value="3.225"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#rpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#torque" value="2.65"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#rpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#torque" value="1.75"/>
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

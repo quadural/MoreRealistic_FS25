@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" />
+
+    <!--
+    base weight : 1910kg
+
+    "deep" mode = 15-17cm
+    "shallow" mode = 8-9cm
+    => difference = about 8cm "height"
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/amazone/cenio4000/cenio4000.xml">
+        <attributes>
+            <set path="vehicle.powerConsumer#maxForce" value="30" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 0.5" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="10"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="10" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "0.85" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 0.05" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value="0 0 0" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#fadeOutTime" value="11" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#fadeOutTime" value="11" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(3)#fadeOutTime" value="11" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(4)#fadeOutTime" value="11" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(5)#fadeOutTime" value="11" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(6)#fadeOutTime" value="11" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

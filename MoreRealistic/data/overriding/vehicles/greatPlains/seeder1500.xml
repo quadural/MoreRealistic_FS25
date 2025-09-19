@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+
+<!-- drill 1500 (22 openers) + CH15 center pivot hitch => 1403kilos (without fertilizer tank) + 2064kilos
+    grain tank = 1321L (36 Imperial Bushels)
+    fertilizer box = 431L (about 150 kilos more with this option)
+
+    !!! the optional "fertilizer unit" in the game = wrong... this is the small seeds attachment, nothing to do with the fertilizer attachment ("Mounts to the back of the main seed box to handle small seeds like clover and alfalfa")
+    there is no way this "box" could contain 530 liters.
+-->
+
+    <parentFile xmlFilename="$data/vehicles/greatPlains/seeder1500/seeder1500.xml">
+        <attributes>
+
+            <!-- no brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 0.2" />
+            <set path="vehicle.base.components.component(0)#mass" value="1700" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.5 0" />
+            <set path="vehicle.base.components.component(1)#mass" value="1400" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="30"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="20"/>
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="26" />
+
+            <!-- no air blower on this drill unit ! -->
+            <remove path="vehicle.sowingMachine.sounds.airBlower" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="1321" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#capacity" value="1321" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#capacity" value="431" />
+        </attributes>
+    </parentFile>
+
+</vehicle>

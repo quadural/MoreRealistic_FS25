@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="woodCrusherDrivable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+    powerFx =   below 1 means the crusher is efficient and consumes less power while crushing than other crushers
+                above 1 means the crysher is less efficient than other crushers
+
+    idlePower = power consumed when the crusher is ON but there is nothing to crush
+
+    maxCrushingPower = this is the max crushing power the crusher can handle => when the figure goes above that, the feeding system is paused (not possible to crush big logs continously with any crusher if you have a very powerful tractor)
+
+    maxTractionForce = in KN => max pulling force possible by the feeding system (big feeding roller ?)
+
+    make sure you set a capacity for the fillUnit. The crusher will pause when crushing a lot and the pipe can't handle all that (pause @50% filllevel)
+    => and set the pipe unloading capacity according to IRL figures (in our case, Heizomat 10-500  => about 500M3/h max at work, if 80% of the time chipping => 10417L/min = 174L/second. We apply a safety factor of 1.5 => 260L/s
+
+    make sure you set a high pto rpm wanted (powerConsumer#ptoRpm) to help tractors/engine
+
+
+    IRL = there are 2 engines for this vehicle :
+    for road purpose and hydraulics = MAN Euro 6e 382KW/520Ps => D2676-le13x
+    for running the crusher = CATERPILLAR C18 597KW/812Ps
+
+    Since the game does not handle 2 engines, we keep the CATERPILLAR and use the "powerRatio" feature of the mrTransmission to derate the engine while the crusher is not active
+    -->
+    <mrWoodCrusher powerFx="1" idlePower="50" maxCrushingPower="900" maxTractionForce="15" cutFeedWidth="1.4" cutTargetY="0.1" />
+    <mrPowerConsumer forcePtoRpm="true" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+    <mrTransmission powerRatio="0.64" />
+
+    <parentFile xmlFilename="$data/vehicles/jenz/cobraHybrid/cobraHybrid.xml">
+        <attributes>
+
+            <!-- this vehicle is not AWD ! -->
+            <!-- removal order is very important = index change after each delete -->
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(6)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(5)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(0)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)" />
+
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.3" />
+
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="30" /> <!-- hydraulics, not pto -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="60" /> <!-- hydraulics, not pto -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <!-- 2 center axles = no steering, but driven -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotSpeed" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotSpeed" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#rotSpeed" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#rotSpeed" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="70"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="4"/>
+
+            <!-- can store a little bit of wood chip if the turbine is off -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(2)#capacity" value="1000" />
+
+            <!-- limited discharge speed -->
+            <set path="vehicle.dischargeable.dischargeNode#emptySpeed" value="260" />
+
+            <!-- redim insane cut size -->
+            <set path="vehicle.woodCrusher#cutSizeY" value="2" />
+            <set path="vehicle.woodCrusher#cutSizeZ" value="1.6" />
+
+            <!-- fix missing xml config -->
+            <set path="vehicle.woodCrusher.moveCollisions.collision(4)#node" value="feedingTableMoveCollision05" />
+            <set path="vehicle.woodCrusher.moveCollisions.collision(5)#node" value="feedingTableMoveCollision06" />
+
+            <!-- cat C18 597KW/812Ps -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="160"/> <!-- Max fuel rate @maxPower -->
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="150"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="83"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="10"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.89"/>
+
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="1.5"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="1.8"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="2.848"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="3.120"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1300"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="3.609"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="1400"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="3.656"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="3.564"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#rpm" value="1600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#torque" value="3.446"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#torque" value="3.315"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(9)#rpm" value="1800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(9)#torque" value="3.165"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(10)#rpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(10)#torque" value="2.998"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(11)#rpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(11)#torque" value="2.848"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(12)#rpm" value="2100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(12)#torque" value="2.713"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

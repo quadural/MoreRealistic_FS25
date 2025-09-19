@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="tractor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../bin/shared/xml/schema/vehicle.xsd">
+    <annotation>Copyright (C) GIANTS Software GmbH, All Rights Reserved.</annotation>
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="data/overriding/vehicles/versatile/series900.xml">
+        <attributes>
+            <!-- Store data -->
+            <set path="vehicle.storeData.name" value="976 Versatile"/>
+            <set path="vehicle.storeData.image" value="vehicles/ford/versatile976/store_versatile976.png"/>
+            <set path="vehicle.storeData.brand" value="FORD"/>
+            <!-- Hub color -->
+            <set path="vehicle.wheels.hubMaterial#materialTemplateName" value="FORD_BLUE1"/>
+            <!-- Brand -->
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(1)#isSelectable" value="true"/>
+        </attributes>
+    </parentFile>
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>976 Versatile</name>
+        <image>vehicles/ford/versatile976/store_versatile976.png</image>
+        <brand>FORD</brand>
+        <category>tractorsL</category>
+    </storeData>
+</vehicle>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.6" />
+
+    <!--
+
+         only "shallow" mode = 8-9cm
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/finer6SL/finer6SL.xml">
+        <attributes>
+
+            <set path="vehicle.powerConsumer#maxForce" value="36" />
+
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <!-- rollflex -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#radius" value="0.26" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#radius" value="0.26" />
+
+            <!-- without seeding unit -->
+            <set path="vehicle.attachable.inputAttacherJointConfigurations.inputAttacherJointConfiguration(0).inputAttacherJoint#upperRotationOffset" value="8" />
+            <set path="vehicle.attachable.inputAttacherJointConfigurations.inputAttacherJointConfiguration(0).inputAttacherJoint.distanceToGround#upper" value = "1" />
+
+            <!-- with seeding unit -->
+            <set path="vehicle.attachable.inputAttacherJointConfigurations.inputAttacherJointConfiguration(1).inputAttacherJoint#upperRotationOffset" value="12" />
+            <set path="vehicle.attachable.inputAttacherJointConfigurations.inputAttacherJointConfiguration(1).inputAttacherJoint.distanceToGround#upper" value = "0.95" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

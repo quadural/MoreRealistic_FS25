@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="turnOnCultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" ptoForSoilWork="true" />
+
+    <!--
+    base weight : 1200kg
+
+    packer roller = between 525 and 650kg
+    deflector rail = 65kg
+    ridge markers = 100kg ?
+
+    total= about 2000kg
+
+    max working speed 8kph
+    200-300Hp tractor neeeded
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/versa3KR/kredo.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1300" />
+            <set path="vehicle.base.components.component(1)#mass" value="500" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.3 0" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.3 0" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="12" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="60" /> <!-- this is the pto power when working at 8kph => less power needed when working slower. Idle pto power = 10% -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="60" /> <!-- difference between min and max = only for "cylindered" => hydraulics -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#rotationDamping" value="0.0005"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#rotationDamping" value="0.0005"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="15" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "0.85" />
+
+            <!-- back attacher for "versa" -->
+            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotationOffset" value="3" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

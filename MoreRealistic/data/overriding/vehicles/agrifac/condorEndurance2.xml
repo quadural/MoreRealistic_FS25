@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="selfPropelledSprayer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+
+<mrTransmission isHydrostatic="true" minRpmWanted="1200" maxRpmWanted="1800" powerRatio="0.9" />
+
+    <!--
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/agrifac/condorEndurance2/condorEndurance2.xml">
+        <attributes>
+
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10"/>
+            <set path="vehicle.powerConsumer#ptoRpm" value="250"/> <!-- about 1000 engine rpm min when pumps are active -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 0"/>
+            <set path="vehicle.base.components.component(0)#mass" value="12150"/>
+
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="80"/>
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="63"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="20"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minForwardGearRatio" value="10.17"/> <!-- 63kph @1700rpm -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minBackwardGearRatio" value="22.62"/> <!-- 20kph @1200rpm -->
+
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="16"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="0.922"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="1.100"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="1.300"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="1.590"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1300"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="1.730"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="1400"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="1.795"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="1600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="1.750"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#rpm" value="1800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#torque" value="1.582"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#rpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#torque" value="1.480"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

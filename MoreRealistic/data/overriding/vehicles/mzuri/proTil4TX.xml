@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="-0.2" forcePointZ="-0.4" />
+
+    <!--
+
+        4TX 2024 version = 4 tanks
+        5600L total : 40/40/10/10 => 2300 for fertilizer + 2300 for seeds (with cereal seed ramp) + 500L and 500L for micro-granule or insectiside
+
+        52L per hopper = 312L for seeds in the game => these are not the mini-hopper refilled continously by the main seed tank
+
+        6-15kph
+        up to 750kg pressure per element
+        strip-till
+
+        about 6.9T
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/mzuri/proTil4TX/proTil4TX.xml">
+        <attributes>
+
+            <!-- game engine does not handle weel additionnal wheels as far as physics is concerned (side tipping) => when driving in transport mode, we got totally unrealistic behavior (permanent "side wheel" driving...) -->
+            <!-- solution = put the wheelshapes on the outer side wheels and add dynamicallyLoadedWheel for the inner wheels -->
+            <set path="vehicle.base.components.component(0)#mass" value="6650" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 0.3" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.4 -3.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="312"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.4 1.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#capacity" value="2300"/>
+
+            <!-- remove 2nd fillvolume for fertilizer -->
+            <remove path="vehicle.fillVolume.fillVolumeConfigurations.fillVolumeConfiguration(0).volumes.volume(1)" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="20" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="20" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="2" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="2" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="70" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="70" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="2" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="2" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="50" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="50" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="2" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="2" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(0)#node" value="wheelMiddleLeft02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(0)#translationActive" value="-1.063 0 0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(0)#translationInactive" value="-1.063 0 0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(1)#node" value="wheelMiddleRight02" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(1)#translationActive" value="1.063 0 0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(1)#translationInactive" value="1.063 0 0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(2)#node" value="wheelMiddleLeft03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(2)#translationActive" value="-0.713 0 0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(2)#translationInactive" value="-0.713 0 0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(3)#node" value="wheelMiddleRight03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(3)#translationActive" value="0.713 0 0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(3)#translationInactive" value="0.713 0 0" />
+
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).additionalWheel" />
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).additionalWheel" />
+
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(3)#linkNode" value="wheelMiddleLeft03" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(3)#filename" value="$data/shared/wheels/tires/trelleborg/IM110/10_0__75__15_3.xml" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(3)#isLeft" value="true" />
+
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(4)#linkNode" value="wheelMiddleRight03" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(4)#filename" value="$data/shared/wheels/tires/trelleborg/IM110/10_0__75__15_3.xml" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(4)#isLeft" value="false" />
+
+            <set path="vehicle.attachable.brakeForce#force" value="0.01" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#forceNode" value="proTil4TX_main_component1" />
+            <set path="vehicle.powerConsumer#maxForce" value="30" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="432" /> <!-- 800 rpm sufficient -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="25" /> <!-- double air turbine main tank seeds/fertilizer vacuum + air turbine xzact -->
+
+            <set path="vehicle.sprayer.usageScales#workingWidth" value="4" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

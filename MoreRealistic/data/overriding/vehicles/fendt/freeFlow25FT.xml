@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+    <annotation>Copyright (C) GIANTS Software GmbH, All Rights Reserved.</annotation>
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/freeFlow25FT/freeFlow25FT.xml">
+        <attributes>
+            <!-- Store data -->
+            <set path="vehicle.storeData.brand" value="FENDT"/>
+            <set path="vehicle.storeData.name" value="FreeFlow 25FT"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/fendt/freeFlow25FT/store_freeFlow25FT.png"/>
+            <set path="vehicle.storeData.specs.combination(0)#xmlFilename" value="$data/vehicles/fendt/series5275csl/series5275csl.xml"/>
+
+            <!-- Configs -->
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="true"/>
+
+            <!-- MR config - same as MF freeflow 25FT -->
+            <set path="vehicle.base.speedLimit#value" value="15" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 -0.5" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="12" />
+            <set path="vehicle.powerConsumer#maxForce" value="7" />
+            <set path="vehicle.powerConsumer#forceNode" value="freeFlow25_main_component1" />
+
+         </attributes>
+    </parentFile>
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>FreeFlow 25FT</name>
+        <image>$data/vehicles/fendt/freeFlow25FT/store_freeFlow25FT.png</image>
+        <brand>FENDT</brand>
+        <category>harvesters</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+</vehicle>

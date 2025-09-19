@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/caseIH/header4408/header4408.xml">
+        <attributes>
+
+            <!-- MR settings - same as newholland 980CR 8 -->
+            <!-- 2622kg without stalk choppers -> 3030kg with chopping units -->
+            <set path="vehicle.base.speedLimit#value" value="12" /> <!-- less speed because of the chopping feature -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.4" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="30" />
+            <set path="vehicle.powerConsumer#maxForce" value="16" /> <!-- more draftforce because of the chopping feature -->
+            <set path="vehicle.powerConsumer#forceNode" value="header4409_main_component1" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

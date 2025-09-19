@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" varyWithVisibilityNode="config_4m" varyWithVisibilityFactor="1.3" />
+
+    <!--
+        3m = 680kg
+        4m = 862kg
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/agrisem/combiplow/combiplow.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="34" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 0.38" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="15" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.01 0 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value="1.1" />
+
+            <!-- back attacher for other implements -->
+            <set path="vehicle.attacherJoints.attacherJoint(0)#mrAlwaysLowered" value="true" />
+            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotationOffset" value="0" />
+            <set path="vehicle.attacherJoints.attacherJoint(0)#upperRotationOffset" value="0" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).rotationNode#lowerRotation" value="-30 0 0" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).rotationNode#upperRotation" value="-30 0 0" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).rotationNode2#node" value="attacherJointBackRot2" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).rotationNode2#lowerRotation" value="30 0 0" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).rotationNode2#upperRotation" value="30 0 0" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#lower" value="0.422" />
+            <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#upper" value="0.422" />
+            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerTransLimit" value="0 0.1 0" />
+
+            <!-- col support -->
+            <set path="vehicle.animations.animation(0).part(1)#endTrans" value="0 0.25 0.15" />
+            <set path="vehicle.animations.animation(0).part(1)#startRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(0).part(1)#endRot" value="0 0 0" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="-0.1" forcePointZ="-0.5" />
+
+    <!--
+    base weight without roller and with mechanical stonr protection : 6941 kilos
+
+    options in game =
+    pneumatic brake
+    load report on tractor rear wheels
+    longer drawbar
+    4x chassis wheels
+
+    rear roller = tandem conoroll 560mm = +1475kg
+
+    total weight = 8600 kilos
+
+    "deep" mode in game = about 20cm
+    "shallow" mode in game = 10cm
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/poettinger/terria6040/terria6040.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="4550" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="400" /> <!-- drawbar -->
+            <set path="vehicle.base.components.component(2)#mass" value="400" /> <!-- attacher less than 400 kilos, but for game stability, we need to lessen mass differences between components-->
+            <set path="vehicle.base.components.component(3)#mass" value="1000" /> <!-- left arm -->
+            <set path="vehicle.base.components.component(4)#mass" value="1000" /> <!-- righ arm -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.65 -1.4" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 0 -0.5" /> <!-- left arm -->
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 0 -0.5" /> <!-- righ arm -->
+
+            <!-- transport wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="120"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="5"/>
+
+            <!-- back arm wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="15"/>
+
+            <!-- front arm wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="20"/>
+
+            <!-- conoroll tandem roller -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="45"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="45"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#spring" value="45"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#spring" value="45"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#radius" value="0.28"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#radius" value="0.28"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#radius" value="0.28"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#radius" value="0.28"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#rotationDamping" value="0.001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#rotationDamping" value="0.001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#rotationDamping" value="0.001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#rotationDamping" value="0.001"/>
+
+            <set path="vehicle.powerConsumer#maxForce" value="60" />
+            <set path="vehicle.workModes.workMode(0)#forceScale" value="0.7" />
+
+            <set path="vehicle.base.speedLimit#value" value="17" /> <!-- you have plenty horse power available ? get them to work :-) -->
+
+            <!-- lowering animation = drawbar should be quicker than chassis wheels) -->
+            <set path="vehicle.animations.animation(2).part(1)#startTime" value="0" />
+            <!-- <set path="vehicle.animations.animation(2).part(1)#endTime" value="0.7" /> -->
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

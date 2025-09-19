@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="0" />
+
+    <!--
+
+        560mm discs
+        0-18cm depth
+        95hp min
+        1450kg min
+
+        options in game :
+        hydraulic depth regulation
+        edge plate
+        lighting
+        GTG 550 roller
+
+        total weight in game = 1700kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/knoche/crossmax300/crossmax300.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1500" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.2" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#width" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#width" value="1"/>
+
+            <set path="vehicle.powerConsumer#maxForce" value="19" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="10" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 0.05" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value ="0.9" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#fadeOutTime" value="9" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#fadeOutTime" value="6" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

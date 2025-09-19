@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+
+        about 4650kg empty
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/brantner/z18051/z18051.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -0.7"/>
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.3 0"/>
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.35"/>
+
+            <set path="vehicle.base.components.component(0)#mass" value="2650"/>
+            <set path="vehicle.base.components.component(1)#mass" value="1200"/>
+            <set path="vehicle.base.components.component(2)#mass" value="300"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.3"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="70"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="11"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+
+
+            <!-- no extendion -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 -0.18"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="1000"/>
+            <set path="vehicle.dischargeable.dischargeNode(1)#emptySpeed" value="200"/>
+            <set path="vehicle.dischargeable.dischargeNode(2)#emptySpeed" value="1200"/>
+            <set path="vehicle.dischargeable.dischargeNode(3)#emptySpeed" value="1200"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

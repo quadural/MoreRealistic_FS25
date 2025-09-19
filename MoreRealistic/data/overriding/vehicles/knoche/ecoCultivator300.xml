@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" />
+
+    <!--
+    base weight : 1550kg
+
+    only "shallow" mode = 8-9cm
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/knoche/ecoCultivator300/ecoCultivator300.xml">
+        <attributes>
+            <set path="vehicle.powerConsumer#maxForce" value="14" />
+            <set path="vehicle.base.components.component(0)#mass" value="1250" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrKeepMass" value="true"/>
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="12" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "0.9" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#fadeOutTime" value="11" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

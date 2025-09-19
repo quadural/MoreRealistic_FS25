@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicles>
+
+    <!-- cars -->
+    <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/international/series200/series200.xml">vehicles/international/series200.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lizard/pickup2017/pickup2017.xml">vehicles/lizard/pickup2017.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/piaggio/ape50/ape50.xml">vehicles/piaggio/ape50.xml</vehicle>
+
+    <!-- combine harvesters-->
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/mf8570/mf8570.xml">vehicles/masseyFerguson/mf8570.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/mf8570Header/mf8570Header.xml">vehicles/masseyFerguson/mf8570Header.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/claas/evion450/evion450.xml">vehicles/claas/evion450.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/claas/vario620/vario620.xml">vehicles/claas/vario620.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/beta7360AL4/beta7360AL4.xml">vehicles/masseyFerguson/beta7360AL4.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/freeFlow25FT/freeFlow25FT.xml">vehicles/masseyFerguson/freeFlow25FT.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/fendt/series5275csl/series5275csl.xml">vehicles/fendt/series5275csl.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/fendt/freeFlow25FT/freeFlow25FT.xml">vehicles/fendt/freeFlow25FT.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/chSeries/chSeries.xml">vehicles/newHolland/chSeries.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/superFlex25/superFlex25.xml">vehicles/newHolland/superFlex25.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/varifeed28/varifeed28.xml">vehicles/newHolland/varifeed28.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/cr980_830/cr980_830.xml">vehicles/newHolland/cr980_830.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/axialFlow150/axialFlow150.xml">vehicles/caseIH/axialFlow150.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/terraFlex3020/terraFlex3020.xml">vehicles/caseIH/terraFlex3020.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/terraFlex3050_28/terraFlex3050_28.xml">vehicles/caseIH/terraFlex3050_28.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/header4408/header4408.xml">vehicles/caseIH/header4408.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/capello/diamant8/diamant8.xml">vehicles/capello/diamant8.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/geringhoff/northStar1230FB/northStar1230FB.xml">vehicles/geringhoff/northStar1230FB.xml</vehicle>
+
+    <!-- cultivators -->
+    <vehicle fileNameToOverride="data/vehicles/lemken/smaragd9_500k/smaragd9_500k.xml">vehicles/lemken/smaragd9_500k.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/johnDeere/cultivator980/cultivator980.xml">vehicles/johnDeere/cultivator980.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/knoche/ecoCultivator300/ecoCultivator300.xml">vehicles/knoche/ecoCultivator300.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/amazone/cenio4000/cenio4000.xml">vehicles/amazone/cenio4000.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/terria6040/terria6040.xml">vehicles/poettinger/terria6040.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/treffler/tga560/tga560.xml">vehicles/treffler/tga560.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/finer6SL/finer6SL.xml">vehicles/horsch/finer6SL.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/vaderstad/topDown600/topDown600.xml">vehicles/vaderstad/topDown600.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/agromasz/grizzlyX4/grizzlyX4.xml">vehicles/agromasz/grizzlyX4.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kuhn/prolander7500/prolander7500.xml">vehicles/kuhn/prolander7500.xml</vehicle>
+
+    <!-- disc cultivators -->
+    <vehicle fileNameToOverride="data/vehicles/vaderstad/carrierXL625/carrierXL625.xml">vehicles/vaderstad/carrierXL625.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/salek/tb100/tb100.xml">vehicles/salek/tb100.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/knoche/crossmax300/crossmax300.xml">vehicles/knoche/crossmax300.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/unia/aresXL/aresXL.xml">vehicles/unia/aresXL.xml</vehicle>
+
+    <!-- fertilizer spreaders -->
+    <vehicle fileNameToOverride="data/vehicles/amazone/zats3200/zats3200.xml">vehicles/amazone/zats3200.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/bredal/k105/k105.xml">vehicles/bredal/k105.xml</vehicle>
+
+    <!-- frontloader tools -->
+    <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
+
+    <!-- misc -->
+    <vehicle fileNameToOverride="data/vehicles/kaercher/hds9184M/hds9184M.xml">vehicles/kaercher/hds9184M.xml</vehicle>
+
+    <!-- mulcher -->
+    <vehicle fileNameToOverride="data/vehicles/knoche/speedmax300/speedmax300.xml">vehicles/knoche/speedmax300.xml</vehicle>
+
+    <!-- planters -->
+    <vehicle fileNameToOverride="data/vehicles/amazone/precea4500/precea4500.xml">vehicles/amazone/precea4500.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kuhn/maxima3TIL/maxima3TIL.xml">vehicles/kuhn/maxima3TIL.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/maestro975RX/maestro975RX.xml">vehicles/horsch/maestro975RX.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/grimme/matrix1800/matrix1800.xml">vehicles/grimme/matrix1800.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kverneland/optimaRS9m/optimaRS9m.xml">vehicles/kverneland/optimaRS9m.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/maestro2450SV/maestro2450SV.xml">vehicles/horsch/maestro2450SV.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kinze/planter4900/planter4900.xml">vehicles/kinze/planter4900.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/mzuri/proTil4TX/proTil4TX.xml">vehicles/mzuri/proTil4TX.xml</vehicle>
+
+    <!-- ploughs  -->
+    <vehicle fileNameToOverride="data/vehicles/agromasz/pov5xl/pov5xl.xml">vehicles/agromasz/pov5xl.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/servo25/servo25.xml">vehicles/poettinger/servo25.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/servoT6000Plus/servoT6000Plus.xml">vehicles/poettinger/servoT6000Plus.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lemken/juwel6/juwel6.xml">vehicles/lemken/juwel6.xml</vehicle>
+
+    <!-- power harrows  -->
+    <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>
+
+    <!-- rollers  -->
+    <vehicle fileNameToOverride="data/vehicles/vaderstad/rexius1230/rexius1230.xml">vehicles/vaderstad/rexius1230.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/brandt/landRoller591A/landRoller591A.xml">vehicles/brandt/landRoller591A.xml</vehicle>
+
+    <!-- seeders -->
+    <vehicle fileNameToOverride="data/vehicles/greatPlains/seeder1500/seeder1500.xml">vehicles/greatPlains/seeder1500.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/versa.xml">vehicles/horsch/versa.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/versa3KR.xml">vehicles/horsch/versa3KR.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/unia/fenix3000/fenix3000.xml">vehicles/unia/fenix3000.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/agromasz/aquilaDrive400/aquilaDrive400.xml">vehicles/agromasz/aquilaDrive400.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/aerosemVT5000DD/aerosemVT5000DD.xml">vehicles/poettinger/aerosemVT5000DD.xml</vehicle>
+
+    <!-- seeder front tanks -->
+    <vehicle fileNameToOverride="data/vehicles/kuhn/tf1512/tf1512.xml">vehicles/kuhn/tf1512.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/partner1600FT/partner1600FT.xml">vehicles/horsch/partner1600FT.xml</vehicle>
+
+    <!-- spaders -->
+    <vehicle fileNameToOverride="data/vehicles/farmax/rapidTrailed/rapidTrailed.xml">vehicles/farmax/rapidTrailed.xml</vehicle>
+
+    <!-- sprayers -->
+    <vehicle fileNameToOverride="data/vehicles/agrifac/condorEndurance2/condorEndurance2.xml">vehicles/agrifac/condorEndurance2.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/hardi/mega1200L/mega1200L.xml">vehicles/hardi/mega1200L.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/hardi/mega1200L/mega1200LTank.xml">vehicles/hardi/mega1200LTank.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/hardi/aeon5200/aeon5200.xml">vehicles/hardi/aeon5200.xml</vehicle>
+
+    <!-- sub soilers -->
+    <vehicle fileNameToOverride="data/vehicles/agrisem/combiplow/combiplow.xml">vehicles/agrisem/combiplow.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/alpego/kForce400/kForce400.xml">vehicles/alpego/kForce400.xml</vehicle>
+
+    <!-- tractors -->
+    <vehicle fileNameToOverride="data/vehicles/caseIH/farmall120C/farmall120C.xml">vehicles/caseIH/farmall120C.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/challenger/mt655/mt655.xml">vehicles/challenger/mt655.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/johnDeere/series3650/series3650.xml">vehicles/johnDeere/series3650.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/landini/seriesREX4/seriesREX4.xml">vehicles/landini/seriesREX4.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/deutzFahr/agroStar831/agroStar831.xml">vehicles/deutzFahr/agroStar831.xml</vehicle>
+
+    <!-- trailers -->
+    <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/farmtech/ddk2400/ddk2400.xml">vehicles/farmtech/ddk2400.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/farmtech/edk650/edk650.xml">vehicles/farmtech/edk650.xml</vehicle>
+
+    <vehicle fileNameToOverride="data/vehicles/brantner/z18051/z18051.xml">vehicles/brantner/z18051.xml</vehicle>
+
+    <!-- trucks -->
+    <vehicle fileNameToOverride="data/vehicles/volvo/fh16/fh16.xml">vehicles/volvo/fh16.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lizard/multiPurposeTruck/multiPurposeTruck.xml">vehicles/lizard/multiPurposeTruck.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/international/transtarII/transtarIIEagle.xml">vehicles/international/transtarIIEagle.xml</vehicle>
+
+    <!-- truck trailers -->
+    <vehicle fileNameToOverride="data/vehicles/krampe/sks30_150/sks30_150.xml">vehicles/krampe/sks30_150.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lodeKing/distinctionTripleHopper/distinctionTripleHopper.xml">vehicles/lodeKing/distinctionTripleHopper.xml</vehicle>
+
+    <!-- water trailers -->
+    <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer550/waterTrailer550.xml">vehicles/abi/waterTrailer550.xml</vehicle>
+
+    <!-- weeders -->
+    <vehicle fileNameToOverride="data/vehicles/einboeck/pneumaticstarPro1200/pneumaticstarPro1200.xml">vehicles/einboeck/pneumaticstarPro1200.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/gorenc/puler600/puler600.xml">vehicles/gorenc/puler600.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/rotocareV12400/rotocareV12400.xml">vehicles/poettinger/rotocareV12400.xml</vehicle>
+
+    <!-- wheel loaders -->
+    <vehicle fileNameToOverride="data/vehicles/volvo/l120H/l120H.xml">vehicles/volvo/l120H.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/volvo/l120HHighTipShovel/l120HHighTipShovel.xml">vehicles/volvo/l120HHighTipShovel.xml</vehicle>
+
+    <!-- wood crusher -->
+    <vehicle fileNameToOverride="data/vehicles/heizomat/hm10500KF/hm10500KF.xml">vehicles/heizomat/hm10500KF.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/jenz/cobraHybrid/cobraHybrid.xml">vehicles/jenz/cobraHybrid.xml</vehicle>
+
+    <!-- objects -->
+    <vehicle fileNameToOverride="data/objects/bigBag/lime/bigBag_lime.xml">objects/bigBag_lime.xml</vehicle>
+    <vehicle fileNameToOverride="data/objects/bigBag/lime/multiPurchaseBigBag_lime.xml">objects/multiPurchaseBigBag_lime.xml</vehicle>
+    <vehicle fileNameToOverride="data/objects/bigBagPallet/lime/bigBagPallet_lime.xml">objects/bigBagPallet_lime.xml</vehicle>
+    <vehicle fileNameToOverride="data/objects/bigBagPallet/lime/multiPurchaseBigBagPallet_lime.xml">objects/multiPurchaseBigBagPallet_lime.xml</vehicle>
+
+    <!-- DLC Plains & Prairies -->
+    <vehicle fileNameToOverride="vehicles/versatile/series900/series900.xml" keepGenuineEnvironment="true">vehicles/versatile/series900.xml</vehicle>
+    <vehicle fileNameToOverride="vehicles/ford/versatile976/versatile976.xml" keepGenuineEnvironment="true">vehicles/ford/versatile976.xml</vehicle>
+    <vehicle fileNameToOverride="vehicles/versatile/series1156/series1156.xml" keepGenuineEnvironment="true">vehicles/versatile/series1156.xml</vehicle>
+    <vehicle fileNameToOverride="vehicles/ford/versatile1156/versatile1156.xml" keepGenuineEnvironment="true">vehicles/ford/versatile1156.xml</vehicle>
+
+</vehicles>

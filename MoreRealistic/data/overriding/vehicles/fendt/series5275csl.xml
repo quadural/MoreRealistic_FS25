@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="combineDrivable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+    <annotation>Copyright (C) GIANTS Software GmbH, All Rights Reserved.</annotation>
+
+    <MR>true</MR>
+    <!-- hydrostatic transmission means we don't have the full engine power to the wheels. it depends on the hydraulics motors -->
+    <mrTransmission isHydrostatic="true" maxRpmWanted="2000" powerRatio="0.8" />
+    <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
+    <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
+    <mrCombine chopperIdlePower="10" chopperPowerFx="0.95" unloadingPower="24" threshingIdlePower="35" threshingPowerFx="0.95" irlSpotTonPerHour="34" maxFieldThreshingSpeed="13" />
+
+        <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>5275 C SL</name>
+        <image>$data/vehicles/fendt/series5275csl/store_series5275csl.png</image>
+        <brand>FENDT</brand>
+        <category>harvesters</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/beta7360AL4/beta7360AL4.xml">
+        <attributes>
+            <!-- Store data -->
+            <set path="vehicle.storeData.name" value="5275 C SL"/>
+            <set path="vehicle.storeData.brand" value="FENDT"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/fendt/series5275csl/store_series5275csl.png"/>
+            <set path="vehicle.storeData.specs.combination(0)#xmlFilename" value="$data/vehicles/fendt/freeFlow25FT/freeFlow25FT.xml"/>
+
+            <!-- Configs -->
+            <set path="vehicle.wheels.hubMaterial#materialTemplateName" value="FENDT_GREY2"/>
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="true"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1)#isSelectable" value="true"/>
+
+            <!-- MR config - same as MF beta 7360 -->
+            <!-- straw walker combine = more grain losses than rotor combines-->
+            <set path="vehicle.combine#threshingScale" value="0.97"/>
+
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0"/>
+
+            <!-- about 15200kgs (empty, no fuel) => about 6000kg on the rear axle -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0.06 1.8 0.6"/>
+            <set path="vehicle.base.components.component(0)#mass" value="12500"/>
+            <set path="vehicle.base.components.component(1)#mass" value="1300"/>
+
+            <!--wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="130"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="130"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="80"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="15"/>
+
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540"/>
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="105"/>
+
+            <!-- no rear wheel brake on a combine harvester ! -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="0" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="0" />
+
+            <!-- rear wheel assist (hydraulics) = not so much power to the rear -->
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(0)#maxSpeedRatio" value="2" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(1)#maxSpeedRatio" value="3" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#maxSpeedRatio" value="1.5" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#torqueRatio" value="0.85" />
+
+
+            <!-- agco 74HD 7.4L stage V // 54L/h @1900rpm and 225KW-->
+            <!-- DEF = about 6.8% of the fuel rate -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="54"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(1)#usage" value="3.7"/>
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="1150"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="30"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.7"/>
+
+            <!-- governor regulation = 10% -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="250" />
+            <!-- combine harvester = greater engine inertia than tractors or other vehicles -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrInertiaFx" value="1.7" />
+
+            <!-- better brake force since only the front wheels are braking and paralevel = better brakes than std combines -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="30"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="0.700"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="1.100"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="1.220"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="1.240"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="1.280"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="1.200"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="1800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="1.130"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#rpm" value="1950"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#torque" value="1.000"/>
+
+            <!-- more than 90° unloading pipe-->
+            <set path="vehicle.animations.animation(0).part(0)#endRot" value="0 0 -105" />
+
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 3.2 1.2"/>
+
+
+         </attributes>
+    </parentFile>
+
+
+</vehicle>

@@ -1,0 +1,49 @@
+<fruitTypes>
+    <!--
+
+        This file allows us to override the base game yield => litersPerHa = max yield possible with fertilizer, ploughing, etc
+
+        Then, we can describe how "hard" each fruit is to be hearvested compared to WHEAT
+        No value in this file for a fruit means the "mr engine" will use WHEAT data (except for yield)
+
+        all values are based on base fruit = WHEAT
+            that's means WHEAT = 1 for all values
+
+        all values are based on volume (liters), not mass (tons)
+            that means we have to think in "how many trailers" rather than "how many tons"
+
+        capacityFx => allow us to specify if this fruit can limit combine by "capacity" (liter of grain per hour : because of grain size or shape, because of air fan or sieves unit or returns)
+            harvesting some fruit too fast means loss, broken grain or plugged combine IRL
+            value of 1 means this is like WHEAT (as much trailer per hour than harvesting WHEAT)
+            example : canola "grain" is very small, and so, a combine harvester elevator can't lift as much liter per hour of this grain compared to WHEAT (each elevator's pallet is less filled at max capacity) // / we can't use full fan speed otherwise, smaller grain are ejected from the combine
+            if we want the same capacity than wheat, formula would be : 1*(fruit liters per ha) / (wheat liters per ha)
+
+        threshingFx => value of 1 means we are threshing WHEAT
+            if the fruit is harder to thresh (conveyor, main drum, accelerator, rotor) for the harvester, we can set a higher value (this is a factor => 1.25 means 25% more power required to process the same liter per hour than for wheat)
+
+        chopperFx => value of 1 means about 1KW per Ton per hour to add to the "mrCombineChopperIdlePower" while harvesting (default value for WHEAT)
+            if the stems are easier to chop than wheat straw, we can set a lower value (factor to apply to the chopper)
+            value of 1 means that if we are harvesting as much liters per hour than in WHEAT, the chopper power will be the same as for WHEAT.
+
+    -->
+    <fruitType name="WHEAT"     litersPerHa="15200"     capacityFx="1"      threshingFx="1"     chopperFx="1" /> <!-- 12T/Ha for a perfect wheat - we don't want combine harvester working at crawling speeds in 14T/Ha or more winter wheat -->
+    <fruitType name="BARLEY"    litersPerHa="15700"     capacityFx="0.95"   threshingFx="1.05"  chopperFx="1" /> <!-- 11T/Ha for a perfect barley - we don't want combine harvester working at crawling speeds in 13T/Ha or more barley -->
+    <fruitType name="OAT"       litersPerHa="17200"     capacityFx="1.08"   threshingFx="0.8"   chopperFx="0.9" /> <!-- 8.944T/Ha -->
+    <fruitType name="CANOLA"    litersPerHa="9400"      capacityFx="0.75"   threshingFx="0.9"   chopperFx="0.8" /> <!-- 6T/Ha for a perfect rapeseed. base game value = really too high (world record ?) -->
+    <fruitType name="SORGHUM"                           capacityFx="1.35"   threshingFx="0.6"   chopperFx="0.3" /> <!-- 12T/Ha - easy, but limited by shoes especially if the stern is green or if we have to lower the cutter bar -->
+    <fruitType name="SUNFLOWER"                         capacityFx="1.2"    threshingFx="0.4"   chopperFx="0.3" />
+    <fruitType name="SOYBEAN"                           capacityFx="0.57"   threshingFx="0.5"   chopperFx="0.5" /> <!-- 6.84T/Ha - easy to thresh compared to other grain but we have to lower the cutterbar on the ground all the time = rather limited by cutterbar and ground flatness IRL -->
+    <fruitType name="MAIZE"     litersPerHa="25760"     capacityFx="1.8"    threshingFx="0.5"   chopperFx="0.3" /> <!-- 15T/Ha for a perfect corn - easy to thresh compared to other grain, very high throughput possible -->
+    <fruitType name="POTATO"                            capacityFx="1.16"   threshingFx="1"                     />
+    <fruitType name="SUGARBEET"                         capacityFx="1.18"   threshingFx="1"                     />
+    <fruitType name="BEETROOT"                          capacityFx="1.20"   threshingFx="1"                     />
+    <fruitType name="CARROT"                            capacityFx="1.23"   threshingFx="1"                     /> <!-- 0.79/0.64 -->
+    <fruitType name="PARSNIP"                           capacityFx="1.23"   threshingFx="1"                     /> <!--0.79/0.64 -->
+    <fruitType name="COTTON"                            capacityFx="3.43"   threshingFx="1"                     /> <!-- 0.79/0.23 -->
+    <fruitType name="RICELONGGRAIN"                     capacityFx="1"      threshingFx="1"     chopperFx="1" /> <!-- US/UE RICE -->
+    <fruitType name="RICE"                              capacityFx="1.23"   threshingFx="1"                     /> <!-- ASIAN RICE -->
+    <fruitType name="GREENBEAN" litersPerHa="41850"     capacityFx="2.55"   threshingFx="1"                     /> <!-- 0.79/0.31 -->
+    <fruitType name="PEA"                               capacityFx="1.39"   threshingFx="1"                     /> <!-- 0.79/0.57 -->
+    <fruitType name="SPINACH"   litersPerHa="46200"     capacityFx="4.94"   threshingFx="1"                     /> <!-- 0.79/0.16 -->
+    <fruitType name="SUGARCANE"                         capacityFx="3.04"   threshingFx="1"                     /> <!-- 0.79/0.26 -->
+</fruitTypes>

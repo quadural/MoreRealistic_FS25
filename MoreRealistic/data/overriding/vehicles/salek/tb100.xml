@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+<mrPowerConsumer forcePointY="0.4" forcePointZ="-0.2" />
+
+
+    <!--
+
+        very light construction
+        this is a "garden" tool for "micro tractors" like a "kubota B1121"
+        if we attach it to a real tractor : this tool would be broken in no time
+        => very small power for the tractor and low speed and low depth and easy soil
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/salek/tb100/tb100.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="8" />
+            <set path="vehicle.base.components.component(0)#mass" value="76" /> <!-- virtual wheel mass of 100kg will be added in game -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.35 -0.3" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="2.5" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="turnOnCultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" ptoForSoilWork="true" />
+
+    <!--
+    base weight : 7500kg
+    max working speed 8kph
+    200-300Hp tractor neeeded
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/farmax/rapidTrailed/rapidTrailed.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="6600" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 -0.9" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="13" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="120" /> <!-- this is the pto power when working at 8kph => less power needed when working slower. Idle pto power = 10% -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="125" /> <!-- difference between min and max = only for "cylindered" => hydraulics -->
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint#lowerRotLimitScale" value="1 0.85 1" />
+            <set path="vehicle.attachable.brakeForce#force" value="0.1" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mass" value="0.45"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mass" value="0.45"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#width" value="2.24"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#width" value="2.24"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

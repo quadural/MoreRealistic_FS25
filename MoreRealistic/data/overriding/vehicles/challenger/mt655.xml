@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="tractor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!-- important
+
+        differentials sytem has a hard time to stabilize in game = this is not adviseable to set value of 1 to try simulate a diff-lock.
+        1. you will never obtain the behavior of a diff-lock (both wheels can still rotate at different speeds)
+        2. you will get "stutters" in wheel speed because the differential system is not able to match the demanded 0 difference between both wheels
+        3. you will lose a bunch of engine power when the differential system goes crazy (example : 200Hp tractor cultivating at 12kph and then not able to go past 6kph for unknown reason)
+
+        recommandation for FWA (front wheel assist =most of the tractors) =
+        - ratio of 3 for front wheels
+        - ratio of 2 for rear wheels
+        - ratio of 1.3 for center differential
+        - torqueRatio of 35% front and 65% rear
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/challenger/mt655/mt655.xml">
+        <attributes>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="16.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="16.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="63"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="63"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="100"/>
+
+            <!-- gsVehicleAnalyze fix -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="2.00"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="2.00"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="2.93"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="2.93"/>
+
+            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotationOffset" value="0.26"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0)#upperRotationOffset" value="0.27"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#lower" value="0.325"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#upper" value="1.227"/>
+
+            <set path="vehicle.attacherJoints.attacherJoint(1).distanceToGround#lower" value="0.592"/>
+
+            <set path="vehicle.attacherJoints.attacherJoint(2).distanceToGround#lower" value="0.516"/>
+
+            <!-- end gsVehicleAnalyze -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -0.03"/>
+            <set path="vehicle.base.components.component(0)#mass" value="7489"/>
+            <set path="vehicle.base.components.component(1)#mass" value="500"/>
+
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(0)#maxSpeedRatio" value="1.3" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(1)#maxSpeedRatio" value="1.3" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#maxSpeedRatio" value="1.3" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#torqueRatio" value="0.35" />
+
+            <!-- dash board rpm needle -->
+            <set path="vehicle.motorized.dashboards.dashboard(2)#minValueRot" value="0"/>
+            <set path="vehicle.motorized.dashboards.dashboard(2)#maxValueRot" value="2500"/>
+            <set path="vehicle.motorized.dashboards.dashboard(2)#minRot" value="0"/>
+            <set path="vehicle.motorized.dashboards.dashboard(2)#maxRot" value="-250"/>
+
+            <!-- front weight -->
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(1).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(1).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(1).objectChange(3)#mrAddMassActive" value="80"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(1).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(2).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(2).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(2).objectChange(3)#mrAddMassActive" value="160"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(2).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(3).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(3).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(3).objectChange(3)#mrAddMassActive" value="240"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(3).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(4).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(4).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(4).objectChange(3)#mrAddMassActive" value="320"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(4).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(5).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(5).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(5).objectChange(3)#mrAddMassActive" value="400"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(5).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(6).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(6).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(6).objectChange(3)#mrAddMassActive" value="480"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(6).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+            <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(7).objectChange(3)"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(7).objectChange(3)#node" value="mt655_main_component1"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(7).objectChange(3)#mrAddMassActive" value="560"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(7).objectChange(3)#mrAddMassCOMActive" value="0 0.88 3"/>
+
+
+
+
+            <!-- ************************************************************************************************************************-->
+            <!-- MT635 7.4L engine and 18/6 gearbox-->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="37"/> <!-- Max fuel rate @maxPower -->
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).objectChange(2)#node" value="mt655_main_component1" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).objectChange(2)#massActive" value="6590" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).objectChange(2)#centerOfMassActive" value="0 1.2 -0.23" />
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="170"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="39"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="11"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="7.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.872"/>
+
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="0.410"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="0.520"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="0.620"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="0.700"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1350"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="0.761"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="0.750"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="0.700"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#rpm" value="1950"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#torque" value="0.638"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#rpm" value="2092"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#torque" value="0.584"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(9)#rpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(9)#torque" value="0.532"/>
+
+            <!-- transmission -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGear" value="true"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#reverseGearIndex" value="6"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="0"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(0)#maxSpeed" value="2.19"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(1)#maxSpeed" value="2.83"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(2)#maxSpeed" value="3.65"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(3)#maxSpeed" value="4.17"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(4)#maxSpeed" value="4.70"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(5)#maxSpeed" value="5.36"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(6)#maxSpeed" value="6.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(7)#maxSpeed" value="6.94"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(8)#maxSpeed" value="7.85"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(9)#maxSpeed" value="8.95"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(10)#maxSpeed" value="10.16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(11)#maxSpeed" value="11.58"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(11)#defaultGear" value="True"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(12)#maxSpeed" value="13.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(13)#maxSpeed" value="14.91"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(14)#maxSpeed" value="16.94"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(15)#maxSpeed" value="21.82"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(16)#maxSpeed" value="28.23"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(17)#maxSpeed" value="36.37"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#maxSpeed" value="2.19"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#name" value="R1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#maxSpeed" value="3.65"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#name" value="R2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(2)#maxSpeed" value="4.17"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(2)#name" value="R3"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(3)#maxSpeed" value="6.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(3)#name" value="R4"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(4)#maxSpeed" value="6.94"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(4)#name" value="R5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(5)#maxSpeed" value="10.16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(5)#name" value="R6"/>
+
+            <!-- ************************************************************************************************************************-->
+            <!-- MT645 7.4L engine and 18/6 gearbox-->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(1).consumer(0)#usage" value="40"/> <!-- Max fuel rate @maxPower -->
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).objectChange(2)#node" value="mt655_main_component1" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).objectChange(2)#massActive" value="6590" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).objectChange(2)#centerOfMassActive" value="0 1.2 -0.23" />
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#minRpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxRpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#mrGovernorRpmRange" value="150"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxForwardSpeed" value="39"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxBackwardSpeed" value="11"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#brakeForce" value="9"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#ptoMotorRpmRatio" value="3.872"/>
+
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(0)#rpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(0)#torque" value="0.410"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(1)#torque" value="0.550"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(2)#rpm" value="1100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(2)#torque" value="0.660"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(3)#rpm" value="1200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(3)#torque" value="0.740"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(4)#rpm" value="1300"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(4)#torque" value="0.799"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(5)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(5)#torque" value="0.785"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(6)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(6)#torque" value="0.750"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(7)#rpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(7)#torque" value="0.657"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(8)#rpm" value="2092"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(8)#torque" value="0.627"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(9)#rpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(9)#torque" value="0.587"/>
+
+            <!-- transmission -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission#gearChangeTime" value="0"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.directionChange#useGear" value="true"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.directionChange#reverseGearIndex" value="6"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.directionChange#changeTime" value="0"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(0)#maxSpeed" value="2.19"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(1)#maxSpeed" value="2.83"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(2)#maxSpeed" value="3.65"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(3)#maxSpeed" value="4.17"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(4)#maxSpeed" value="4.70"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(5)#maxSpeed" value="5.36"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(6)#maxSpeed" value="6.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(7)#maxSpeed" value="6.94"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(8)#maxSpeed" value="7.85"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(9)#maxSpeed" value="8.95"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(10)#maxSpeed" value="10.16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(11)#maxSpeed" value="11.58"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(11)#defaultGear" value="True"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(12)#maxSpeed" value="13.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(13)#maxSpeed" value="14.91"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(14)#maxSpeed" value="16.94"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(15)#maxSpeed" value="21.82"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(16)#maxSpeed" value="28.23"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.forwardGear(17)#maxSpeed" value="36.37"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(0)#maxSpeed" value="2.19"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(0)#name" value="R1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(1)#maxSpeed" value="3.65"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(1)#name" value="R2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(2)#maxSpeed" value="4.17"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(2)#name" value="R3"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(3)#maxSpeed" value="6.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(3)#name" value="R4"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(4)#maxSpeed" value="6.94"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(4)#name" value="R5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(5)#maxSpeed" value="10.16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.backwardGear(5)#name" value="R6"/>
+
+            <!-- ************************************************************************************************************************-->
+            <!-- MT655 8.4L engine and 18/9 gearbox-->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(0)#usage" value="47"/> <!-- Max fuel rate @maxPower -->
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).objectChange(2)#node" value="mt655_main_component1" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).objectChange(2)#massActive" value="7300" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).objectChange(2)#centerOfMassActive" value="0 1.2 -0.04" />
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#minRpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxRpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="137"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxForwardSpeed" value="42"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxBackwardSpeed" value="32"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#brakeForce" value="9"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#ptoMotorRpmRatio" value="3.872"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#rpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#torque" value="0.440"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#torque" value="0.580"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#rpm" value="1100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#torque" value="0.745"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#rpm" value="1210"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#torque" value="0.900"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#rpm" value="1300"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#torque" value="0.955"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#rpm" value="1400"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#torque" value="0.963"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#torque" value="0.950"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(7)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(7)#torque" value="0.900"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(8)#rpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(8)#torque" value="0.812"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(9)#rpm" value="2093"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(9)#torque" value="0.722"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(10)#rpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(10)#torque" value="0.664"/>
+
+            <!-- transmission -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission#gearChangeTime" value="0"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.directionChange#useGear" value="true"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.directionChange#reverseGearIndex" value="7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.directionChange#changeTime" value="0"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(0)#maxSpeed" value="2.40"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(1)#maxSpeed" value="3.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(2)#maxSpeed" value="4.00"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(3)#maxSpeed" value="4.56"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(4)#maxSpeed" value="5.15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(5)#maxSpeed" value="5.87"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(6)#maxSpeed" value="6.67"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(7)#maxSpeed" value="7.60"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(8)#maxSpeed" value="8.59"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(9)#maxSpeed" value="9.79"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(10)#maxSpeed" value="11.12"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(11)#maxSpeed" value="12.66"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(11)#defaultGear" value="True"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(12)#maxSpeed" value="14.32"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(13)#maxSpeed" value="16.31"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(14)#maxSpeed" value="18.53"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(15)#maxSpeed" value="23.86"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(16)#maxSpeed" value="30.88"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.forwardGear(17)#maxSpeed" value="39.77"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(0)#maxSpeed" value="2.40"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(0)#name" value="R1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(1)#maxSpeed" value="4.00"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(1)#name" value="R2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(2)#maxSpeed" value="4.56"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(2)#name" value="R3"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(3)#maxSpeed" value="6.67"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(3)#name" value="R4"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(4)#maxSpeed" value="7.60"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(4)#name" value="R5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(5)#maxSpeed" value="11.12"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(5)#name" value="R6"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(6)#maxSpeed" value="12.66"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(6)#name" value="R7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(7)#maxSpeed" value="18.53"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(7)#name" value="R8"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(8)#maxSpeed" value="30.89"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.backwardGear(8)#name" value="R9"/>
+
+
+
+            <!-- ************************************************************************************************************************-->
+            <!-- MT665 8.4L engine and 18/9 gearbox-->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(3).consumer(0)#usage" value="52"/> <!-- Max fuel rate @maxPower -->
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).objectChange(2)#node" value="mt655_main_component1" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).objectChange(2)#massActive" value="7300" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).objectChange(2)#centerOfMassActive" value="0 1.2 -0.04" />
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#minRpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#maxRpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#mrGovernorRpmRange" value="195"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#maxForwardSpeed" value="43"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#maxBackwardSpeed" value="33"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#brakeForce" value="9"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor#ptoMotorRpmRatio" value="3.872"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(0)#rpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(0)#torque" value="0.5"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(1)#torque" value="0.630"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(2)#rpm" value="1210"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(2)#torque" value="1.080"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(3)#rpm" value="1306"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(3)#torque" value="1.086"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#rpm" value="1400"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#torque" value="1.078"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(5)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(5)#torque" value="1.050"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(6)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(6)#torque" value="0.982"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(7)#rpm" value="1906"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(7)#torque" value="0.894"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(8)#rpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(8)#torque" value="0.733"/>
+
+            <!-- transmission ***********************************************************************************************-->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission#gearChangeTime" value="0"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.directionChange#useGear" value="true"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.directionChange#reverseGearIndex" value="7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.directionChange#changeTime" value="0"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(0)#maxSpeed" value="2.40"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(1)#maxSpeed" value="3.09"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(2)#maxSpeed" value="4.00"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(3)#maxSpeed" value="4.56"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(4)#maxSpeed" value="5.15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(5)#maxSpeed" value="5.87"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(6)#maxSpeed" value="6.67"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(7)#maxSpeed" value="7.60"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(8)#maxSpeed" value="8.59"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(9)#maxSpeed" value="9.79"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(10)#maxSpeed" value="11.12"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(11)#defaultGear" value="True"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(11)#maxSpeed" value="12.66"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(12)#maxSpeed" value="14.32"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(13)#maxSpeed" value="16.31"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(14)#maxSpeed" value="18.53"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(15)#maxSpeed" value="23.86"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(16)#maxSpeed" value="30.88"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.forwardGear(17)#maxSpeed" value="39.77"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(0)#maxSpeed" value="2.40"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(0)#name" value="R1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(1)#maxSpeed" value="4.00"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(1)#name" value="R2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(2)#maxSpeed" value="4.56"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(2)#name" value="R3"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(3)#maxSpeed" value="6.67"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(3)#name" value="R4"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(4)#maxSpeed" value="7.60"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(4)#name" value="R5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(5)#maxSpeed" value="11.12"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(5)#name" value="R6"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(6)#maxSpeed" value="12.66"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(6)#name" value="R7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(7)#maxSpeed" value="18.53"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(7)#name" value="R8"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(8)#maxSpeed" value="30.89"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.backwardGear(8)#name" value="R9"/>
+
+         </attributes>
+    </parentFile>
+
+</vehicle>

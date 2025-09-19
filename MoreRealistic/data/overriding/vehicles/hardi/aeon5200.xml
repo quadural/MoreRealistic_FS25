@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="sprayer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+        centura line
+        30m boom
+        520/85R42 wheels
+
+        ANTAM report 2256 => 7227 kilos empty
+        => 7830kg with rinse/clean water
+
+
+        base weight with delta force XXm = 6100kg ?
+        clean water tank = 40L
+        rinse tank = 560L
+        + steering axle
+        + hydraulics suspension
+        + air brakes
+        + mudguards
+
+
+        max flow rate with optional pump = 334 liters per minute
+        => 334L/min => 5.6L/s (this is the maximum speed possible, IRL, the avg speed would be lower) => for game purpose, we set it to 50%more => 8.5L/s
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/hardi/aeon5200/aeon5200.xml">
+        <attributes>
+
+            <set path="vehicle.base.components#maxMass" value="99999"/> <!-- remove this unrealistic things ! -->
+            <set path="vehicle.base.components.component(0)#mass" value="6955"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.4 0.4"/>
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="500" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="3"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="8.5"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

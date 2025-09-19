@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" />
+
+    <!--
+
+            option =
+
+            leveler
+            double steel runner + double scraper
+            wheel scrapers
+            => about 9600kg
+
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/vaderstad/topDown600/topDown600.xml">
+        <attributes>
+
+            <set path="vehicle.powerConsumer#maxForce" value="60" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 1.05" />
+            <set path="vehicle.base.components.component(0)#mass" value="8720" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
+
+            <!-- virtual front wheels = less friction to avoid tractor being "steered" by the implement at work -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="0.5"/>
+
+            <!-- remove base game "massActive" and replace by mrMassActive -->
+            <remove path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(11)" />
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(11)#node" value="topDown600_main_component1" />
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(11)#mrAddMassActive" value="300" />
+
+            <!-- "folding animation" = moving center of masses -->
+            <set path="vehicle.animations.animation(1).part(28)#startTime" value="1.5" />
+            <set path="vehicle.animations.animation(1).part(28)#endTime" value="7.75" />
+            <set path="vehicle.animations.animation(1).part(28)#startCenterOfMass" value="0 0.8 1.05" />
+            <set path="vehicle.animations.animation(1).part(28)#endCenterOfMass" value="0 1.6 1.05" />
+            <set path="vehicle.animations.animation(1).part(28)#componentIndex" value="1" />
+
+            <!-- "folding animation" = collision part // we want to avoid the implement to do a full turn over when tipping on the side, driving too fast on the road-->
+            <set path="vehicle.animations.animation(1).part(29)#startTime" value="1.5" />
+            <set path="vehicle.animations.animation(1).part(29)#endTime" value="7.7" />
+            <set path="vehicle.animations.animation(1).part(29)#startRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(29)#endRot" value="0 0 -10" />
+            <set path="vehicle.animations.animation(1).part(29)#startTrans" value="0.914 -0.028 -0.151" />
+            <set path="vehicle.animations.animation(1).part(29)#endTrans" value="0.914 -0.45 -0.151" />
+            <set path="vehicle.animations.animation(1).part(29)#node" value="0>0|1|4|0|0|12" />
+
+            <set path="vehicle.animations.animation(1).part(30)#startTime" value="1.5" />
+            <set path="vehicle.animations.animation(1).part(30)#endTime" value="7.7" />
+            <set path="vehicle.animations.animation(1).part(30)#startRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(30)#endRot" value="0 0 10" />
+            <set path="vehicle.animations.animation(1).part(30)#startTrans" value="-0.914 -0.028 -0.151" />
+            <set path="vehicle.animations.animation(1).part(30)#endTrans" value="-0.914 -0.45 -0.151" />
+            <set path="vehicle.animations.animation(1).part(30)#node" value="0>0|1|6|0|0|12" />
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

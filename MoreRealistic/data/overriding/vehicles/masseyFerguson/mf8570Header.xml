@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/mf8570Header/mf8570Header.xml">
+        <attributes>
+            <set path="vehicle.base.speedLimit#value" value="14" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.25 -0.7" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10" />
+            <set path="vehicle.powerConsumer#maxForce" value="6" />
+            <set path="vehicle.powerConsumer#forceNode" value="mf8570Header_main_component1" />
+        </attributes>
+    </parentFile>
+
+</vehicle>

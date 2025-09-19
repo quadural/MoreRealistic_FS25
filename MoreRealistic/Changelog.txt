@@ -1,0 +1,311 @@
+RESEARCH :
+
+wheel slip displayed or returned by the game engine = not correct ? when comparing wheel axle speed and ground speed, the slippage is not the same
+wheel mass do not participate to the traction force ? have to check, especially when featuring additionnal mass (checked : wheel mass is taken into account for wheel inertia and ground forces)
+physics engine is not good enough to replicate what we get IRL. We have to cheat a lot (friction) to achieve some realism
+Example : on road tire force is "off" (IRL = max force @5-10% slippage)
+In the game, the player should not see any difference between 0% or 5% slippage, and so, we don't mind getting the "right" slippage.
+We try to get less than 10% slippage on road, and then more slippage in field
+
+problem :
+IRL = if the engine goes from 500nm to 1000nm in 10s (same gear ratio, same effort) => same result as 750nm over 10s
+after 1/60s, engine is @508.333Nm (avg torque over 1/60 second) = 504.16667Nm
+
+Game = 60fps => engine starts @500nm, then after 1/60 second, the result = same as 500nm over 1/60 second = engine is @lower rpm than irl = less torque
+engine is slower than irl to gain rpm when torque rise
+
+But :
+IRL = if the engine goes from 1000nm to 500nm in 10s (same gear ratio, same effort) => same result as 750nm over 10s
+after 1/60s, engine is @991.667Nm (avg torque over 1/60 second = 995.833Nm)
+if starting rpm = 1500 and final rpm=2000, avg power delivered during 1/60s = (157.07+156.62)/2 = 156.845 (same as avg torque * avg rpm => 156.85)
+
+Game = 60fps => engine starts @1000nm, then after 1/60 second, the result = same as 1000nm over 1/60 second = engine is @higher rpm than irl = more torque
+engine is faster than irl to gain rpm when torque decrease (typical explosion engine = torque decrease - after peak torque - when rpm increase = less torque when power increase)
+if starting rpm = 1500 and final rpm=2000, avg power delivered during 1/60s = (157.07+157.94)/2 = 157.505
+
+if gear ratio is 200, it means 833Nm difference for the avg torque applied to the wheel over 1/60 second
+
+of course, the steeper the torque curve (raising or decreasing) the stronger the difference with IRL
+
+This is bad, because when accelerating and gaining speed, it seems the engine has no "guts" until it reaches the peak torque, and then, it seems it has too much hp
+
+Solution = ?
+check the current engine acc and :
+ => gettorque((currentRpm+engineacc*dt)/2)
+ reset engine acc to 0 when changing gear !
+
+
+
+TODO :
+
+sprayer "DPE" => application rate of the fertilizer/spray agent is speed dependant : we want to keep the right liters per hectare !
+"unmodded FS25" = the player has to speed up the process not to spill fertilizer/spray agent (this is not realistic nor enjoyable...)
+
+when driving with manual shifting : keep the last reverse gear !
+=> example : mt655 "undrivable" because each time we go in reverse, the first gear is selected = we have to get back to the 6th gear to have a normal reverse speed at work
+
+fuel consumption : should ne like IRL when setting the "low fuel usage" => simplified model compared to real life = fuel usage dependant on KW produced
+
+tire friction table is really far from reality
+
+gear ratio varying when starting too high in a gear = no need to use gear, we can start in high gear when driving on road (not realistic at all)
+
+clutch slipping a lot when manually shifting gears up without relaesing accelerator (example : starting pickup car)
+
+engine "governor" allowing more rpm than the rated engine rpm (example : mt655 = 2200 rated rpm and 2395 high idle rpm in real life)
+
+additionnal mass when loading a trailer ("unmodded FS25" = limit the total mass)
+
+rolling resistance
+
+when player controlled, no automatic brake when going downhill and the engine "brakeforce" can't keep up with the mass (engine rpm should rise => overspeeding)
+
+fix bug : brake pedal depressed when going at more than 7.2kph in reverse ("manual direction change" enabled)
+
+fix bug : air consumption when going at more than 7.2kph in reverse ("manual direction change" enabled)
+
+
+
+---------------------------------------
+
+20250519    - add some randomness for speed rotating parts (example : smaragd 500K)
+
+20250521    - better combine harvester speed limit
+            - ai driver now use brakes (avoid 100% road accident when giving it a light tractor with an heavy trailer for example)
+            - adjust canola capacityFx (fruitTypes.xml)
+
+20250523    - fix rare weird behavior with "power reverser" at changing point
+            - add servo25 and pov5xl ploughs conversion
+
+20250524    - fix visual bug : player left foot keeps going from pedal clutch to idle (or remain above the pedal clutch)
+
+20250526    - lemken smaragd tuning (rotating parts radius)
+            - add default "forcePointRatio" for MR Vehicles (0.5 instead of 0.3 for most base game vehicles)
+            - add CaseIH Farmall C conversion
+            - add "mrKeepCurrentGear" parameter for "directionChange" (useful when fitted with a powershuttle and same gears in forward and reverse)
+            - new mrUpdateDynamicFriction function to replace the older one (simpler and take into account tires width/radius)
+
+20250527    - rework of the MrEngine loading (no more lua errors and game frozen if MoreRealistic folder name has been changed)
+
+20250530    - minor changes to current converted tractors xml to comply to "gsVehicleAnalyze" command
+            - fix changeDirection time of the Challenger MT645 (there was no functionnal power reverser for this model)
+            - engine sound not proportionnal => setting power 0.25 instead of 0.7 (base game = 1)
+            - fix to avoid automatic downshift when slipping a lot while starting (example : john deere 3650 narrow wheels trying to start pulling the great britains seeder in a slope)
+            - new xml parameter to better place check point for ploughs
+            - adjust ploug draftforce curve function of speed
+            - DDk2400 trailer brakes modified
+            - after loading a game, if manual direction change is on, pressing the button = going forward (base game = "reverse" first time you change direction)
+            - when manual gear shift is on, when in reverse, using the button to shift up now actually shift "up" (like IRL, this is more natural)
+            - add converted Claas Evion 450 + vario 620 header
+            - add converted cultivators : knoche ecoCultivator300 and amazone cenius 4000 super
+
+20250531    - add converted einboeck pneumatic starpro 1200
+            - add converted gorenc puler 600
+            - fix bug when playing with manual clutch = when braking, the engine was stalling after 500ms. And the engine was also stalling while using the power reverser when featured (change direction under load without clutch)
+
+20250601    - changes to take into account PTO tools (big changes, need a lot of testing => engine rpm and sound, with or without manual clutch => when pto is active)
+            - changes to the rolling resistance system (especially at still, but in fields too)
+            - add converted Farmax rapide 450 (try it with the John Deere 3650 to experience the new PTO engine rpm and sound, you can stall the engine in manual clutch pretty easily with this tool. Then try it with the Challenger MT645 or above to see the difference)
+            - add converted Horsch Kredo power harrow
+            - changes to dynamic friction module : wet/snow
+
+20250602    - remove interpolation for rpm (better sound and more precise rpm needle)
+            - big changes to mrUpdateWheelsPhysics to handle better manual + clutch mode
+
+20250603    - rework of WheelPhysics.mrGetRrFx (rolling resistance factor function of ground, wetness and tire size)
+            - fuel usage factor (game settings) is now the same for MR and not MR vehicles (normal = IRL fuel usage, low = 0.5x and high = 2.5x)
+            - vehicle debug now display accPedal and brakePedal values
+            - fix bug with "self.spec_drivable.brakeToStop" => preventing client player from driving in multiplayer if the owner didn't enter the tractor for the first time
+
+20250604    - new rrFx computing to take into account field "firm" soil (harvest state) for rolling resistance = less rolling resistance when driving over harvested field than cultivated field for example.
+              and you will get somehow better traction too in such case
+            - fix bug : less "dynamicFrictionFx" in reverse than forward
+            - fix : less hydrostatic transmission braking force (both MR engine braking and base game "controlVehicle" function were used to brake the vehicle at the same time). This was especially visible with the Claas Evion Combine Harvester (2WD) when changing direction
+            - tuning : changing direction with hydrostatic transmission is more gentle (it was "brutal" at full power)
+
+20250605    - moddesc version set to 99
+            - default motor.autoGearChangeTime set to 700ms (override 0ms time for some base game vehicles)
+            - it is now possible to depress clutch pedal even if in automatic mode (or driving a full powershift transmission)
+            - less slipping when changing gears (better sound and visual with powershift shifting)
+
+20250606    - adjust max clutch slipping time (and rpm curve allowed)
+            - lessen rpm drop for hydrostatic combines unloading while not harvesting (and moving forward/backward to smooth grain in the trailer)
+            - fix log error when trying to load "widthAndDiam" param from additionalWheel config
+            - disable MR "WheelsUtil.updateWheelsPhysics" for vehicles controlled by "AutoDrive" mod
+            - we can now shift gears and use the clutch in automatic shift mode (player is prioritized) : can be useful to start with high rpm for example
+
+20250607    - limit max pressure for rolling resistance factor in field/soft terrain => IRL, there would be no difference between 6 bars or 20 bars in bad condition (axle touching the ground in both cases)
+            - add converted Bredal k105 lime spreader
+            - new mechanism for autoshifting => avoid being stuck in "first" gear when slipping a lot (eg : bad ballasting of the tractor, or differential system going crazy) (example : case ih farmall 100 + wheel mass + loader but not front weight + knoche ecocultivator300 + cultivating going up the a hilly field)
+            - new recommandation for xml differentials settings =
+
+        differentials sytem has a hard time to stabilize in game = this is not adviseable to set value of 1 to try simulate a diff-lock.
+        1. you will never obtain the behavior of a diff-lock (both wheels can still rotate at different speeds)
+        2. you will get "stutters" in wheel speed because the differential system is not able to match the demanded 0 difference between both wheels
+        3. you will lose a bunch of engine power when the differential system goes crazy (example : 200Hp tractor cultivating at 12kph and then not able to go past 6kph for unknown reason)
+
+        recommandation for FWA (front wheel assist =most of the tractors) =
+        - ratio of 3 for front wheels
+        - ratio of 2 for rear wheels
+        - ratio of 1.3 for center differential
+        - torqueRatio of 35% front and 65% rear
+
+        bad news = this is still possible to encounter the differential going crazy problem
+        but : this is far worse with base game engine and vehicles (just try to put a tractor in front of a "wall" for example, and try to push it... look at the different wheels and rotation speed. You can also enable vehicleDebug mode to see the "crazy jerking" of the differentials and wheels rotation values)
+
+20250608    - prevent "non power reversing manual gearboxes" from using powerReversing code
+            - soften new mechanism for autoshifting (it was too optimistic)
+            - do not engage auto park brake when playing with "manual+clutch" settings (except if player brakes until no speed)
+
+20250609    - remove special new mechanism for autoshifting => it was giving more problems than fixes
+            - add damping to driven wheels rotating too fast compared to others driven wheels (trying to help differentialssystem to stabilize)
+            - auto-accelerator when pto is on (we want to keep a minimum engine rpm // IRL, rotating too slow would mean the equipment would not work as intended)
+            - Power harrows and spaders => more draftforce when pto rpm is low. Far more realistic and prevents cheating going downhill with neutral and pto on
+            - fix bug : with manual clutch, tractor could stall but continue moving
+            - new stall timer code (more realistic, there i no more a "range" of rpm for stalling. If you drop rpm too low = in 0.3s the engine is stalled)
+            - auto park brake and auto-clutch (when hard braking) for manual with clutch mode (IRL, some tractors do have an auto unclutch feature. John Deere directDrive transmission for example. Or, somehow, the older Fendt "turbomatik") => warning : you can still stall the engine easily in other situation (work task too hard and engine dropping rpm)
+
+20250610    - remove lower maxacceleration for AI and when PTO is on (not needed anymore)
+            - fix bug : AI driver was not releasing brake everytimes
+
+20250612    - add converted Hardi Mega 1200 sprayer and front tank
+            - add converted Pottinger Rotocare V12400
+            - add converted Hardi Aeon 5200 sprayer
+            - fix bug : when playing with manual clutch and a controller = very high stopping power when going reverse and partially clutching
+
+20250614    - new override vehicle loading system to be able to override DLC vehicles too
+            - add converted Ford / Versatile 976
+
+20250614.2  - add converted Ford / Versatile 1156
+            - fix bug : in automatic shifting mode, if no best group is found, the group 1 was selected (but it could be the reverse group for example)
+
+20250615    - power of 0.5 for self.manualClutchValue in VehicleMotor.mrUpdateGear
+            - autogear shift will try to downshift (gear or group) to get more engine stopping power if speed limit is reached
+            - FIX for Precision Farming to make it recognize overrided default vehicles by MR
+
+20250622    - change in VehicleMotor.mrUpdateGear to force waiting for direction/group change time (player could change direction and just after change gear to not wait for the "changedirectionTime")
+            - autoshift wait for 2s before trying a new change after player has changed a group manually
+            - tuning : great plains seeder wheels
+            - PowerConsumer : draftForce => at very low speed = more force needed (we don't want smaller tractors to be able to pull at very low speed heavy implements)
+            - make wood crushing enjoyable (fix base game problems = too much stucked logs, lost woodship = up to 100% losses for each log with base game, no differences with different tractor engine power)
+            - add converted Heizomat 10-500 KF wood crusher
+            - fix powerConsumer "addForce" that could get a divide by zero
+            - fix (not MR) : Versatile/ford 976 wrong additionalMassNode => config_weightFront300 instead of config_weightBack400 for front ballast
+            - fix missing vehicle combination in the ingame store when the combination = a mr converted base game vehicle
+
+20250622.2  - add converted Jenz HEM 922 DQ Cobra Hybrid
+            - several changes to the woodcrushing system (how MR engine handles that, nothing visual. Forces, power, limit and so on)
+
+20250623    - tweaking woodCrushing system
+            - add converted Pottinger Terria 6040
+            - add some randomness to rotation damping when wheels are not touching the ground
+            - tweaking of dynamic friction. Add limitation when slipping a lot
+
+20250624    - fix bug with woodcrusher : in some cases, when splitshape was called and no split occured, there were free woodchips
+
+20250627    - woodcrushers : enhanced traction force system (better stability and force direction)
+            - woodcrushers : better overall system. Just throw everything at them !
+            - tweaking of dynamic friction. Add limitation when wheels are overloaded (less pull ratio for overloaded wheels)
+
+20250629    - woodcrushers : additionnal system allowing cutting less than minimum cut length if a wood shape remains under the cutter for too long
+            - fix problem = when "automatic start motor" is desactivated => we control the player = move toward the tractor en press "E" key to enter it, and the tractor moves a little bit (because we don't always depress the move forward key just before pressing the "E" key to enter the tractor)
+            - add varying center of masses for the converted Agromasz pov 5 xl plough
+            - add more spring to the back wheels of the converted Pottinger Terria 6040 (fix the "dancing" problem when detaching this tool while lowered in field)
+            - adjust brake force converted Case IH Farmall C
+            - debugMode : add slope value in percent (work when only "terrain" in front and behing the vehicle : check 2m in front and 2m behind "component 1")
+
+20250701    - forcePointRatio is now placed 10cm above the ground
+            - playing with spring and damper to find something right
+            - dynamic friction force = now also rely on "getWheelShapeContactNormal"
+
+20250707    - add converted Pottinger Servo T6000 plough. draftforce depend on the working width
+            - playing with ploughs = new draft force curve function of speed. Some adjustment to servo 25 and Agromasz ploughs. (max force, center of mass, force point, etc)
+            - fix bug : AI driver, when alone without player in the tractor, and working with a PTO tool was not moving (or really moving very slowly)
+
+20250718    - add converted Treffler TGA560 shallow cultivator
+            - add converted Horsch finer 6 SL shallow cultivator
+            - add converted Vaderstad TopDown 600 heavy cultivator
+            - add converted Agromasz Grizzly X4 heavy cultivator
+            - add converted Kuhn Prolander 7500 shallow cultivator
+            - add converted Vaderstad Rexius 1230 roller
+            recommandation for FWA (front wheel assist = most of the tractors) :
+                - ratio of 1.3 for all differentials
+                - torqueRatio of 35% front and 65% rear
+
+20250723    - tuning : Vaderstad rexius 1230
+            - add converted Brandt 591A roller
+            - only add engine "governor range" to MR vehicles (not MR vehicles get a small default governor range => fix sound problem with some modded vehicles ?)
+            - change lime bigBags to 1000L (same bigbag and bigBag pallet than fertilizer or seeds, but 2 times more liters in base game ?)
+
+20250724    - add "varyWithVisibilityNode" and "varyWithVisibilityFactor" for MrPowerConsumer => allow specifying a draftforce multiplier only active when a given node is visible
+            - add converted Agrisem Combiplow sub-soiler
+            - add converted Alpego kforce sub-soiler
+
+20250727    - MAJOR CHANGE : base game physics engine doesn't take into account wheels masses for dynamic object "balancing". Example : tractor with frontloader and masses in the rear wheels are tipping the same as the version without masses in the wheels
+              MR FIX = add the wheels masses to their respective component. And keep the wheel physics masses for wheelshape (inertia)
+            - add converted Horsch versa seeder
+            - MAJOR CHANGE : mr engine now keep the wanted "rotationOffset" of the tool whatever the tractor. => which means a MR tool, will not have a different angle when lowered depending on the tractor
+            - Following these 2 major changes, all implements have been checked (and modified) again (mainly attacher joint and draftforce)
+
+20250730    - Fix Rexius 1230 bug ("Invalid vehicle translation detected, resetting to shop") => remove 0 maxLatStiffness from base game xml
+            - Tweaking and new dynamicFrictionScale computing to take into account the MAJOR CHANGE for wheels
+            - Set combine limiting speed system "minspeedLimit" to 2kph
+
+20250731    - add draftForce for combine harvesters headers to simulate stems "friction" when lowered
+            - add converted Volvo L120H wheel loader
+            - fix bug : brake pedal not visually depressed when the controller was not at 90% minimum (CVT and Hydrostatic transmission)
+
+20250801    - add converted Unia Fenix 3000 seeder
+            - add converted Agromasz Aquila Drive 400 seeder
+            - new "mrGetPressureFx" version
+
+20250803    - new xml parameter : "mrLowerRotationOffset" to override "lowerRotationOffset". For mods vehicles, this allows one setting when playing "not MR" and one setting when playing "MR".
+            - add converted Knoche CrossMax 300 disc cultivator
+            - add converted Unia Ares XL 4H disc cultivator
+
+20250818    - add converted Poettinger Aerosem VT5000DD seeder
+            - add converted Amazone Precea 4500 planter
+            - add converted Kuhn Maxima 3 TI L planter
+            - add converted Horsch Maestro RX planter
+            - add converted Grimme Matrix 1800 planter
+            - add converted Kuhn TF1512 front tank
+            - add converted Horsch Partner 1600 FT front tank
+            - add converted Kverneland Optima RS planter
+            - add converted Horsch Maestro 24.50 SV planter
+            - add converted Kinze 4905 Blue drive planter
+            - add converted Mzuri proTil 4TX
+            - fix bug with ObjectChangeUtil and "MrAddMass" => sometimes, centerOfMass and mass was computed 2 times
+            - Modified "WheelPhysics.mrGetDryFx" and "WheelPhysics.mrGetWetFx" to take into account new "mrGetPressureFx" version
+
+20250826    - more rolling resistance on loose field soil
+            - override "WheelPhysics.updateBase" to move wheelshapes force point in the X direcion toward the outside of tires (vehicles are way more stable while cornering, especially with duals)
+            - add converted deutz fahr agrostar 8.31 tractor
+
+20250828    - add converted Brantner z18051 trailer
+            - tweaking of converted trailers and tractors to take into account new wheelshape force point system
+
+20250831    - improved auto shift gears (when brutal speed change, example : collision against a wall)
+            - removed base game manual clutch special engine rot speed when clutch is depressed
+            - new combine harvester speed limit computing system
+            - better center of masses for Bredal fertilizer spreader to take into account 20250826
+
+20250902    - compatibility with patch 1.11
+
+20250903    - fix bug : engine not reving when in neutral without depressing the clutch
+            - improve auto group change = base game Isaki 1233 or Antonio Carraro Tigrecar were not shifting groups up
+            - add converted Lemken Juwel 6
+
+20250911    - add converted Massey Ferguson Beta 7360 AL4 and Fendt 5275CSL combines + freeflow headers
+            - add converted New Holland CH 7.70 combine + superflex and varifeed headers
+            - add converted Case IH 7150 combine + terraFlex headers
+            - add converted corn heads : CR980 8 and 4408
+            - add converted corn head capello diamant 8
+            - add converted corn head geringhoff northstar 1230 FB
+            - new feature = min ground wetness function of current month. Also more wetness at night. (example : during october, at least 15% wetness and even 20% during night)
+
+20250916    - fix bug with autoshift when there is only one gear
+            - fix agromasz pov5xl falling on its side at loading time
+            - fix lemken juwel 6 falling on its side at loading time
+            - add converted International Transtar II Eagle truck
+            - add converted LodeKing distinction triple hopper trailer
+            - fix bug with hydrostatic transmission and controller (to get a target speed greater than 5kph, it required more than 85% of acc pedal)

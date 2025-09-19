@@ -1,0 +1,27 @@
+<fillTypes>
+    <fillType name="DIESEL" density="0.83" /> <!-- premium diesel ("GNR" in france for farming industry) -->
+    <fillType name="FERTILIZER" density="1.04" /> <!-- nitrate solid fertilizer. Good ones are above 1 to enable 36m wide spreading or more -->
+    <fillType name="LIQUIDFERTILIZER" density="1.3" /> <!-- N39 solution -->
+    <fillType name="WHEAT" density="0.79" />
+    <fillType name="BARLEY" density="0.70" />
+    <fillType name="CANOLA" density="0.64" />
+    <fillType name="OAT" density="0.52" pricePerLiter="0.3" />
+    <fillType name="MAIZE" density="0.82" />
+    <fillType name="SUNFLOWER" density="0.41" />
+    <fillType name="SOYBEAN" density="0.76" />
+    <fillType name="SORGHUM" density="0.81" />
+
+    <fillType name="POTATO" density="0.68" />
+    <fillType name="SUGARBEET" density="0.67" />
+    <fillType name="BEETROOT" density="0.66" />
+    <fillType name="CARROT" density="0.64" /> <!-- big carrots in game, not small fresh ones -->
+    <fillType name="PARSNIP" density="0.64" />
+
+    <fillType name="RICELONGGRAIN" density="0.58" /> <!-- US/UE rice -->
+    <fillType name="RICE" density="0.64" /> <!-- Asian rice -->
+    <fillType name="GREENBEAN" density="0.31" />
+    <fillType name="PEA" density="0.57" />
+    <fillType name="SPINACH" density="0.16" />
+
+    <fillType name="SUGARCANE" density="0.26" />
+</fillTypes>

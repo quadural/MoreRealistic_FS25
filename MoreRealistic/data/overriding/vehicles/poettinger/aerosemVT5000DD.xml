@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" ptoForSoilWork="true" />
+
+    <!--
+
+        base weight 7600kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/poettinger/aerosemVT5000DD/aerosemVT5000DD.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="12" /> <!-- power harrow = not suitable for high working speed -->
+
+            <set path="vehicle.base.components.component(0)#mass" value="6400" />
+            <set path="vehicle.base.components.component(1)#mass" value="800" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.6" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="1.5"/> <!-- air brake -->
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#forceNode" value="aerosemVT5000DD_main_component1" />
+            <set path="vehicle.powerConsumer#maxForce" value="34" /> <!-- draft force -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="85" /> <!-- this is the pto power when working at 8kph + air turbine => less power needed when working slower. Idle pto power = 10% -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="95" /> <!-- difference between min and max = only for "cylindered" => hydraulics -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.75 1.85"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.75 1.85"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 1.75 1.85"/>
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

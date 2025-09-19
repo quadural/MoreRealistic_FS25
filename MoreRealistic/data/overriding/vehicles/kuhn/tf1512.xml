@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fillableImplement" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+
+        chassis with packer wheels = 785kg
+        1500L (2000L with extension)
+
+        additionnal ballast = 800kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/tf1512/tf1512.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="660" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.2" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.7 -0.05"/>
+
+            <remove path="vehicle.designConfigurations.designConfiguration(0).objectChange(1)"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(0)#node" value="tf1512_main_component1"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(0)#mrAddMassActive" value="800"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(0)#mrAddMassCOMActive" value="0 0.8 -0.4"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrFrictionScale" value="0.5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#width" value="0.55"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#width" value="0.55"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.6" />
+
+            <set path="vehicle.powerConsumer#forceNode" value="tf1512_main_component1" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="432" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10" /> <!-- hydraulics : air turbine -->
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

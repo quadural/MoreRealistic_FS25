@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="101">
+    <author>Dural</author>
+    <version>0.25.9.16</version>
+    <multiplayer supported="true" />
+    <title>
+        <en>MoreRealistic game engine</en>
+    </title>
+    <description>
+        <en>Make the game more realistic</en>
+    </description>
+
+    <iconFilename>icon.dds</iconFilename>
+
+    <extraSourceFiles>
+        <sourceFile filename="scripts/RealisticMain.lua"/>
+        <sourceFile filename="scripts/DEBUG.lua"/>
+    </extraSourceFiles>
+</modDesc>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="shovelLeveler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/volvo/l120HHighTipShovel/l120HHighTipShovel.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1030" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.3 -0.1" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="5500" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
+</vehicle>

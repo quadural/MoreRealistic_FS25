@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fillableImplement" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+
+        turbine power = between 6 and 11 KW
+
+        baseweight = 700kg
+
+        with cast iron weight = 1060kg
+        with wheel packer = 1050kg
+        with rollpack packer = 980kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/partner1600FT/partner1600FT.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="700" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -0.05" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="5" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0 0 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.65" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="432" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10" /> <!-- hydraulics : air turbine -->
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.5 -0.05"/>
+
+            <!-- weight config -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(14)#node" value="partner1600FT_main_component1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(14)#mrAddMassActive" value="360"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).objectChange(14)#mrAddMassCOMActive" value="0 0.75 -0.65"/>
+
+            <!-- wheel packer config -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#mass" value="0.175"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mass" value="0.175"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mrFrictionScale" value="0.5"/>
+
+            <!-- rollpack packer config -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#mass" value="0.14"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#mass" value="0.14"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#mrFrictionScale" value="0.4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#mrFrictionScale" value="0.4"/>
+
+            <!-- move support animation -->
+            <set path="vehicle.animations.animation(0).part(9)#node" value = "supportColWithoutFrame01" />
+            <set path="vehicle.animations.animation(0).part(9)#startTime" value = "0.01" />
+            <set path="vehicle.animations.animation(0).part(9)#endTime" value = "0.5" />
+            <set path="vehicle.animations.animation(0).part(9)#startScale" value = "1 1 1" />
+            <set path="vehicle.animations.animation(0).part(9)#endScale" value = "1 1 1.1" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

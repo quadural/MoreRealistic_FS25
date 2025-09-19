@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.7" forcePointZ="-0.7" />
+
+    <!--
+
+        maxima 3 TI L
+
+        50L per "small tank"
+        there is no fertizer tank => should be used with a frontal tank
+
+        the medium tank = micro granlulator (anti-slug or insecticide for example)
+
+        difficult to find data on the real weight (apart from 120kg per seeding element)
+
+        about 240kg per element for the same configuration as in the game => 1920kg
+
+        max pressure = 180kg per element
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/maxima3TIL/maxima3TIL.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1300" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.75 0" />
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="7" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "0.95" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.15 -1.2"/> <!-- seeds -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.3 -0.1"/> <!-- fertilizer -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="14" /> <!-- draft force : 180 * 9.81 * 8 -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="486" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="8" /> <!-- hydraulics : air turbine, vacuum system -->
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

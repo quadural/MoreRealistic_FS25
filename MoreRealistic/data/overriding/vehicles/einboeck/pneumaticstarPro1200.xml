@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="weeder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" forcePointZ="-2" />
+
+    <!--
+    base weight : 4440kilos
+
+    500L seed tank
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/einboeck/pneumaticstarPro1200/pneumaticstarPro1200.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="2200" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.65 0.6" />
+
+            <!--main wings-->
+            <set path="vehicle.base.components.component(2)#mass" value="300" />
+            <set path="vehicle.base.components.component(5)#mass" value="300" />
+
+            <!--before far wings-->
+            <set path="vehicle.base.components.component(3)#mass" value="200" />
+            <set path="vehicle.base.components.component(6)#mass" value="200" />
+
+            <!--far wings-->
+            <set path="vehicle.base.components.component(4)#mass" value="150" />
+            <set path="vehicle.base.components.component(7)#mass" value="150" />
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0.5 -0.4 -1" />
+            <set path="vehicle.base.components.component(7)#centerOfMass" value="-0.5 -0.4 -1" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="20" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="500" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="500" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#rotationDamping" value="0.0001"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.08"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.08"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#suspTravel" value="0.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#suspTravel" value="0.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#suspTravel" value="0.06"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="14"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="14"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="7"/>
+
+            <set path="vehicle.animations.animation(2).part(12)#startRotLimit" value="0 0 8"/>
+            <set path="vehicle.animations.animation(2).part(15)#startRotLimit" value="0 0 8"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

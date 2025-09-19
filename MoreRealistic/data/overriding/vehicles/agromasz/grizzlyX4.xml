@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" />
+
+    <!--
+
+        5800kg mini => should depend on the roller fitted
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/agromasz/grizzlyX4/grizzlyX4.xml">
+        <attributes>
+
+            <set path="vehicle.powerConsumer#maxForce" value="50" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 -1" />
+            <set path="vehicle.base.components.component(0)#mass" value="5100" />
+            <set path="vehicle.base.components.component(1)#mass" value="400" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="8"/>
+
+            <!-- virtual front wheels = less friction to avoid tractor being "steered" by the implement at work -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="0.5"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 1.15 1"/>
+
+            <!-- "folding animation" = moving center of masses -->
+            <set path="vehicle.animations.animation(1).part(8)#startTime" value="1" />
+            <set path="vehicle.animations.animation(1).part(8)#endTime" value="7" />
+            <set path="vehicle.animations.animation(1).part(8)#startCenterOfMass" value="0 0.6 -1" />
+            <set path="vehicle.animations.animation(1).part(8)#endCenterOfMass" value="0 1.3 -1" />
+            <set path="vehicle.animations.animation(1).part(8)#componentIndex" value="1" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

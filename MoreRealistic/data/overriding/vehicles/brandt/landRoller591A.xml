@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="roller" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+
+    <!--
+
+        42 inches diameter => 17642kg
+
+        this "crazy" implement has no brakes !
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/brandt/landRoller591A/landRoller591A.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -1.9" />
+            <set path="vehicle.base.components.component(0)#mass" value="8320" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="-0.025 -0.3 -1.7" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimit" value="1 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="4000 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="20 0 0" />
+
+            <set path="vehicle.base.speedLimit#value" value="18" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="12" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.86 1"/>
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="100"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="0.4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="0.4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(12).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(13).physics#mrFrictionScale" value="0.7"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(12).physics#tireType" value="street"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(13).physics#tireType" value="street"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

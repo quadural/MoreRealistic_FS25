@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="highPressureWasher" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrTransmission isHydrostatic="true" minRpmWanted="500" maxRpmWanted="1600" />
+
+    <!--
+    HDS 9/18-4 M
+
+    450-900 Liters/Hour
+    30-180 Bar
+    80-155°C water
+    6.4KW
+    5.8 kg per hour diesel consumption (7L/h) => this is not an engine. This is a "burner" only.
+    High pressure Pump is driven by electricity
+    25L fuel tank
+    158Kg (empty) => 210Kg with full fuel tank and full "detergent/cleanser" tanks
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kaercher/hds9184M/hds9184M.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.45 0.05" />
+            <set path="vehicle.base.components.component(0)#mass" value="170" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="0.1" />
+
+            <!-- "human" engine -->
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="9"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="0.05" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="200" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrInertiaFx" value="0.1" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="0.05"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="1800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="0.001"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="2100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="0.000001"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minForwardGearRatio" value="87"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#maxForwardGearRatio" value="87"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minBackwardGearRatio" value="87"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#maxBackwardGearRatio" value="87"/>
+
+        </attributes>
+    </parentFile>
+
+    <!-- PushHandTool.lua : initConditionalAnimation does not take into account "parentFile" but only the content of the current xml file -->
+    <!-- and so, we have to copy it here -->
+    <pushHandTool>
+        <raycast node1="raycast01" node2="raycast02" playerNode="playerNode" positionSmoothnessFactor="0.4" positionSmoothnessFactorReverse="2" positionSmoothnessFactorSteering="0"/>
+        <wheels front="1 2" back="3 4"/>
+        <spine rotationForward="-20" rotationBackward="-20" rotationIdle="-5" ratio="0.6 0.2 0.2" speed="40"/>
+
+        <ikChains>
+            <target ikChain="rightArm"  targetNode="playerRightHandTarget" poseId="narrowFingers"/>
+            <target ikChain="leftArm"   targetNode="playerLeftHandTarget" poseId="narrowFingers"/>
+        </ikChains>
+
+        <customChainLimits>
+            <customChainLimit chainId="leftArm" nodeIndex="1" minRx="-50" maxRx="50" minRy="-80" maxRy="80" minRz="-75" maxRz="10" localLimits="true"/>
+            <customChainLimit chainId="leftArm" nodeIndex="2" minRx="-25" maxRx="25" minRy="-144" maxRy="-25" minRz="-10" maxRz="10" localLimits="true"/>
+
+            <customChainLimit chainId="rightArm" nodeIndex="1" minRx="-50" maxRx="50" minRy="-80" maxRy="80" minRz="-75" maxRz="10" localLimits="true"/>
+            <customChainLimit chainId="rightArm" nodeIndex="2" minRx="-25" maxRx="25" minRy="-144" maxRy="-25" minRz="-10" maxRz="10" localLimits="true"/>
+        </customChainLimits>
+
+        <playerConditionalAnimation>
+            <item id="idle" entryTransitionDuration="0.25" exitTransitionDuration="0.25" >
+                <clips>
+                    <clip clipName="idle1Source" />
+                </clips>
+                <conditions>
+                    <conditionGroup>
+                        <condition parameter="absSmoothedForwardVelocity" lower="0.2" />
+                    </conditionGroup>
+                </conditions>
+            </item>
+            <item id="walk" entryTransitionDuration="0.25" exitTransitionDuration="0.25" >
+                <clips speedScaleType="distance" speedScaleParameter="2.25">
+                    <clip clipName="walkFwd1Source" />
+                </clips>
+                <conditions>
+                    <conditionGroup>
+                        <condition parameter="smoothedForwardVelocity" between="0.3, 9"/>
+                    </conditionGroup>
+                </conditions>
+            </item>
+            <item id="walkBack" entryTransitionDuration="0.5" exitTransitionDuration="0.25" >
+                <clips speedScaleType="distance" speedScaleParameter="2.25">
+                    <clip clipName="walkBwdLoopSource" />
+                </clips>
+                <conditions>
+                    <conditionGroup>
+                        <condition parameter="smoothedForwardVelocity" between="-5, -0.3" />
+                    </conditionGroup>
+                </conditions>
+            </item>
+        </playerConditionalAnimation>
+    </pushHandTool>
+
+</vehicle>
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="plowPacker" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer checkPointWorkAreaStartAndHeightOnly="true" forcePointX="-0.5" forcePointY="0.2" />
+
+    <!--
+        base weight = 1600kg
+
+        working width 2.5m / 5 shares => 20 inches settings
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/agromasz/pov5xl/pov5xl.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="15"/>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0.30 0.86 0"/>
+            <set path="vehicle.base.components.component(0)#mass" value="1570"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrFrictionScale" value="0.5"/>
+
+            <set path="vehicle.powerConsumer#maxForce" value="35" />
+            <set path="vehicle.powerConsumer#forceDirNode" value="topReferenceNode" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="15" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value="0.8" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.02 0 0.2" />
+
+            <!-- "rotate plow animation" = IRL, we don't have 180° when rotating because one side of the tractor's wheels are in the furrow-->
+            <set path="vehicle.animations.animation(0).part(0)#startRot" value="0 0 -6" />
+            <set path="vehicle.animations.animation(0).part(0)#endRot" value="0 0 -174" />
+
+            <!-- "fold plow animation" = IRL, we don't have 180° when rotating because one side of the tractor's wheels are in the furrow -->
+            <set path="vehicle.animations.animation(1).part(1)#startRot" value="0 0 -6" />
+
+            <!-- "rotate plow animation" = moving center of masses -->
+            <set path="vehicle.animations.animation(0).part(7)#startTime" value="0" />
+            <set path="vehicle.animations.animation(0).part(7)#endTime" value="9" />
+            <set path="vehicle.animations.animation(0).part(7)#startCenterOfMass" value="0.30 0.86 0" />
+            <set path="vehicle.animations.animation(0).part(7)#endCenterOfMass" value="-1.45 0.86 0" />
+            <set path="vehicle.animations.animation(0).part(7)#componentIndex" value="1" />
+
+            <!-- "fold plow animation" = moving center of masses -->
+            <set path="vehicle.animations.animation(1).part(2)#startTime" value="0" />
+            <set path="vehicle.animations.animation(1).part(2)#endTime" value="4" />
+            <set path="vehicle.animations.animation(1).part(2)#startCenterOfMass" value="0.30 0.86 0" />
+            <set path="vehicle.animations.animation(1).part(2)#endCenterOfMass" value="-0.575 0.86 0" />
+            <set path="vehicle.animations.animation(1).part(2)#componentIndex" value="1" />
+
+            <!-- "move support animation" = fix collision shape colliding with plough effect while ploughing -->
+            <set path="vehicle.animations.animation(2).part(0)#startTrans" value="0 0.53 0" />
+            <set path="vehicle.animations.animation(2).part(1)#startTrans" value="0 -0.53 0" />
+
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(0)#threshold" value="0.9" />
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

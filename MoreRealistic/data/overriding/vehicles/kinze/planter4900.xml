@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="-2.3" />
+
+    <!--
+
+        this equipment model is not "finished", not up to "FS25 standard" : (does it comes from FS19? FS22?)
+        missing hydraulics for row unit ground pressure
+        missing "cable" for row markers
+        missing fertilizer "plumbing"  (there is only one pipe going from the fertilizer tank to the rear of the planter (for filling ? or trailing nurse tank ?)
+        missing "plumbing" for vaccum system to each unit
+        each row unit is "fixed" (parallelogram is not moving when lifting or lowering the unit on the ground)
+        press wheels and planting wheels are not rotating at work
+        variable displacement piston PTO pump to reduce tractor hydraulic demands (not represented in game)
+        the model is named "4900", and not finished => it seems it was done before FS22 => before 2021 since the 4905 true speed debuted in spring 2021 for the first time IRL
+
+        4000 serie row unit => 8mph max
+        this is a "true rate", not "true speed" setup
+        13kph max work speed (speed above 10.5kph are not recommended) -> recommended 4 to 6mph
+
+        no brakes !
+
+        this seeder is not equiped for no-till seeding (no-till coulters are required)
+
+        600lbs (272kg) max with trueDepth (not visible here = no hydraulic for row units)
+        with spring = 113kg max with duals and 213kg with quads
+
+        no opener for fertilizer
+
+        base weight = 14.3T + fertlizer tank = 14.8T
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kinze/planter4900/planter4900.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="13" />
+
+            <!-- main component -->
+            <set path="vehicle.base.components.component(0)#mass" value="6000" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -1" />
+            <set path="vehicle.base.components.component(0)#inertiaScale" value="1 1 1" />
+
+            <!-- drawbar -->
+            <set path="vehicle.base.components.component(1)#mass" value="1000" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0" />
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
+
+            <!-- left wing -->
+            <set path="vehicle.base.components.component(2)#mass" value="3500" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="-1.2 -0.1 0" />
+
+            <!-- right wing -->
+            <set path="vehicle.base.components.component(3)#mass" value="3500" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="1.2 -0.1 0" />
+
+            <!-- left marker -->
+            <set path="vehicle.base.components.component(4)#mass" value="200" />
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 0 0" />
+
+            <!-- right marker -->
+            <set path="vehicle.base.components.component(5)#mass" value="200" />
+            <set path="vehicle.base.components.component(5)#centerOfMass" value="0 0 0" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="50" /> <!-- draft force : 213*9.81*24 -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="432" /> <!-- 800 rpm sufficient -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="40" /> <!-- air turbine seeds vacuum + fertilizer pump -->
+
+            <set path="vehicle.attachable.brakeForce#force" value="0.01" />
+
+            <set path="vehicle.sowingMachine.useDirectPlanting#value" value="false" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0.03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0.03" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="200" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="200" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#radius" value="0.485" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#radius" value="0.485" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#yOffset" value="0.05" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#yOffset" value="0.05" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="150" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="150" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#radius" value="0.50" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#radius" value="0.50" />
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="50" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="50" />
+
+            <!-- correct wheels size -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(0)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(1)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(2)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(3)#filename" value="$data/shared/wheels/tires/lizard/destinationFarmRadial/295_75R22_5.xml" />
+
+            <!-- animation : remove moving center of mass for markers -->
+            <remove path="vehicle.animations.animation(1).part(3)" />
+            <remove path="vehicle.animations.animation(1).part(3)" />
+
+            <!-- animation to take into account wheel size -->
+            <set path="vehicle.animations.animation(1).part(16)#startTrans" value="0 0 0.05" />
+            <set path="vehicle.animations.animation(1).part(17)#startTrans" value="0 0 0.05" />
+            <set path="vehicle.animations.animation(1).part(18)#startRot" value="-2 0 0" />
+            <set path="vehicle.animations.animation(1).part(19)#startRot" value="0 0 -2" />
+            <set path="vehicle.animations.animation(1).part(20)#startRot" value="0 0 2" />
+            <set path="vehicle.animations.animation(1).part(21)#startRot" value="-2 0 0" />
+            <set path="vehicle.animations.animation(1).part(22)#startRot" value="-2 0 0" />
+
+            <!-- fix animation of center wheels -->
+            <set path="vehicle.animations.animation(1).part(25)#node" value="centerSupportWheel01Repr" />
+            <set path="vehicle.animations.animation(1).part(25)#startTime" value="15" />
+            <set path="vehicle.animations.animation(1).part(25)#endTime" value="20" />
+            <set path="vehicle.animations.animation(1).part(25)#startRot" value="25 0 0" />
+            <set path="vehicle.animations.animation(1).part(25)#endRot" value="136 0 0" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.2 -1.4"/> <!-- seeds -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2 0.9"/> <!-- liquid fertilizer -->
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

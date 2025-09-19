@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fillableImplement" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+        base weight = 180kg
+        net tank size = 1400L (gross = 1500L)
+        rinse tank = 150L
+        optional storage wheels
+        wanted empty weight = 350kg
+
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/hardi/mega1200L/mega1200LTank.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.name" value="MEGA FRONT TANK"/>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 0"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="1400"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-2" />
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="10"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/capello/diamant8/diamant8.xml">
+        <attributes>
+
+            <!-- 3450-3650kg  -->
+            <set path="vehicle.base.speedLimit#value" value="12" /> <!-- less speed because of the chopping feature -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.2 -0.25" />
+            <set path="vehicle.base.components.component(0)#mass" value="3550" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="30" />
+            <set path="vehicle.powerConsumer#maxForce" value="16" /> <!-- more draftforce because of the chopping feature -->
+            <set path="vehicle.powerConsumer#forceNode" value="diamant8_main_component1" />
+
+        </attributes>
+    </parentFile>
+
+
+</vehicle>

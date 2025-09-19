@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<tyreTypes>
+
+<!--
+GROUND_ROAD = road in game + concrete (depth<0.1)
+GROUND_HARD_TERRAIN = gravel road (depth <0.8)
+GROUND_SOFT_TERRAIN = grass, side earth road (depth>0.8)
+GROUND_FIELD = field
+-->
+
+    <tyreType name="MUD">
+        <surfaceType name="GROUND_ROAD" dryFriction="1" wetFriction="0.86" snowFriction="0.6" dryRollingResistance="0.014" wetRollingResistance="0.015" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.88" wetFriction="0.78" snowFriction="0.6" dryRollingResistance="0.020" wetRollingResistance="0.020" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.76" wetFriction="0.68" snowFriction="0.6" dryRollingResistance="0.024" wetRollingResistance="0.060" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_FIELD" dryFriction="0.66" wetFriction="0.55" snowFriction="0.6" dryRollingResistance="0.045" wetRollingResistance="0.100" snowRollingResistance="0.100" />
+    </tyreType>
+
+    <tyreType name="OFFROAD">
+        <surfaceType name="GROUND_ROAD" dryFriction="1.02" wetFriction="0.91" snowFriction="0.52" dryRollingResistance="0.010" wetRollingResistance="0.011" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.88" wetFriction="0.78" snowFriction="0.52" dryRollingResistance="0.014" wetRollingResistance="0.015" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.70" wetFriction="0.66" snowFriction="0.52" dryRollingResistance="0.024" wetRollingResistance="0.060" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_FIELD" dryFriction="0.60" wetFriction="0.47" snowFriction="0.52" dryRollingResistance="0.045" wetRollingResistance="0.100" snowRollingResistance="0.100" />
+    </tyreType>
+
+    <tyreType name="STREET">
+        <surfaceType name="GROUND_ROAD" dryFriction="1.07" wetFriction="0.97" snowFriction="0.45" dryRollingResistance="0.007" wetRollingResistance="0.009" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.84" wetFriction="0.71" snowFriction="0.45" dryRollingResistance="0.011" wetRollingResistance="0.012" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.65" wetFriction="0.56" snowFriction="0.45" dryRollingResistance="0.026" wetRollingResistance="0.066" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_FIELD" dryFriction="0.55" wetFriction="0.40" snowFriction="0.45" dryRollingResistance="0.048" wetRollingResistance="0.115" snowRollingResistance="0.100" />
+    </tyreType>
+
+    <tyreType name="CRAWLER">
+        <surfaceType name="GROUND_ROAD" dryFriction="1" wetFriction="0.94" snowFriction="0.70" dryRollingResistance="0.057" wetRollingResistance="0.057" snowRollingResistance="0.080" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.91" wetFriction="0.84" snowFriction="0.70" dryRollingResistance="0.058" wetRollingResistance="0.058" snowRollingResistance="0.080" />
+        <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.84" wetFriction="0.77" snowFriction="0.70" dryRollingResistance="0.060" wetRollingResistance="0.070" snowRollingResistance="0.080" />
+        <surfaceType name="GROUND_FIELD" dryFriction="0.75" wetFriction="0.66" snowFriction="0.70" dryRollingResistance="0.065" wetRollingResistance="0.085" snowRollingResistance="0.080" />
+    </tyreType>
+
+    <tyreType name="CHAINS">
+        <surfaceType name="GROUND_ROAD" dryFriction="0.85" wetFriction="0.80" snowFriction="0.80" dryRollingResistance="0.025" wetRollingResistance="0.025" snowRollingResistance="0.090" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.90" wetFriction="0.85" snowFriction="0.80" dryRollingResistance="0.030" wetRollingResistance="0.030" snowRollingResistance="0.090" />
+        <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.76" wetFriction="0.76" snowFriction="0.80" dryRollingResistance="0.035" wetRollingResistance="0.060" snowRollingResistance="0.090" />
+        <surfaceType name="GROUND_FIELD" dryFriction="0.66" wetFriction="0.60" snowFriction="0.80" dryRollingResistance="0.055" wetRollingResistance="0.100" snowRollingResistance="0.090" />
+    </tyreType>
+
+    <tyreType name="METALSPIKES">
+        <surfaceType name="GROUND_ROAD" dryFriction="0.95" wetFriction="0.94" snowFriction="0.60" dryRollingResistance="0.015" wetRollingResistance="0.016" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.90" wetFriction="0.83" snowFriction="0.60" dryRollingResistance="0.017" wetRollingResistance="0.019" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.74" wetFriction="0.68" snowFriction="0.60" dryRollingResistance="0.028" wetRollingResistance="0.060" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_FIELD" dryFriction="0.64" wetFriction="0.47" snowFriction="0.60" dryRollingResistance="0.047" wetRollingResistance="0.100" snowRollingResistance="0.100" />
+    </tyreType>
+
+</tyreTypes>

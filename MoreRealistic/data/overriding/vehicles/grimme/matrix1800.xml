@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.4" forcePointZ="-1" />
+
+    <!--
+
+        matrix 1800 (gen 1)
+        sugarbeet and canola seeding
+        18 ranks, 45cm width per rank
+
+        max pressure per rank = 90kg
+
+        10L tank per rank
+        electric driven seed metering system
+        no air turbine
+
+        seeding unit for mulch seeding = 2800kg
+
+        8kph max speed ?
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/grimme/matrix1800/matrix1800.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="1250" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.7" />
+            <set path="vehicle.base.components.component(1)#mass" value="700" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.5 -0.55" />
+            <set path="vehicle.base.components.component(2)#mass" value="700" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.5 -0.55" />
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 0.43 -1.08"/> <!-- seeds -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="16" /> <!-- draft force : 90*9.81*18 -->
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="7" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-2" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.1 0 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowertransLimitScale" value="0 1 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.45" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "0.8" />
+            <remove path="vehicle.animations.animation(2).part(12)" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="50"/>
+
+            <!-- no air turbine -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="0" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0" />
+            <remove path="vehicle.sowingMachine.sounds.airBlower" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

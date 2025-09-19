@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/horsch/versa3KR/versa3KR.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.weight#minValue" value="3200" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
