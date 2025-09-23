@@ -32,7 +32,7 @@
     <fruitType name="CANOLA"    litersPerHa="9400"      capacityFx="0.75"   threshingFx="0.9"   chopperFx="0.8" /> <!-- 6T/Ha for a perfect rapeseed. base game value = really too high (world record ?) -->
     <fruitType name="SORGHUM"                           capacityFx="1.35"   threshingFx="0.6"   chopperFx="0.3" /> <!-- 12T/Ha - easy, but limited by shoes especially if the stern is green or if we have to lower the cutter bar -->
     <fruitType name="SUNFLOWER"                         capacityFx="1.2"    threshingFx="0.4"   chopperFx="0.3" />
-    <fruitType name="SOYBEAN"                           capacityFx="0.57"   threshingFx="0.5"   chopperFx="0.5" /> <!-- 6.84T/Ha - easy to thresh compared to other grain but we have to lower the cutterbar on the ground all the time = rather limited by cutterbar and ground flatness IRL -->
+    <fruitType name="SOYBEAN"                           capacityFx="0.65"   threshingFx="0.5"   chopperFx="0.5" /> <!-- 6.84T/Ha - easy to thresh compared to other grain but we have to lower the cutterbar on the ground all the time = rather limited by cutterbar and ground flatness IRL -->
     <fruitType name="MAIZE"     litersPerHa="25760"     capacityFx="1.8"    threshingFx="0.5"   chopperFx="0.3" /> <!-- 15T/Ha for a perfect corn - easy to thresh compared to other grain, very high throughput possible -->
     <fruitType name="POTATO"                            capacityFx="1.16"   threshingFx="1"                     />
     <fruitType name="SUGARBEET"                         capacityFx="1.18"   threshingFx="1"                     />

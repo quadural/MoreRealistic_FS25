@@ -309,3 +309,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted International Transtar II Eagle truck
             - add converted LodeKing distinction triple hopper trailer
             - fix bug with hydrostatic transmission and controller (to get a target speed greater than 5kph, it required more than 85% of acc pedal)
+
+20250923    - tweaking (draftforce, accelerator response to controller curve)

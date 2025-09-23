@@ -307,6 +307,8 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     --hydrostatic transmission management :
     if self.mrTransmissionIsHydrostatic then
+        --20250923 - not linear response to acc
+        accPedal = accPedal^1.5
         if self.mrTransmissionIsHydrostaticAutomotive then
             WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive(self, dt, accPedal, maxAcceleration, maxMotorRotAcceleration, clutchForce, neededPtoTorque, minRotForPTO)
         else
@@ -318,6 +320,8 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", accPedal, displayAiBrake, false, currentSpeed)
         return
     elseif minGearRatio~=maxGearRatio then
+        --20250923 - not linear response to acc
+        accPedal = accPedal^1.5
         --default "CVT" transmission
         WheelsUtil.mrUpdateWheelsPhysicsCVT(self, dt, accPedal, maxAcceleration, maxMotorRotAcceleration, clutchForce, neededPtoTorque, minRotForPTO)
         --reset brake
