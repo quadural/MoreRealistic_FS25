@@ -478,7 +478,7 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
     electronicMaxSpeed = math.min(electronicMaxSpeed, motor:getSpeedLimit()/3.6)
 
     --gearRatio function of hydrostatic lever
-    local wantedGearRatio = math.min(maxGearRatioPossible, minGearRatio/math.max(0.02, accPedal))
+    local wantedGearRatio = math.min(maxGearRatioPossible, minGearRatio/math.max(0.005, accPedal))
 
     --limit gearratio according to electronicMaxSpeed too (avoid being able to harvest at great speed going downhill)
     wantedGearRatio = math.clamp(targetRot/electronicMaxSpeed, wantedGearRatio, maxGearRatioPossible)
