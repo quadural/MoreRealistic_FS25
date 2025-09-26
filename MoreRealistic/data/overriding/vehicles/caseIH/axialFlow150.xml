@@ -32,6 +32,9 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="15"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="15"/>
 
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.03"/>
+
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540"/>
             <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="113"/>
@@ -101,6 +104,11 @@
             <set path="vehicle.animations.animation(0).part(0)#endRot" value="0 0 -105" />
 
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 3.7 0.9"/>
+
+            <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimit" value="0 0 0"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimitSpring" value="3000 24000 6000"/> <!-- z-axis / y-axis / x-axis -->
+            <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimitDamping" value="60 240 60"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0)#allowsJointRotLimitMovement" value="true"/>
 
         </attributes>
     </parentFile>

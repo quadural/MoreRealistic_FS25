@@ -392,8 +392,7 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                     --update wheel slip
                     self.mrLastLongSlip, self.mrLastLatSlip = getWheelShapeSlip(self.wheel.node, self.wheelShape)
                     self.mrLastLongSlipS = self.mrLastLongSlipS * 0.9 + self.mrLastLongSlip * 0.1
-                    damping = 0.05 * math.clamp(self.mrLastLongSlipS, 0, 1) --more damping when slipping
-                    damping = self.mass * math.max(0.03, damping) -- but always a minimum damping
+                    damping = self.mass * (0.03 + 0.07*math.clamp(self.mrLastLongSlipS-0.1, 0, 1)) --more damping when slipping
 
                     --20250609 - trying to help the differential system to stabilize
                     -- when it goes crazy, we lose a lot of power (Eg : frame1 => wheel left = 50rpm and wheel right = 10rpm // frame2 => wheel left = 10rpm and wheel right = 50rpm // etc, etc,etc)
@@ -463,7 +462,7 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
         setWheelShapeProps(self.wheel.node, self.wheelShape, 0, totalForce*self.radius, self.steeringAngle, damping)
 
         --brakeForce = 0
-        --setWheelShapeAutoHoldBrakeForce(self.wheel.node, self.wheelShape, (bForce or 0) * self.autoHoldBrakeFactor) --what for ?
+        setWheelShapeAutoHoldBrakeForce(self.wheel.node, self.wheelShape, (bForce or 0) * self.autoHoldBrakeFactor) --what for ?
 
     end
 end
@@ -554,6 +553,7 @@ WheelPhysics.mrUpdateBase = function(self, superFunc)
         local collisionMask = self.collisionMask or WheelPhysics.COLLISION_MASK
         --MR : greater wheel mass to simulate inertia
         local mass = 2*self.wheel:getMass()
+        self.rotationDamping = 2*self.rotationDamping
         self.wheelShape = createWheelShape(self.wheel.node, positionX, positionY, positionZ, self.radius, self.suspTravel, spring, damperCompressionLowSpeed, damperCompressionHighSpeed, self.damperCompressionLowSpeedThreshold, damperRelaxationLowSpeed, damperRelaxationHighSpeed, self.damperRelaxationLowSpeedThreshold, mass, collisionGroup, collisionMask, self.wheelShape)
 
         local forcePointY = positionY - self.radius * self.forcePointRatio

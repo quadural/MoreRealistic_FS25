@@ -42,7 +42,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         end
     end
 
-    SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, 0, false, 0) --reset brake lights and reverse lights
+    --SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, 0, false, 0) --reset brake lights and reverse lights
 
     if not aiDriving then
         if (g_time-lastCallTime)>500 then
@@ -203,13 +203,13 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         --braking wanted (acc pedal released and brake pedal depressed)
         self:controlVehicle(0, 0, 0, minRotForPTOidle, math.huge, 0.0, 0.0, 0.0, 0.0, neededPtoTorque) --auto un-clutch to avoid stalling the engine
         self:brake(brakePedal)
-        --display brake light (and reverse light if needed)
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, currentSpeed)
 
         if math.abs(currentSpeed)<0.00005 or math.abs(self.spec_wheels.mrAvgDrivenWheelsSpeed)<0.1 then
             motor.lowBrakeForceLocked = true --useful when playing with manual clutch
         end
 
+        --display brake light (and reverse light if needed)
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, currentSpeed)
         return
     end
 
@@ -236,7 +236,6 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
         --display brake ligths
         SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, 0)
-
         return
     end
 
@@ -259,6 +258,9 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
             motor.lowBrakeForceLocked = true --handbrake ?
             self:controlVehicle(0, 0, 0, minRotForPTOidle, math.huge, 0, 0, 0, 1, neededPtoTorque)
             self:brake(1)
+
+            --no brake light, no reverse light
+            SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, 0, false, 0)
             return
         end
     end
@@ -267,43 +269,39 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     if neutralActive then
         self:brake(brakePedal)
-        --display brake ligths
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, 0)
         local tRot = motor.mrMinRot
         --if clutchPedalDepressed then
         tRot = tRot + accPedal * (motor.mrMaxRot-motor.mrMinRot)
         --end
         tRot = math.max(minRotForPTOidle, tRot)
         self:controlVehicle(0, 0, 0, tRot, math.huge, 0, 0, 0, 0, neededPtoTorque)
+
+        --display brake ligths
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, 0)
         return
     end
 
     --case : AI driving too fast
-    local displayAiBrake = 0
-    if aiDriving and absSpd>0.001 then --0.001 = 3.6kph
-        local spdLimit = motor:getSpeedLimit() --kph
-        local spdKph = absSpd*3600
-        if spdKph>1.05*spdLimit and spdKph>(spdLimit+1) then --20250530 - avoid lot of "micro" braking while maneuvring in fields
-            if spdKph>20 then
-                brakePedal = 10*math.min(1.1, spdKph/(1.05*spdLimit))-10 --2kph or 10% overspeed = maxbrake
-            else
-                brakePedal = 0.5*(spdKph-spdLimit) --2kph overspeed = maxbrake
-            end
-            self:brake(brakePedal)
-            if brakePedal>0.3 or spdKph>15 then
-                displayAiBrake = 1
+    local displayBrake = brakePedal
+    if aiDriving then
+        displayBrake = 0
+        if absSpd>0.001 then --0.001 = 3.6kph
+            local spdLimit = motor:getSpeedLimit() --kph
+            local spdKph = absSpd*3600
+            if spdKph>1.05*spdLimit and spdKph>(spdLimit+1) then --20250530 - avoid lot of "micro" braking while maneuvring in fields
+                if spdKph>20 then
+                    brakePedal = 10*math.min(1.1, spdKph/(1.05*spdLimit))-10 --2kph or 10% overspeed = maxbrake
+                else
+                    brakePedal = 0.5*(spdKph-spdLimit) --2kph overspeed = maxbrake
+                end
+                if brakePedal>0.3 or spdKph>15 then
+                    displayAiBrake = 1
+                end
             end
         end
     end
 
-    --display reverse light and brake if needed
-    if aiDriving then
-        self:brake(brakePedal)
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, displayAiBrake, false, currentSpeed)
-    else
-        self:brake(brakePedal)
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, currentSpeed)
-    end
+    self:brake(brakePedal)
 
     --hydrostatic transmission management :
     if self.mrTransmissionIsHydrostatic then
@@ -317,7 +315,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         --reset brake
         --self:brake(0)
         --display reverse light if needed
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", accPedal, displayAiBrake, false, currentSpeed)
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", accPedal, displayBrake, false, currentSpeed)
         return
     elseif minGearRatio~=maxGearRatio then
         --20250923 - not linear response to acc
@@ -327,7 +325,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         --reset brake
         --self:brake(0)
         --display reverse light if needed
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", accPedal, displayAiBrake, false, currentSpeed)
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", accPedal, displayBrake, false, currentSpeed)
         return
     end
 
@@ -445,6 +443,9 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     --self:controlVehicle(accPedal, electronicMaxSpeed, maxAcceleration, minRotToApply, targetRot, maxMotorRotAcceleration, minGearRatio, maxGearRatio, clutchForce, neededPtoTorque)
     self:controlVehicle(accPedal, electronicMaxSpeed, maxAcceleration, minMotorRot, targetRot, maxMotorRotAcceleration, minGearRatio, maxGearRatio, clutchForce, neededPtoTorque)
 
+
+    --display reverse light if needed
+    SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", accPedal, displayBrake, false, currentSpeed)
     return
 
 end

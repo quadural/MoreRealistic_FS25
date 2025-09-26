@@ -13,6 +13,10 @@
 
     <parentFile xmlFilename="$data/vehicles/knoche/ecoCultivator300/ecoCultivator300.xml">
         <attributes>
+
+            <!-- this is a shallow cultivator -->
+            <set path="vehicle.storeData.functions.function(0)" value="$l10n_function_shallowCultivator" />
+
             <set path="vehicle.powerConsumer#maxForce" value="14" />
             <set path="vehicle.base.components.component(0)#mass" value="1250" />
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrKeepMass" value="true"/>

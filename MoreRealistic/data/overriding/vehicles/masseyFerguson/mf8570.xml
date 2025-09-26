@@ -109,6 +109,11 @@
 
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 3 0.9"/>
 
+            <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimit" value="0 0 0"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimitSpring" value="2250 18000 4500"/> <!-- z-axis / y-axis / x-axis -->
+            <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimitDamping" value="45 180 45"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0)#allowsJointRotLimitMovement" value="true"/>
+
         </attributes>
     </parentFile>
 
