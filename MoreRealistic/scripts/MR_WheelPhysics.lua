@@ -250,7 +250,6 @@ end
 WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoeff)
     -- rolling resistance = coeff * normal force
     -- simplified model for rr
-    -- +14.44% rr @40kph (11m/s)
 
     --take into account wheel "crushed" under load => more rr if the wheel is "deformed"
     --this is especially relevant on soft ground
@@ -270,7 +269,7 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
         startFx = math.min(1, 0.1 + 1.8*math.abs(wheelSpeed))
     end
 
-    return (startFx+0.013*math.abs(wheelSpeed)) * tireLoad * rrCoeff * rrFx
+    return startFx * tireLoad * rrCoeff * rrFx
 end
 
 

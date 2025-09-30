@@ -3,6 +3,8 @@
 
     <MR>true</MR>
 
+    <mrPowerConsumer maxGroundDistance="0.4" /> <!-- we don't want to apply draftforce when harvesting sunflower -->
+
     <parentFile xmlFilename="$data/vehicles/caseIH/header4408/header4408.xml">
         <attributes>
 

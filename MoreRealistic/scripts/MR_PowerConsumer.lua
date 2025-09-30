@@ -28,6 +28,8 @@ PowerConsumer.mrLoadMrValues = function(self, xmlFile)
         self.mrPowerConsumerCheckPointZ = self.mrPowerConsumerCheckPointZ or 0
     end
 
+    self.mrPowerConsumerMaxGroundDistanceToApplyDraftForce = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#maxGroundDistance")
+
 end
 
 
@@ -151,8 +153,6 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
     if self.isActive then
         local spec = self.spec_powerConsumer
 
-
-
         if spec.forceNode ~= nil and self.movingDirection~=0 and self.lastSpeedReal > 0.0001 then --0.36kph
 
             local vx, vy, vz = getLinearVelocity(spec.forceNode)
@@ -165,6 +165,17 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
                     --reset force
                     self.mrLastForce = 0
                 else
+
+                    --check distance to ground ?
+                    if self.mrPowerConsumerMaxGroundDistanceToApplyDraftForce~=nil then
+                        local x,y,z = getWorldTranslation(spec.forceNode)
+                        local terrainHeight = getTerrainHeightAtWorldPos(g_terrainNode, x,y,z)
+                        local distance = y - terrainHeight
+                        if distance>self.mrPowerConsumerMaxGroundDistanceToApplyDraftForce then
+                            return
+                        end
+                    end
+
                     local maxForce = spec.maxForce
 
                     --MR : max force dependant of speed and tool

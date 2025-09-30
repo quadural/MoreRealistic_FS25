@@ -3,6 +3,8 @@
 
     <MR>true</MR>
 
+    <mrPowerConsumer maxGroundDistance="0.65" /> <!-- we don't want to apply draftforce when harvesting sunflower -->
+
     <parentFile xmlFilename="$data/vehicles/geringhoff/northStar1230FB/northStar1230FB.xml">
         <attributes>
 

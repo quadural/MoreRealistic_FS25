@@ -315,3 +315,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 20250926    - fix bug : multiple call to "Lights:onVehiclePhysicsUpdate" could lead to FPS drop in reverse direction (reverser light switching on/off dozen of time per seconds, not visible by eye)
             - more damping for "free wheels" (not driven wheels and not touching the ground) => probleme especially visible with 2wd combines and heavy header (rear wheels often off the ground)
             - added some "elasticity" between combine harvesters and headers (thanks johannesschmalzl)
+            - simplified formula for rollingResistance (no more increase with speed)

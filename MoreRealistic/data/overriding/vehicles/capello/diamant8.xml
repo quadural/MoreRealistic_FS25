@@ -3,6 +3,8 @@
 
     <MR>true</MR>
 
+    <mrPowerConsumer maxGroundDistance="0.65" /> <!-- we don't want to apply draftforce when harvesting sunflower -->
+
     <parentFile xmlFilename="$data/vehicles/capello/diamant8/diamant8.xml">
         <attributes>
 
@@ -18,6 +20,5 @@
 
         </attributes>
     </parentFile>
-
 
 </vehicle>
