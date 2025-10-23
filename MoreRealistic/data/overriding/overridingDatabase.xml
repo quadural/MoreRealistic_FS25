@@ -112,6 +112,7 @@
     <vehicle fileNameToOverride="data/vehicles/johnDeere/series3650/series3650.xml">vehicles/johnDeere/series3650.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/landini/seriesREX4/seriesREX4.xml">vehicles/landini/seriesREX4.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/deutzFahr/agroStar831/agroStar831.xml">vehicles/deutzFahr/agroStar831.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/claas/arion550/arion550.xml">vehicles/claas/arion550.xml</vehicle>
 
     <!-- trailers -->
     <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>

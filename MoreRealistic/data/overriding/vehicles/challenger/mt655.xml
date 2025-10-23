@@ -11,8 +11,8 @@
         3. you will lose a bunch of engine power when the differential system goes crazy (example : 200Hp tractor cultivating at 12kph and then not able to go past 6kph for unknown reason)
 
         recommandation for FWA (front wheel assist =most of the tractors) =
-        - ratio of 3 for front wheels
-        - ratio of 2 for rear wheels
+        - ratio of 1.3 for front wheels
+        - ratio of 1.3 for rear wheels
         - ratio of 1.3 for center differential
         - torqueRatio of 35% front and 65% rear
 

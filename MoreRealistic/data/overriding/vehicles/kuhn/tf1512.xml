@@ -32,6 +32,8 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#width" value="0.55"/>
 
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.6" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value = "0 1 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#allowsJointTransLimitMovement" value = "true" />
 
             <set path="vehicle.powerConsumer#forceNode" value="tf1512_main_component1" />
             <set path="vehicle.powerConsumer#ptoRpm" value="432" />

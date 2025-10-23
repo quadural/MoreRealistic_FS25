@@ -294,9 +294,6 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
                 else
                     brakePedal = 0.5*(spdKph-spdLimit) --2kph overspeed = maxbrake
                 end
-                if brakePedal>0.3 or spdKph>15 then
-                    displayAiBrake = 1
-                end
             end
         end
     end
@@ -698,17 +695,22 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     local motor = self.spec_motorized.motor
     local gearDirection = motor.currentDirection
     local targetMaxRot = motor.peakMotorPowerRotSpeed
-    local targetMinRot = math.max(motor.minRpm*math.pi/30, minRotForPTO)
-
-    local maxRatio = 300
-    local minRadsDrop = 10 --100rpm => 100*pi/30 (rpm to rad/s)
+    local targetBrakingRot = 1.05*motor.mrMaxRot
+    local targetMinRot = math.max(motor.mrMinRot, minRotForPTO)
+    local targetEcoRot = math.max(targetMinRot, motor.mrMinEcoRot)
+--     local agressiveness = 1
+    local cvtEngineBrakingFx = 0.7 --0.7 because CVT = less "engine braking" than hydrostatic
+    local motorRotAccFx = 0.5
+    local isIncreasingRate = false
 
     --determined target speed m/s
     local targetSpeed = motor:getMaximumForwardSpeed() --max vehicle speed, or regulator set speed, or working tool max speed
     local minGearRatio = motor.minForwardGearRatio
+    local maxGearRatio = motor.maxForwardGearRatio
     if math.sign(gearDirection)<0 then
         targetSpeed = motor:getMaximumBackwardSpeed()
         minGearRatio = motor.minBackwardGearRatio
+        maxGearRatio = motor.maxBackwardGearRatio
     end
 
     targetSpeed = math.abs(accPedal * targetSpeed)
@@ -718,95 +720,113 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
     --check current engine rpm and gearRatio
     local lastRatio = math.abs(motor.mrLastMotorObjectGearRatio)
-
-    --reset automotive target rot if needed
-    if motor.mrLastMotorObjectRotSpeed<(motor.minRpm*0.105) then --rpm to rad/s
-        self.mrTransmissionCvtTargetRot = 0
-    end
+    local lastMinRatio = math.abs(self.spec_motorized.mrLastMinGearRatioSet)
+    --local lastMaxRatio = math.abs(self.spec_motorized.mrLastMaxGearRatioSet)
 
     if lastRatio==0 then
-        lastRatio = maxRatio
+        --try to find a suitable gear ratio
+        lastRatio = motor.mrLastMotorObjectRotSpeed/math.max(1, math.abs(motor.differentialRotSpeed))
+        lastRatio = math.clamp(lastRatio, minGearRatio, maxGearRatio)
     end
-    local newGearRatio = lastRatio
+    local newGearRatioMin, newGearRatioMax = lastRatio, lastRatio
     local lastSpd = math.abs(motor.differentialRotSpeed) --since differential is based on virtual wheels with 1m radius => rad/s = m/s
-
-    --check if we are overspeeding => engine brake
-    if lastSpd>1 and lastSpd>(targetSpeed+0.1) then
-        local ffx = math.max(1, lastSpd/math.max(1,targetSpeed))
-        ffx = math.min(ffx-0.995, 0.1)*10 --max braking power @10% more speed (ffx between 0.05 and 1)
-        --limit at low speed
-        ffx = math.min(ffx, 0.25*lastSpd)
-        self.spec_motorized.mrEngineBrakingPowerToApply = motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
-    end
-
-    self.mrTransmissionCvtTargetRot = math.max(self.mrTransmissionCvtTargetRot, targetMinRot)
+    --local lastClutchSpeed = math.abs(motor.differentialRotSpeed)*lastRatio
 
 
-    if math.abs(motor.differentialRotSpeed)<0.01 or motor.differentialRotSpeed*gearDirection>0 then
-        if lastSpd<targetSpeed then
-            --not enough speed
-            accPedal = 1
+    --case : wrong direction
+    if math.abs(motor.differentialRotSpeed)>0.01 and motor.differentialRotSpeed*gearDirection<0 then
 
-            --increase automotive targetRot since we want more power
-            self.mrTransmissionCvtTargetRot = math.min(targetMaxRot, self.mrTransmissionCvtTargetRot+20*dt/1000) --target about 200 more rpm per second
+        motorRotAccFx = 0.5 + accPedal
 
-            targetMaxRot = 0.5*minRadsDrop + self.mrTransmissionCvtTargetRot
 
-            --trying to target wanted engine rpm but with a drop rpm to allow acceleration
-            local dropRads = math.max(minRadsDrop, lastRatio/8) --at least 100rpm drop
-            newGearRatio = (targetMaxRot-dropRads) / math.max(0.1, lastSpd)
+        --increase engine rpm to get more engine braking power
+        if motor.mrLastMotorObjectRotSpeed<targetBrakingRot then
+            isIncreasingRate = true
+            motor.mrCvtRatioIncRate = motor.mrCvtRatioIncRate + 2*lastRatio*dt/1000
+            --newGearRatioMin = lastRatio + 0.3*(lastRatio^0.5) * motor.mrCvtRatioIncRate * dt/1000
+            local rpmFx = targetBrakingRot/math.max(1, motor.mrLastMotorObjectRotSpeed)
+            newGearRatioMin = lastRatio + (rpmFx^2) * motor.mrCvtRatioIncRate * dt/1000
+            motorRotAccFx = 10
+        end
 
+        local rpmFactor = cvtEngineBrakingFx*motor.mrLastMotorObjectRotSpeed/targetBrakingRot
+        self.spec_motorized.mrEngineBrakingPowerToApply = rpmFactor*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio
+
+        if newGearRatioMin >= maxGearRatio or math.abs(motor.differentialRotSpeed)<0.15 then
+            --engage right direction
+            --accPedal = 1
             self.spec_motorized.mrEngineIsBraking = false
         else
-            if targetSpeed==0 and lastSpd<0.1 then
-                accPedal = 0
-                newGearRatio = minGearRatio
-                targetMaxRot = targetMinRot
-            elseif lastSpd>(targetSpeed+0.1) then --too much speed = increase rpm and brake
-                accPedal = 0
-                self.mrTransmissionCvtTargetRot = math.min(targetMaxRot, self.mrTransmissionCvtTargetRot+15*dt/1000) --target about 150 more rpm per second
-                targetMaxRot = self.mrTransmissionCvtTargetRot
-                newGearRatio = (self.mrTransmissionCvtTargetRot+minRadsDrop) / math.max(0.1, lastSpd)
+            accPedal = 0
+            gearDirection = -gearDirection
+
+            if math.sign(gearDirection)==1 then
+                minGearRatio = motor.minForwardGearRatio
+                maxGearRatio = motor.maxForwardGearRatio
             else
-                --target speed reach = lower targetRot
-                self.mrTransmissionCvtTargetRot = math.max(targetMinRot, self.mrTransmissionCvtTargetRot-10*dt/1000) --target about 50 less rpm per second
-                targetMaxRot = self.mrTransmissionCvtTargetRot
-                newGearRatio = targetMaxRot / math.max(0.1, lastSpd)
-                self.spec_motorized.mrEngineIsBraking = false
-                accPedal = 1
+                minGearRatio = motor.minBackwardGearRatio
+                maxGearRatio = motor.maxBackwardGearRatio
             end
         end
-    else --wrong direction = we want to decelerate
 
-        --increase engine rpm to simulate hydraulics motors flowing toward hydraulic pump and then this pump tries to rotate the engine
-        accPedal = 0
-        self.mrTransmissionCvtTargetRot = math.min(targetMaxRot, self.mrTransmissionCvtTargetRot+15*dt/1000) --target about 150 more rpm per second
+        newGearRatioMax = maxGearRatio
 
-        newGearRatio = (self.mrTransmissionCvtTargetRot+minRadsDrop) / math.max(0.1, lastSpd)
-        newGearRatio = math.min(newGearRatio, maxRatio)
+    --below = right direction
+    else
 
-        --0.75 factor for CVT compared to fixed gear ratio
-        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.75*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
+        newGearRatioMax = maxGearRatio
 
-        if newGearRatio == maxRatio then
-            --engage right direction
-            accPedal = 1
-            self.spec_motorized.mrEngineIsBraking = false
+        --we are overspeeding => engine brake
+        if lastSpd>(targetSpeed+0.1) then
+            local ffx = math.max(1, lastSpd/math.max(1,targetSpeed))
+            ffx = math.min(ffx-0.995, 0.1)*10 --max braking power when 10% more speed (resulting ffx between 0.05 and 1)
+            --limit at low speed
+            --ffx = math.min(ffx, 0.25*lastSpd)
+            local rpmFactor = cvtEngineBrakingFx*motor.mrLastMotorObjectRotSpeed/targetBrakingRot
+            self.spec_motorized.mrEngineBrakingPowerToApply = rpmFactor*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
+            accPedal = 0
+
+            --increase engine rpm to get more engine braking power, but take into account current speed compared to wanted speed
+            if lastSpd>(targetSpeed+0.3) and motor.mrLastMotorObjectRotSpeed<targetBrakingRot then
+                --increase engine rpm to get more engine braking power
+                isIncreasingRate = true
+                motor.mrCvtRatioIncRate = motor.mrCvtRatioIncRate + 0.5*lastRatio*dt/1000
+                newGearRatioMin = lastRatio + motor.mrCvtRatioIncRate * dt/1000
+                motorRotAccFx = 10
+            end
+
         else
-            gearDirection = -gearDirection
+            motor.mrCvtRatioIncRate = 0
+            self.spec_motorized.mrEngineIsBraking = false
+
+            newGearRatioMin = minGearRatio
+            motorRotAccFx = 0.2
+
+            --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
+            if lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1) then
+                newGearRatioMin = lastMinRatio * (1-dt/3000)
+            elseif lastSpd>(targetSpeed-0.1) and motor.mrLastMotorObjectRotSpeed>targetEcoRot then --scenario = target speed reached and engine not @100% load
+                motorRotAccFx = -0.2
+            end
+
         end
 
     end
 
-    if newGearRatio<minGearRatio then
-        targetMaxRot = targetMaxRot * minGearRatio / newGearRatio
-        newGearRatio = minGearRatio
-    else
-        newGearRatio = math.min(newGearRatio, maxRatio)
+    if not isIncreasingRate and motor.mrCvtRatioIncRate>0 then
+        motor.mrCvtRatioIncRate = math.max(0, motor.mrCvtRatioIncRate-2*lastRatio*dt/1000)
     end
 
-    newGearRatio = newGearRatio * gearDirection
-    self:controlVehicle(accPedal, targetSpeed, maxAcceleration, 0, targetMaxRot, maxMotorRotAcceleration, newGearRatio, newGearRatio, clutchForce, neededPtoTorque)
+    newGearRatioMin = math.clamp(newGearRatioMin, minGearRatio, maxGearRatio)
+    newGearRatioMax = math.clamp(newGearRatioMax, minGearRatio, maxGearRatio)
+    newGearRatioMin = newGearRatioMin * gearDirection
+    newGearRatioMax = newGearRatioMax * gearDirection
+
+    maxAcceleration = math.min(1+0.5*lastSpd, maxAcceleration) --limit acc at low speed to avoid very fast take off
+
+    local maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
+    self:controlVehicle(accPedal, targetSpeed, maxAcceleration, targetMinRot, maxRot, maxMotorRotAcceleration, newGearRatioMin, newGearRatioMax, clutchForce, neededPtoTorque)
+
 end
 
 

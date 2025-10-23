@@ -36,6 +36,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     newMotor.mrLastDirection = newMotor.currentDirection
     newMotor.mrMinRot = newMotor.minRpm * math.pi / 30
     newMotor.mrMaxRot = newMotor.maxRpm * math.pi / 30
+    newMotor.mrMinEcoRot = 0
     newMotor.lowBrakeForceLocked = true
     newMotor.mrClutchingMaxRot = (newMotor.mrMinRot+newMotor.mrMaxRot)/2.6
 
@@ -46,7 +47,12 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
 
     local rpm = minRpm
     while rpm<maxRpm do
-        local power = torqueCurve:get(rpm)*rpm*math.pi/30
+        local tq = torqueCurve:get(rpm)
+        if newMotor.mrMinEcoRot==0 and tq>0.98*newMotor.peakMotorTorque then
+            newMotor.mrMinEcoRot = rpm*math.pi/30
+        end
+
+        local power = tq*rpm*math.pi/30
         if newMotor.mrPowerBandMinRpm==0 and power>=0.94*newMotor.peakMotorPower then
             newMotor.mrPowerBandMinRpm = rpm
         elseif newMotor.mrPowerBandMinRpm~=0 and power<0.94*newMotor.peakMotorPower then
@@ -100,6 +106,8 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
             vehicle.mrCombineSpotRate = newMotor.peakMotorPower / 6
         end
     end
+
+    newMotor.mrCvtRatioIncRate = 0 --only for mr CVT transmission
 
     return newMotor
 
