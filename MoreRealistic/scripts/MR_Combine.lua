@@ -166,6 +166,11 @@ end
 
 Combine.mrAddCutterArea = function(self, superFunc, area, liters, inputFruitType, outputFillType, strawRatio, farmId, cutterLoad)
 
+    --2025/10/24 - remove PrecisionFarming yield boost
+    if FS25_precisionFarming~=nil then
+        liters = liters * 0.85
+    end
+
     if self.mrIsMrCombine then
         --we want to store the number of liters threshed by "frame"
         self.mrCombineLastLitersThreshed = self.mrCombineLastLitersThreshed + liters

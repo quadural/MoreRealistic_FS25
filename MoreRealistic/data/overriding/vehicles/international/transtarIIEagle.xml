@@ -154,6 +154,10 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#gearRatio" value="13.07"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#gearRatio" value="3.87"/>
 
+            <!-- attacher joint rot limit -->
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#lowerRotLimit" value="0 90 12"/>
+
+
         </attributes>
     </parentFile>
 
