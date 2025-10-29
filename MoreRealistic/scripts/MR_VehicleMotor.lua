@@ -48,7 +48,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     local rpm = minRpm
     while rpm<maxRpm do
         local tq = torqueCurve:get(rpm)
-        if newMotor.mrMinEcoRot==0 and tq>0.98*newMotor.peakMotorTorque then
+        if newMotor.mrMinEcoRot==0 and tq>0.9*newMotor.peakMotorTorque then
             newMotor.mrMinEcoRot = rpm*math.pi/30
         end
 

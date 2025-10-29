@@ -704,7 +704,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     local isIncreasingRate = false
 
     --determined target speed m/s
-    local targetSpeed = motor:getMaximumForwardSpeed() --max vehicle speed, or regulator set speed, or working tool max speed
+    local targetSpeed = motor:getMaximumForwardSpeed() --max vehicle speed, or regulator set speed, or working tool max speed (in meters per second)
     local minGearRatio = motor.minForwardGearRatio
     local maxGearRatio = motor.maxForwardGearRatio
     if math.sign(gearDirection)<0 then
@@ -777,7 +777,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
         newGearRatioMax = maxGearRatio
 
         --we are overspeeding => engine brake
-        if lastSpd>(targetSpeed+0.1) then
+        if lastSpd>(targetSpeed+0.05) then
             local ffx = math.max(1, lastSpd/math.max(1,targetSpeed))
             ffx = math.min(ffx-0.995, 0.1)*10 --max braking power when 10% more speed (resulting ffx between 0.05 and 1)
             --limit at low speed
@@ -786,13 +786,15 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
             self.spec_motorized.mrEngineBrakingPowerToApply = rpmFactor*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
             accPedal = 0
 
+            motorRotAccFx = 10
+
             --increase engine rpm to get more engine braking power, but take into account current speed compared to wanted speed
-            if lastSpd>(targetSpeed+0.3) and motor.mrLastMotorObjectRotSpeed<targetBrakingRot then
+            local ffx2 = 0.5 + 0.5*math.min(1, 3.6*(lastSpd-targetSpeed))^2 --1kph overspeed = max braking engine rpm required // 0.18kph overspeed = 59% braking rpm
+            if motor.mrLastMotorObjectRotSpeed<(targetBrakingRot*ffx2) then
                 --increase engine rpm to get more engine braking power
                 isIncreasingRate = true
-                motor.mrCvtRatioIncRate = motor.mrCvtRatioIncRate + 0.5*lastRatio*dt/1000
+                motor.mrCvtRatioIncRate = motor.mrCvtRatioIncRate + ffx2*0.5*lastRatio*dt/1000
                 newGearRatioMin = lastRatio + motor.mrCvtRatioIncRate * dt/1000
-                motorRotAccFx = 10
             end
 
         else
@@ -807,6 +809,10 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
                 newGearRatioMin = lastMinRatio * (1-dt/3000)
             elseif lastSpd>(targetSpeed-0.1) and motor.mrLastMotorObjectRotSpeed>targetEcoRot then --scenario = target speed reached and engine not @100% load
                 motorRotAccFx = -0.2
+            else
+                --limit motorRotAccFx when near target speed
+                local ffx3 = 0.5 + 0.5*math.min(1, math.abs(targetSpeed-lastSpd))
+                motorRotAccFx = motorRotAccFx * ffx3
             end
 
         end
