@@ -323,4 +323,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 20251024    - working on Claas Arion 500 (add 550 and 570 engines)
             - apply a 0.85 factor to final yield when Precision Farming is present (to avoid getting extraordinary yields in game)
 
-20251028    - MR CVT enhancement
+20251030    - MR CVT enhancement

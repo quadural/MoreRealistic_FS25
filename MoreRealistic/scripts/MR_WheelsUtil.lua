@@ -172,7 +172,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     accPedal = smoothAcc
     if not self:getIsAIActive() then
         --do not smooth brakepedal for AI
-        brakePedal = smoothBrake
+        brakePedal = smoothBrake^2 --0.5 input brake = 25% brake power
     end
 
     local minGearRatio, maxGearRatio = motor:getMinMaxGearRatio()
@@ -732,6 +732,13 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     local lastSpd = math.abs(motor.differentialRotSpeed) --since differential is based on virtual wheels with 1m radius => rad/s = m/s
     --local lastClutchSpeed = math.abs(motor.differentialRotSpeed)*lastRatio
 
+    if motor.mrCvtCurrentSpd==nil then
+        motor.mrCvtCurrentSpd = lastSpd
+    else
+        motor.mrCvtCurrentSpd = 0.75*motor.mrCvtCurrentSpd + 0.25*lastSpd --smoothing
+    end
+    lastSpd = motor.mrCvtCurrentSpd
+
 
     --case : wrong direction
     if math.abs(motor.differentialRotSpeed)>0.01 and motor.differentialRotSpeed*gearDirection<0 then
@@ -777,7 +784,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
         newGearRatioMax = maxGearRatio
 
         --we are overspeeding => engine brake
-        if lastSpd>(targetSpeed+0.05) then
+        if lastSpd>(targetSpeed+0.12) then
             local ffx = math.max(1, lastSpd/math.max(1,targetSpeed))
             ffx = math.min(ffx-0.995, 0.1)*10 --max braking power when 10% more speed (resulting ffx between 0.05 and 1)
             --limit at low speed
@@ -789,12 +796,15 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
             motorRotAccFx = 10
 
             --increase engine rpm to get more engine braking power, but take into account current speed compared to wanted speed
-            local ffx2 = 0.5 + 0.5*math.min(1, 3.6*(lastSpd-targetSpeed))^2 --1kph overspeed = max braking engine rpm required // 0.18kph overspeed = 59% braking rpm
-            if motor.mrLastMotorObjectRotSpeed<(targetBrakingRot*ffx2) then
-                --increase engine rpm to get more engine braking power
-                isIncreasingRate = true
-                motor.mrCvtRatioIncRate = motor.mrCvtRatioIncRate + ffx2*0.5*lastRatio*dt/1000
-                newGearRatioMin = lastRatio + motor.mrCvtRatioIncRate * dt/1000
+            local diff = lastSpd-targetSpeed
+            if diff>0.3 then
+                local ffx2 = math.min(1, 2*diff) --1.8kph overspeed = max braking engine rpm required // 1kph overspeed = 55% braking rpm
+                if motor.mrLastMotorObjectRotSpeed<(targetBrakingRot*ffx2) then
+                    --increase engine rpm to get more engine braking power
+                    isIncreasingRate = true
+                    motor.mrCvtRatioIncRate = motor.mrCvtRatioIncRate + ffx2*0.5*lastRatio*dt/1000
+                    newGearRatioMin = lastRatio + motor.mrCvtRatioIncRate * dt/1000
+                end
             end
 
         else
@@ -807,12 +817,14 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
             --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
             if lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1) then
                 newGearRatioMin = lastMinRatio * (1-dt/3000)
-            elseif lastSpd>(targetSpeed-0.1) and motor.mrLastMotorObjectRotSpeed>targetEcoRot then --scenario = target speed reached and engine not @100% load
+            elseif lastSpd>(targetSpeed-0.02) and motor.mrLastMotorObjectRotSpeed>targetEcoRot and motor.smoothedLoadPercentage<0.8 then --scenario = target speed reached and engine not @100% load
                 motorRotAccFx = -0.2
-            else
+            elseif motor.rawLoadPercentage>0.91 or motor.mrLastMotorObjectRotSpeed<targetEcoRot then
                 --limit motorRotAccFx when near target speed
                 local ffx3 = 0.5 + 0.5*math.min(1, math.abs(targetSpeed-lastSpd))
                 motorRotAccFx = motorRotAccFx * ffx3
+            else
+                motorRotAccFx = 0 -- no engine rpm change wanted
             end
 
         end
