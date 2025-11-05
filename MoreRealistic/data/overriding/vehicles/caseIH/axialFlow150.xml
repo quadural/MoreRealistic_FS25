@@ -110,6 +110,12 @@
             <set path="vehicle.attacherJoints.attacherJoint(0)#rotLimitDamping" value="60 240 60"/>
             <set path="vehicle.attacherJoints.attacherJoint(0)#allowsJointRotLimitMovement" value="true"/>
 
+            <!-- pipe end -->
+            <set path="vehicle.cylindered.movingTools.movingTool(0).rotation#rotMin" value="-25"/>
+
+            <!-- unloading "stream" of grain -->
+            <set path="vehicle.dischargeable.dischargeNode.effects.effectNode(0)#maxBending" value="0.8"/>
+
         </attributes>
     </parentFile>
 

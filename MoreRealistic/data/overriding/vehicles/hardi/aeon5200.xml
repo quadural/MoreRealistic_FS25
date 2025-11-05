@@ -30,6 +30,8 @@
     <parentFile xmlFilename="$data/vehicles/hardi/aeon5200/aeon5200.xml">
         <attributes>
 
+            <set path="vehicle.base.speedLimit#value" value="15" />
+
             <set path="vehicle.base.components#maxMass" value="99999"/> <!-- remove this unrealistic things ! -->
             <set path="vehicle.base.components.component(0)#mass" value="6955"/>
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.4 0.4"/>
