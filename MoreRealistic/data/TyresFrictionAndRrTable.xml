@@ -16,15 +16,15 @@ GROUND_FIELD = field
     </tyreType>
 
     <tyreType name="OFFROAD">
-        <surfaceType name="GROUND_ROAD" dryFriction="1.02" wetFriction="0.91" snowFriction="0.52" dryRollingResistance="0.010" wetRollingResistance="0.011" snowRollingResistance="0.100" />
-        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.88" wetFriction="0.78" snowFriction="0.52" dryRollingResistance="0.014" wetRollingResistance="0.015" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_ROAD" dryFriction="1.02" wetFriction="0.91" snowFriction="0.52" dryRollingResistance="0.009" wetRollingResistance="0.011" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.88" wetFriction="0.78" snowFriction="0.52" dryRollingResistance="0.012" wetRollingResistance="0.015" snowRollingResistance="0.100" />
         <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.70" wetFriction="0.66" snowFriction="0.52" dryRollingResistance="0.024" wetRollingResistance="0.060" snowRollingResistance="0.100" />
         <surfaceType name="GROUND_FIELD" dryFriction="0.60" wetFriction="0.47" snowFriction="0.52" dryRollingResistance="0.045" wetRollingResistance="0.100" snowRollingResistance="0.100" />
     </tyreType>
 
     <tyreType name="STREET">
         <surfaceType name="GROUND_ROAD" dryFriction="1.07" wetFriction="0.97" snowFriction="0.45" dryRollingResistance="0.007" wetRollingResistance="0.009" snowRollingResistance="0.100" />
-        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.84" wetFriction="0.71" snowFriction="0.45" dryRollingResistance="0.011" wetRollingResistance="0.012" snowRollingResistance="0.100" />
+        <surfaceType name="GROUND_HARD_TERRAIN" dryFriction="0.84" wetFriction="0.71" snowFriction="0.45" dryRollingResistance="0.010" wetRollingResistance="0.012" snowRollingResistance="0.100" />
         <surfaceType name="GROUND_SOFT_TERRAIN" dryFriction="0.65" wetFriction="0.56" snowFriction="0.45" dryRollingResistance="0.026" wetRollingResistance="0.066" snowRollingResistance="0.100" />
         <surfaceType name="GROUND_FIELD" dryFriction="0.55" wetFriction="0.40" snowFriction="0.45" dryRollingResistance="0.048" wetRollingResistance="0.115" snowRollingResistance="0.100" />
     </tyreType>

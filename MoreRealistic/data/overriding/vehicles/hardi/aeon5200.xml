@@ -34,18 +34,23 @@
 
             <set path="vehicle.base.components#maxMass" value="99999"/> <!-- remove this unrealistic things ! -->
             <set path="vehicle.base.components.component(0)#mass" value="6955"/>
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.4 0.4"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.3 0.15"/>
 
             <set path="vehicle.powerConsumer#ptoRpm" value="500" />
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="90"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="90"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="3"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="3"/>
 
             <!-- empty speed -->
             <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="8.5"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.5"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.9 0.6"/>
 
         </attributes>
     </parentFile>

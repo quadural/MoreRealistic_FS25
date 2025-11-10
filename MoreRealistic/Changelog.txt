@@ -324,3 +324,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - apply a 0.85 factor to final yield when Precision Farming is present (to avoid getting extraordinary yields in game)
 
 20251030    - MR CVT enhancement
+
+20251110    - add converted Berthoud vantage 4300 (sprayer)
+            - add converted Amazone ux 5201 Super (sprayer)
+            - add converted Amazone zg ts 10001 (spreader)
+            - add converted Streumaster fw 212 td profi (spreader)

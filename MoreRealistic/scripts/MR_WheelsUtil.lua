@@ -698,7 +698,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     local targetBrakingRot = 1.05*motor.mrMaxRot
     local targetMinRot = math.max(motor.mrMinRot, minRotForPTO)
     local targetEcoRot = math.max(targetMinRot, motor.mrMinEcoRot)
---     local agressiveness = 1
+
     local cvtEngineBrakingFx = 0.7 --0.7 because CVT = less "engine braking" than hydrostatic
     local motorRotAccFx = 0.5
     local isIncreasingRate = false
@@ -842,7 +842,12 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
     maxAcceleration = math.min(1+0.5*lastSpd, maxAcceleration) --limit acc at low speed to avoid very fast take off
 
+    if targetMinRot>motor.mrLastMotorObjectRotSpeed then
+        motorRotAccFx = 0.5
+    end
+
     local maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
+    targetMinRot = math.min(maxRot, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
     self:controlVehicle(accPedal, targetSpeed, maxAcceleration, targetMinRot, maxRot, maxMotorRotAcceleration, newGearRatioMin, newGearRatioMax, clutchForce, neededPtoTorque)
 
 end

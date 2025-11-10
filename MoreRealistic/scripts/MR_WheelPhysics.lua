@@ -418,7 +418,6 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
             self.mrLastWheelSpeedS = 0.9*self.mrLastWheelSpeedS + 0.1*wheelSpeed
             self.mrLastWheelSpeed = wheelSpeed
 
-            --limit brakeforce to normal force * friction to avoid blocking wheel => ALB (auto load balance / anti lock brake regulator)
             if brakeForce>0 and self.brakeFactor>0 then
                 bForce = brakeForce * self.brakeFactor
             end

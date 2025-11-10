@@ -48,6 +48,8 @@
     <!-- fertilizer spreaders -->
     <vehicle fileNameToOverride="data/vehicles/amazone/zats3200/zats3200.xml">vehicles/amazone/zats3200.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/bredal/k105/k105.xml">vehicles/bredal/k105.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/amazone/zgts10001/zgts10001.xml">vehicles/amazone/zgts10001.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/streumaster/fw212tdProfi/fw212tdProfi.xml">vehicles/streumaster/fw212tdProfi.xml</vehicle>
 
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
@@ -101,6 +103,8 @@
     <vehicle fileNameToOverride="data/vehicles/hardi/mega1200L/mega1200L.xml">vehicles/hardi/mega1200L.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/hardi/mega1200L/mega1200LTank.xml">vehicles/hardi/mega1200LTank.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/hardi/aeon5200/aeon5200.xml">vehicles/hardi/aeon5200.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/berthoud/vantage4300/vantage4300.xml">vehicles/berthoud/vantage4300.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/amazone/ux5201Super/ux5201Super.xml">vehicles/amazone/ux5201Super.xml</vehicle>
 
     <!-- sub soilers -->
     <vehicle fileNameToOverride="data/vehicles/agrisem/combiplow/combiplow.xml">vehicles/agrisem/combiplow.xml</vehicle>
