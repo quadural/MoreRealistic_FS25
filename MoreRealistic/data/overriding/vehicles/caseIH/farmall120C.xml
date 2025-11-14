@@ -58,6 +58,10 @@
             <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#maxSpeedRatio" value="1.3" />
             <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#torqueRatio" value="0.35" />
 
+            <!-- attacher joint rot limit -->
+            <set path="vehicle.attacherJoints.attacherJoint(1)#lowerRotLimit" value="25 71 50"/> <!-- trailer high -->
+            <set path="vehicle.attacherJoints.attacherJoint(2)#lowerRotLimit" value="25 67 50"/> <!-- trailer low -->
+
             <!-- front weight -->
             <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(2).objectChange(0)"/>
             <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(2).objectChange(3)#node" value="farmall120C_main_component1"/>
@@ -424,9 +428,7 @@
 
 
 
-            <!-- attacher joint rot limit -->
-            <set path="vehicle.attacherJoints.attacherJoint(1)#lowerRotLimit" value="25 67 50"/>
-            <set path="vehicle.attacherJoints.attacherJoint(2)#lowerRotLimit" value="25 63 50"/>
+
 
         </attributes>
     </parentFile>

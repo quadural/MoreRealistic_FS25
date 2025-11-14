@@ -329,3 +329,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Amazone ux 5201 Super (sprayer)
             - add converted Amazone zg ts 10001 (spreader)
             - add converted Streumaster fw 212 td profi (spreader)
+
+202511XX    - add converted Mack Superliner (truck)
+            - add converted New Holland LWB PLMI (tractor)
+            - trailers attacher joint tweaking
+            - auto gear shifting takes into account "virtual target speed" and "engine load" to allow upshifting at partial throttle => more than 70% throttle input means the operator want to shift up if possible. Less than 25% throttle input means the operator wants to downshift if possible.

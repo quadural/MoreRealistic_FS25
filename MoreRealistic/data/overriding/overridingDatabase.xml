@@ -117,6 +117,7 @@
     <vehicle fileNameToOverride="data/vehicles/landini/seriesREX4/seriesREX4.xml">vehicles/landini/seriesREX4.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/deutzFahr/agroStar831/agroStar831.xml">vehicles/deutzFahr/agroStar831.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/claas/arion550/arion550.xml">vehicles/claas/arion550.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/t7/t7.xml">vehicles/newHolland/t7.xml</vehicle>
 
     <!-- trailers -->
     <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>
@@ -129,6 +130,7 @@
     <vehicle fileNameToOverride="data/vehicles/volvo/fh16/fh16.xml">vehicles/volvo/fh16.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lizard/multiPurposeTruck/multiPurposeTruck.xml">vehicles/lizard/multiPurposeTruck.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/international/transtarII/transtarIIEagle.xml">vehicles/international/transtarIIEagle.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/mack/superliner1979/superliner1979.xml">vehicles/mack/superliner1979.xml</vehicle>
 
     <!-- truck trailers -->
     <vehicle fileNameToOverride="data/vehicles/krampe/sks30_150/sks30_150.xml">vehicles/krampe/sks30_150.xml</vehicle>

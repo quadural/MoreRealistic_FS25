@@ -1048,11 +1048,13 @@ VehicleMotor.mrFindGearChangeTargetGearPrediction = function(self, curGear, gear
     local gearFound = false
     local newGear = curGear
     local absAccPedal = math.abs(acceleratorPedal)
-    local accPedalIdle = absAccPedal<0.1
+    local accPedalIdle = absAccPedal<0.05
     --local rpmMargin = 2*self.gearRatio --the smaller the gear (high gear ratio), the greater the margin since we can loose more rpm at low speed than high speed during shifting time
     local maxRpmNotGoverned = self.maxRpm-self.vehicle.mrGovernorRange
     local curGearRatio = gears[curGear].ratio
     local curGlobalRatio = curGearRatio * curGroupRatio
+    local keepGear = false
+
 
     local pendingGroupRatio = 1
 
@@ -1070,8 +1072,15 @@ VehicleMotor.mrFindGearChangeTargetGearPrediction = function(self, curGear, gear
         minRpmWanted = 0.5*(self.mrPowerBandMinRpm+self.mrPowerBandMaxRpm) * math.min(math.abs(self.vehicle.lastSpeed)*1000, 1) --20250416 - no need to shift down up to the first gear when decelerating => max minRpmWanted reached at 3.6kph
         maxRpmWanted = maxRpmNotGoverned
     else
-        minRpmWanted = MathUtil.lerp(self.minRpm, self.mrPowerBandMinRpm, absAccPedal)
-        maxRpmWanted = MathUtil.lerp(self.minRpm*1.4, self.mrPowerBandMaxRpm, absAccPedal)
+        minRpmWanted = self.mrPowerBandMinRpm --MathUtil.lerp(self.minRpm, self.mrPowerBandMinRpm, 0.5+0.5*absAccPedal)
+        maxRpmWanted = self.mrPowerBandMaxRpm --
+
+        if absAccPedal>0.25 and absAccPedal<0.7 then --acc between 25% and 70% means the operator want to keep he current gear
+            minRpmWanted = MathUtil.lerp(self.minRpm, self.mrPowerBandMinRpm, 0.25+0.5*absAccPedal)
+            maxRpmWanted = MathUtil.lerp(0.9*self.mrPowerBandMinRpm, self.mrPowerBandMaxRpm, absAccPedal)
+            keepGear = true
+        end
+
     end
 
     local engineRpm = 0.5*(math.abs(self.differentialRotSpeed*curGlobalRatio*30/math.pi) + self.motorRotSpeed*30/math.pi) --20250911 - take the avg between clutch and engine rpm
@@ -1083,20 +1092,38 @@ VehicleMotor.mrFindGearChangeTargetGearPrediction = function(self, curGear, gear
 
     --20250615 check if we are going too fast => shift gear down if possible in such a case to get more engine stopping power
     if curGear>1 then
-        local spdLimit = self:getSpeedLimit()
-        if math.abs(self.vehicle.lastSpeed)*3600>math.max(1+spdLimit, 1.1*spdLimit) then --speedLimit in kph
-            local newEngineRpmTmp = engineRpm * pendingGroupRatio * gears[curGear-1].ratio/curGlobalRatio
-            if newEngineRpmTmp<1.05*maxRpmNotGoverned then
-                gearFound = true
-                newGear = curGear-1
+        local toolSpdLimit = self:getSpeedLimit() --kph
+        if toolSpdLimit<99 then --toolSpdLimit==inf when no tool limit
+            if 3600*math.abs(self.vehicle.lastSpeed)>math.max(1+toolSpdLimit, 1.1*toolSpdLimit) then --speedLimit in kph
+                local newEngineRpmTmp = engineRpm * pendingGroupRatio * gears[curGear-1].ratio/curGlobalRatio
+                if newEngineRpmTmp<1.05*maxRpmNotGoverned then
+                    gearFound = true
+                    newGear = curGear-1
+                end
             end
         end
     end
 
 
-    if engineRpm>=minRpmWanted and engineRpm<=maxRpmWanted then
-        --nothing to do, all is good
-        gearFound = true
+    if not gearFound and not forceLug and engineRpm>=minRpmWanted and engineRpm<=maxRpmWanted then
+--         --20251114 - check if target speed is reached
+--         local targetSpeed = self:getMaximumForwardSpeed() --max vehicle speed, or regulator set speed, or working tool max speed
+--         if self.vehicle.spec_motorized.mrLastMinGearRatioSet<0 then
+--             targetSpeed = self:getMaximumBackwardSpeed()
+--         end
+--         targetSpeed = math.abs(targetSpeed * absAccPedal^1.5) --not linear response to acc
+
+--         --tool speed limit
+--         targetSpeed = math.min(targetSpeed, self:getSpeedLimit()/3.6) -- m/s
+
+--         local vehicleSpeed = 1000*math.abs(self.vehicle.lastSpeed)
+
+--         if vehicleSpeed>=targetSpeed then
+        --if absAccPedal<0.75 or absAccPedal>0.99 then -- accpedal > 0.75 means maybe we want to increase speed at partial throttle
+            --nothing to do, all is good
+        if keepGear or absAccPedal==1 then
+            gearFound = true --everything is good, no need to change gear
+        end
     end
 
     --20250422 - new way of determining if we should shift down or not = check the "motorRotAcceleration" and the totalTime we are below wantedRpm
@@ -1151,15 +1178,19 @@ VehicleMotor.mrFindGearChangeTargetGearPrediction = function(self, curGear, gear
         self.mrTransmissionLugTime = 0
     end
 
-    if not gearFound and curGear<#gears and engineRpm>0.5*(minRpmWanted+maxRpmWanted) and absAccPedal>0 then
+    if not gearFound and curGear<#gears and absAccPedal>0.7 and engineRpm>0.5*(minRpmWanted+maxRpmWanted)*(0.5+0.5*absAccPedal)  then --only try changing gear up if acc above 70%
         --check one gear up
 
         local newEngineRpm = engineRpm * pendingGroupRatio * gears[curGear+1].ratio/curGlobalRatio
         --only shift gear up when we get more power
+        local currentLoadFx = 1
+        if absAccPedal<0.99 then
+            currentLoadFx = self.smoothedLoadPercentage
+        end
         local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
         local newPowerFx = self.torqueCurve:get(newEngineRpm)*newEngineRpm
 
-        if newPowerFx>1.05*currentPowerFx then
+        if newPowerFx>(0.55+0.5*currentLoadFx)*currentPowerFx then --1.05
             newGear = curGear+1
             --check another gear up, just in case
             if curGear<(#gears-1) then

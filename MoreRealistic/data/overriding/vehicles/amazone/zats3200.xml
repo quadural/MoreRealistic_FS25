@@ -40,7 +40,7 @@
 
             <!-- lower low position to help filling from a trailer like IRL -->
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-10"/>
-            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="0"/>
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="1"/>
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value="0.1"/>
 
         </attributes>

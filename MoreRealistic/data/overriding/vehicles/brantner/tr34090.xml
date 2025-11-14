@@ -44,7 +44,7 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="22"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="22"/>
 
-            <!-- no extendion -->
+            <!-- no extension -->
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.4 -1"/>
 
             <!-- extension -->
@@ -56,6 +56,9 @@
             <!-- empty speed -->
             <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="2000"/>
             <set path="vehicle.dischargeable.dischargeNode(1)#emptySpeed" value="400"/>
+
+            <!-- attacher = trailerLow IRL. Not possible to attache such a high load "tongue" to the trailer high -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#jointType" value="trailerLow" />
 
         </attributes>
     </parentFile>

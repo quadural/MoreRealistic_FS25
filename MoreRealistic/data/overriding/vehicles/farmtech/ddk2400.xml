@@ -80,6 +80,9 @@
             <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(2)#emptySpeed" value="1700"/>
             <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(3)#emptySpeed" value="1700"/>
 
+            <!-- trailer hitch rot adjustment -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.93 1" />
+
 
         </attributes>
     </parentFile>

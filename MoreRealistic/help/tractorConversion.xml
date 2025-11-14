@@ -1,0 +1,21 @@
+<!--
+
+    *************************************************************************************
+    differential config : 1.3 value for all "maxSpeedratio"
+    FWA (front wheel assist) = 0.35 "torqueratio" between front and rear diff (we want about 65% of the torque to the rear axle)
+    4WD = 0.5 torque ration between front and rear diff (we want the same torque for both axle)
+
+
+
+    *************************************************************************************
+    trailer high and low rotLimit adjustment :
+
+    for trailer low, the benchmark trailer = Krampe HalfPipe HP20
+    for trailer high, the benchmark trailer = rudolph TDK 301 RP
+
+
+
+
+
+
+-->
