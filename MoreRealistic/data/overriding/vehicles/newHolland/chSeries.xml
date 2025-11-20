@@ -17,7 +17,7 @@
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0"/>
 
             <!-- about 13750kgs (empty, no fuel) => about 6000kg on the rear axle -->
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.7 0.28"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.7 0.2"/>
             <set path="vehicle.base.components.component(0)#mass" value="10700"/>
             <set path="vehicle.base.components.component(1)#mass" value="1200"/>
 

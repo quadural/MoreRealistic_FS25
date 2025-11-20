@@ -31,7 +31,7 @@ StoreManager.mrLoadItem = function(self, superFunc, rawXMLFilename, baseDir, cus
     ------------------------------------------------------------------------------------------------------------------------------------------
     --this code allow us to get the xml content of DLC vehicles so that we can override them with MR version
 --     if dlcTitle~="" then
---         if string.find(rawXMLFilename,"1156") then
+--         if string.find(rawXMLFilename,"series900") then
 --             local xmlFilename = Utils.getFilename(rawXMLFilename, baseDir)
 --             local xmlFile = loadXMLFile("storeItemXML", xmlFilename)
 --             local xmlString = saveXMLFileToMemory(xmlFile)

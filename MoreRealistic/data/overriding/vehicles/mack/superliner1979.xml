@@ -108,8 +108,8 @@
             <!-- Mack T-2180B Transmission
 
             -->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.7"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.9"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0.7"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#axleRatio" value="8"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="1"/>
 

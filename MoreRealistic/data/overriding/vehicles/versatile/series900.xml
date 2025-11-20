@@ -19,654 +19,103 @@
 
         this tractor is not rightly ballasted when adding the full additional ballast at the rear
         for a 4WD tractor like this, we want about 60% front and 40% rear (static load, no implement)
+        => fix the bad xml config (designConfiguration "frontweight" is applied to the "config_weightBack400" instead of "config_weightFront300")
 
     -->
 
     <MR>true</MR>
 
 
+    <parentFile xmlFilename="data/overriding/vehicles/versatile/pdlc_series900.xml">
+        <attributes>
 
-    <storeData>
-        <name>976</name>
-        <specs>
-            <power>365</power>
-            <maxSpeed>20</maxSpeed>
-        </specs>
-        <functions>
-            <function>$l10n_function_tractor</function>
-        </functions>
-        <image>vehicles/versatile/series900/store_series900.png</image>
-        <price>133000</price>
-        <lifetime>600</lifetime>
-        <rotation>0</rotation>
-        <brand>VERSATILE</brand>
-        <category>tractorsL</category>
-        <shopTranslationOffset>0 -0.037 0</shopTranslationOffset>
-        <shopRotationOffset>-0.44 0 0</shopRotationOffset>
-        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
-        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
-        <textureMemoryUsage>0</textureMemoryUsage>
-        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
-        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
-    </storeData>
-    <base>
-        <typeDesc>$l10n_typeDesc_tractor</typeDesc>
-        <filename>vehicles/versatile/series900/series900.i3d</filename>
-        <sounds filename="vehicles/versatile/series900/sounds/series900.xml" volumeFactor="0.57"/>
-        <size width="2.85" length="6.7" height="3.6" lengthOffset="0.05"/>
-        <components>
-            <component centerOfMass="0 1.1 1.1" solverIterationCount="30" mass="4160" inertiaScale="2 2 2"/>
-            <component centerOfMass="0 0 -0.3" solverIterationCount="10" mass="3040" inertiaScale="2 2 2"/>
-            <joint component1="1" component2="2" node="componentJointBack" rotLimit="0 0 10" rotLimitSpring="0 0 4000" rotLimitDamping="0 0 30" maxRotDriveForce="0 0 30" rotDriveRotation="0 0 0" rotDriveSpring="0 0 30" rotDriveDamping="0 0 30" transLimit="0 0 0"/>
-        </components>
-        <schemaOverlay attacherJointPosition="0 0" name="VEHICLE"/>
-        <mapHotspot type="TRACTOR"/>
-        <steeringAxle node="1>"/>
-    </base>
-    <cropSensor>
-        <cropSensorConfigurations isYesNoOption="true">
-            <cropSensorConfiguration name="$l10n_configuration_valueNo" price="0"/>
-            <cropSensorConfiguration name="$l10n_configuration_valueYes" price="14950">
-                <sensorLinkNode node="cropSensorTop" type="SENSOR_TOP"/>
-                <sensorLinkNode node="cropSensorLeft" type="SENSOR_LEFT" rotation="0 0 0">
-                    <rotationNode rotation="-45 0 0"/>
-                    <rotationNode rotation="-45 0 0"/>
-                </sensorLinkNode>
-                <sensorLinkNode node="cropSensorRight" type="SENSOR_RIGHT" rotation="0 0 0">
-                    <rotationNode rotation="-45 0 0"/>
-                    <rotationNode rotation="-45 0 0"/>
-                </sensorLinkNode>
-            </cropSensorConfiguration>
-        </cropSensorConfigurations>
-    </cropSensor>
-    <wheels>
-        <wheelConfigurations tireCategories="TRACTOR FORESTRY">
-            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="DEFAULT" numDynamicConfigurations="1">
-                <wheels autoRotateBackSpeed="2.2">
-                    <wheel dimensions="30_5L__32" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <physics tipOcclusionAreaGroupId="1" rotSpeed="0" restLoad="4.1" repr="wheelFrontLeft" forcePointRatio="0.5" initialCompression="22" suspTravel="0.15" spring="110" damper="4" yOffset="0.038" transRatio="1"/>
-                    </wheel>
-                    <wheel dimensions="30_5L__32" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <physics tipOcclusionAreaGroupId="1" rotSpeed="0" restLoad="4.1" repr="wheelFrontRight" forcePointRatio="0.5" initialCompression="22" suspTravel="0.15" spring="110" damper="4" yOffset="0.038" transRatio="1"/>
-                    </wheel>
-                    <wheel dimensions="30_5L__32" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <physics tipOcclusionAreaGroupId="1" rotSpeed="0" restLoad="4.1" repr="wheelBackLeft" forcePointRatio="0.5" initialCompression="22" suspTravel="0.15" spring="110" damper="4" yOffset="0.038" transRatio="1"/>
-                    </wheel>
-                    <wheel dimensions="30_5L__32" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <physics tipOcclusionAreaGroupId="1" rotSpeed="0" restLoad="4.1" repr="wheelBackRight" forcePointRatio="0.5" initialCompression="22" suspTravel="0.15" spring="110" damper="4" yOffset="0.038" transRatio="1"/>
-                    </wheel>
-                </wheels>
-            </wheelConfiguration>
-            <wheelConfiguration name="$l10n_configuration_valueTwinWheelsNarrow" price="8000" saveId="TWIN_ALL_NARROW" numDynamicConfigurations="1">
-                <wheels baseConfig="DEFAULT" isCareWheelConfiguration="true">
-                    <wheel dimensions="520_70R38" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1 1.06 1.06"/>
-                        </additionalWheel>
-                    </wheel>
-                    <wheel dimensions="520_70R38" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1 1.06 1.06"/>
-                        </additionalWheel>
-                    </wheel>
-                    <wheel dimensions="520_70R38" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1 1.06 1.06"/>
-                        </additionalWheel>
-                    </wheel>
-                    <wheel dimensions="520_70R38" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1 1.06 1.06"/>
-                        </additionalWheel>
-                    </wheel>
-                </wheels>
-            </wheelConfiguration>
-            <wheelConfiguration name="$l10n_configuration_valueTwinWheelsAll" price="13000" saveId="TWIN_ALL" numDynamicConfigurations="1">
-                <wheels baseConfig="DEFAULT">
-                    <wheel dimensions="650_60R38 600_65R38" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1.02 1.08 1.08"/>
-                        </additionalWheel>
-                    </wheel>
-                    <wheel dimensions="650_60R38 600_65R38" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1.02 1.08 1.08"/>
-                        </additionalWheel>
-                    </wheel>
-                    <wheel dimensions="650_60R38 600_65R38" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1.02 1.08 1.08"/>
-                        </additionalWheel>
-                    </wheel>
-                    <wheel dimensions="650_60R38 600_65R38" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <additionalWheel configId="dual" offset="0.15">
-                            <connector filename="$data/shared/wheels/rims/dual001_2.xml" scale="1.02 1.08 1.08"/>
-                        </additionalWheel>
-                    </wheel>
-                </wheels>
-            </wheelConfiguration>
-        </wheelConfigurations>
-        <rimMaterial materialTemplateName="VERSATILE_ORANGE1"/>
-        <hubMaterial materialTemplateName="VERSATILE_RED1"/>
-        <hubs>
-            <hub linkNode="wheelFrontLeft" filename="$data/shared/wheels/hubs/hub_n12_9.xml" isLeft="true" scale="0.55 0.55 0.55" offset="-0.013"/>
-            <hub linkNode="wheelFrontRight" filename="$data/shared/wheels/hubs/hub_n12_9.xml" isLeft="false" scale="0.55 0.55 0.55" offset="-0.013"/>
-            <hub linkNode="wheelBackLeft" filename="$data/shared/wheels/hubs/hub_n12_9.xml" isLeft="true" scale="0.55 0.55 0.55" offset="-0.013"/>
-            <hub linkNode="wheelBackRight" filename="$data/shared/wheels/hubs/hub_n12_9.xml" isLeft="false" scale="0.55 0.55 0.55" offset="-0.013"/>
-        </hubs>
-        <ackermannSteeringConfigurations>
-            <ackermannSteering rotSpeed="25" rotMax="20" rotCenter="0 -0.583"/>
-        </ackermannSteeringConfigurations>
-    </wheels>
-    <rimColorConfigurations>
-        <rimColorConfiguration materialTemplateName="VERSATILE_ORANGE1" isSelectable="false">
-            <material materialSlotName="red_mat" materialTemplateName="VERSATILE_RED1"/>
-            <material materialSlotName="yellow_mat" materialTemplateName="VERSATILE_ORANGE1"/>
-            <material materialSlotName="yellowRoof_mat" materialTemplateName="VERSATILE_ORANGE1"/>
-            <material materialSlotName="black_mat" materialTemplateName="metalPaintedBlack" materialTemplateUseColorOnly="true"/>
-            <material materialSlotName="grid_mat" materialTemplateName="VERSATILE_ORANGE1"/>
-            <objectChange node="configuration_versatileFront" visibilityActive="true" visibilityInactive="false"/>
-            <objectChange node="configuration_versatileBack" visibilityActive="true" visibilityInactive="false"/>
-        </rimColorConfiguration>
-        <rimColorConfiguration materialTemplateName="SHARED_WHITE1" isSelectable="false">
-            <material materialSlotName="red_mat" materialTemplateName="FORD_BLUE1"/>
-            <material materialSlotName="yellow_mat" materialTemplateName="metalPaintedBlack"/>
-            <material materialSlotName="yellowRoof_mat" materialTemplateName="SHARED_WHITE1" materialTemplateUseColorOnly="true"/>
-            <material materialSlotName="black_mat" materialTemplateName="FORD_BLUE1" materialTemplateUseColorOnly="true"/>
-            <material materialSlotName="grid_mat" materialTemplateName="metalPaintedBlack"/>
-            <objectChange node="configuration_fordFront" visibilityActive="true" visibilityInactive="false"/>
-            <objectChange node="configuration_fordBack" visibilityActive="true" visibilityInactive="false"/>
-        </rimColorConfiguration>
-    </rimColorConfigurations>
-    <designConfigurations title="$l10n_configuration_frontweight">
-        <designConfiguration name="$l10n_configuration_valueNo">
-            <objectChange node="config_weightFront300" visibilityActive="false"/>
-            <objectChange node="config_weightFront900" visibilityActive="false"/>
-            <objectChange node="config_weightFront1300" visibilityActive="false"/>
-        </designConfiguration>
-        <designConfiguration name="$l10n_configuration_frontWeightX" params="300" price="480">
-            <objectChange node="config_weightFront300" visibilityActive="true"/>
-            <objectChange node="config_weightFront900" visibilityActive="false"/>
-            <objectChange node="config_weightFront1300" visibilityActive="false"/>
-            <component node="series900_main_component1" additionalMassNode="config_weightFront300" additionalMass="300" />
-        </designConfiguration>
-        <designConfiguration name="$l10n_configuration_frontWeightX" params="900" price="1440">
-            <objectChange node="config_weightFront300" visibilityActive="true"/>
-            <objectChange node="config_weightFront900" visibilityActive="true"/>
-            <objectChange node="config_weightFront1300" visibilityActive="false"/>
-            <component node="series900_main_component1" additionalMassNode="config_weightFront300" additionalMass="900" />
-        </designConfiguration>
-        <designConfiguration name="$l10n_configuration_frontWeightX" params="1300" price="2080">
-            <objectChange node="config_weightFront300" visibilityActive="true"/>
-            <objectChange node="config_weightFront900" visibilityActive="true"/>
-            <objectChange node="config_weightFront1300" visibilityActive="true"/>
-            <component node="series900_main_component1" additionalMassNode="config_weightFront300" additionalMass="1300" />
-        </designConfiguration>
-    </designConfigurations>
-    <design2Configurations title="$l10n_configuration_additionalWeight">
-        <design2Configuration name="$l10n_configuration_valueNo">
-            <objectChange node="config_weightBack400" visibilityActive="false"/>
-            <objectChange node="config_weightBack1000" visibilityActive="false"/>
-            <objectChange node="config_weightBack1600" visibilityActive="false"/>
-            <objectChange node="config_weightBack2200" visibilityActive="false"/>
-        </design2Configuration>
-        <design2Configuration name="$l10n_configuration_additionalWeightX" params="400" price="640">
-            <objectChange node="config_weightBack400" visibilityActive="true"/>
-            <objectChange node="config_weightBack1000" visibilityActive="false"/>
-            <objectChange node="config_weightBack1600" visibilityActive="false"/>
-            <objectChange node="config_weightBack2200" visibilityActive="false"/>
-            <component node="series900_back_component2" additionalMassNode="config_weightBack400" additionalMass="400"/>
-        </design2Configuration>
-        <design2Configuration name="$l10n_configuration_additionalWeightX" params="1000" price="1600">
-            <objectChange node="config_weightBack400" visibilityActive="true"/>
-            <objectChange node="config_weightBack1000" visibilityActive="true"/>
-            <objectChange node="config_weightBack1600" visibilityActive="false"/>
-            <objectChange node="config_weightBack2200" visibilityActive="false"/>
-            <component node="series900_back_component2" additionalMassNode="config_weightBack400" additionalMass="1000"/>
-        </design2Configuration>
-        <design2Configuration name="$l10n_configuration_additionalWeightX" params="1600" price="2560">
-            <objectChange node="config_weightBack400" visibilityActive="true"/>
-            <objectChange node="config_weightBack1000" visibilityActive="true"/>
-            <objectChange node="config_weightBack1600" visibilityActive="true"/>
-            <objectChange node="config_weightBack2200" visibilityActive="false"/>
-            <component node="series900_back_component2" additionalMassNode="config_weightBack400" additionalMass="1600"/>
-        </design2Configuration>
-        <design2Configuration name="$l10n_configuration_additionalWeightX" params="2200" price="3520">
-            <objectChange node="config_weightBack400" visibilityActive="true"/>
-            <objectChange node="config_weightBack1000" visibilityActive="true"/>
-            <objectChange node="config_weightBack1600" visibilityActive="true"/>
-            <objectChange node="config_weightBack2200" visibilityActive="true"/>
-            <component node="series900_back_component2" additionalMassNode="config_weightBack400" additionalMass="2200"/>
-        </design2Configuration>
-    </design2Configurations>
-    <speedRotatingParts>
-        <speedRotatingPart nodes="kardanFront01 kardanFront02 kardanFront03 kardanConnectionRot kardanBackPart01" wheelScale="5" wheelNodes="wheelBackLeft wheelBackRight"/>
-    </speedRotatingParts>
-    <articulatedAxis componentJointIndex="1" anchorActor="0" rotSpeed="-25" rotMax="35" rotMin="-35" aiReverserNode="aiReverserNode" maxTurningRadius="5"/>
-    <lights>
-        <states>
-            <state lightTypes="0"/>
-            <state lightTypes="0 1"/>
-            <state lightTypes="0 1 2"/>
-        </states>
-        <realLights>
-            <low>
-                <light node="frontLightLow" lightTypes="0" excludedLightTypes="2 3"/>
-                <light node="workLightBackLow" lightTypes="1"/>
-                <light node="workLightFrontLow" lightTypes="2"/>
-                <light node="highBeamLow" lightTypes="3"/>
-            </low>
-            <high>
-                <light node="frontLightHigh" lightTypes="0" excludedLightTypes="2 3"/>
-                <light node="interiorScreenLight" lightTypes="0"/>
-                <light node="workLightBackHigh" lightTypes="1"/>
-                <light node="workLightFrontHigh" lightTypes="2"/>
-                <light node="highBeamHigh" lightTypes="3"/>
-                <light node="backLightsHigh" lightTypes="0"/>
-                <brakeLight node="backLightsHigh"/>
-                <turnLightLeft node="turnLightLeftFront"/>
-                <turnLightRight node="turnLightRightFront"/>
-            </high>
-        </realLights>
-        <staticLightCompounds>
-            <staticLightCompound>
-                <node node="staticLightFront" intensity="15"/>
-                <node node="staticLightFrontGlass" intensity="1"/>
-                <node node="staticLightBack" intensity="15"/>
-                <node node="staticLightBackGlass" intensity="1"/>
-            </staticLightCompound>
-        </staticLightCompounds>
-        <dashboards>
-            <dashboard displayType="EMITTER" valueType="lightState" lightTypes="0" node="dashboardBackgroundLightningDecals" intensity="0.05" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="EMITTER" valueType="lightState" lightTypes="3" node="lightStateDecal" intensity="0.2" baseColor="BLACK" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="EMITTER" valueType="turnLightLeft" node="turnLightLeftDecal" intensity="0.2" baseColor="BLACK" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="EMITTER" valueType="turnLightRight" node="turnLightRightDecal" intensity="0.2" baseColor="BLACK" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="EMITTER" valueType="turnLightHazard" node="turnLightHazardDecal" intensity="0.2" baseColor="BLACK" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="ROT" valueType="turnLightHazard" node="turnLightHazardLever" minRot="0 0 0" maxRot="30 0 0" doInterpolation="true" interpolationSpeed="0.003"/>
-            <dashboard displayType="ROT" valueType="turnLight" node="turnLightLever" minRot="0 10 0" maxRot="0 -10 0" doInterpolation="true" interpolationSpeed="0.003"/>
-            <dashboard displayType="ROT" valueType="lightState" lightTypes="3" node="headLightLever" minRot="0 0 0" maxRot="30 0 0" doInterpolation="true" interpolationSpeed="0.003"/>
-            <dashboard displayType="MULTI_STATE" valueType="lightState" node="workLightLever" doInterpolation="true" groups="MOTOR_ACTIVE">
-                <state value="0" rotation="10 0 0"/>
-                <state value="1" rotation="20 0 0"/>
-                <state value="2" rotation="30 0 0"/>
-            </dashboard>
-        </dashboards>
-    </lights>
-    <licensePlates>
-        <licensePlate node="licensePlateFront" position="FRONT" preferedType="SQUARISH" placementArea="0.08 0.3 0.2 0.3"/>
-        <licensePlate node="licensePlateBack" position="BACK" preferedType="ELONGATED" placementArea="0.2 0.27 0.055 0.27"/>
-    </licensePlates>
-    <attacherJoints comboDuration="2">
-        <attacherJoint node="trailerLowAttacherJointBack" rootNode="series900_back_component2" jointType="trailerLow" lowerRotLimit="25 75 50" upperRotationOffset="0" allowsJointLimitMovement="false" comboTime="1">
-            <schema position="1 0" rotation="0" invertX="false"/>
-        </attacherJoint>
-        <attacherJoint node="trailerAttacherJointBack" rootNode="series900_back_component2" jointType="trailer" lowerRotLimit="25 75 50" upperRotationOffset="0" allowsJointLimitMovement="false" comboTime="1">
-            <schema position="1 0" rotation="0" invertX="false"/>
-        </attacherJoint>
-        <sounds>
-            <attach template="attach01"/>
-            <hydraulic template="hydraulicOpen03"/>
-        </sounds>
-    </attacherJoints>
-    <connectionHoses>
-        <target attacherJointIndices="1 2" type="hydraulicIn" node="hydraulicIn01">
-            <objectChange node="hydraulicIn01_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicOut" node="hydraulicOut01">
-            <objectChange node="hydraulicOut01_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicIn" node="hydraulicIn02">
-            <objectChange node="hydraulicIn02_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicOut" node="hydraulicOut02">
-            <objectChange node="hydraulicOut02_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicIn" node="hydraulicIn03">
-            <objectChange node="hydraulicIn03_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicOut" node="hydraulicOut03">
-            <objectChange node="hydraulicOut03_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicIn" node="hydraulicIn04">
-            <objectChange node="hydraulicIn04_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="hydraulicOut" node="hydraulicOut04">
-            <objectChange node="hydraulicOut04_cover" visibilityActive="false" visibilityInactive="true"/>
-        </target>
-        <target attacherJointIndices="1 2" type="electric" node="electricOut01" socket="electric"/>
-    </connectionHoses>
-    <enterable isTabbable="true">
-        <enterReferenceNode node="series900_main_component1"/>
-        <exitPoint node="exitPoint"/>
-        <cameras>
-            <camera node="outdoorCamera" rotatable="true" rotateNode="outdoorCameraTarget" limit="true" useWorldXZRotation="true" rotMinX="-1.4" rotMaxX="1" transMin="4.9" transMax="45" translation="0 0 7.75" rotation="-18 180 0">
-                <raycastNode node="cameraRaycastNode1"/>
-                <raycastNode node="cameraRaycastNode2"/>
-                <raycastNode node="cameraRaycastNode3"/>
-            </camera>
-            <camera node="indoorCamera" rotatable="true" limit="true" rotMinX="-1.1" rotMaxX="0.4" transMin="0" transMax="0" useMirror="true" isInside="true" shadowFocusBox="shadowFocusBox" suspensionNodeIndex="1"/>
-        </cameras>
-        <characterNode node="playerSkin" cameraMinDistance="0.5">
-            <target ikChain="leftArm" targetNode="playerLeftHandTarget"/>
-            <target ikChain="rightArm" targetNode="playerRightHandTarget"/>
-            <target ikChain="leftFoot" targetNode="playerLeftFootTarget"/>
-            <target ikChain="rightFoot" targetNode="playerRightFootTarget"/>
-        </characterNode>
-        <characterTargetNodeModifier node="playerRightFootTarget" transitionTime="0.1">
-            <state node="playerRightFootTargetGas" referenceNode="pedalGas" directionReferenceNode="playerRightFootTargetGasRef"/>
-            <state node="playerRightFootTargetBrake" referenceNode="pedalBrake"/>
-        </characterTargetNodeModifier>
-        <characterTargetNodeModifier node="playerRightHandTarget" transitionTime="0.1">
-            <state node="playerRightHandTargetLeverGearShift" referenceNode="leverGearShift"/>
-            <state node="playerRightHandTargetLeverGearShift" referenceNode="leverDirection" referenceNodeMovement="true"/>
-        </characterTargetNodeModifier>
-        <characterTargetNodeModifier node="playerSkin" transitionTime="0.25">
-            <state node="playerSkinLeveGearShift" referenceNode="leverGearShift"/>
-            <state node="playerSkinLeveGearShift" referenceNode="leverDirection" referenceNodeMovement="true"/>
-        </characterTargetNodeModifier>
-        <mirrors>
-            <mirror node="mirrorInterior_decal" prio="1"/>
-        </mirrors>
-        <dashboards>
-            <dashboard displayType="TEXT" valueType="operatingTime" node="numbersOperatingHours" textColor="WHITE" textScaleX="1.12" hiddenColor="WHITE" emissiveScale="0" textMask="00000.0" precision="0" textSize="0.0043" textAlignment="RIGHT" font="GENERIC"/>
-        </dashboards>
-    </enterable>
-    <motorized>
-        <consumerConfigurations>
-            <consumerConfiguration>
-                <consumer fillUnitIndex="1" usage="68.5" fillType="diesel"/>
-                <!-- usage is per hour at max load and max rpm -->
-            </consumerConfiguration>
-        </consumerConfigurations>
-        <differentialConfigurations>
-            <differentialConfiguration>
-                <differentials>
-                    <differential torqueRatio="0.5" maxSpeedRatio="1.6" wheelIndex1="1" wheelIndex2="2"/>
-                    <differential torqueRatio="0.5" maxSpeedRatio="1.6" wheelIndex1="3" wheelIndex2="4"/>
-                    <differential torqueRatio="0.5" maxSpeedRatio="1.3" differentialIndex1="1" differentialIndex2="2"/>
-                </differentials>
-            </differentialConfiguration>
-        </differentialConfigurations>
-        <animationNodes>
-            <animationNode node="engineFan" rotSpeed="-600" rotAxis="3" turnOnFadeTime="2" turnOffFadeTime="4"/>
-        </animationNodes>
-        <motorConfigurations>
-            <motorConfiguration name="976" hp="365" price="0">
-                <motor torqueScale="1" minRpm="790" maxRpm="2200" maxForwardSpeed="28" maxBackwardSpeed="15" brakeForce="8" mrGovernorRpmRange="130" ptoMotorRpmRatio="3.89">
-                    <torque rpm="790" torque="1.2"/>
-                    <torque rpm="1000" torque="1.5"/>
-                    <torque rpm="1311" torque="1.572"/>
-                    <torque rpm="1470" torque="1.55"/>
-                    <torque rpm="1700" torque="1.45"/>
-                    <torque rpm="1850" torque="1.37"/>
-                    <torque rpm="2100" torque="1.14"/>
-                    <torque rpm="2200" torque="0.92"/>
-                </motor>
-                <transmission autoGearChangeTime="0.85" gearChangeTime="0" name="$l10n_info_transmission_powerShift">
-                    <directionChange useGear="true" reverseGearIndex="2" changeTime="0.9" />
-                    <backwardGear maxSpeed="5.45" name="R1"/>
-                    <backwardGear maxSpeed="14.04" name="R2"/>
-                    <forwardGear maxSpeed="3.77"/>
-                    <forwardGear maxSpeed="4.714"/>
-                    <forwardGear maxSpeed="6.076"/>
-                    <forwardGear maxSpeed="6.81"/>
-                    <forwardGear maxSpeed="7.44"/>
-                    <forwardGear maxSpeed="10.58"/>
-                    <forwardGear maxSpeed="11.84"/>
-                    <forwardGear maxSpeed="13.93" defaultGear="true"/>
-                    <forwardGear maxSpeed="16.03"/>
-                    <forwardGear maxSpeed="19.17"/>
-                    <forwardGear maxSpeed="21.16"/>
-                    <forwardGear maxSpeed="26.82"/>
-                </transmission>
-            </motorConfiguration>
-        </motorConfigurations>
-        <exhaustEffects>
-            <exhaustEffect node="exhaustParticle" filename="$data/effects/exhaust/exhaust.i3d" minRpmColor="0.9 0.9 0.9 0.1" maxRpmColor="0.9 0.9 0.9 0.4" minRpmScale="0.05" maxRpmScale="0.5"/>
-        </exhaustEffects>
-        <motorStartDuration>3000</motorStartDuration>
-        <dashboards>
-            <dashboard displayType="TEXT" valueType="gear" node="gearNode" textColor="0.1 0.1 0.1" textScaleX="1.1" emissiveScale="0" textMask="00" textSize="0.01" textAlignment="CENTER" font="GENERIC_BOLD"/>
-            <dashboard displayType="ROT" valueType="gearShiftUpDown" node="leverGearShift" minRot="0 0 -5" maxRot="0 0 5" doInterpolation="true" interpolationSpeed="0.005"/>
-            <dashboard displayType="ROT" valueType="movingDirection" node="leverDirection" minRot="-30 0 0" maxRot="30 0 0" doInterpolation="true" interpolationSpeed="0.005"/>
-            <dashboard displayType="MULTI_STATE" valueType="ignitionState" node="keyIgnition" doInterpolation="true" groups="MOTOR_ACTIVE">
-                <state value="0" rotation="0 0 0"/>
-                <state value="1" rotation="0 0 -80"/>
-                <state value="2" rotation="0 0 -50"/>
-            </dashboard>
-            <dashboard displayType="MULTI_STATE" valueType="ignitionState" node="coldStartButton" doInterpolation="true" groups="MOTOR_ACTIVE">
-                <state value="0" rotation="0 0 0"/>
-                <state value="1" rotation="30 0 0"/>
-                <state value="2" rotation="0 0 0"/>
-            </dashboard>
-            <dashboard displayType="MULTI_STATE" valueType="ignitionState" node="parkingBrakePart01" doInterpolation="true" groups="MOTOR_ACTIVE">
-                <state value="0" rotation="0 0 0"/>
-                <state value="1" rotation="0 0 0"/>
-                <state value="2" rotation="80 0 0"/>
-            </dashboard>
-            <dashboard displayType="ROT" valueType="battery" node="needleBattery" minRot="0 0 0" maxRot="0 0 -50" doInterpolation="true" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="ROT" valueType="motorTemperature" node="needleTemperature01" minRot="0 0 0" maxRot="-40 0 0" minValueRot="20" maxValueRot="25" doInterpolation="true" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="ROT" valueType="motorTemperature" node="needleTemperature02" minRot="0 0 0" maxRot="-45 0 0" minValueRot="0" maxValueRot="120" doInterpolation="true" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="ROT" valueType="rpm" node="needleRpm" minRot="0 0 5" maxRot="0 0 -257" minValueRot="0" maxValueRot="3000" doInterpolation="true" groups="MOTOR_ACTIVE"/>
-        </dashboards>
-    </motorized>
-    <suspensions>
-        <suspension node="seat" weight="150" minTranslation="0 -0.15 0" maxTranslation="0 0.15 0" suspensionParametersX="20 4" suspensionParametersY="5 1" suspensionParametersZ="20 4" startTranslationOffset="0 -0.13 0"/>
-        <suspension useCharacterTorso="true" weight="90" minRotation="0 -5 -5" maxRotation="0 5 5" suspensionParametersY="7 1" suspensionParametersZ="7 1"/>
-    </suspensions>
-    <drivable>
-        <steeringWheel node="steeringWheel" indoorRotation="540" outdoorRotation="20"/>
-        <dashboards>
-            <dashboard displayType="ROT" valueType="accelerationAxis" node="pedalGas" minRot="0 0 0" maxRot="0 0 -8" doInterpolation="true" groups="MOTOR_ACTIVE"/>
-            <dashboard displayType="ROT" valueType="decelerationAxis" node="pedalBrake" minRot="0 0 0" maxRot="-15 0 0" doInterpolation="true"/>
-        </dashboards>
-        <sounds>
-            <waterSplash template="waterSplash01"/>
-        </sounds>
-    </drivable>
-    <fillUnit>
-        <fillUnitConfigurations>
-            <fillUnitConfiguration>
-                <fillUnits>
-                    <fillUnit unitTextOverride="$l10n_unit_literShort" showOnHud="false" showInShop="false" fillTypes="diesel" capacity="1085">
-                        <exactFillRootNode node="exactFillRootNodeFuel"/>
-                        <dashboard displayType="ROT" valueType="fillLevel" node="needleFillLevel" minRot="0 0 0" maxRot="0 0 -80" doInterpolation="true" groups="MOTOR_ACTIVE"/>
-                    </fillUnit>
-                </fillUnits>
-            </fillUnitConfiguration>
-        </fillUnitConfigurations>
-    </fillUnit>
-    <wipers>
-        <wiper animName="wiperFrontAnim">
-            <state animSpeed="1.0" animPause="2.0"/>
-            <state animSpeed="1.0" animPause="0.0"/>
-            <state animSpeed="1.5" animPause="0.0"/>
-        </wiper>
-        <wiper animName="wiperBackAnim">
-            <state animSpeed="1.0" animPause="2.0"/>
-        </wiper>
-        <dashboards>
-            <dashboard displayType="MULTI_STATE" valueType="state" node="wiperLever" doInterpolation="true" groups="MOTOR_ACTIVE">
-                <state value="0" rotation="0 0 0"/>
-                <state value="1" rotation="0 0 30"/>
-                <state value="2" rotation="0 0 50"/>
-                <state value="3" rotation="0 0 70"/>
-            </dashboard>
-        </dashboards>
-    </wipers>
-    <animations>
-        <animation name="wiperFrontAnim">
-            <part node="wiperFront" startTime="0" endTime="1" startRot="0 0 0" endRot="0 0 90"/>
-            <sound template="wiper1" startTime="0" endTime="1" direction="1" volumeScale="1.2" pitchScale="0.8" fadeOut="0.1" linkNode="wiperFront"/>
-            <sound template="wiper2" startTime="0" endTime="1" direction="-1" volumeScale="1.2" pitchScale="0.8" fadeOut="0.1" linkNode="wiperFront"/>
-        </animation>
-        <animation name="wiperBackAnim">
-            <part node="wiperBack" startTime="0" endTime="1" startRot="0 0 0" endRot="0 0 -77"/>
-            <sound template="wiper1" startTime="0" endTime="1" direction="1" volumeScale="1.2" pitchScale="0.8" fadeOut="0.1" linkNode="wiperBack"/>
-            <sound template="wiper2" startTime="0" endTime="1" direction="-1" volumeScale="1.2" pitchScale="0.8" fadeOut="0.1" linkNode="wiperBack"/>
-        </animation>
-    </animations>
-    <cylindered>
-        <movingParts>
-            <movingPart node="steeringLeftHydraulic" referencePoint="steeringLeftHydraulicRef" referenceFrame="steeringLeftHydraulicRef" isActiveDirty="true" maxUpdateDistance="100">
-                <translatingPart node="steeringLeftHydraulicPunch"/>
-            </movingPart>
-            <movingPart node="steeringRightHydraulic" referencePoint="steeringRightHydraulicRef" referenceFrame="steeringRightHydraulicRef" isActiveDirty="true" maxUpdateDistance="100">
-                <translatingPart node="steeringRightHydraulicPunch"/>
-            </movingPart>
-            <movingPart node="kardanConnection" referencePoint="kardanConnectionRef" referenceFrame="kardanConnectionRef" isActiveDirty="true" maxUpdateDistance="100">
-                <translatingPart node="kardanConnectionPunch"/>
-            </movingPart>
-        </movingParts>
-    </cylindered>
-    <ai>
-        <agent frontWheelNodes="wheelFrontLeft wheelFrontRight"/>
-        <collisionTrigger useSize="true"/>
-    </ai>
-    <dashboard>
-        <groups>
-            <group name="MOTOR_STARTING" electronicsStarting="true"/>
-            <group name="MOTOR_ACTIVE" electronicsStarting="true" electronicsRunning="true"/>
-            <group name="MOTOR_RUNNING" electronicsRunning="true"/>
-        </groups>
-        <default>
-            <dashboard displayType="EMITTER" node="engineStartingDecals" baseColor="BLACK" intensity="0.2" groups="MOTOR_STARTING"/>
-        </default>
-    </dashboard>
-    <foliageBending>
-        <bendingNode wheelIndices="1 2" minZ="-0.65" maxZ="2.15" yOffset="0.5"/>
-        <bendingNode wheelIndices="3 4" minZ="-1.23" maxZ="1.18" yOffset="-0.53" node="series900_back_component2"/>
-        <bendingNode minX="-0.52" maxX="0.52" minZ="2.15" maxZ="3.35" yOffset="0.95"/>
-    </foliageBending>
-    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
-    <washable dirtDuration="90" washDuration="1" workMultiplier="3" fieldMultiplier="2"/>
-    <i3dMappings>
-        <i3dMapping id="series900_main_component1" node="0>"/>
-        <i3dMapping id="series900_vis" node="0>0"/>
-        <i3dMapping id="wheelFrontLeft" node="0>0|0|0"/>
-        <i3dMapping id="wheelFrontRight" node="0>0|0|1"/>
-        <i3dMapping id="licensePlateFront" node="0>0|1|0"/>
-        <i3dMapping id="licensePlateBack" node="0>0|1|1"/>
-        <i3dMapping id="outdoorCameraTarget" node="0>0|2|0"/>
-        <i3dMapping id="outdoorCamera" node="0>0|2|0|0"/>
-        <i3dMapping id="indoorCamera" node="0>0|2|1"/>
-        <i3dMapping id="cameraRaycastNode1" node="0>0|2|2"/>
-        <i3dMapping id="cameraRaycastNode2" node="0>0|2|3"/>
-        <i3dMapping id="cameraRaycastNode3" node="0>0|2|4"/>
-        <i3dMapping id="shadowFocusBox" node="0>0|2|5"/>
-        <i3dMapping id="exitPoint" node="0>0|3"/>
-        <i3dMapping id="staticLightFrontGlass" node="0>0|4|0|0"/>
-        <i3dMapping id="staticLightFront" node="0>0|4|0|1"/>
-        <i3dMapping id="interiorScreenLight" node="0>0|4|1"/>
-        <i3dMapping id="frontLightLow" node="0>0|4|2|0"/>
-        <i3dMapping id="highBeamLow" node="0>0|4|2|1"/>
-        <i3dMapping id="frontLightHigh" node="0>0|4|2|2"/>
-        <i3dMapping id="highBeamHigh" node="0>0|4|2|3"/>
-        <i3dMapping id="backLightsHigh" node="0>0|4|3|0"/>
-        <i3dMapping id="turnLightLeftFront" node="0>0|4|4|0"/>
-        <i3dMapping id="turnLightRightFront" node="0>0|4|4|1"/>
-        <i3dMapping id="workLightFrontLow" node="0>0|4|5|0"/>
-        <i3dMapping id="workLightFrontHigh" node="0>0|4|5|1"/>
-        <i3dMapping id="workLightBackLow" node="0>0|4|5|2"/>
-        <i3dMapping id="steeringWheel" node="0>0|5|0|0|0|0"/>
-        <i3dMapping id="playerLeftHandTarget" node="0>0|5|0|0|0|0|0"/>
-        <i3dMapping id="playerRightHandTarget" node="0>0|5|0|0|0|0|1"/>
-        <i3dMapping id="turnLightLever" node="0>0|5|0|0|1|0"/>
-        <i3dMapping id="wiperLever" node="0>0|5|0|0|1|0|0"/>
-        <i3dMapping id="keyIgnition" node="0>0|5|0|0|3|0"/>
-        <i3dMapping id="seat" node="0>0|5|1|0"/>
-        <i3dMapping id="parkingBrakePart01" node="0>0|5|1|0|0|0"/>
-        <i3dMapping id="playerSkin" node="0>0|5|1|0|0|1"/>
-        <i3dMapping id="playerSkinLeveGearShift" node="0>0|5|1|0|0|2"/>
-        <i3dMapping id="playerRightFootTarget" node="0>0|5|2|0"/>
-        <i3dMapping id="playerLeftFootTarget" node="0>0|5|2|1"/>
-        <i3dMapping id="playerRightFootTargetGas" node="0>0|5|2|2"/>
-        <i3dMapping id="pedalBrake" node="0>0|5|3|0|0"/>
-        <i3dMapping id="playerRightFootTargetBrake" node="0>0|5|3|0|0|0"/>
-        <i3dMapping id="pedalClutch" node="0>0|5|3|1|0"/>
-        <i3dMapping id="pedalGas" node="0>0|5|3|2|0"/>
-        <i3dMapping id="playerRightFootTargetGasRef" node="0>0|5|3|2|0|1"/>
-        <i3dMapping id="wiperFront" node="0>0|5|4|0|0"/>
-        <i3dMapping id="wiperBack" node="0>0|5|4|1|0"/>
-        <i3dMapping id="mirrorInterior_decal" node="0>0|5|5"/>
-        <i3dMapping id="leverGearShift" node="0>0|5|6|0"/>
-        <i3dMapping id="leverDirection" node="0>0|5|6|0|0"/>
-        <i3dMapping id="playerRightHandTargetLeverGearShift" node="0>0|5|6|0|0|1"/>
-        <i3dMapping id="gearNode" node="0>0|5|6|1"/>
-        <i3dMapping id="workLightLever" node="0>0|5|6|2"/>
-        <i3dMapping id="headLightLever" node="0>0|5|6|3"/>
-        <i3dMapping id="turnLightHazardLever" node="0>0|5|6|4"/>
-        <i3dMapping id="coldStartButton" node="0>0|5|6|5"/>
-        <i3dMapping id="numbersOperatingHours" node="0>0|5|6|6"/>
-        <i3dMapping id="dashboardBackgroundLightningDecals" node="0>0|5|8|6"/>
-        <i3dMapping id="needleBattery" node="0>0|5|8|7|0"/>
-        <i3dMapping id="needleFillLevel" node="0>0|5|8|8|0"/>
-        <i3dMapping id="needleRpm" node="0>0|5|8|9|0"/>
-        <i3dMapping id="needleTemperature01" node="0>0|5|8|10|0"/>
-        <i3dMapping id="needleTemperature02" node="0>0|5|8|11|0"/>
-        <i3dMapping id="leverGas" node="0>0|5|8|12|0"/>
-        <i3dMapping id="turnLightLeftDecal" node="0>0|5|8|13"/>
-        <i3dMapping id="turnLightRightDecal" node="0>0|5|8|14"/>
-        <i3dMapping id="turnLightHazardDecal" node="0>0|5|8|15"/>
-        <i3dMapping id="lightStateDecal" node="0>0|5|8|16"/>
-        <i3dMapping id="engineStartingDecals" node="0>0|5|8|17"/>
-        <i3dMapping id="exhaustParticle" node="0>0|6"/>
-        <i3dMapping id="steeringLeftHydraulic" node="0>0|7|0"/>
-        <i3dMapping id="steeringLeftHydraulicPunch" node="0>0|7|0|0"/>
-        <i3dMapping id="steeringRightHydraulic" node="0>0|7|1"/>
-        <i3dMapping id="steeringRightHydraulicPunch" node="0>0|7|1|0"/>
-        <i3dMapping id="kardanConnectionRot" node="0>0|7|2|0"/>
-        <i3dMapping id="kardanConnection" node="0>0|7|2|0|0"/>
-        <i3dMapping id="kardanConnectionPunch" node="0>0|7|2|0|0|0"/>
-        <i3dMapping id="kardanFront01" node="0>0|7|3|0"/>
-        <i3dMapping id="kardanFront02" node="0>0|7|4|0"/>
-        <i3dMapping id="kardanFront03" node="0>0|7|5|0"/>
-        <i3dMapping id="engineFan" node="0>0|7|6|0"/>
-        <i3dMapping id="exactFillRootNodeFuel" node="0>0|8|0"/>
-        <i3dMapping id="componentJointBack" node="0>0|9"/>
-        <i3dMapping id="configuration_fordFront" node="0>0|10|0"/>
-        <i3dMapping id="configuration_versatileFront" node="0>0|10|1"/>
-        <i3dMapping id="config_weightFront1300" node="0>0|10|2"/>
-        <i3dMapping id="config_weightFront900" node="0>0|10|3"/>
-        <i3dMapping id="config_weightFront300" node="0>0|10|4"/>
-        <i3dMapping id="cropSensorRight" node="0>0|10|5|0"/>
-        <i3dMapping id="cropSensorLeft" node="0>0|10|5|1"/>
-        <i3dMapping id="cropSensorTop" node="0>0|10|5|2"/>
-        <i3dMapping id="series900_back_component2" node="1>"/>
-        <i3dMapping id="wheelBackLeft" node="1>0|0|0"/>
-        <i3dMapping id="wheelBackRight" node="1>0|0|1"/>
-        <i3dMapping id="staticLightBackGlass" node="1>0|1|0|0"/>
-        <i3dMapping id="staticLightBack" node="1>0|1|0|1"/>
-        <i3dMapping id="workLightBackHigh" node="1>0|1|1|0"/>
-        <i3dMapping id="trailerAttacherJointBack" node="1>0|2|0"/>
-        <i3dMapping id="trailerLowAttacherJointBack" node="1>0|2|1"/>
-        <i3dMapping id="hydraulicIn01_cover" node="1>0|3|0"/>
-        <i3dMapping id="hydraulicOut01_cover" node="1>0|3|1"/>
-        <i3dMapping id="hydraulicIn02_cover" node="1>0|3|2"/>
-        <i3dMapping id="hydraulicOut02_cover" node="1>0|3|3"/>
-        <i3dMapping id="hydraulicIn03_cover" node="1>0|3|4"/>
-        <i3dMapping id="hydraulicOut03_cover" node="1>0|3|5"/>
-        <i3dMapping id="hydraulicIn04_cover" node="1>0|3|6"/>
-        <i3dMapping id="hydraulicOut04_cover" node="1>0|3|7"/>
-        <i3dMapping id="hydraulicIn01" node="1>0|3|8"/>
-        <i3dMapping id="hydraulicOut01" node="1>0|3|9"/>
-        <i3dMapping id="hydraulicIn02" node="1>0|3|10"/>
-        <i3dMapping id="hydraulicOut02" node="1>0|3|11"/>
-        <i3dMapping id="hydraulicIn03" node="1>0|3|12"/>
-        <i3dMapping id="hydraulicOut03" node="1>0|3|13"/>
-        <i3dMapping id="hydraulicIn04" node="1>0|3|14"/>
-        <i3dMapping id="hydraulicOut04" node="1>0|3|15"/>
-        <i3dMapping id="electricOut01" node="1>0|3|16"/>
-        <i3dMapping id="steeringLeftHydraulicRef" node="1>0|4|0"/>
-        <i3dMapping id="steeringRightHydraulicRef" node="1>0|4|1"/>
-        <i3dMapping id="kardanBackPart01" node="1>0|4|2|0"/>
-        <i3dMapping id="kardanConnectionRef" node="1>0|4|2|0|0"/>
-        <i3dMapping id="aiReverserNode" node="1>0|5|0"/>
-        <i3dMapping id="configuration_fordBack" node="1>0|7|0"/>
-        <i3dMapping id="configuration_versatileBack" node="1>0|7|1"/>
-        <i3dMapping id="config_weightBack400" node="1>0|7|2"/>
-        <i3dMapping id="config_weightBack1000" node="1>0|7|3"/>
-        <i3dMapping id="config_weightBack1600" node="1>0|7|4"/>
-        <i3dMapping id="config_weightBack2200" node="1>0|7|5"/>
-    </i3dMappings>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.1 1.1"/>
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -0.3"/>
+            <set path="vehicle.base.components.component(0)#mass" value="4160"/>
+            <set path="vehicle.base.components.component(1)#mass" value="3040"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="110"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="4"/>
+
+            <set path="vehicle.designConfigurations.designConfiguration(1).component#additionalMassNode" value="config_weightFront300" />
+            <set path="vehicle.designConfigurations.designConfiguration(2).component#additionalMassNode" value="config_weightFront300" />
+            <set path="vehicle.designConfigurations.designConfiguration(3).component#additionalMassNode" value="config_weightFront300" />
+
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="68.5"/>
+
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(0)#maxSpeedRatio" value="1.3" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(1)#maxSpeedRatio" value="1.3" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#maxSpeedRatio" value="1.3" />
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="790"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="130"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="28"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="8"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.89"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="790"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="1.200"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="1.500"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1311"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="1.572"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1470"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="1.550"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="1.450"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="1850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="1.370"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="2100"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="1.140"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#rpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#torque" value="0.920"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.85"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#reverseGearIndex" value="2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="0"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#maxSpeed" value="5.45"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#name" value="R1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#maxSpeed" value="14.04"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(1)#name" value="R2"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(0)#maxSpeed" value="3.77"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(1)#maxSpeed" value="4.714"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(2)#maxSpeed" value="6.076"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(3)#maxSpeed" value="6.81"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(4)#maxSpeed" value="7.44"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(5)#maxSpeed" value="10.58"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(6)#maxSpeed" value="11.84"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(7)#maxSpeed" value="13.93"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(8)#maxSpeed" value="16.03"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(9)#maxSpeed" value="19.17"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(10)#maxSpeed" value="21.16"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.forwardGear(11)#maxSpeed" value="26.82"/>
+
+            <set path="vehicle.motorized.dashboards.dashboard(9)#minRot" value="0 0 5" />
+
+        </attributes>
+    </parentFile>
+
 </vehicle>
