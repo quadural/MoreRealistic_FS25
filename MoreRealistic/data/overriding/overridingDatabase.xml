@@ -110,6 +110,10 @@
     <vehicle fileNameToOverride="data/vehicles/agrisem/combiplow/combiplow.xml">vehicles/agrisem/combiplow.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/alpego/kForce400/kForce400.xml">vehicles/alpego/kForce400.xml</vehicle>
 
+    <!-- sugarbeet harvesting -->
+    <vehicle fileNameToOverride="data/vehicles/holmer/terraDosT540/terraDosT540.xml">vehicles/holmer/terraDosT540.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/holmer/terraDosT540Header/terraDosT540Header.xml">vehicles/holmer/terraDosT540Header.xml</vehicle>
+
     <!-- tractors -->
     <vehicle fileNameToOverride="data/vehicles/caseIH/farmall120C/farmall120C.xml">vehicles/caseIH/farmall120C.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/challenger/mt655/mt655.xml">vehicles/challenger/mt655.xml</vehicle>

@@ -34,9 +34,9 @@
     <fruitType name="SUNFLOWER"                         capacityFx="1.2"    threshingFx="0.4"   chopperFx="0.3" />
     <fruitType name="SOYBEAN"                           capacityFx="0.65"   threshingFx="0.5"   chopperFx="0.5" /> <!-- 6.84T/Ha - easy to thresh compared to other grain but we have to lower the cutterbar on the ground all the time = rather limited by cutterbar and ground flatness IRL -->
     <fruitType name="MAIZE"     litersPerHa="25760"     capacityFx="1.8"    threshingFx="0.5"   chopperFx="0.3" /> <!-- 15T/Ha for a perfect corn - easy to thresh compared to other grain, very high throughput possible -->
-    <fruitType name="POTATO"                            capacityFx="1.16"   threshingFx="1"                     />
-    <fruitType name="SUGARBEET"                         capacityFx="1.18"   threshingFx="1"                     />
-    <fruitType name="BEETROOT"                          capacityFx="1.20"   threshingFx="1"                     />
+    <fruitType name="POTATO"                            capacityFx="1.00"   threshingFx="0.25"   chopperFx="0"   />
+    <fruitType name="SUGARBEET"                         capacityFx="1.00"   threshingFx="0.22"   chopperFx="0"   />
+    <fruitType name="BEETROOT"                          capacityFx="1.00"   threshingFx="0.25"   chopperFx="0"   />
     <fruitType name="CARROT"                            capacityFx="1.23"   threshingFx="1"                     /> <!-- 0.79/0.64 -->
     <fruitType name="PARSNIP"                           capacityFx="1.23"   threshingFx="1"                     /> <!--0.79/0.64 -->
     <fruitType name="COTTON"                            capacityFx="3.43"   threshingFx="1"                     /> <!-- 0.79/0.23 -->

@@ -823,7 +823,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
                 --limit motorRotAccFx when near target speed
                 local ffx3 = 0.5 + 0.5*math.min(1, math.abs(targetSpeed-lastSpd))
                 motorRotAccFx = motorRotAccFx * ffx3
-            else
+            elseif lastRatio>minGearRatio then
                 motorRotAccFx = 0 -- no engine rpm change wanted
             end
 
@@ -912,7 +912,7 @@ end
 -- @param densityBits (FieldGroundType.GRASS, FieldGroundType.GRASS_CUT ...)
 -- @param terrainAttributes (...)
 -- @return integer groundType ground type
-function WheelsUtil.mrGetGroundType(isField, isRoad, depth, densityType, terrainAttribute)
+WheelsUtil.mrGetGroundType = function(isField, isRoad, depth, densityType, terrainAttribute)
     -- terrain softness:
     -- [  0, 0.1]: road
     -- [0.1, 0.8]: hard terrain
