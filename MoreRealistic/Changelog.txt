@@ -338,3 +338,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Holmer terraDos T5.40 sugarbeet harvester
             - fix bug with default MR CVT = sometimes (mostly in reverse), even when fully accelerating, we couldn't reach the top reverse speed. (engine rpm was still)
             - updated versatile/ford tractors from prairie DLC to take into account the modified i3d file from Giants
+
+202511XX    - fix MR bug : in some situation, reversing light was remaining ON when exiting the vehicle

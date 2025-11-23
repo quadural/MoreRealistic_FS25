@@ -193,8 +193,8 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     if doHandbrake then
         self:controlVehicle(0, 0, 0, minRotForPTOidle, math.huge, 0.0, 0.0, 0.0, 0.0, neededPtoTorque)
         self:brake(1)
-        --display brake ligths
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, 1, false, 0)
+        --display brake ligths / reverse lights
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, 1, false, currentSpeed)
         return
     end
 
@@ -235,7 +235,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         motor.stallTimer = 0 -- prevent stalling while power reversing
 
         --display brake ligths
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, 0)
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, currentSpeed)
         return
     end
 
@@ -276,8 +276,8 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         tRot = math.max(minRotForPTOidle, tRot)
         self:controlVehicle(0, 0, 0, tRot, math.huge, 0, 0, 0, 0, neededPtoTorque)
 
-        --display brake ligths
-        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, 0)
+        --display brake ligths / reverse light
+        SpecializationUtil.raiseEvent(self, "onVehiclePhysicsUpdate", 0, brakePedal, false, currentSpeed)
         return
     end
 
