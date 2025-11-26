@@ -36,9 +36,7 @@
 
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.5 0.1"/>
 
-            <!-- steering axle also in reverse -->
             <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="20"/>
-            <set path="vehicle.attachable.steeringAxleAngleScale#backwards" value="true"/>
 
         </attributes>
     </parentFile>

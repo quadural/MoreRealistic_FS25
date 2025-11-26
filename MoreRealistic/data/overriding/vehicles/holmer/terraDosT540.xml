@@ -3,7 +3,7 @@
 
     <MR>true</MR>
     <!-- hydrostatic transmission means we don't have the full engine power to the wheels. it depends on the hydraulics motors -->
-    <mrTransmission1 isHydrostatic="true" minRpmWanted="1050" maxRpmWanted="1620" powerRatio="0.8" />
+    <mrTransmission isHydrostatic="true" minRpmWanted="1050" maxRpmWanted="1620" powerRatio="0.8" />
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
     <mrCombine unloadingPower="35" threshingIdlePower="30" threshingPowerFx="1" irlSpotTonPerHour="200" maxFieldThreshingSpeed="13" />
 

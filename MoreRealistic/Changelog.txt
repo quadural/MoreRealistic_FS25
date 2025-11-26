@@ -340,3 +340,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - updated versatile/ford tractors from prairie DLC to take into account the modified i3d file from Giants
 
 202511XX    - fix MR bug : in some situation, reversing light was remaining ON when exiting the vehicle
+            - add converted Case Puma (tractor)
+            - add converted Steyr Absolut (tractor)
+            - add converted Lemken Titan 18 (plough)
+            - add converted Krampe BigBody750S (trailer)

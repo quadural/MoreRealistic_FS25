@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="plow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer checkPointWorkAreaStartAndHeightOnly="true" forcePointX="-0.1" forcePointY="0.2" varyWithAnimationAnimName="workingWidth" varyWithAnimationStartFactor="0.8" varyWithAnimationEndFactor="1" />
+
+    <!--
+        Titan 18 6+3 L 100V = 5440kg (variable width, no hydraulic security)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/lemken/titan18/titan18.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="15"/>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 -0.6"/>
+            <set path="vehicle.base.components.component(0)#mass" value="4820"/>
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 0"/>
+            <set path="vehicle.base.components.component(1)#mass" value="400"/>
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="500 100 500" /> <!-- there are several missing joint to be like the IRL model. And so, we have to add some flexibility to mitigate this -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="65" />
+
+            <!-- fix ground reference -->
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(0)#forceFactor" value="2" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(1)#forceFactor" value="1" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(2)#forceFactor" value="0" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(3)#forceFactor" value="0" />
+
+            <!-- no brake -->
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

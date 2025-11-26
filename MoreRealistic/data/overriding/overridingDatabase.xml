@@ -75,6 +75,7 @@
     <vehicle fileNameToOverride="data/vehicles/poettinger/servo25/servo25.xml">vehicles/poettinger/servo25.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/servoT6000Plus/servoT6000Plus.xml">vehicles/poettinger/servoT6000Plus.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lemken/juwel6/juwel6.xml">vehicles/lemken/juwel6.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lemken/titan18/titan18.xml">vehicles/lemken/titan18.xml</vehicle>
 
     <!-- power harrows  -->
     <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>
@@ -122,13 +123,15 @@
     <vehicle fileNameToOverride="data/vehicles/deutzFahr/agroStar831/agroStar831.xml">vehicles/deutzFahr/agroStar831.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/claas/arion550/arion550.xml">vehicles/claas/arion550.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/newHolland/t7/t7.xml">vehicles/newHolland/t7.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/puma/puma.xml">vehicles/caseIH/puma.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/steyr/absolut/absolut.xml">vehicles/steyr/absolut.xml</vehicle>
 
     <!-- trailers -->
     <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/farmtech/ddk2400/ddk2400.xml">vehicles/farmtech/ddk2400.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/farmtech/edk650/edk650.xml">vehicles/farmtech/edk650.xml</vehicle>
-
     <vehicle fileNameToOverride="data/vehicles/brantner/z18051/z18051.xml">vehicles/brantner/z18051.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/krampe/bigBodyS750/bigBodyS750.xml">vehicles/krampe/bigBodyS750.xml</vehicle>
 
     <!-- trucks -->
     <vehicle fileNameToOverride="data/vehicles/volvo/fh16/fh16.xml">vehicles/volvo/fh16.xml</vehicle>

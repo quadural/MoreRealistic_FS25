@@ -60,6 +60,9 @@
             <!-- attacher = trailerLow IRL. Not possible to attache such a high load "tongue" to the trailer high -->
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#jointType" value="trailerLow" />
 
+            <!-- lift the back door higher -->
+            <set path="vehicle.animations.animation(2).part(3)#endRot" value="78 0 0" />
+
         </attributes>
     </parentFile>
 
