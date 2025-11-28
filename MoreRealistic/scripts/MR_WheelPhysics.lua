@@ -31,6 +31,7 @@ WheelPhysics.mrRegisterXMLPaths = function(schema, superFunc, key)
     schema:register(XMLValueType.BOOL, key .. ".physics#mrKeepMass", "Prevent replacing xml mass with mr autocompute wheel mass", false)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrFrictionScale", "Allow to set a given friction scale")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointRatio", "Allow to set a given force point ratio")
+    schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointPositionX", "Allow to force the x position of the forcepoint of the wheelshape")
 
 end
 WheelPhysics.registerXMLPaths = Utils.overwrittenFunction(WheelPhysics.registerXMLPaths, WheelPhysics.mrRegisterXMLPaths)
@@ -68,6 +69,7 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
         self.mrABS = xmlObject:getValue(".physics#mrABS", false)
 
         self.mrFrictionScale = xmlObject:getValue(".physics#mrFrictionScale")
+        self.mrForcePointPositionX = xmlObject:getValue(".physics#mrForcePointPositionX")
 
         --check if we override base game mass by self-computed MR mass
         local keepMass = xmlObject:getValue(".physics#mrKeepMass", false)
@@ -511,7 +513,7 @@ WheelPhysics.updateFriction = Utils.overwrittenFunction(WheelPhysics.updateFrict
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
--- 20250725 : wheelshape mass is not taken into for physics.
+-- 20250725 : wheelshape mass is not taken into account for physics.
 -- Example : tractor with frontloader and masses in the rear wheels are tipping the same as the version without masses in the wheels
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -605,10 +607,14 @@ WheelPhysics.mrUpdateBase = function(self, superFunc)
     if self.vehicle.isServer and self.vehicle.isAddedToPhysics then
 
         local posX = self.positionX
-        if self.positionX>0.1 then
-            posX = posX + 0.5*self.wheelShapeWidth --right wheel ?
-        elseif self.positionX<-0.1 then
-            posX = posX - 0.5*self.wheelShapeWidth --left wheel ?
+        if self.mrForcePointPositionX~=nil then
+            posX = self.mrForcePointPositionX
+        else
+            if self.positionX>0.1 then
+                posX = posX + 0.5*self.wheelShapeWidth --right wheel ?
+            elseif self.positionX<-0.1 then
+                posX = posX - 0.5*self.wheelShapeWidth --left wheel ?
+            end
         end
 
         local positionY, positionZ = self.positionY-self.directionY*self.deltaY, self.positionZ-self.directionZ*self.deltaY

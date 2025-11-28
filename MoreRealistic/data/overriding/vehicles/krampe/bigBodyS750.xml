@@ -60,7 +60,7 @@
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0)#price" value="8000" />
 
             <!-- empty speed -->
-            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="2200"/> <!-- back -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="2000"/> <!-- back -->
             <set path="vehicle.dischargeable.dischargeNode(1)#emptySpeed" value="1700"/> <!-- side -->
             <set path="vehicle.dischargeable.dischargeNode(2)#emptySpeed" value="400"/> <!-- grain door -->
 

@@ -13,7 +13,7 @@
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="25" />
-            <set path="vehicle.powerConsumer#maxForce" value="8" />
+            <set path="vehicle.powerConsumer#maxForce" value="9" />
             <set path="vehicle.powerConsumer#forceNode" value="header_main_component1" />
 
 

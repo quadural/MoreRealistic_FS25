@@ -68,8 +68,8 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         local fruitTypeDesc = nil
 
         --get fruit capacityFx, ThreshingFx and ChopperFx from FruitTypeDesc
-        if spec.lastCuttersInputFruitType~=nil then
-            fruitTypeDesc = g_fruitTypeManager:getFruitTypeByIndex(spec.lastCuttersInputFruitType)
+        if spec.lastValidInputFruitType~=nil then
+            fruitTypeDesc = g_fruitTypeManager:getFruitTypeByIndex(spec.lastValidInputFruitType)
             if fruitTypeDesc~=nil then
                 self.mrCombineLastValidFruitTypeDesc = fruitTypeDesc
             end

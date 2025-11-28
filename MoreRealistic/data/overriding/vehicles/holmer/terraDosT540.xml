@@ -42,7 +42,7 @@
 
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540"/>
-            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="900"/>
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="850"/>
 
             <set path="vehicle.attacherJoints.attacherJoint(1)#lowerRotLimit" value="25 75 50"/> <!-- trailer high -->
 
@@ -69,6 +69,9 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="19"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="1.95"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="10"/>
+
+            <!-- harvester = greater engine inertia than tractors or other vehicles -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrInertiaFx" value="1.5" />
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minForwardGearRatio" value="12"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minBackwardGearRatio" value="30"/>

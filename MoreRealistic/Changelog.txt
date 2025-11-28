@@ -344,3 +344,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Steyr Absolut (tractor)
             - add converted Lemken Titan 18 (plough)
             - add converted Krampe BigBody750S (trailer)
+            - add converted Agrifac Lighttrax (sugarbeet harvester)
