@@ -1088,6 +1088,11 @@ VehicleMotor.mrFindGearChangeTargetGearPrediction = function(self, curGear, gear
 
     if engineRpm<self.minRpm then
         forceLug = true
+    elseif self.lastMotorExternalTorque>0 then
+        local minRpmForPTO, _ = self:getRequiredMotorRpmRange()
+        if engineRpm<0.9*minRpmForPTO then
+            forceLug = true --not enough rpm for the pto tool
+        end
     end
 
     --20250615 check if we are going too fast => shift gear down if possible in such a case to get more engine stopping power

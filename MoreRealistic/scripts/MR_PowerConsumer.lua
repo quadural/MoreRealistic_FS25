@@ -458,6 +458,8 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
         local rpm = spec.ptoRpm
         if rpm > 0.001 then
 
+            local ptoRpmForTorque = rpm
+
             local consumingLoad, count = self:getConsumingLoad()
             if count > 0 then
                 consumingLoad = consumingLoad / count
@@ -483,6 +485,16 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
                 neededPtoPower = neededPtoPower + self.mrWoodCrusherPowerConsumption
             end
 
+            --20251201 - add fruit preparer
+            if self.mrFruitPreparerAreaPerSecondS~=nil then --m2 per second
+                if self.mrFruitPreparerAreaPerSecondS>0 then
+                    if not self.spec_fruitPreparer.isWorking then
+                        self.mrFruitPreparerAreaPerSecondS = self.mrFruitPreparerAreaPerSecondS * (1 - g_physicsDtLastValidNonInterpolated/3000) --3s to reach 0 KW when not working
+                    end
+                    neededPtoPower = neededPtoPower + self.mrFruitPreparerAreaPerSecondS * self.mrFruitPreparerAreaPowerScaling
+                end
+            end
+
             if neededPtoPower>1 and self:getDoConsumePtoPower() then
                 --update current pto rpm
                 local rootVehicle = self.rootVehicle
@@ -493,6 +505,7 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
                     if self.mrPowerConsumerForcePtoRpm then
                         rootVehicle.mrForcePtoRpm = true --tell the motorized vehicle to keep the pto rpm high, even at still/idle
                     end
+                    ptoRpmForTorque = math.max(0.85, self.mrPtoCurrentRpmRatio)*rpm
                 end
             end
 
@@ -502,7 +515,7 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
                 self.mrLastNeededPtoPower = neededPtoPower
             end
 
-            return neededPtoPower / (rpm*math.pi/30), spec.virtualPowerMultiplicator * turnOnPeakPowerMultiplier
+            return neededPtoPower / (ptoRpmForTorque*math.pi/30), spec.virtualPowerMultiplicator * turnOnPeakPowerMultiplier
         end
     else
         --not turned on

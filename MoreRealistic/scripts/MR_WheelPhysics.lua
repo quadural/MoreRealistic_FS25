@@ -258,7 +258,11 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
     local rrFx = 1
     if self.mrTotalWidth>0 then
         local groundWetness = g_currentMission.environment.weather:getGroundWetness()
-        rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
+        local radius = self.radius
+        if self.tireType==WheelsUtil.getTireType("crawler") then
+            radius = 3*radius --crawler bonus. We should take into account the track length, but this info is not available
+        end
+        rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, radius, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
     end
     self.mrLastRrFx = rrFx
     --depend on surface (soft and field)

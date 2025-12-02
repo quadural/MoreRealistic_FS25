@@ -339,9 +339,11 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - fix bug with default MR CVT = sometimes (mostly in reverse), even when fully accelerating, we couldn't reach the top reverse speed. (engine rpm was still)
             - updated versatile/ford tractors from prairie DLC to take into account the modified i3d file from Giants
 
-202511XX    - fix MR bug : in some situation, reversing light was remaining ON when exiting the vehicle
+202512XX    - fix MR bug : in some situation, reversing light was remaining ON when exiting the vehicle
             - add converted Case Puma (tractor)
             - add converted Steyr Absolut (tractor)
             - add converted Lemken Titan 18 (plough)
             - add converted Krampe BigBody750S (trailer)
             - add converted Agrifac Lighttrax (sugarbeet harvester)
+            - add converted Amity 3750 defoliator
+            - v1.15 ready

@@ -73,15 +73,20 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     local minRotForPTO = 0
     local minRotForPTOidle = 0
+    local absSpd = math.abs(currentSpeed) --meter per millisecond
 
     if neededPtoTorque>0 then
         minRotForPTO, _ = motor:getRequiredMotorRpmRange()
         minRotForPTO = minRotForPTO * math.pi/30
-        if not self.mrForcePtoRpm then
-            minRotForPTO = 0.8*minRotForPTO
-        end
+--         if not self.mrForcePtoRpm then
+--             if absSpd<0.0001 then
+--                 minRotForPTO = 0.8*minRotForPTO
+--             else
+--                 minRotForPTO = math.min(1, 0.8 + 200*absSpd) * minRotForPTO --100% wanted pto at 3.6kph
+--             end
+--         end
         self.mrForcePtoRpm = false
-        minRotForPTOidle = math.max(125, minRotForPTO) --125 = 1200rpm
+        minRotForPTOidle = motor.mrMinEcoRot + 10 --100rpm more than best torque rpm
     end
 
     minRotForPTOidle = math.max(minRotForPTOidle, motor.mrMinRot)
@@ -93,8 +98,6 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     local useManualDirectionChange = (isManualTransmission and motor.gearShiftMode ~= VehicleMotor.SHIFT_MODE_AUTOMATIC)
                                   or motor.directionChangeMode == VehicleMotor.DIRECTION_CHANGE_MODE_MANUAL
     useManualDirectionChange = useManualDirectionChange and self:getIsManualDirectionChangeAllowed()
-
-    local absSpd = math.abs(currentSpeed)
 
     if useManualDirectionChange then
         if math.sign(acceleration)>0 then
@@ -349,7 +352,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     --20250609 - more rpm at idle when pto is on
     if minRotForPTO>0 then
-        minMotorRot = minRotForPTOidle --125 = 1200rpm
+        minMotorRot = minRotForPTOidle
     else
         if motor.clutchSlippingTimer>0 then
             if motor.mrLastMinMotorRot==0 then
@@ -847,7 +850,16 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     end
 
     local maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
-    targetMinRot = math.min(maxRot, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
+
+    if motor.rawLoadPercentage>=1 and neededPtoTorque>0.1 then
+        local clutchRot = motor.differentialRotSpeed*motor.mrLastMotorObjectGearRatio
+        if motor.mrLastMotorObjectRotSpeed>clutchRot+2 then
+            maxRot = 0.75 * motor.mrLastMotorObjectRotSpeed + 0.25 * math.max(clutchRot, motor.mrMinRot)
+        end
+    end
+
+    --targetMinRot = math.min(motor.mrLastMotorObjectRotSpeed-50, targetMinRot) --allow the engine to loose rpm when the pto load is too high
+    targetMinRot = math.min(maxRot-1, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
     self:controlVehicle(accPedal, targetSpeed, maxAcceleration, targetMinRot, maxRot, maxMotorRotAcceleration, newGearRatioMin, newGearRatioMax, clutchForce, neededPtoTorque)
 
 end

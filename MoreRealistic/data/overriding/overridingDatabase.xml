@@ -116,6 +116,8 @@
     <vehicle fileNameToOverride="data/vehicles/holmer/terraDosT540Header/terraDosT540Header.xml">vehicles/holmer/terraDosT540Header.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/agrifac/lightOptitraxx/lightOptitraxx.xml">vehicles/agrifac/lightOptitraxx.xml</vehicle>
 
+    <vehicle fileNameToOverride="data/vehicles/amityTechnology/defoliator3750/defoliator3750.xml">vehicles/amity/defoliator3750.xml</vehicle>
+
     <!-- tractors -->
     <vehicle fileNameToOverride="data/vehicles/caseIH/farmall120C/farmall120C.xml">vehicles/caseIH/farmall120C.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/challenger/mt655/mt655.xml">vehicles/challenger/mt655.xml</vehicle>
