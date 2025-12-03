@@ -491,7 +491,7 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
                     if not self.spec_fruitPreparer.isWorking then
                         self.mrFruitPreparerAreaPerSecondS = self.mrFruitPreparerAreaPerSecondS * (1 - g_physicsDtLastValidNonInterpolated/3000) --3s to reach 0 KW when not working
                     end
-                    neededPtoPower = neededPtoPower + self.mrFruitPreparerAreaPerSecondS * self.mrFruitPreparerAreaPowerScaling
+                    neededPtoPower = neededPtoPower + math.min(self.mrFruitPreparerMaxPower, self.mrFruitPreparerAreaPerSecondS * self.mrFruitPreparerAreaPowerScaling)
                 end
             end
 

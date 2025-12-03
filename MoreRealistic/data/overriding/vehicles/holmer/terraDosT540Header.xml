@@ -6,7 +6,6 @@
     <parentFile xmlFilename="$data/vehicles/holmer/terraDosT540Header/terraDosT540Header.xml">
         <attributes>
 
-            <!-- MR settings - same as newholland superFlex 25ft -->
             <set path="vehicle.base.speedLimit#value" value="12" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.5" />
             <set path="vehicle.base.components.component(0)#mass" value="2000" />

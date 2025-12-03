@@ -281,3 +281,17 @@ Vehicle.mrGetIdleTurningActive = function(self)
     end
     return false
 end
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+-- Manage CombineSpeedLimit function of material rate
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Vehicle.mrGetRawSpeedLimit = function(self, superFunc)
+    local spdLimit = superFunc(self)
+    if self.mrIsMrCombine then
+        spdLimit = math.min(spdLimit, self.mrCombineSpeedLimit)
+    end
+    return spdLimit
+end
+Vehicle.getRawSpeedLimit = Utils.overwrittenFunction(Vehicle.getRawSpeedLimit, Vehicle.mrGetRawSpeedLimit)

@@ -2,6 +2,7 @@ FruitPreparer.mrInitSpecialization = function()
     local schema = Vehicle.xmlSchema
     schema:setXMLSpecializationType("FruitPreparer")
     schema:register(XMLValueType.STRING, "vehicle.fruitPreparer#mrPowerScaling", "power factor in KW per m2 per second")
+    schema:register(XMLValueType.STRING, "vehicle.fruitPreparer#mrMaxPower", "max variable power possible") --IRL = above a certain speed, if you go too fast, you will not consume more power => the job will be poorly done
     schema:setXMLSpecializationType()
 end
 FruitPreparer.initSpecialization = Utils.appendedFunction(FruitPreparer.initSpecialization, FruitPreparer.mrInitSpecialization)
@@ -16,6 +17,7 @@ FruitPreparer.mrOnLoad = function(self, superFunc, savegame)
     self.mrFruitPreparerAreaPerSecond = 0
     self.mrFruitPreparerAreaPerSecondS = 0
     self.mrFruitPreparerAreaPowerScaling = self.xmlFile:getValue("vehicle.fruitPreparer#mrPowerScaling") or 1
+    self.mrFruitPreparerMaxPower = self.xmlFile:getValue("vehicle.fruitPreparer#mrMaxPower") or 999
 
     return superFunc(self, savegame)
 

@@ -4,7 +4,12 @@
     <MR>true</MR>
 
     <!--
-
+        base weight = 6900kg
+        + optional scalpers
+        + optional steerable rear wheels
+        + optional dynamic stabilizer wheels (DSW)
+        + optional row finder
+        => about 7700kg with in game spec
 
     -->
 
@@ -12,9 +17,15 @@
         <attributes>
 
             <set path="vehicle.fruitPreparer#mrPowerScaling" value="6.5" /> <!-- KW per m2 per second -->
+            <set path="vehicle.fruitPreparer#mrMaxPower" value="120" /> <!-- max variable KW. total KW = max variable + neededMinPtoPower  -->
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.65 -0.9"/>
-            <set path="vehicle.base.components.component(0)#mass" value="5950"/> <!--main -->
+            <!-- spring between main body and attacher drawbar -->
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="300 9000 9000"/>
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="10 50 50"/>
+            <set path="vehicle.base.components.joint(0)#allowsJointRotLimitMovement" value="true"/>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.65 -0.95"/>
+            <set path="vehicle.base.components.component(0)#mass" value="6350"/> <!--main -->
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -0.3"/>
             <set path="vehicle.base.components.component(1)#mass" value="800"/> <!-- drawbar -->
 
@@ -47,6 +58,18 @@
 
             <!-- no brake -->
             <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <!-- keep some weight on the drawbar at work -->
+            <set path="vehicle.animations.animation(1).part(0)#startRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#startRotLimit" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(1).part(8)#componentJointIndex" value="1" />
+            <set path="vehicle.animations.animation(1).part(8)#startTime" value="0.0" />
+            <set path="vehicle.animations.animation(1).part(8)#endTime" value="1.0" />
+            <set path="vehicle.animations.animation(1).part(8)#startRotLimitSpring" value="100 9000 9000" />
+            <set path="vehicle.animations.animation(1).part(8)#endRotLimitSpring" value="300 9000 9000" />
+            <set path="vehicle.animations.animation(1).part(8)#startRotLimitDamping" value="10 50 50" />
+            <set path="vehicle.animations.animation(1).part(8)#endRotLimitDamping" value="10 50 50" />
 
         </attributes>
     </parentFile>

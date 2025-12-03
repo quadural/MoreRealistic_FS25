@@ -8,6 +8,8 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
     local ret = superFunc(self, x, y)
     self.spec_attachable = tempSpec
 
+    local textSize = getCorrectTextSize(0.02)
+
     if self.spec_motorized then
 
         if not VehicleDebug.mrDebugChronoInitialized then
@@ -58,7 +60,6 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         str1 = str1.."Acc time:\n"
         str2 = str2..string.format("%1.2fs\n", (VehicleDebug.mrDebugChrono2Time or 0)/1000)
 
-        local textSize = getCorrectTextSize(0.02)
         Utils.renderMultiColumnText(0.65, 0.70, textSize, {str1,str2}, 0.008, {RenderText.ALIGN_RIGHT,RenderText.ALIGN_LEFT})
 
 
@@ -115,19 +116,18 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         setTextAlignment(RenderText.ALIGN_LEFT)
         renderText(0.45, 0.6, textSize, string.format("%1.0f", self.spec_motorized.motor.mrLastMotorObjectRotSpeed*9.5493))
 
-        --20250331 - display combine auto speed limit
-        if self.mrIsMrCombine then
-            setTextAlignment(RenderText.ALIGN_LEFT)
-            renderText(0.8, 0.5, textSize, string.format("Spd=%1.2f", self.mrCombineSpeedLimit))
-            renderText(0.8, 0.52, textSize, string.format("T/h=%1.2f", self.mrCombineLastTonsPerHour))
-        end
+    end
 
+    --20250331 - display combine auto speed limit
+    if self.mrIsMrCombine then
+        setTextAlignment(RenderText.ALIGN_LEFT)
+        renderText(0.8, 0.5, textSize, string.format("Spd=%1.2f", self.mrCombineSpeedLimit))
+        renderText(0.8, 0.52, textSize, string.format("T/h=%1.2f", self.mrCombineLastTonsPerHour))
     end
 
     if self.spec_woodCrusher then
         --20250619 - display woodcrusher power consumption
         if self.mrWoodCrusherPowerConsumption~=nil then
-            local textSize = getCorrectTextSize(0.02)
             setTextAlignment(RenderText.ALIGN_LEFT)
             renderText(0.8, 0.7, textSize, string.format("WoodCrusher KW=%1.2f", self.mrWoodCrusherPowerConsumption))
         end

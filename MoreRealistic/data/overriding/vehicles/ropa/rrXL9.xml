@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutterFruitPreparer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/ropa/rrXL9/rrXL9.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.7" />
+            <set path="vehicle.base.components.component(0)#mass" value="2500" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="35" />
+            <set path="vehicle.powerConsumer#maxForce" value="13" />
+            <set path="vehicle.powerConsumer#forceNode" value="rrXL9_main_component1" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

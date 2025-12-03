@@ -346,4 +346,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Krampe BigBody750S (trailer)
             - add converted Agrifac Lighttrax (sugarbeet harvester)
             - add converted Amity 3750 defoliator
+            - add converted Amity 2720 harvester (trailed sugarbeet harvester)
+            - add converted Ropa Tiger 6S (sugarbeet harvester)
             - v1.15 ready
