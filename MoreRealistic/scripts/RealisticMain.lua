@@ -24,6 +24,7 @@ source(Utils.getFilename("scripts/MR_AnimatedVehicle.lua", g_currentModDirectory
 source(Utils.getFilename("scripts/MR_Attachable.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_AttacherJoints.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Combine.lua", g_currentModDirectory))
+source(Utils.getFilename("scripts/MR_ConveyorLoaderVehicle.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Cultivator.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Drivable.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_FillTypeManager.lua", g_currentModDirectory))

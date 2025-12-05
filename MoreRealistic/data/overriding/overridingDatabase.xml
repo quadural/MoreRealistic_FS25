@@ -121,6 +121,8 @@
     <vehicle fileNameToOverride="data/vehicles/amityTechnology/defoliator3750/defoliator3750.xml">vehicles/amity/defoliator3750.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/amityTechnology/hrv12R/hrv12R.xml">vehicles/amity/hrv12R.xml</vehicle>
 
+    <vehicle fileNameToOverride="data/vehicles/ropa/maus5/maus5.xml">vehicles/ropa/maus5.xml</vehicle>
+
     <!-- tractors -->
     <vehicle fileNameToOverride="data/vehicles/caseIH/farmall120C/farmall120C.xml">vehicles/caseIH/farmall120C.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/challenger/mt655/mt655.xml">vehicles/challenger/mt655.xml</vehicle>

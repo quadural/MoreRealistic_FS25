@@ -85,8 +85,12 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 --                 minRotForPTO = math.min(1, 0.8 + 200*absSpd) * minRotForPTO --100% wanted pto at 3.6kph
 --             end
 --         end
-        self.mrForcePtoRpm = false
-        minRotForPTOidle = motor.mrMinEcoRot + 10 --100rpm more than best torque rpm
+        if self.mrForcePtoRpm then
+            minRotForPTOidle = minRotForPTO
+            self.mrForcePtoRpm = false
+        else
+            minRotForPTOidle = motor.mrMinEcoRot + 10 --100rpm more than best torque rpm
+        end
     end
 
     minRotForPTOidle = math.max(minRotForPTOidle, motor.mrMinRot)
@@ -551,7 +555,7 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
         newGearRatio = curGearRatio * targetRot / math.max(1, motor.mrLastMotorObjectRotSpeed)
         newGearRatio = math.min(newGearRatio, maxGearRatioPossible)
         accPedal = 0
-        --20250604- apply a factor of 0.8 since the controlVehicle is also braking the vehicle with the engine inertia
+        --20250604- apply a factor of 0.2 since the controlVehicle is also braking the vehicle with the engine inertia
         self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.2*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
 
         if newGearRatio == maxGearRatioPossible and math.abs(motor.differentialRotSpeed)<0.2 then --0.1 = 0.72kph
@@ -599,7 +603,9 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
     targetSpeed = math.abs(accPedal * targetSpeed)
 
     --tool speed limit
-    targetSpeed = math.min(targetSpeed, motor:getSpeedLimit()/3.6)
+    if targetSpeed>0.1 then
+        targetSpeed = math.min(targetSpeed, motor:getSpeedLimit()/3.6)
+    end
 
     --check current engine rpm and gearRatio
     local lastRatio = math.abs(motor.mrLastMotorObjectGearRatio)
@@ -621,7 +627,8 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
         ffx = math.min(ffx-0.995, 0.1)*10 --max braking power @10% more speed (ffx between 0.05 and 1)
         --limit at low speed
         ffx = math.min(ffx, 0.25*lastSpd)
-        self.spec_motorized.mrEngineBrakingPowerToApply = motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
+        --20251204- apply a factor of 0.5 since the controlVehicle is also braking the vehicle with the engine inertia
+        self.spec_motorized.mrEngineBrakingPowerToApply = 0.3*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
     end
 
     self.mrTransmissionAutomotiveTargetRot = math.max(self.mrTransmissionAutomotiveTargetRot, targetMinRot)
@@ -661,6 +668,7 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
                 accPedal = 1
             end
         end
+        newGearRatio = math.clamp(newGearRatio, minGearRatio, maxRatio)
     else --wrong direction = we want to decelerate
 
         --increase engine rpm to simulate hydraulics motors flowing toward hydraulic pump and then this pump tries to rotate the engine
@@ -670,7 +678,8 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
         newGearRatio = (self.mrTransmissionAutomotiveTargetRot+minRadsDrop) / math.max(0.1, lastSpd)
         newGearRatio = math.min(newGearRatio, maxRatio)
 
-        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
+        --20251204- apply a factor of 0.3 since the controlVehicle is also braking the vehicle with the engine inertia
+        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.3*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
 
         if newGearRatio == maxRatio then
             --engage right direction
@@ -682,10 +691,8 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
 
     end
 
-    newGearRatio = math.clamp(newGearRatio, minGearRatio, maxRatio)
-
     newGearRatio = newGearRatio * gearDirection
-    self:controlVehicle(accPedal, targetSpeed, maxAcceleration, 0, targetMaxRot, maxMotorRotAcceleration, newGearRatio, newGearRatio, clutchForce, neededPtoTorque)
+    self:controlVehicle(accPedal, targetSpeed, maxAcceleration, 0.8*minRotForPTO, targetMaxRot, maxMotorRotAcceleration, newGearRatio, newGearRatio, clutchForce, neededPtoTorque)
 end
 
 
