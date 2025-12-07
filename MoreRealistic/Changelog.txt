@@ -349,4 +349,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Amity 2720 harvester (trailed sugarbeet harvester)
             - add converted Ropa Tiger 6S (sugarbeet harvester)
             - add converted Ropa Maus 5 (sugarbeet loader)
+            - fix "getContactforce" bug when reloading some vehicles
             - v1.15 ready

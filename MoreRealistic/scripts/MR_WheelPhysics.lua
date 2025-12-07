@@ -583,16 +583,18 @@ WheelPhysics.updateBase = Utils.overwrittenFunction(WheelPhysics.updateBase, Whe
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 WheelPhysics.mrGetTireLoad = function(self, superFunc)
-    --local gravity = 9.81
+    if self.wheelShapeCreated then
+        --local gravity = 9.81
 
-    local tireLoad = getWheelShapeContactForce(self.wheel.node, self.wheelShape)
-    if tireLoad ~= nil then
---         local nx, ny, nz = getWheelShapeContactNormal(self.wheel.node, self.wheelShape)
---         local dx, dy, dz = localDirectionToWorld(self.wheel.node, self.directionX, self.directionY, self.directionZ)
---         tireLoad = -tireLoad * MathUtil.dotProduct(dx, dy, dz, nx, ny, nz)
+        local tireLoad = getWheelShapeContactForce(self.wheel.node, self.wheelShape)
+        if tireLoad ~= nil then
+    --         local nx, ny, nz = getWheelShapeContactNormal(self.wheel.node, self.wheelShape)
+    --         local dx, dy, dz = localDirectionToWorld(self.wheel.node, self.directionX, self.directionY, self.directionZ)
+    --         tireLoad = -tireLoad * MathUtil.dotProduct(dx, dy, dz, nx, ny, nz)
 
---         return (tireLoad + math.max(ny * gravity, 0.0) * self.wheel:getMass()) / gravity
-        return tireLoad/9.81
+    --         return (tireLoad + math.max(ny * gravity, 0.0) * self.wheel:getMass()) / gravity
+            return tireLoad/9.81
+        end
     end
 
     return 0
