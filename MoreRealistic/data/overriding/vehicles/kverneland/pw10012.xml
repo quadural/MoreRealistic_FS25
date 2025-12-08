@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="plowPacker" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer checkPointWorkAreaStartAndHeightOnly="true" forcePointY="-0.3" forcePointZ="-0.3"  />
+
+    <!--
+        PW100-12 8+4 => 7440kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kverneland/pw10012/pw10012.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="15"/>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="-0.477 0.5 -0.139"/>
+            <set path="vehicle.base.components.component(0)#mass" value="4100"/> <!-- main component -->
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -3"/>
+            <set path="vehicle.base.components.component(1)#mass" value="1700"/> <!-- main beam -->
+
+            <set path="vehicle.base.components.component(2)#mass" value="900"/> <!-- attacher head -->
+
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 -0.35 0.1"/>
+            <set path="vehicle.base.components.component(3)#mass" value="10"/> <!-- front packer -->
+
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 -0.35 0.1"/>
+            <set path="vehicle.base.components.component(4)#mass" value="10"/> <!-- back packer -->
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="50"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="50"/>
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="77" />
+            <set path="vehicle.powerConsumer#forceNode" value="pw10012_attacher_component3" /> <!-- attacher head -->
+
+            <!-- no brake -->
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <!-- fix ground reference -->
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(0)#forceFactor" value="2" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(1)#forceFactor" value="1" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(2)#forceFactor" value="0.1" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(3)#forceFactor" value="0.1" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(4)#forceFactor" value="0" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(5)#forceFactor" value="0" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(6)#forceFactor" value="0" />
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(7)#forceFactor" value="0" />
+
+            <!-- add some weight when the packomat is present -->
+            <!-- set "high" index to add at the end of the existing list without having to know the current max index -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).objectChange(10)#node" value="packerFrontComponent" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).objectChange(10)#massActive" value="10" /> <!-- kilos ! -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).objectChange(10)#node" value="packerFrontComponent" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).objectChange(10)#massActive" value="400" />
+
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).objectChange(11)#node" value="packerBackComponent" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).objectChange(11)#massActive" value="10" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).objectChange(11)#node" value="packerBackComponent" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).objectChange(11)#massActive" value="300" />
+
+
+            <!-- add missing i3d mappings => set "high" index to add at the end of the existing list without having to know the current max index -->
+            <set path="vehicle.i3dMappings.i3dMapping(400)#id" value="packerFrontComponent" />
+            <set path="vehicle.i3dMappings.i3dMapping(400)#node" value="3>" />
+            <set path="vehicle.i3dMappings.i3dMapping(401)#id" value="packerBackComponent" />
+            <set path="vehicle.i3dMappings.i3dMapping(401)#node" value="4>" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

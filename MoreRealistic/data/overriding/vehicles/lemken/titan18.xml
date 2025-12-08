@@ -21,11 +21,13 @@
 
             <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="500 100 500" /> <!-- there are several missing joint to be like the IRL model. And so, we have to add some flexibility to mitigate this -->
 
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.2"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="20"/>
 
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.2"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="20"/>
 
 
             <set path="vehicle.powerConsumer#maxForce" value="65" />

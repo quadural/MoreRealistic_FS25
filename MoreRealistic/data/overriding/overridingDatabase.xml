@@ -76,6 +76,7 @@
     <vehicle fileNameToOverride="data/vehicles/poettinger/servoT6000Plus/servoT6000Plus.xml">vehicles/poettinger/servoT6000Plus.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lemken/juwel6/juwel6.xml">vehicles/lemken/juwel6.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lemken/titan18/titan18.xml">vehicles/lemken/titan18.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kverneland/pw10012/pw10012.xml">vehicles/kverneland/pw10012.xml</vehicle>
 
     <!-- power harrows  -->
     <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>
