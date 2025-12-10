@@ -352,3 +352,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Kverneland PW100-12 (plough)
             - fix "getContactforce" bug when reloading some vehicles
             - v1.15 ready
+
+ 202512XX   - add converted John Deere 8R (tractor)

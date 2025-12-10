@@ -4,7 +4,7 @@ WheelVisualPart.mrLoadFromXML = function(self, superFunc, xmlObject, key)
 
     if result then
         if self.name == "additional" and self.mass~=nil and self.mass>0 then
-            --check if his is a wheel ironcast ballast object
+            --check if this is a wheel ironcast ballast object
             local fullScaleMass = 0
             local commonKey = "data/shared/wheels/weights/"
             if self.filename==commonKey.."weight001.i3d" then
@@ -22,7 +22,7 @@ WheelVisualPart.mrLoadFromXML = function(self, superFunc, xmlObject, key)
             elseif self.filename==commonKey.."weight003.i3d" then
                 fullScaleMass = 1.2
             elseif self.filename==commonKey.."weight004.i3d" then
-                fullScaleMass = 1.3
+                fullScaleMass = 1.33
             elseif self.filename==commonKey.."weight005.i3d" then
                 if string.sub(self.indexPath,1,1)=="0" then
                     fullScaleMass = 0.88
