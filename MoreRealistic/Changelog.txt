@@ -355,3 +355,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
  202512XX   - add converted John Deere 8R (tractor)
             - fix wheel damping bug (sometimes, huge value for damping of wheel not touching the ground)
+            - add converted Horsch Tiger 8MT (heavy cultivator)

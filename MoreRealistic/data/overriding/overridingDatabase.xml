@@ -38,6 +38,7 @@
     <vehicle fileNameToOverride="data/vehicles/vaderstad/topDown600/topDown600.xml">vehicles/vaderstad/topDown600.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/agromasz/grizzlyX4/grizzlyX4.xml">vehicles/agromasz/grizzlyX4.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kuhn/prolander7500/prolander7500.xml">vehicles/kuhn/prolander7500.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/horsch/tiger8MT/tiger8MT.xml">vehicles/horsch/tiger8MT.xml</vehicle>
 
     <!-- disc cultivators -->
     <vehicle fileNameToOverride="data/vehicles/vaderstad/carrierXL625/carrierXL625.xml">vehicles/vaderstad/carrierXL625.xml</vehicle>

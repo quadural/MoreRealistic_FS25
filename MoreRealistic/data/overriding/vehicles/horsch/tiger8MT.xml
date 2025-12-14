@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="-0.1" forcePointZ="-0.5" />
+
+    <!--
+    base weight = 10380kg
+
+    working depth = 15 to 30cm (mulchmix without wing)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/tiger8MT/tiger8MT.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="4800" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="400" /> <!-- drawbar -->
+            <set path="vehicle.base.components.component(2)#mass" value="500" /> <!-- attacher less than 500 kilos, but for game stability, we need to lessen mass differences between components-->
+            <set path="vehicle.base.components.component(3)#mass" value="2000" /> <!-- left arm -->
+            <set path="vehicle.base.components.component(4)#mass" value="2000" /> <!-- righ arm -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.55 -0.5" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 -0.2 -0.8" /> <!-- left arm -->
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 -0.2 -0.8" /> <!-- righ arm -->
+
+            <!-- front middle -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#brakeFactor" value="0"/>
+
+            <!-- back middle left -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="90"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#brakeFactor" value="1"/>
+
+            <!-- back middle right -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="90"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="1"/>
+
+            <!-- arm left : front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="0"/>
+
+            <!-- arm left : back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="34"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#brakeFactor" value="0"/>
+
+            <!-- arm right : front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#brakeFactor" value="0"/>
+
+            <!-- arm right : back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="34"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#brakeFactor" value="0"/>
+
+            <!-- remove unreal moving center of masses -->
+            <remove path="vehicle.animations.animation(2).part(39)" />
+            <remove path="vehicle.animations.animation(2).part(39)" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="80" />
+            <set path="vehicle.workModes.workMode(0)#forceScale" value="0.7" />
+
+            <set path="vehicle.base.speedLimit#value" value="17" /> <!-- you have plenty horse power available ? get them to work :-) -->
+
+            <set path="vehicle.storeData.specs.neededPower" value="375" />
+
+            <set path="vehicle.attachable.brakeForce#force" value="1" />
+
+            <!-- about 250kg more when the fertilizing unit is present -->
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(20)#node" value="tiger8MT_main_component1" />
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(20)#mrAddMassActive" value="250" />
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(20)#mrAddMassCOMActive" value="0 0.55 -0.3" />
+
+            <!-- about 1000kg more when the topring packer unit is present -->
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(20)#node" value="tiger8MT_main_component1" />
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(20)#mrAddMassActive" value="1000" />
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(20)#mrAddMassCOMActive" value="0 0.1 -3.8" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
