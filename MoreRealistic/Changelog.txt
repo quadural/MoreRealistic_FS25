@@ -354,3 +354,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - v1.15 ready
 
  202512XX   - add converted John Deere 8R (tractor)
+            - fix wheel damping bug (sometimes, huge value for damping of wheel not touching the ground)

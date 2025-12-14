@@ -200,7 +200,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(3)#torque" value="1.530"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#rpm" value="1300"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#torque" value="1611"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#torque" value="1.611"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(5)#rpm" value="1550"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(5)#torque" value="1.646"/>

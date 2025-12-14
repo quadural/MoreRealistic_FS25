@@ -30,6 +30,15 @@
             <remove path="vehicle.animations.animation(0).part(2)" />
             <remove path="vehicle.animations.animation(0).part(2)" />
 
+            <!-- fix lowering / folding animation = reduce the back wheels "jittering" when lowering the tool -->
+            <set path="vehicle.animations.animation(0).part(12)#startTime" value="0.1" />
+            <set path="vehicle.animations.animation(0).part(12)#endTime" value="0.7" />
+
+
+
+
+
+
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
 

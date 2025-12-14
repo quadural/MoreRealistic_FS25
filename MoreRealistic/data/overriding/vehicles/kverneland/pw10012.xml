@@ -37,12 +37,22 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="50"/>
 
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="50"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="50"/>
+
 
             <set path="vehicle.powerConsumer#maxForce" value="77" />
             <set path="vehicle.powerConsumer#forceNode" value="pw10012_attacher_component3" /> <!-- attacher head -->
 
             <!-- no brake -->
             <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <!-- attacher joint height and rotLimit  -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value="1.1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.1 0 0" />
 
             <!-- fix ground reference -->
             <set path="vehicle.groundReferenceNodes.groundReferenceNode(0)#forceFactor" value="2" />

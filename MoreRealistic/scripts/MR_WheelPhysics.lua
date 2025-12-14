@@ -64,7 +64,7 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
 
         --add some randomness to the damping value
         self.rotationDamping = (0.5+math.random())*self.rotationDamping --80% to 120% base value
-
+        self.mrRotationDamping = self.rotationDamping
         --load mrABS
         self.mrABS = xmlObject:getValue(".physics#mrABS", false)
 
@@ -418,7 +418,7 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                 --tireLoad = tireLoad + wheelWeight
             else
                 --no ground contact = "random" damping (see loadFromXML)
-                damping = self.rotationDamping
+                damping = self.mrRotationDamping
             end
             self.mrLastTireLoad = tireLoad --KN
             self.mrLastWheelSpeedS = 0.9*self.mrLastWheelSpeedS + 0.1*wheelSpeed
@@ -461,8 +461,6 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
 
 
         --brakeForce to force = value * radius (in fact, brakeForce param of this function = brake torque => force * radius = torque)
-        self.mrLastBrakeTorque = totalForce*self.radius
-        self.mrLastDamping = damping
         setWheelShapeProps(self.wheel.node, self.wheelShape, 0, totalForce*self.radius, self.steeringAngle, damping)
 
         --brakeForce = 0
@@ -557,7 +555,7 @@ WheelPhysics.mrUpdateBase = function(self, superFunc)
         local collisionMask = self.collisionMask or WheelPhysics.COLLISION_MASK
         --MR : greater wheel mass to simulate inertia
         local mass = 2*self.wheel:getMass()
-        self.rotationDamping = 2*self.rotationDamping
+        self.mrRotationDamping = 2*self.rotationDamping
         self.wheelShape = createWheelShape(self.wheel.node, positionX, positionY, positionZ, self.radius, self.suspTravel, spring, damperCompressionLowSpeed, damperCompressionHighSpeed, self.damperCompressionLowSpeedThreshold, damperRelaxationLowSpeed, damperRelaxationHighSpeed, self.damperRelaxationLowSpeedThreshold, mass, collisionGroup, collisionMask, self.wheelShape)
 
         local forcePointY = positionY - self.radius * self.forcePointRatio
