@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="0.6" />
+
+    <!--
+
+        4 rows cup planter = limited planting speed
+
+        2000kg hydraulic tipping bunker (flat)
+        4 wheels
+        ridge shaping board
+        hydraulic erasing tines for tramline marking
+        mechanical plant distribution
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/grimme/gl420/gl420.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="2500" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 0.5" />
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.2 0.2"/> <!-- potatoes -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="3000"/> <!-- 2000kg bunker -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="40" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="9" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0.1 0 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value="0 1 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.6" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "1.00" />
+
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(0).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(1).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(2).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(3).tire#isInverted" value="true" />
+
+
+            <!-- allow the operator to turn off the implement -->
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#onlyActiveWhenLowered" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(15)#onlyActiveWhenLowered" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(16)#onlyActiveWhenLowered" value="true" />
+
+
+            <!-- can't be 0 -->
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#fadeOutTime" value="0.5" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(15)#fadeOutTime" value="0.5" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(16)#fadeOutTime" value="0.5" />
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

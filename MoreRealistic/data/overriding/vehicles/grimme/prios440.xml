@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="-2.5" />
+
+    <!--
+
+        4 rows cup planter = limited planting speed
+
+        terraprotec : create "dykes" (hydraulics power needed)
+
+        liquid chemicals kit present but not in use in game
+        microgranular kit present but not in use in game
+
+        hydraulic motor on each rank => "pto power" required and need activation
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/grimme/prios440/prios440.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="5150" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.85 -2" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="750" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.35 -0.5" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="500" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.2 0" />
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrScaleRR" value="0.1" /> <!-- force already taken into account with the draftforce -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrScaleRR" value="0.1" />
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).tire#isInverted" value="true" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="80" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="10" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="80" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).steeringAxle#rotMax" value="21" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).steeringAxle#rotMin" value="-21" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="80" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="10" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).steeringAxle#rotMax" value="21" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).steeringAxle#rotMin" value="-21" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="80" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10" />
+
+
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.5 -3"/> <!-- potatoes -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="5300"/> <!-- 3500kg bunker -->
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 1.7 0"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#capacity" value="1700"/> <!-- fertilizer box -->
+
+            <!-- IRL = when lowered, there is far less weight on the wheels.
+            But ingame, we keep all the weight on the wheels, which means the maxForce here is lower to take into account the "huge" rolling forces from the wheels -->
+            <set path="vehicle.powerConsumer#maxForce" value="32" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="475" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="18" />
+            <set path="vehicle.sowingMachine.needsActivation#value" value="true" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value="0 0 0" />
+
+            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotationOffset" value="7.35"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0)#upperRotationOffset" value="7.35"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#lower" value="0.592"/>
+            <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#upper" value="1.3"/>
+
+            <!-- brakes -->
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#mrOnlyActiveWhenTurnedOn" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#mrOnlyActiveWhenTurnedOn" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(3)#mrOnlyActiveWhenTurnedOn" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(4)#mrOnlyActiveWhenTurnedOn" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(5)#mrOnlyActiveWhenTurnedOn" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(13)#mrOnlyActiveWhenTurnedOn" value="true" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(14)#mrOnlyActiveWhenTurnedOn" value="true" />
+
+            <!-- can't be 0 -->
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#fadeOutTime" value="0.1" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#fadeOutTime" value="0.1" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(3)#fadeOutTime" value="0.1" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(4)#fadeOutTime" value="0.1" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(5)#fadeOutTime" value="0.1" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(13)#fadeOutTime" value="0.1" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(14)#fadeOutTime" value="0.1" />
+
+            <!--correct animation -->
+            <set path="vehicle.animations.animation(3).part(2)#startRotLimit" value="0 0 0" />
+            <set path="vehicle.animations.animation(3).part(2)#startRotLimitSpring" value="400 0 0" />
+            <set path="vehicle.animations.animation(3).part(2)#startRotLimitDamping" value="40 0 0" />
+            <set path="vehicle.animations.animation(3).part(2)#endRotLimitSpring" value="1000 0 0" />
+            <set path="vehicle.animations.animation(3).part(2)#endRotLimitDamping" value="100 0 0" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -63,7 +63,7 @@
             <remove path="vehicle.animations.animation(2).part(39)" />
             <remove path="vehicle.animations.animation(2).part(39)" />
 
-            <set path="vehicle.powerConsumer#maxForce" value="80" />
+            <set path="vehicle.powerConsumer#maxForce" value="81" />
             <set path="vehicle.workModes.workMode(0)#forceScale" value="0.7" />
 
             <set path="vehicle.base.speedLimit#value" value="17" /> <!-- you have plenty horse power available ? get them to work :-) -->

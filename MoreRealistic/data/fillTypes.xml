@@ -24,4 +24,7 @@
     <fillType name="SPINACH" density="0.16" />
 
     <fillType name="SUGARCANE" density="0.26" />
+
+    <fillType name="SEEDS" density="0.66" />
+
 </fillTypes>

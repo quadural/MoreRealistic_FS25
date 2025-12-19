@@ -18,6 +18,7 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrFrictionNeedUpdate = true
     self.mrLastRrFx = 0
     self.mrLastContactNormalRatio = 1
+    self.mrScaleRR = 1
 
     return self
 
@@ -32,6 +33,7 @@ WheelPhysics.mrRegisterXMLPaths = function(schema, superFunc, key)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrFrictionScale", "Allow to set a given friction scale")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointRatio", "Allow to set a given force point ratio")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointPositionX", "Allow to force the x position of the forcepoint of the wheelshape")
+    schema:register(XMLValueType.FLOAT, key .. ".physics#mrScaleRR", "Allow to apply a scale factor to the rolling resistance of this wheel", 1)
 
 end
 WheelPhysics.registerXMLPaths = Utils.overwrittenFunction(WheelPhysics.registerXMLPaths, WheelPhysics.mrRegisterXMLPaths)
@@ -70,6 +72,8 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
 
         self.mrFrictionScale = xmlObject:getValue(".physics#mrFrictionScale")
         self.mrForcePointPositionX = xmlObject:getValue(".physics#mrForcePointPositionX")
+
+        self.mrScaleRR = xmlObject:getValue(".physics#mrScaleRR") or 1
 
         --check if we override base game mass by self-computed MR mass
         local keepMass = xmlObject:getValue(".physics#mrKeepMass", false)
@@ -263,6 +267,7 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
             radius = 3*radius --crawler bonus. We should take into account the track length, but this info is not available
         end
         rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, radius, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
+        rrFx = self.mrScaleRR
     end
     self.mrLastRrFx = rrFx
     --depend on surface (soft and field)

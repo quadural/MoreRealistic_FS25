@@ -79,6 +79,11 @@
     <vehicle fileNameToOverride="data/vehicles/lemken/titan18/titan18.xml">vehicles/lemken/titan18.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kverneland/pw10012/pw10012.xml">vehicles/kverneland/pw10012.xml</vehicle>
 
+    <!-- potatoes planter -->
+    <vehicle fileNameToOverride="data/vehicles/grimme/gl420/gl420.xml">vehicles/grimme/gl420.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/grimme/prios440/prios440.xml">vehicles/grimme/prios440.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/grimme/gl860/gl860.xml">vehicles/grimme/gl860.xml</vehicle>
+
     <!-- power harrows  -->
     <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>
 

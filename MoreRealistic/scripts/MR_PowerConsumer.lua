@@ -360,7 +360,7 @@ PowerConsumer.mrGetDraftForceMultiplier = function(toolCategory, speed, wetness,
         --no penalty with wetness for spaders
         --should take into account rpm (low rpm = more draftforce), otherwise, player could unclutch going downhill to get more speed
         if rpmFactor~=nil then
-            multiplier = multiplier * 1/math.max(0.3, rpmFactor) --1.2 more rpm = 83% draft // 0.8 rpm = 25% more draft
+            multiplier = multiplier * 1/math.max(0.5, rpmFactor) --1.2 more rpm = 83% draft // 0.8 rpm = 25% more draft
         end
     end
 
@@ -393,24 +393,24 @@ PowerConsumer.mrGetPtoPowerMultiplier = function(self, toolCategory, speed, wetn
     -- IRL = the quality of the work would no be the same and less rpm = more "chunks" of ground to work at each rotation when driving at the same speed = more torque at the pto
 
     if toolCategory=="spaders" then
---         multiplier = 0.2+0.1333*speed --x1 @8kph
---         multiplier = multiplier * currentGroundForceMultiplier
---
---         multiplier = multiplier * (1/math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2))^1.25
-        if speed<6 then
-            multiplier = 0.5+0.085*speed
+        if speed<3 then
+            multiplier = math.max(self.mrPtoPowerFxMin, 0.25*speed) --75% @3kph
+        elseif speed<6 then
+            multiplier = 0.5 + 0.0833*speed --100% @6kph
         else
-            multiplier = 1.01
+            multiplier = 1
         end
         multiplier = multiplier / math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2)
         multiplier = multiplier * currentGroundForceMultiplier
         --no malus with wetness for spaders
     elseif toolCategory=="powerHarrows" then
         --curve for power harrows
-        if speed<6 then
-            multiplier = 0.5+0.085*speed
+        if speed<3 then
+            multiplier = math.max(self.mrPtoPowerFxMin, 0.25*speed) --75% @3kph
+        elseif speed<6 then
+            multiplier = 0.5 + 0.0833*speed --100% @6kph
         else
-            multiplier = 1.01
+            multiplier = 1
         end
         multiplier = multiplier / math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2)
         multiplier = multiplier * currentGroundForceMultiplier

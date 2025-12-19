@@ -726,7 +726,12 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     targetSpeed = math.abs(accPedal * targetSpeed)
 
     --tool speed limit
-    targetSpeed = math.min(targetSpeed, motor:getSpeedLimit()/3.6)
+    --take into acount slipping
+    local toolSpeed = motor:getSpeedLimit()/3.6
+    if self.spec_wheels.mrAvgDrivenWheelsSlip>0 then
+        toolSpeed = toolSpeed * (1 + self.spec_wheels.mrAvgDrivenWheelsSlip)
+    end
+    targetSpeed = math.min(targetSpeed, toolSpeed)
 
     --check current engine rpm and gearRatio
     local lastRatio = math.abs(motor.mrLastMotorObjectGearRatio)
@@ -845,27 +850,31 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
         motor.mrCvtRatioIncRate = math.max(0, motor.mrCvtRatioIncRate-2*lastRatio*dt/1000)
     end
 
+    --pto mode
+    if minRotForPTO>motor.mrMinRot then
+        motorRotAccFx = 1
+        if motor.mrLastMotorObjectRotSpeed<(minRotForPTO-5) then
+            --rpm too low = decrease speed to get more rpm
+            newGearRatioMin = lastRatio * (1+dt/500)
+            newGearRatioMax = newGearRatioMin
+        else
+            --all is good, allow more ratio (lower minRatio and greater maxratio)
+            newGearRatioMin = minGearRatio
+            newGearRatioMax = lastRatio * (1+dt/500)
+        end
+
+    end
+
+    maxAcceleration = math.min(1+0.5*lastSpd, maxAcceleration) --limit acc at low speed to avoid very fast take off
+
     newGearRatioMin = math.clamp(newGearRatioMin, minGearRatio, maxGearRatio)
     newGearRatioMax = math.clamp(newGearRatioMax, minGearRatio, maxGearRatio)
     newGearRatioMin = newGearRatioMin * gearDirection
     newGearRatioMax = newGearRatioMax * gearDirection
 
-    maxAcceleration = math.min(1+0.5*lastSpd, maxAcceleration) --limit acc at low speed to avoid very fast take off
-
-    if targetMinRot>motor.mrLastMotorObjectRotSpeed then
-        motorRotAccFx = 0.5
-    end
-
     local maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
 
-    if motor.rawLoadPercentage>=1 and neededPtoTorque>0.1 then
-        local clutchRot = motor.differentialRotSpeed*motor.mrLastMotorObjectGearRatio
-        if motor.mrLastMotorObjectRotSpeed>clutchRot+2 then
-            maxRot = 0.75 * motor.mrLastMotorObjectRotSpeed + 0.25 * math.max(clutchRot, motor.mrMinRot)
-        end
-    end
-
-    --targetMinRot = math.min(motor.mrLastMotorObjectRotSpeed-50, targetMinRot) --allow the engine to loose rpm when the pto load is too high
+    targetMinRot = motor.mrLastMotorObjectRotSpeed-1
     targetMinRot = math.min(maxRot-1, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
     self:controlVehicle(accPedal, targetSpeed, maxAcceleration, targetMinRot, maxRot, maxMotorRotAcceleration, newGearRatioMin, newGearRatioMax, clutchForce, neededPtoTorque)
 
