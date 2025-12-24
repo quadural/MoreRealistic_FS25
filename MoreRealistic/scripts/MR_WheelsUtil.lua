@@ -95,6 +95,22 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     minRotForPTOidle = math.max(minRotForPTOidle, motor.mrMinRot)
 
+
+
+
+    --20251224 - we want to keep the same driving direction after using the "idleturning" fature of some vehicles (example : iseki hj6130, new holland tk4, kubota svl97.2 ...)
+    if self.spec_drivable~=nil then
+        if self.spec_drivable.idleTurningActive and self.mrIdleTurningDirectionBeforeActivation==nil then
+            self.mrIdleTurningDirectionBeforeActivation = motor.currentDirection
+        elseif self.spec_drivable.idleTurningActive==false and self.mrIdleTurningDirectionBeforeActivation~=nil then
+            motor:changeDirection(self.mrIdleTurningDirectionBeforeActivation)
+            self.mrIdleTurningDirectionBeforeActivation = nil
+        end
+    end
+
+
+
+
     --separate acceleration into accPedal and brakePedal
     local accPedal, brakePedal = 0, 0
 

@@ -393,33 +393,22 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
 end
 Motorized.onUpdate = Utils.overwrittenFunction(Motorized.onUpdate, Motorized.mrOnUpdate)
 
-
-
-Motorized.getGearInfoToDisplay = function(self)
-    local gear, gearGroup, gearsAvailable, groupsAvailable
-    local isAutomatic, prevGearName, nextGearName, prevPrevGearName, nextNextGearName, isGearChanging
-    local showNeutralWarning = false
-
-    local motor = self.spec_motorized.motor
-    if motor ~= nil then
-        gear, gearsAvailable, isAutomatic, prevGearName, nextGearName, prevPrevGearName, nextNextGearName, isGearChanging = motor:getGearInfoToDisplay()
-
-        gearGroup, groupsAvailable = motor:getGearGroupToDisplay()
-        if not groupsAvailable then
-            gearGroup = nil
-        end
-
-        if self.getAcDecelerationAxis ~= nil then
-            if math.abs(self:getAcDecelerationAxis()) > 0 then
-                showNeutralWarning = self:getIsMotorInNeutral()
-            end
+-- see Dashboard.mrRegisterDashboardValueType
+Motorized.mrGetDashboardSpeedDir = function(self)
+    --Example : starting massey ferguson 8570 combine : we don't want the hydrostatic lever to go from full forward to full reverse when changing direction (manual change direction enabled)
+    if self.spec_drivable and self.spec_drivable.idleTurningAllowed and self.spec_drivable.idleTurningActive then
+        return 0
+    else
+        if math.abs(self.lastSignedSpeed)<0.00005 then --avoid jiggles at very low speed while "not" moving (0.00005 = 0.18kph)
+            return 0
+        else
+            return self.lastSignedSpeed*3600 --differentialRotSpeed ?
         end
     end
-
-    return gear, gearGroup, gearsAvailable, isAutomatic, prevGearName, nextGearName, prevPrevGearName, nextNextGearName, isGearChanging, showNeutralWarning
 end
 
 
 --getMotorLoadPercentage = used by sound manager for modifier type = "MOTOR_LOAD"
 --getMotorRpmPercentage = used by sound manager for modifier type = "MOTOR_RPM"
+--vehicle:getGearInfoToDisplay => call motorized:getGearInfoToDisplay => call motor:getGearInfoToDisplay
 

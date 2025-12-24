@@ -66,9 +66,9 @@
 
             <!-- IRL = when lowered, there is far less weight on the wheels.
             But ingame, we keep all the weight on the wheels, which means the maxForce here is lower to take into account the "huge" rolling forces from the wheels -->
-            <set path="vehicle.powerConsumer#maxForce" value="32" />
+            <set path="vehicle.powerConsumer#maxForce" value="36" />
             <set path="vehicle.powerConsumer#ptoRpm" value="475" />
-            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="18" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="20" />
             <set path="vehicle.sowingMachine.needsActivation#value" value="true" />
 
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value="0 0 0" />

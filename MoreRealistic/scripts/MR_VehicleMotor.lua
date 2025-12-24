@@ -498,29 +498,6 @@ VehicleMotor.mrGetLastModulatedMotorRpm = function(self, superFunc)
 end
 VehicleMotor.getLastModulatedMotorRpm = Utils.overwrittenFunction(VehicleMotor.getLastModulatedMotorRpm, VehicleMotor.mrGetLastModulatedMotorRpm)
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---
--- manage "mrTransmissionIsHydrostatic" => we want to see D or R when vehicle is at still and directionChangeMode==DIRECTION_CHANGE_MODE_MANUAL
---
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VehicleMotor.mrGetDrivingDirection = function(self, superFunc)
-
-    --if self.vehicle.mrIsMrVehicle and self.vehicle.mrTransmissionIsHydrostatic then
-    --for all "gearless transmission ?
-    if self.minGearRatio~=self.maxGearRatio then
-        if self.vehicle:getLastSpeed() > 0.3 then
-            return self.vehicle.movingDirection * self.transmissionDirection
-        elseif self.directionChangeMode == VehicleMotor.DIRECTION_CHANGE_MODE_MANUAL then
-            return self.currentDirection * self.transmissionDirection
-        end
-        return 0
-    end
-
-    return superFunc(self)
-
-end
-VehicleMotor.getDrivingDirection = Utils.overwrittenFunction(VehicleMotor.getDrivingDirection, VehicleMotor.mrGetDrivingDirection)
-
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
