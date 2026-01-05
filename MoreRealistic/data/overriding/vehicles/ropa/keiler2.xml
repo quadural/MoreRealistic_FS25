@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="attachableCombineCutterFruitPreparer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointX="-1.4" forcePointY="0" forcePointZ="3.5" />
+
+    <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
+    <mrCombine unloadingPower="20" threshingIdlePower="25" threshingPowerFx="1" irlSpotTonPerHour="70" maxFieldThreshingSpeed="12" />
+
+    <parentFile xmlFilename="$data/vehicles/ropa/keiler2/keiler2.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="150" />
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="-0.65 1.6 -0.65" />
+            <set path="vehicle.base.components.component(0)#mass" value="13200" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0.2" />
+            <set path="vehicle.base.components.component(1)#mass" value="400" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="8"/>
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="350" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0" />
+            <set path="vehicle.powerConsumer#maxForce" value="7" />
+            <set path="vehicle.powerConsumer#forceNode" value="keiler2_main_component1" />
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 1 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="20" />
+            <set path="vehicle.attachable.brakeForce#force" value="2" />
+
+
+
+            <!-- lowering/raising of the header is really too fast -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.6" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).foldingParts.foldingPart(0)#speedScale" value="0.6" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(0).part(0)#endTime" value="0.8" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(0).part(0)#endTime" value="0.8" />
+
+            <!-- about 7.2T and 8T fully filled tank -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="12100" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#capacity" value="10900" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0.3 2.7 2"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0.3 2.7 2"/>
+
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(0).dischargeNode(0)#emptySpeed" value="400"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(0)#emptySpeed" value="250"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

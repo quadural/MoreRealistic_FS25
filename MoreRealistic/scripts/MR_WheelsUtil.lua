@@ -860,26 +860,28 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
         end
 
+        --pto mode
+        if minRotForPTO>motor.mrMinRot then
+            motorRotAccFx = 1
+            if motor.mrLastMotorObjectRotSpeed<(minRotForPTO-5) then
+                --rpm too low = decrease speed to get more rpm
+                newGearRatioMin = lastRatio * (1+dt/500)
+                newGearRatioMax = newGearRatioMin
+            else
+                --all is good, allow more ratio (lower minRatio and greater maxratio)
+                newGearRatioMin = minGearRatio
+                newGearRatioMax = lastRatio * (1+dt/500)
+            end
+
+        end
+
     end
 
     if not isIncreasingRate and motor.mrCvtRatioIncRate>0 then
         motor.mrCvtRatioIncRate = math.max(0, motor.mrCvtRatioIncRate-2*lastRatio*dt/1000)
     end
 
-    --pto mode
-    if minRotForPTO>motor.mrMinRot then
-        motorRotAccFx = 1
-        if motor.mrLastMotorObjectRotSpeed<(minRotForPTO-5) then
-            --rpm too low = decrease speed to get more rpm
-            newGearRatioMin = lastRatio * (1+dt/500)
-            newGearRatioMax = newGearRatioMin
-        else
-            --all is good, allow more ratio (lower minRatio and greater maxratio)
-            newGearRatioMin = minGearRatio
-            newGearRatioMax = lastRatio * (1+dt/500)
-        end
 
-    end
 
     maxAcceleration = math.min(1+0.5*lastSpd, maxAcceleration) --limit acc at low speed to avoid very fast take off
 

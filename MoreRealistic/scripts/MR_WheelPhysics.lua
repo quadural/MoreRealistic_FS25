@@ -267,7 +267,7 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
             radius = 3*radius --crawler bonus. We should take into account the track length, but this info is not available
         end
         rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, radius, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
-        rrFx = self.mrScaleRR
+        rrFx = rrFx * self.mrScaleRR
     end
     self.mrLastRrFx = rrFx
     --depend on surface (soft and field)

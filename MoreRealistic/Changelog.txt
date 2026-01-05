@@ -353,10 +353,14 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - fix "getContactforce" bug when reloading some vehicles
             - v1.15 ready
 
- 202512XX   - add converted John Deere 8R (tractor)
+202512XX    - add converted John Deere 8R (tractor)
             - fix wheel damping bug (sometimes, huge value for damping of wheel not touching the ground)
             - add converted Horsch Tiger 8MT (heavy cultivator)
             - add converted Grimme GL420 (potatoes planter)
             - add converted Grimme Prios 440 (potatoes planter)
             - add converted Grimme GL860 Compacta (potatoes planter)
             - new pto mode for CVT transmission
+
+202601XX    - fix bug rrFx remaining at 1
+            - fix bug : power shuttle was a little bit lazy in pto mode (CVT transmission)
+            - add converted Ropa Keiler 2 potatoes harvester
