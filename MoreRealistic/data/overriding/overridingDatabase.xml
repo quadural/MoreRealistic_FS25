@@ -81,6 +81,7 @@
 
     <!-- potatoes harvesters -->
     <vehicle fileNameToOverride="data/vehicles/ropa/keiler2/keiler2.xml">vehicles/ropa/keiler2.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/grimme/evo290/evo290.xml">vehicles/grimme/evo290.xml</vehicle>
 
     <!-- potatoes planters -->
     <vehicle fileNameToOverride="data/vehicles/grimme/gl420/gl420.xml">vehicles/grimme/gl420.xml</vehicle>

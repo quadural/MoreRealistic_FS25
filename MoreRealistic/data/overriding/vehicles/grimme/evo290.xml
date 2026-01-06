@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="attachableCombineCutterFruitPreparer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointX="-0.75" forcePointY="0" forcePointZ="3.1" />
+
+    <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
+    <mrCombine unloadingPower="24" threshingIdlePower="25" threshingPowerFx="1" irlSpotTonPerHour="70" maxFieldThreshingSpeed="12" />
+
+    <parentFile xmlFilename="$data/vehicles/grimme/evo290/evo290.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="180" />
+
+            <set path="vehicle.base.speedLimit#value" value="9" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0.1 1.8 -0.9" />
+            <set path="vehicle.base.components.component(0)#mass" value="13700" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.4 -0.1" />
+            <set path="vehicle.base.components.component(1)#mass" value="400" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).tire#isInverted" value="true" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="30"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).steeringAxle#scale" value="-0.5" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).steeringAxle#scale" value="-0.5" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).steeringAxle#scale" value="-0.5" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="5"/>
+
+
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="410" /> <!-- main web drive = vario drive -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0" />
+            <set path="vehicle.powerConsumer#maxForce" value="7" />
+            <set path="vehicle.powerConsumer#forceNode" value="evo290_main_component1" />
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 1 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="20" />
+            <set path="vehicle.attachable.brakeForce#force" value="2" />
+
+
+
+            <!-- lowering/raising of the header is really too fast -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.6" />
+            <set path="vehicle.animations.animation(1).part(0)#endTime" value="0.8" />
+
+            <!-- bunker elevating animation is really too fast -->
+            <set path="vehicle.pipe.animation#speedScale" value="0.25" />
+
+            <!-- fix drawbar attacher joint rotation -->
+            <set path="vehicle.animations.animation(1).part(3)#startRot" value="0 -20 0" />
+            <set path="vehicle.animations.animation(1).part(3)#endRot" value="0 -20 0" />
+
+
+            <!-- about 9T fully filled tank -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="13400" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="1 2.5 2"/>
+
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="450"/>
+
+            <!-- add missing animated part -->
+            <set path="vehicle.i3dMappings.i3dMapping(200)#id" value="evoAnimated12" />
+            <set path="vehicle.i3dMappings.i3dMapping(200)#node" value="0>0|2|7|0|0|0|0|0" />
+
+            <set path="vehicle.i3dMappings.i3dMapping(201)#id" value="evoAnimated11" />
+            <set path="vehicle.i3dMappings.i3dMapping(201)#node" value="0>0|2|7|0|0|0|0|1" />
+
+            <set path="vehicle.i3dMappings.i3dMapping(202)#id" value="evoAnimated15" />
+            <set path="vehicle.i3dMappings.i3dMapping(202)#node" value="0>0|2|7|0|0|0|0|2" />
+
+            <set path="vehicle.combine.animationNodes.animationNode(5)#node" value="evoAnimated15" />
+            <set path="vehicle.combine.animationNodes.animationNode(5)#rotSpeed" value="100" />
+            <set path="vehicle.combine.animationNodes.animationNode(5)#rotAxis" value="1" />
+            <set path="vehicle.combine.animationNodes.animationNode(5)#turnOnFadeTime" value="2" />
+            <set path="vehicle.combine.animationNodes.animationNode(5)#turnOffFadeTime" value="4" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#node" value="evoAnimated12" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#wheelNodes" value="rightSupportWheel" />
+
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#node" value="evoAnimated11" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#wheelNodes" value="leftSupportWheel" />
+
+            <!-- fix incorrect workarea -->
+            <set path="vehicle.base.objectChanges.objectChange(0)#node" value="workArea01Start" />
+            <set path="vehicle.base.objectChanges.objectChange(0)#translationActive" value="0.015 0.453 3.292" />
+
+            <set path="vehicle.base.objectChanges.objectChange(1)#node" value="workArea01Width" />
+            <set path="vehicle.base.objectChanges.objectChange(1)#translationActive" value="-1.485 0.453 3.292" />
+
+            <set path="vehicle.base.objectChanges.objectChange(2)#node" value="workArea01Height" />
+            <set path="vehicle.base.objectChanges.objectChange(2)#translationActive" value="0.015 0.453 2.879" />
+
+            <set path="vehicle.base.objectChanges.objectChange(3)#node" value="areaMarkerLeft" />
+            <set path="vehicle.base.objectChanges.objectChange(3)#translationActive" value="0.015 0.453 3.292" />
+
+            <set path="vehicle.base.objectChanges.objectChange(4)#node" value="areaMarkerRight" />
+            <set path="vehicle.base.objectChanges.objectChange(4)#translationActive" value="-1.485 0.453 3.292" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

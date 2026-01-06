@@ -363,4 +363,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
 202601XX    - fix bug rrFx remaining at 1
             - fix bug : power shuttle was a little bit lazy in pto mode (CVT transmission)
-            - add converted Ropa Keiler 2 potatoes harvester
+            - add converted Ropa Keiler 2 potato harvester
+            - add converted Grimme Evo290 potato harvester
