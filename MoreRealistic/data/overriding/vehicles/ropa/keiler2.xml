@@ -11,6 +11,10 @@
     <parentFile xmlFilename="$data/vehicles/ropa/keiler2/keiler2.xml">
         <attributes>
 
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+            <set path="vehicle.combine#threshingScale" value="0.94"/>
+
             <set path="vehicle.storeData.specs.neededPower" value="150" />
 
             <set path="vehicle.base.speedLimit#value" value="9" />

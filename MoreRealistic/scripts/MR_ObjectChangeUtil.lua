@@ -127,7 +127,6 @@ ObjectChangeUtil.mrLoadValuesFromXML = function(xmlFile, superFunc, key, node, o
         end,
         true, nil, true)
 
-
 end
 ObjectChangeUtil.loadValuesFromXML = Utils.overwrittenFunction(ObjectChangeUtil.loadValuesFromXML, ObjectChangeUtil.mrLoadValuesFromXML)
 

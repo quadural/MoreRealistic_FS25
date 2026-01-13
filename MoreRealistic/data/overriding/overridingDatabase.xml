@@ -82,11 +82,12 @@
     <!-- potatoes harvesters -->
     <vehicle fileNameToOverride="data/vehicles/ropa/keiler2/keiler2.xml">vehicles/ropa/keiler2.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/grimme/evo290/evo290.xml">vehicles/grimme/evo290.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/grimme/evo290/evo290.xml">vehicles/grimme/evo290.xml</vehicle>
 
     <!-- potatoes planters -->
     <vehicle fileNameToOverride="data/vehicles/grimme/gl420/gl420.xml">vehicles/grimme/gl420.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/grimme/prios440/prios440.xml">vehicles/grimme/prios440.xml</vehicle>
-    <vehicle fileNameToOverride="data/vehicles/grimme/gl860/gl860.xml">vehicles/grimme/gl860.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/grimme/ventor4150/ventor4150.xml">vehicles/grimme/ventor4150.xml</vehicle>
 
     <!-- power harrows  -->
     <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>

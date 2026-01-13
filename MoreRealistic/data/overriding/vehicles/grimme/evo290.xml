@@ -11,6 +11,9 @@
     <parentFile xmlFilename="$data/vehicles/grimme/evo290/evo290.xml">
         <attributes>
 
+            <set path="vehicle.base.speedLimit#value" value="12" />
+            <set path="vehicle.combine#threshingScale" value="0.94"/>
+
             <set path="vehicle.storeData.specs.neededPower" value="180" />
 
             <set path="vehicle.base.speedLimit#value" value="9" />

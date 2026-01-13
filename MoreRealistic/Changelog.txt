@@ -361,7 +361,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Grimme GL860 Compacta (potatoes planter)
             - new pto mode for CVT transmission
 
-202601XX    - fix bug rrFx remaining at 1
+20260113    - fix bug rrFx remaining at 1
             - fix bug : power shuttle was a little bit lazy in pto mode (CVT transmission)
             - add converted Ropa Keiler 2 potato harvester
             - add converted Grimme Evo290 potato harvester
+            - add converted Grimme Ventor 4150 potato harvester
