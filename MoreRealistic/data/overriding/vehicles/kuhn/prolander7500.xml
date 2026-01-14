@@ -35,10 +35,6 @@
             <set path="vehicle.animations.animation(0).part(12)#endTime" value="0.7" />
 
 
-
-
-
-
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
 
@@ -63,6 +59,31 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#supportsWheelSink" value="false"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#supportsWheelSink" value="false"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#supportsWheelSink" value="false"/>
+
+            <!-- correct wheels -->
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" />
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/vredestein/flotationTrac/520_50R17.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/vredestein/flotationTrac/520_50R17.xml"/>
+
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#dimensions" />
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/trelleborg/AW305/340_55R16.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/trelleborg/AW305/340_55R16.xml"/>
+
+            <!-- take into account new front wheel size (warning when counting index : there are 2 indexes removed previously)-->
+            <set path="vehicle.animations.animation(0).part(14)#startTime" value="0" />
+            <set path="vehicle.animations.animation(0).part(15)#startTime" value="0" />
+            <set path="vehicle.animations.animation(0).part(16)#startTime" value="0" />
+            <set path="vehicle.animations.animation(0).part(17)#startTime" value="0" />
+            <set path="vehicle.animations.animation(0).part(14)#endTime" value="0.8" />
+            <set path="vehicle.animations.animation(0).part(15)#endTime" value="0.8" />
+            <set path="vehicle.animations.animation(0).part(16)#endTime" value="0.8" />
+            <set path="vehicle.animations.animation(0).part(17)#endTime" value="0.8" />
+            <set path="vehicle.animations.animation(0).part(14)#startRot" value="-20 -90 0" />
+            <set path="vehicle.animations.animation(0).part(15)#startRot" value="-20 0 0" />
+            <set path="vehicle.animations.animation(0).part(16)#startRot" value="-20 90 0" />
+            <set path="vehicle.animations.animation(0).part(17)#startRot" value="-20 0 0" />
 
         </attributes>
     </parentFile>
