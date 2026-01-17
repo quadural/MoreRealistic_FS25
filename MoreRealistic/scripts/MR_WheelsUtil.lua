@@ -862,15 +862,27 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
         --pto mode
         if minRotForPTO>motor.mrMinRot then
-            motorRotAccFx = 1
+
             if motor.mrLastMotorObjectRotSpeed<(minRotForPTO-5) then
                 --rpm too low = decrease speed to get more rpm
                 newGearRatioMin = lastRatio * (1+dt/500)
                 newGearRatioMax = newGearRatioMin
+                motorRotAccFx = 1
             else
                 --all is good, allow more ratio (lower minRatio and greater maxratio)
                 newGearRatioMin = minGearRatio
                 newGearRatioMax = lastRatio * (1+dt/500)
+                if isIncreasingRate then
+                   motorRotAccFx = 1
+                else
+                    if motor.smoothedLoadPercentage<0.6 then
+                        motorRotAccFx = motor.smoothedLoadPercentage -0.65
+                    elseif motor.smoothedLoadPercentage>0.85 then
+                        motorRotAccFx = motor.smoothedLoadPercentage -0.8
+                    else
+                        motorRotAccFx = 0
+                    end
+                end
             end
 
         end

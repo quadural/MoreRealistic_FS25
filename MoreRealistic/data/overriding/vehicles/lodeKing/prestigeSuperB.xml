@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+        3 heights possible = 79", 82", 85"
+
+        water level = 69.46 / 72.69 / 75.89 M3
+        heaped level = 75.29 / 79.06 / 82.80 M3
+
+        in our case = this is the smallest height -> about 70000L in game (34500L front and 35500L back)
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB.xml">
+        <attributes>
+
+            <remove path="vehicle.base.components" />
+
+            <set path="storeData.specs.capacity" value="70000" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

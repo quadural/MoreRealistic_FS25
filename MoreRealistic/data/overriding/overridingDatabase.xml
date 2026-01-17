@@ -163,6 +163,9 @@
     <!-- truck trailers -->
     <vehicle fileNameToOverride="data/vehicles/krampe/sks30_150/sks30_150.xml">vehicles/krampe/sks30_150.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lodeKing/distinctionTripleHopper/distinctionTripleHopper.xml">vehicles/lodeKing/distinctionTripleHopper.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB.xml">vehicles/lodeKing/prestigeSuperB.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB_front.xml">vehicles/lodeKing/prestigeSuperB_front.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB_back.xml">vehicles/lodeKing/prestigeSuperB_back.xml</vehicle>
 
     <!-- water trailers -->
     <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer550/waterTrailer550.xml">vehicles/abi/waterTrailer550.xml</vehicle>
@@ -171,6 +174,7 @@
     <vehicle fileNameToOverride="data/vehicles/einboeck/pneumaticstarPro1200/pneumaticstarPro1200.xml">vehicles/einboeck/pneumaticstarPro1200.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/gorenc/puler600/puler600.xml">vehicles/gorenc/puler600.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/rotocareV12400/rotocareV12400.xml">vehicles/poettinger/rotocareV12400.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/einboeck/aerostar2400/aerostar2400.xml">vehicles/einboeck/aerostar2400.xml</vehicle>
 
     <!-- wheel loaders -->
     <vehicle fileNameToOverride="data/vehicles/volvo/l120H/l120H.xml">vehicles/volvo/l120H.xml</vehicle>

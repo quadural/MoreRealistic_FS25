@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="weeder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.5" forcePointZ="-4.7" />
+
+    <!--
+    base weight : 5460kilos
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/einboeck/aerostar2400/aerostar2400.xml">
+        <attributes>
+
+            <!-- main component -->
+            <set path="vehicle.base.components.component(0)#mass" value="1600" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.45 0" />
+
+            <!-- attacher -->
+            <set path="vehicle.base.components.component(1)#mass" value="500" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0" />
+
+            <!--main left arm-->
+            <set path="vehicle.base.components.component(2)#mass" value="1000" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.8" />
+
+            <!--outter left arm-->
+            <set path="vehicle.base.components.component(3)#mass" value="500" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 0 -0.8" />
+
+            <!--main right arm-->
+            <set path="vehicle.base.components.component(4)#mass" value="1000" />
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 0 -0.8" />
+
+            <!--outter right arm-->
+            <set path="vehicle.base.components.component(5)#mass" value="500" />
+            <set path="vehicle.base.components.component(5)#centerOfMass" value="0 0 -0.8" />
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="38" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+
+            <set path="vehicle.attachable.brakeForce#force" value="0.4" />
+
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.4" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
