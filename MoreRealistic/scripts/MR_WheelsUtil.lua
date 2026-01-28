@@ -845,8 +845,9 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
             newGearRatioMin = minGearRatio
             motorRotAccFx = 0.2
 
-            --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
-            if lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1) then
+            if motor.mrLastMotorObjectRotSpeed>self.spec_motorized.mrLastMaxMotorRotSpeedSet then --something is "pushing" the vehicle = the engine should handle it (example : going downward on a road)
+                self.spec_motorized.mrEngineIsBraking = true
+            elseif lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1)  then --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
                 newGearRatioMin = lastMinRatio * (1-dt/3000)
             elseif lastSpd>(targetSpeed-0.02) and motor.mrLastMotorObjectRotSpeed>targetEcoRot and motor.smoothedLoadPercentage<0.8 then --scenario = target speed reached and engine not @100% load
                 motorRotAccFx = -0.2
@@ -903,8 +904,9 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     newGearRatioMax = newGearRatioMax * gearDirection
 
     local maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
+    --local maxRot = self.spec_motorized.mrLastMaxMotorRotSpeedSet + motorRotAccFx * maxMotorRotAcceleration * dt/1000
 
-    targetMinRot = motor.mrLastMotorObjectRotSpeed-1
+    targetMinRot = motor.mrLastMotorObjectRotSpeed-2
     targetMinRot = math.min(maxRot-1, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
     self:controlVehicle(accPedal, targetSpeed, maxAcceleration, targetMinRot, maxRot, maxMotorRotAcceleration, newGearRatioMin, newGearRatioMax, clutchForce, neededPtoTorque)
 

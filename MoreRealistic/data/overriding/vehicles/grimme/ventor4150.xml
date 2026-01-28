@@ -19,16 +19,26 @@
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0"/>
 
             <!-- about 33600kgs with full fuel/def tanks -->
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.7 -2"/> <!--main-->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.5 -2"/> <!--main-->
             <set path="vehicle.base.components.component(0)#mass" value="23600"/>
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.6 0"/> <!-- back axle -->
             <set path="vehicle.base.components.component(1)#mass" value="2000"/>
             <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.6 -0.1"/> <!-- header -->
             <set path="vehicle.base.components.component(2)#mass" value="4500"/>
 
+            <!-- add missing rotLimitSpring for back axle -->
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="0 0 8000"/>
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="0 0 40"/>
+            <set path="vehicle.base.components.joint(0)#maxRotDriveForce" value="0 0 40"/>
+            <set path="vehicle.base.components.joint(0)#rotDriveRotation" value="0 0 0"/>
+            <set path="vehicle.base.components.joint(0)#rotDriveSpring" value="0 0 50"/>
+            <set path="vehicle.base.components.joint(0)#rotDriveDamping" value="0 0 50"/>
+            <set path="vehicle.base.components.joint(0)#breakable" value="false"/>
+
+
             <!-- spring between header and main -->
-            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="6000 15000 4000"/>
-            <set path="vehicle.base.components.joint(1)#rotLimitDamping" value="40 100 30"/>
+            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="6000 25000 6000"/>
+            <set path="vehicle.base.components.joint(1)#rotLimitDamping" value="40 250 40"/>
             <set path="vehicle.base.components.joint(1)#allowsJointRotLimitMovement" value="true"/>
 
             <!--wheels -->
@@ -45,24 +55,24 @@
             <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" />
 
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="150"/> <!-- front wheel 1-->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="150"/> <!-- front wheel 2-->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="150"/> <!-- rear wheel 1-->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="150"/> <!-- rear wheel 2-->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="180"/> <!-- front wheel 1-->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="180"/> <!-- front wheel 2-->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="160"/> <!-- rear wheel 1-->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="160"/> <!-- rear wheel 2-->
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="100"/> <!-- header wheel 1 -->
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="100"/> <!-- header wheel 2 -->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="50"/> <!-- transport wheel 1 -->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="50"/> <!-- transport wheel 2 -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="60"/> <!-- transport wheel 1 -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="60"/> <!-- transport wheel 2 -->
 
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="20"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="20"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="10"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="35"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="10"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="10"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="20"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="0.1"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="0.1"/>
@@ -144,10 +154,10 @@
 
             <!-- fix animation -->
             <set path="vehicle.animations.animation(3).part(6)#startRotLimit" value="0 0 0" />
-            <set path="vehicle.animations.animation(3).part(6)#startRotLimitSpring" value="1000 15000 4000" />
-            <set path="vehicle.animations.animation(3).part(6)#endRotLimitSpring" value="6000 15000 4000" />
-            <set path="vehicle.animations.animation(3).part(6)#startRotLimitDamping" value="40 100 30" />
-            <set path="vehicle.animations.animation(3).part(6)#endRotLimitDamping" value="40 100 30" />
+            <set path="vehicle.animations.animation(3).part(6)#startRotLimitSpring" value="1000 25000 6000" />
+            <set path="vehicle.animations.animation(3).part(6)#endRotLimitSpring" value="6000 25000 6000" />
+            <set path="vehicle.animations.animation(3).part(6)#startRotLimitDamping" value="40 250 40" />
+            <set path="vehicle.animations.animation(3).part(6)#endRotLimitDamping" value="40 250 40" />
 
             <!-- chopping unit "collision shape" is not bound to the header component => very weird behavior if the chopper collision is touching the ground = most of the time, the front axle is floating in the air at more than 3m from the ground -->
 
