@@ -367,8 +367,10 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Grimme Evo290 potato harvester
             - add converted Grimme Ventor 4150 potato harvester
 
-202601XX    - add converted Einboeck aerostar 2400 (weeder)
+20260213    - add converted Einboeck aerostar 2400 (weeder)
             - more realistic dashboard rpm and speed : decimal and refresh rate (text)
             - enhanced mr cvt pto mode
             - add converted Lode King Prestige Super B trailer
             - more realistic dashboard fuel usage and engine load : decimal and refresh rate (text)
+            - disable mrUpdateWheelsPhysics when the transmission is managed by "CVTaddon" mod
+

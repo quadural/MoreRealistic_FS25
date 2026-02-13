@@ -28,6 +28,14 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     end
     -------------------------------------------------
 
+    -------------------------------------------------
+    -- CVT Addons mod controlled vehicle = do not allow MR to interfer
+    -------------------------------------------------
+    if self.spec_CVTaddon~=nil and self.spec_CVTaddon.CVTconfig~=nil and self.spec_CVTaddon.CVTconfig~=8 then
+        return superFunc(self, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking)
+    end
+    -------------------------------------------------
+
 
     --20250511 - AIVehicleUtil.driveAlongCurvature set the doHandbrake parameter to true as soon as the "maxspeed" is >0
     --protection against such "weird" command
