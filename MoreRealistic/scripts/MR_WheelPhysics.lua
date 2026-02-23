@@ -486,6 +486,15 @@ WheelPhysics.mrUpdateFriction = function(self, superFunc, dt, groundWetness)
 
     if self.mrFrictionNeedUpdate then
 
+        if self.wheel ~= nil and self.wheel.node ~= nil and entityExists(self.wheel.node) and Weather ~= nil and Weather.mrGetMoistureWetnessAt ~= nil then
+            local x, _, z = getWorldTranslation(self.wheel.node)
+            if x ~= nil and z ~= nil then
+                groundWetness = Weather.mrGetMoistureWetnessAt(x, z, groundWetness)
+            end
+        end
+
+        groundWetness = math.clamp(groundWetness or 0, 0, 1)
+
         local isOnField = self.densityType ~= FieldGroundType.NONE
 
         local snowScale = 0
