@@ -29,6 +29,7 @@ PowerConsumer.mrLoadMrValues = function(self, xmlFile)
     end
 
     self.mrPowerConsumerMaxGroundDistanceToApplyDraftForce = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#maxGroundDistance")
+    self.mrPowerConsumerToolCategory = getXMLString(xmlFile, "vehicle.mrPowerConsumer#mrToolCategory")
 
 end
 
@@ -112,17 +113,42 @@ PowerConsumer.mrGetForceMultiplier = function(self)
             end
         end
         if found then
-            local mission = g_currentMission
-            local groundTypeMapId, groundTypeFirstChannel, groundTypeNumChannels = mission.fieldGroundSystem:getDensityMapData(FieldDensityMap.GROUND_TYPE)
-            local densityBits = getDensityAtWorldPos(groundTypeMapId, wx, wy, wz)
-            local densityType = bitAND(bitShiftRight(densityBits, groundTypeFirstChannel), 2^groundTypeNumChannels - 1)
-            local groundType = FieldGroundType.getTypeByValue(densityType)
 
-            if groundType==FieldGroundType.CULTIVATED or groundType==FieldGroundType.STUBBLE_TILLAGE or groundType==FieldGroundType.PLOWED or groundType==FieldGroundType.SOWN or groundType==FieldGroundType.DIRECT_SOWN or groundType==FieldGroundType.PLANTED or groundType==FieldGroundType.RIDGE or groundType==FieldGroundType.RIDGE_SOWN or groundType==FieldGroundType.SEEDBED then
-                --multiplier = multiplier * 0.7 -- 30% less force needed to cultivate/sow/plow over already cultivated/sown/plowed land
+            --local isOnField, densityBits, groundType = FSDensityMapUtil.getFieldDataAtWorldPosition(wx, wy, wz)
+            local isOnField, _, groundType = FSDensityMapUtil.getFieldDataAtWorldPosition(wx, wy, wz)
 
-                --20250727 - depend on the type of the tool
-                multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+            --groundType=
+            --1: NONE
+            --2: STUBBLE_TILLAGE
+            --3: CULTIVATED
+            --4: SEEDBED
+            --5: PLOWED
+            --6: ROLLED_SEEDBED
+            --7: RIDGE
+            --8: SOWN
+            --9: DIRECT_SOWN
+            --10: PLANTED
+            --11: RIDGE_SOWN
+            --12: ROLLER_LINES
+            --13: HARVEST_READY
+            --14: HARVEST_READY_OTHER
+            --15: GRASS
+            --16: GRASS_CUT
+
+            if isOnField then
+
+                --check if this is a crop (growing, ripe or harvested or withered)
+                --g_fruitTypeManager
+                local fruitTypeIndex, growState = FSDensityMapUtil.getFruitTypeIndexAtWorldPos(wx, wz)
+
+                if fruitTypeIndex~=nil and growState~=nil then
+                    --check growstate : above 1 = no already worked bonus
+                    if growState<=1 then
+                        multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                    end
+                elseif groundType==FieldGroundType.STUBBLE_TILLAGE or groundType==FieldGroundType.CULTIVATED or groundType==FieldGroundType.SEEDBED or groundType==FieldGroundType.PLOWED or groundType==FieldGroundType.ROLLED_SEEDBED or groundType==FieldGroundType.RIDGE or groundType==FieldGroundType.RIDGE_SOWN or groundType==FieldGroundType.ROLLER_LINES then
+                    multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                end
             end
 
             if (VehicleDebug.state == VehicleDebug.DEBUG_PHYSICS or VehicleDebug.state == VehicleDebug.DEBUG_TUNING) and self.isActiveForInputIgnoreSelectionIgnoreAI then
@@ -156,6 +182,9 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
         if spec.forceNode ~= nil and self.movingDirection~=0 and self.lastSpeedReal > 0.0001 then --0.36kph
 
             local vx, vy, vz = getLinearVelocity(spec.forceNode)
+            if vx==nil or vz==nil then
+                return --20260225 - protection against nil value. Exaple : Zunhammer vibro implement
+            end
             local spd2d = MathUtil.vector2Length(vx,vz)
 
             if spd2d>0.1 then --0.36kph
@@ -180,7 +209,8 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
 
                     --MR : max force dependant of speed and tool
                     local groundWetness = g_currentMission.environment.weather:getGroundWetness()
-                    maxForce = maxForce*PowerConsumer.mrGetDraftForceMultiplier(self.mrStoreCategory, self.lastSpeedReal*3600, groundWetness, self.mrPtoCurrentRpmRatio)
+                    local toolCategory = self.mrPowerConsumerToolCategory or self.mrStoreCategory --we priorize self.mrPowerConsumerToolCategory
+                    maxForce = maxForce*PowerConsumer.mrGetDraftForceMultiplier(toolCategory, self.lastSpeedReal*3600, groundWetness, self.mrPtoCurrentRpmRatio)
                     local forceMultiplier = PowerConsumer.mrGetForceMultiplier(self)
                     maxForce = maxForce*forceMultiplier
 

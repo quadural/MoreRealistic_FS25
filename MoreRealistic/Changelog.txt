@@ -374,3 +374,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - more realistic dashboard fuel usage and engine load : decimal and refresh rate (text)
             - disable mrUpdateWheelsPhysics when the transmission is managed by "CVTaddon" mod
 
+202602XX    - add converted Zunhammer vibro slurry tool
+            - improved PowerConsumer.mrGetForceMultiplier (some field states were not detected correctely)
+

@@ -108,6 +108,9 @@
     <vehicle fileNameToOverride="data/vehicles/kuhn/tf1512/tf1512.xml">vehicles/kuhn/tf1512.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/horsch/partner1600FT/partner1600FT.xml">vehicles/horsch/partner1600FT.xml</vehicle>
 
+    <!-- slurry tools -->
+    <vehicle fileNameToOverride="data/vehicles/zunhammer/vibro/vibro.xml">vehicles/zunhammer/vibro.xml</vehicle>
+
     <!-- spaders -->
     <vehicle fileNameToOverride="data/vehicles/farmax/rapidTrailed/rapidTrailed.xml">vehicles/farmax/rapidTrailed.xml</vehicle>
 
