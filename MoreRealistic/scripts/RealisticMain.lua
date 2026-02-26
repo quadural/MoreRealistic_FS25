@@ -72,7 +72,15 @@ print("**********************************************************************")
 
 function RealisticMain:loadMap(name)
     RealisticUtils.loadTerrainIdToName()
-    g_currentMission.environment.weather.getGroundWetness = Utils.overwrittenFunction(g_currentMission.environment.weather.getGroundWetness, Weather.mrGetGroundWetness)
+
+    local weather = g_currentMission ~= nil and g_currentMission.environment ~= nil and g_currentMission.environment.weather or nil
+    local hasRealisticWeatherMoisture = g_currentMission ~= nil and g_currentMission.moistureSystem ~= nil
+
+    if weather ~= nil and not hasRealisticWeatherMoisture then
+        weather.getGroundWetness = Utils.overwrittenFunction(weather.getGroundWetness, Weather.mrGetGroundWetness)
+    else
+        Logging.info("[MoreRealistic][COMPAT] RealisticWeather moisture system rilevato: skip override Weather.getGroundWetness")
+    end
 end
 
 
