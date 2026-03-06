@@ -114,17 +114,18 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         --conversion : tons per hour to liter per second
         local maxCapacity = self.mrCombineSpotRate*0.35*RealisticMain.COMBINE_CAPACITY_FX*fruitCapacityFx --Metric Ton per hour to Liters per second. Base "fruit" = wheat // 1000/0.79/3600 liters for wheat = 0.35
 
-        local peakWantedPower = 0.8*self.spec_powerConsumer.sourceMotorPeakPower
+        --local peakWantedPower = 0.8*self.spec_powerConsumer.sourceMotorPeakPower
         local overloadedFx = 0
 
         local minSpeedLimit = 2
         local maxSpeedLimit = self.mrCombineSpeedLimitMax
 
 
-
-
         --check needed power not too high
-        overloadedFx = math.sqrt(neededPower/peakWantedPower)
+        --overloadedFx = math.sqrt(neededPower/peakWantedPower)
+
+        --20260306 - now rely on the engine smooth load percent
+        overloadedFx = 0.03 + self.spec_motorized.smoothedLoadPercentage
 
         --check max capacity
         overloadedFx = math.max(overloadedFx, self.mrCombineLitersPerSecondS1/maxCapacity)

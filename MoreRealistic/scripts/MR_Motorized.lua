@@ -265,7 +265,7 @@ Motorized.mrUpdateMotorProperties=function(self)
         end
     end
 
-    setMotorProperties(spec.motorizedNode, motor.mrMinRot-10, motor.mrMaxRot, motor:getRotInertia(), dampingRateFullThrottle, dampingRateZeroThrottleClutchEngaged, dampingRateZeroThrottleClutchDisengaged, rotationSpeeds, torques)
+    setMotorProperties(spec.motorizedNode, motor.mrMinRot, motor.mrMaxRot, motor:getRotInertia(), dampingRateFullThrottle, dampingRateZeroThrottleClutchEngaged, dampingRateZeroThrottleClutchDisengaged, rotationSpeeds, torques)
 
  end
 Motorized.updateMotorProperties = Utils.overwrittenFunction(Motorized.updateMotorProperties, Motorized.mrUpdateMotorProperties)

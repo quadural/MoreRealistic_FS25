@@ -91,6 +91,22 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         end
         self.mrTransmissionCvtTargetRot = 0
 
+        --20260306 - allow different transmission settings in pto mode
+        if self.mrTransmissionIsHydrostatic then
+            self.mrTransmissionPtoModeMaxEngineRotWanted = getXMLFloat(xmlFile, "vehicle.mrTransmission#ptoModeMaxRpmWanted")
+            if self.mrTransmissionPtoModeMaxEngineRotWanted==nil then
+                self.mrTransmissionPtoModeMaxEngineRotWanted = self.mrTransmissionMaxEngineRotWanted
+            else
+                self.mrTransmissionPtoModeMaxEngineRotWanted = self.mrTransmissionPtoModeMaxEngineRotWanted * math.pi / 30  --rpm to rad/s
+            end
+            self.mrTransmissionPtoModeMinEngineRotWanted = getXMLFloat(xmlFile, "vehicle.mrTransmission#ptoModeMinRpmWanted")
+            if self.mrTransmissionPtoModeMinEngineRotWanted~=nil then
+                self.mrTransmissionPtoModeIsHydrostaticAutomotive = true
+                self.mrTransmissionPtoModeMinEngineRotWanted = self.mrTransmissionPtoModeMinEngineRotWanted * math.pi / 30 --rpm to rad/s
+                self.mrTransmissionAutomotiveTargetRot = 0
+            end
+        end
+
 
 
         delete(xmlFile)

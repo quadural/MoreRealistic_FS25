@@ -287,7 +287,11 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
             --auto park brake
             -- if we once locked the low brake force, we keep it locked until the player provides input
             motor.lowBrakeForceLocked = true --handbrake ?
-            self:controlVehicle(0, 0, 0, minRotForPTOidle, math.huge, 0, 0, 0, 1, neededPtoTorque)
+            if self.mrTransmissionIsHydrostatic then
+                self:controlVehicle(0, 0, 0, minRotForPTO, math.huge, 0, 0, 0, 1, neededPtoTorque)
+            else
+                self:controlVehicle(0, 0, 0, minRotForPTOidle, math.huge, 0, 0, 0, 1, neededPtoTorque)
+            end
             self:brake(1)
 
             --no brake light, no reverse light
@@ -335,7 +339,15 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     if self.mrTransmissionIsHydrostatic then
         --20250923 - not linear response to acc
         accPedal = accPedal^1.5
-        if self.mrTransmissionIsHydrostaticAutomotive then
+
+        local isAutomotive = self.mrTransmissionIsHydrostaticAutomotive
+        if neededPtoTorque>0.01 then
+            if self.mrTransmissionPtoModeIsHydrostaticAutomotive~=nil then
+                isAutomotive = self.mrTransmissionPtoModeIsHydrostaticAutomotive
+            end
+        end
+
+        if isAutomotive then
             WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive(self, dt, accPedal, maxAcceleration, maxMotorRotAcceleration, clutchForce, neededPtoTorque, minRotForPTO)
         else
             WheelsUtil.mrUpdateWheelsPhysicsHydrostatic(self, dt, accPedal, maxAcceleration, maxMotorRotAcceleration, clutchForce, neededPtoTorque, minRotForPTO)
@@ -491,6 +503,9 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
 
     --hydrostatic = when we want to move => full rpm and then, acc pedal = hydrostatic lever = speed wanted
     local targetRot = self.mrTransmissionMaxEngineRotWanted
+    if neededPtoTorque>0.01 then
+        targetRot = self.mrTransmissionPtoModeMaxEngineRotWanted
+    end
     targetRot = math.max(targetRot, minRotForPTO)
 
 
@@ -524,7 +539,7 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
 
      --check if we are overspeeding => engine brake
     if motor.mrLastMotorObjectRotSpeed>(targetRot+1) then
-        local ffx = math.max(1, motor.mrLastMotorObjectRotSpeed/self.mrTransmissionMaxEngineRotWanted)
+        local ffx = math.max(1, motor.mrLastMotorObjectRotSpeed/targetRot)
         ffx = math.min(ffx-0.995, 0.1)*10 --max braking power @10% more rpm (ffx between 0.05 and 1)
         self.spec_motorized.mrEngineBrakingPowerToApply = motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
     end
@@ -550,7 +565,7 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
             if accPedal>0 then
                 accPedal = 1
             end
-            self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*20/newGearRatio)
+            self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*15/newGearRatio)
 
         else
             --we are in the wanted gearRatio
@@ -608,10 +623,20 @@ end
 --*****************************************
 WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPedal, maxAcceleration, maxMotorRotAcceleration, clutchForce, neededPtoTorque, minRotForPTO)
 
+    local minEngineRotWanted = self.mrTransmissionMinEngineRotWanted
+    if self.mrTransmissionPtoModeIsHydrostaticAutomotive and neededPtoTorque>0.01 then
+        minEngineRotWanted = self.mrTransmissionPtoModeMinEngineRotWanted
+    end
+
+    local maxEngineRotWanted = self.mrTransmissionMaxEngineRotWanted
+    if neededPtoTorque>0.01 then
+        maxEngineRotWanted = self.mrTransmissionPtoModeMaxEngineRotWanted
+    end
+
     local motor = self.spec_motorized.motor
     local gearDirection = motor.currentDirection
-    local targetMaxRot = self.mrTransmissionMaxEngineRotWanted
-    local targetMinRot = math.max(self.mrTransmissionMinEngineRotWanted, minRotForPTO)
+    local targetMaxRot = maxEngineRotWanted
+    local targetMinRot = math.max(minEngineRotWanted, minRotForPTO)
 
     local maxRatio = 750
     local minRadsDrop = 5 --50rpm => 50*pi/30 (rpm to rad/s)

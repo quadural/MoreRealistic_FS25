@@ -21,7 +21,7 @@
             <remove path="vehicle.powerConsumer" />
 
             <set path="vehicle.powerConsumer#forceNode" value="vibro_main_component1" />
-            <set path="vehicle.powerConsumer#maxForce" value="40" />
+            <set path="vehicle.powerConsumer#maxForce" value="30" />
 
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.4 0.3" />

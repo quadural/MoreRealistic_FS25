@@ -19,6 +19,7 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrLastRrFx = 0
     self.mrLastContactNormalRatio = 1
     self.mrScaleRR = 1
+    self.mrTrackFx = 1
 
     return self
 
@@ -28,12 +29,13 @@ WheelPhysics.new = Utils.overwrittenFunction(WheelPhysics.new, WheelPhysics.mrNe
 WheelPhysics.mrRegisterXMLPaths = function(schema, superFunc, key)
     superFunc(schema, key)
     --add mrABS param
-    schema:register(XMLValueType.BOOL, key .. ".physics#mrABS", "Prevent locking of the wheel uring braking", false)
+    schema:register(XMLValueType.BOOL, key .. ".physics#mrABS", "Prevent locking of the wheel during braking", false)
     schema:register(XMLValueType.BOOL, key .. ".physics#mrKeepMass", "Prevent replacing xml mass with mr autocompute wheel mass", false)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrFrictionScale", "Allow to set a given friction scale")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointRatio", "Allow to set a given force point ratio")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointPositionX", "Allow to force the x position of the forcepoint of the wheelshape")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrScaleRR", "Allow to apply a scale factor to the rolling resistance of this wheel", 1)
+    schema:register(XMLValueType.FLOAT, key .. ".physics#mrTrackFx", "Allow to specify a factor for the track surface area. Can also be used to cheat a wheel")
 
 end
 WheelPhysics.registerXMLPaths = Utils.overwrittenFunction(WheelPhysics.registerXMLPaths, WheelPhysics.mrRegisterXMLPaths)
@@ -91,6 +93,16 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
                     self.mass = newMass
                     self.baseMass = self.mass
                 end
+            end
+        end
+
+        self.mrTrackFx = xmlObject:getValue(".physics#mrTrackFx")
+
+        if self.mrTrackFx==nil then
+            if self.tireType==WheelsUtil.getTireType("crawler") then
+                self.mrTrackFx = 3 --default value for tracks
+            else
+                self.mrTrackFx = 1 --default value for wheel
             end
         end
 
@@ -174,7 +186,7 @@ WheelPhysics.mrUpdateDynamicFriction = function(self, dt)
 
             --limit "dynamic help" for narrow tires
             --we don't want player to keep narrow tire for every task
-            local maxScale = 100*self.mrTotalWidth*self.radius/math.max(0.1, self.mrLastTireLoad)
+            local maxScale = 100*self.mrTotalWidth*self.radius*self.mrTrackFx/math.max(0.1, self.mrLastTireLoad)
             maxScale = math.max(0.8, maxScale)
 
             if maxScale>1 then
@@ -262,11 +274,7 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
     local rrFx = 1
     if self.mrTotalWidth>0 then
         local groundWetness = g_currentMission.environment.weather:getGroundWetness()
-        local radius = self.radius
-        if self.tireType==WheelsUtil.getTireType("crawler") then
-            radius = 3*radius --crawler bonus. We should take into account the track length, but this info is not available
-        end
-        rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, radius, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
+        rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius*self.mrTrackFx, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
         rrFx = rrFx * self.mrScaleRR
     end
     self.mrLastRrFx = rrFx
@@ -358,7 +366,6 @@ end
 
 WheelPhysics.mrGetRrFx = function(width, radius, load, groundType, groundSubType, wetness)
     local rrFx = 1
-    wetness = wetness^0.5
     if groundType==WheelsUtil.GROUND_FIELD or groundType==WheelsUtil.GROUND_SOFT_TERRAIN then
         local pressureFx = WheelPhysics.mrGetPressureFx(width, radius, load)
         --limit max pressure (IRL, there would be no difference between 7bars or 20bars in bad conditions)
@@ -368,6 +375,7 @@ WheelPhysics.mrGetRrFx = function(width, radius, load, groundType, groundSubType
         elseif wetness==1 then
             rrFx = WheelPhysics.mrGetWetFx(pressureFx, groundType, groundSubType)
         else --in between wetness
+            wetness = wetness^0.5
             rrFx = (1-wetness) * WheelPhysics.mrGetDryFx(pressureFx, groundType, groundSubType) + wetness * WheelPhysics.mrGetWetFx(pressureFx, groundType, groundSubType)
         end
     end
