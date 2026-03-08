@@ -90,6 +90,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
             self.mrTransmissionAutomotiveTargetRot = 0
         end
         self.mrTransmissionCvtTargetRot = 0
+        self.mrTransmissionAccPedal = 0
 
         --20260306 - allow different transmission settings in pto mode
         if self.mrTransmissionIsHydrostatic then

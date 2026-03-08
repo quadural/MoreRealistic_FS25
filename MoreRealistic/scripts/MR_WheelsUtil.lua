@@ -337,6 +337,14 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     --hydrostatic transmission management :
     if self.mrTransmissionIsHydrostatic then
+
+        --20260308 increase the accPedal from 0 to 1 in 1second
+        if accPedal==0 then
+            self.mrTransmissionAccPedal = math.max(0, self.mrTransmissionAccPedal - dt/1000)
+        elseif self.mrTransmissionAccPedal<1 then
+            self.mrTransmissionAccPedal = math.min(1, self.mrTransmissionAccPedal + dt/750)
+        end
+
         --20250923 - not linear response to acc
         accPedal = accPedal^1.5
 
@@ -553,7 +561,9 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
             local fx = 1-dt*0.06*curGearRatio/3000/(wantedGearRatio/minGearRatio)^0.5 --the greater the wantedGearRatio (lower gear), the slower the acc
             newGearRatio = curGearRatio * fx * targetRot / math.max(1, motor.mrLastMotorObjectRotSpeed)
             newGearRatio = math.clamp(newGearRatio, wantedGearRatio, maxGearRatioPossible)
-            accPedal = 1
+            --accPedal = 1
+            accPedal = self.mrTransmissionAccPedal
+
             self.spec_motorized.mrEngineIsBraking = false
 
         elseif (wantedGearRatio-curGearRatio)>0.1 then --case 2 : we want to decelerate (increase gearRatio)
@@ -686,7 +696,9 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
     if math.abs(motor.differentialRotSpeed)<0.01 or motor.differentialRotSpeed*gearDirection>0 then
         if lastSpd<targetSpeed then
             --not enough speed
-            accPedal = 1
+
+            --accPedal = 1
+            accPedal = self.mrTransmissionAccPedal
 
             --increase automotive targetRot since we want more power
             self.mrTransmissionAutomotiveTargetRot = math.min(targetMaxRot, self.mrTransmissionAutomotiveTargetRot+13*dt/1000) --target about 130 more rpm per second

@@ -17,9 +17,14 @@
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0"/>
 
             <!-- about 23500kgs (empty, no fuel, front 76cm track) => about 12000kg on the rear axle with full fuel tank and DEF -->
+            <!-- remove exagerated intertia = very weird behavior when "cornering" (combine keeps on sliding) -->
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.9 0.5"/>
-            <set path="vehicle.base.components.component(0)#mass" value="18770"/>
-            <set path="vehicle.base.components.component(1)#mass" value="2500"/>
+            <set path="vehicle.base.components.component(0)#mass" value="18270"/>
+            <set path="vehicle.base.components.component(0)#inertiaScale" value="1 1 1"/>
+
+            <set path="vehicle.base.components.component(1)#mass" value="3000"/>
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1"/>
+
 
             <!--wheels -->
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
@@ -53,12 +58,6 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="1" />
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#brakeFactor" value="0" />
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#brakeFactor" value="0" />
-
-            <!-- cheating the rear wheel friction because the game engine is not good when the driving wheels have less  friction than the other wheels -->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="1.5" />
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="1.5" />
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#restLoad" value="2" />
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#restLoad" value="2" />
 
             <!-- additionnal track area for the front virtual wheels since they are bearing more weight -->
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrTrackFx" value="5" />
@@ -106,12 +105,6 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#brakeFactor" value="0" />
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#brakeFactor" value="0" />
 
-            <!-- cheating the rear wheel friction because the game engine is not good when the driving wheels have less  friction than the other wheels -->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#mrFrictionScale" value="1.5" />
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#mrFrictionScale" value="1.5" />
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#restLoad" value="2" />
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#restLoad" value="2" />
-
             <!-- additionnal track area for the front virtual wheels since they are bearing more weight -->
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mrTrackFx" value="5" />
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#mrTrackFx" value="5" />
@@ -155,7 +148,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrInertiaFx" value="1.3" />
 
             <!-- only the front wheels are braking -->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="14"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="24"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="800"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="1.550"/>

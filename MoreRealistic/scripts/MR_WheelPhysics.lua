@@ -568,6 +568,12 @@ WheelPhysics.mrUpdateBase = function(self, superFunc)
         local collisionMask = self.collisionMask or WheelPhysics.COLLISION_MASK
         --MR : greater wheel mass to simulate inertia
         local mass = 2*self.wheel:getMass()
+
+        --20260307 - additionnal "mass inertia" for crawler (IRL = crawler is a whole but in the game, it is represented by 2 or 3 wheelshape
+        if self.tireType==WheelsUtil.getTireType("crawler") then
+            mass = 2 * mass
+        end
+
         self.mrRotationDamping = 2*self.rotationDamping
         self.wheelShape = createWheelShape(self.wheel.node, positionX, positionY, positionZ, self.radius, self.suspTravel, spring, damperCompressionLowSpeed, damperCompressionHighSpeed, self.damperCompressionLowSpeedThreshold, damperRelaxationLowSpeed, damperRelaxationHighSpeed, self.damperRelaxationLowSpeedThreshold, mass, collisionGroup, collisionMask, self.wheelShape)
 
