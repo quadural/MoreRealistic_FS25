@@ -250,6 +250,14 @@ WheelPhysics.mrUpdateDynamicFriction = function(self, dt)
     else
         --not mrIsDriven
         local wantedFriction = 1.2 * math.clamp(self.vehicle.lastSpeed*67, 1, 1.5) --total factor = x1.8 @80kph
+
+        --20260313 - add more friction for woodcrusher wheels when at work
+        if self.vehicle.spec_woodCrusher~=nil then
+            if self.vehicle:getIsTurnedOn() then
+                wantedFriction = 3*wantedFriction
+            end
+        end
+
         if math.abs(self.mrDynamicFrictionScale-wantedFriction)>0.1 then
             self.isFrictionDirty = true
             self.mrDynamicFrictionScale = wantedFriction

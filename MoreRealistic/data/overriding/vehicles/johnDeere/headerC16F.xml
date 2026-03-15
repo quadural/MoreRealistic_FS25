@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer maxGroundDistance="0.65" /> <!-- we don't want to apply draftforce when harvesting sunflower -->
+
+    <!--stalkmaster version = 6106kg shipping weight with skid -->
+
+    <parentFile xmlFilename="$data/vehicles/johnDeere/headerC16F/headerC16F.xml">
+        <attributes>
+
+            <!-- 3957kg -->
+            <set path="vehicle.base.speedLimit#value" value="12" /> <!-- less speed because of the chopping feature -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.4" />
+            <set path="vehicle.base.components.component(0)#mass" value="6000" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="60" />
+            <set path="vehicle.powerConsumer#maxForce" value="32" /> <!-- more draftforce because of the chopping feature -->
+            <set path="vehicle.powerConsumer#forceNode" value="headerC16F_main_component1" />
+
+        </attributes>
+    </parentFile>
+
+
+</vehicle>

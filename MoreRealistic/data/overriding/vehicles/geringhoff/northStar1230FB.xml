@@ -9,7 +9,7 @@
         <attributes>
 
             <!-- 3957kg -->
-            <set path="vehicle.base.speedLimit#value" value="16" />
+            <set path="vehicle.base.speedLimit#value" value="16" /> <!-- no choppers on this header -->
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.25" />
             <set path="vehicle.base.components.component(0)#mass" value="4000" />
 

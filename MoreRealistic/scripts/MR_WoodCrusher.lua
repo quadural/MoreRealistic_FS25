@@ -18,6 +18,7 @@ WoodCrusher.mrLoadWoodCrusher = function(self, superFunc, woodCrusher, xmlFile, 
     self.mrWoodCrusherPowerConsumption = 0
     woodCrusher.mrFeedingActive = false
     woodCrusher.mrFeedingLastStateActive = false
+    woodCrusher.mrFeedingLastVelocityFactor = 0
     woodCrusher.mrFeedingAnimationRunning = false
     woodCrusher.mrCrushingPowerWanted = 0
     woodCrusher.mrWaitingForFillLevel = false
@@ -28,6 +29,7 @@ WoodCrusher.mrLoadWoodCrusher = function(self, superFunc, woodCrusher, xmlFile, 
     end
     --mr traction
     woodCrusher.mrTractionNodes = {}
+    woodCrusher.mrPendingTractionNodes = {}
     woodCrusher.mrCrushTimers = {}
 
     --no loss MR25 system
@@ -42,6 +44,9 @@ WoodCrusher.mrLoadWoodCrusher = function(self, superFunc, woodCrusher, xmlFile, 
             woodCrusher.mrMaxCrushingPowerPossible = 350 --default value when nothing is found
         end
     end
+
+    woodCrusher.mrMoveVelocityZ = woodCrusher.moveVelocityZ
+    woodCrusher.moveVelocityZ = 0
 
 end
 WoodCrusher.loadWoodCrusher = Utils.overwrittenFunction(WoodCrusher.loadWoodCrusher, WoodCrusher.mrLoadWoodCrusher)
@@ -101,25 +106,50 @@ WoodCrusher.onCrushedSplitShape = Utils.overwrittenFunction(WoodCrusher.onCrushe
 WoodCrusher.mrUpdateTickWoodCrusher = function(self, superFunc, woodCrusher, dt, isTurnedOn)
 
     if self.isServer then
-        if isTurnedOn then
+        if not isTurnedOn then
+            WoodCrusher.mrRemoveTractionJoints(woodCrusher)
+            woodCrusher.mrFeedingLastVelocityFactor = 0
+        else
+
+            --20260313 remove tractionJoints that are too far from cutNode
+            if woodCrusher.cutNode ~= nil then
+                for id, tractionNode in pairs(woodCrusher.mrTractionNodes) do
+                    if woodCrusher.moveTriggerNodes[id]==nil then
+                        if not entityExists(id) then
+                            woodCrusher.mrTractionNodes[id] = nil
+                        else
+                            local x,y,z = localToLocal(id, woodCrusher.cutNode, tractionNode.forcePointX, tractionNode.forcePointY, tractionNode.forcePointZ)  --position in the cutnode coordinate system
+                            if z<-0.2 or z>(woodCrusher.mrCutWidth+0.2) or y>(woodCrusher.cutSizeY+0.5) or y<-0.2 or x>1 or x<-1 then
+                                WoodCrusher.mrRemoveTractionNode(woodCrusher, id)
+                            end
+                        end
+                    end
+                end
+            end
+
             if not woodCrusher.mrFeedingActive then
                 if woodCrusher.mrFeedingLastStateActive then
+                    woodCrusher.mrFeedingLastVelocityFactor = 0
                     if woodCrusher.moveColNodes ~= nil then
                         for _, moveColNode in pairs(woodCrusher.moveColNodes) do
                             setFrictionVelocity(moveColNode.node, 0.0)
                         end
                     end
+                    --WoodCrusher.mrRemoveTractionJoints(woodCrusher)
                 end
                 woodCrusher.mrFeedingLastStateActive = false
             else
-                if not woodCrusher.mrFeedingLastStateActive then
-                    if woodCrusher.moveColNodes ~= nil then
-                        for _, moveColNode in pairs(woodCrusher.moveColNodes) do
-                            setFrictionVelocity(moveColNode.node, woodCrusher.moveVelocityZ)
-                        end
+                woodCrusher.mrFeedingLastStateActive = true
+
+                if woodCrusher.moveColNodes ~= nil then
+                    if woodCrusher.mrFeedingLastVelocityFactor<1 then
+                        woodCrusher.mrFeedingLastVelocityFactor = math.min(1, woodCrusher.mrFeedingLastVelocityFactor + dt/3000)
+                        --for _, moveColNode in pairs(woodCrusher.moveColNodes) do
+                            --setFrictionVelocity(moveColNode.node, woodCrusher.moveVelocityZ*woodCrusher.mrFeedingLastVelocityFactor)
+                        --end
                     end
                 end
-                woodCrusher.mrFeedingLastStateActive = true
+
 
                 --20250628 - reset woodCrusher.mrCrushTimers if needed
                 for shapeId in pairs(woodCrusher.mrCrushTimers) do
@@ -143,21 +173,31 @@ WoodCrusher.mrUpdateTickWoodCrusher = function(self, superFunc, woodCrusher, dt,
                         x,y,z = localToWorld(woodCrusher.cutNode, 0.4, 0 ,0)
                         foundShapeId, _, _, _, _ = findSplitShape(x, y, z, nx, ny, nz, yx, yy, yz, woodCrusher.cutSizeY, woodCrusher.cutSizeZ)
                     end
-                    if foundShapeId~=nil and foundShapeId>0 and woodCrusher.moveTriggerNodes[foundShapeId]==nil then
+                    if foundShapeId==nil or foundShapeId==0 then
+                        --test 20cm front
+                        x,y,z = localToWorld(woodCrusher.cutNode, 0, 0 ,0)
+                        foundShapeId, _, _, _, _ = findSplitShape(x, y, z, nx, ny, nz, yx, yy, yz, woodCrusher.cutSizeY, woodCrusher.cutSizeZ)
+                    end
+                    if foundShapeId~=nil and foundShapeId>0 then
                         WoodCrusher.mrProcessShape(woodCrusher, foundShapeId, x, y ,z, nx, ny, nz, yx, yy, yz, dt)
                     end
 
+                    --reset x,y,z to default cutNode position
                     x,y,z = getWorldTranslation(woodCrusher.cutNode)
 
                     --process shapes caught in tractionNodes but not in moveTriggerNodes
                     for id in pairs(woodCrusher.mrTractionNodes) do
-                        if woodCrusher.moveTriggerNodes[id]==nil then
-                            WoodCrusher.mrProcessShape(woodCrusher, id, x, y ,z, nx, ny, nz, yx, yy, yz, dt)
+                        if id~=foundShapeId then
+                            if woodCrusher.moveTriggerNodes[id]==nil then
+                                WoodCrusher.mrProcessShape(woodCrusher, id, x, y ,z, nx, ny, nz, yx, yy, yz, dt)
+                            end
                         end
                     end
 
                     for id in pairs(woodCrusher.moveTriggerNodes) do
-                        WoodCrusher.mrProcessShape(woodCrusher, id, x, y ,z, nx, ny, nz, yx, yy, yz, dt)
+                        if id~=foundShapeId then
+                            WoodCrusher.mrProcessShape(woodCrusher, id, x, y ,z, nx, ny, nz, yx, yy, yz, dt)
+                        end
                     end
 
                 end
@@ -221,7 +261,10 @@ WoodCrusher.updateTickWoodCrusher = Utils.overwrittenFunction(WoodCrusher.update
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 WoodCrusher.mrProcessShape = function(woodCrusher, id, x, y ,z, nx, ny, nz, yx, yy, yz, dt)
 
-    if entityExists(id) then
+    if not entityExists(id) then
+        woodCrusher.moveTriggerNodes[id] = nil
+        WoodCrusher.mrRemoveTractionNode(woodCrusher, id)
+    else
         --lenAbove = part we want to crush
         --lenBelow = remaining part
         local lenBelow, lenAbove = getSplitShapePlaneExtents(id, x,y,z, nx,ny,nz) --we want to define a plane => x,y,z = one world point, nx,ny,nz = normal (perpendicular) vector to the plane we want
@@ -256,6 +299,7 @@ WoodCrusher.mrProcessShape = function(woodCrusher, id, x, y ,z, nx, ny, nz, yx, 
 
                     --3. in the update function, before processing the "crushNodes", check if there is a lost volume from a cut
                     woodCrusher.moveTriggerNodes[id] = nil
+                    WoodCrusher.mrRemoveTractionNode(woodCrusher, id)
 
                     -- no shapes after split ? should not be possible
 --                         local numSplit = #woodCrusher.mrCheckSplitShapes[id].shapes
@@ -269,6 +313,7 @@ WoodCrusher.mrProcessShape = function(woodCrusher, id, x, y ,z, nx, ny, nz, yx, 
                 --we really want the log to move toward the crusher, especially knowing it is under the feeding roller which should apply a very high moving force on it
                 --the force should be downward because of the feeding roller and toward the crusher => 2 forces or one force "diagonal" ?
 
+
                 --20250628 - too much time near the cutter = allow cutter to cut less than woodCrusher.mrCutLength
                 if lenAbove>-0.05 then
                     if woodCrusher.mrCrushTimers[id]==nil then
@@ -281,34 +326,12 @@ WoodCrusher.mrProcessShape = function(woodCrusher, id, x, y ,z, nx, ny, nz, yx, 
                 end
 
                 --20250625 - we want to keep the same "traction" point until the log is "out of the system" (split, crushed, or not on the woodcrusher anymore)
-                if woodCrusher.mrTractionNodes[id]==nil and lenAbove>-2 then --if not already "pulled" => max 2m away from cutnode
-                    local mass = getMass(id)
-                    if mass~=nil then
-                        --1. we have to define where to apply the force to the log
-                        --lenAbove = part we want to crush
-                        local lx,ly,lz
-                        local offsetX = 0
-                        if lenAbove>0 then
-                            lx,ly,lz = x, y, z
-                        else
-                            offsetX = lenAbove-0.02
-                            lx,ly,lz = localToWorld(woodCrusher.cutNode, offsetX, 0, 0) -- the log has not reached the cutnode "cut plane" => we try to catch the log about 1 centimeter at the nearest end
-                        end
-
-                        local minY,maxY,minZ,maxZ = testSplitShape(id, lx,ly,lz, nx,ny,nz, yx,yy,yz, woodCrusher.cutSizeY, woodCrusher.cutSizeZ) --results are local pos : minY and maxY = pos compared to ly // minZ and maxZ = pos compared to lz
-                        if minY ~= nil then
-                            --add the "shape" to the tractionForce list
-                            woodCrusher.mrTractionNodes[id] = {}
-                            woodCrusher.mrTractionNodes[id].forcePointX, woodCrusher.mrTractionNodes[id].forcePointY, woodCrusher.mrTractionNodes[id].forcePointZ = localToLocal(woodCrusher.cutNode, id, offsetX, minY, 0.5*(minZ+maxZ)) --position in the shape coordinate system
-                            woodCrusher.mrTractionNodes[id].mass = mass
-                        end
-                    end
-                end
+                --add traction node if not present
+                WoodCrusher.mrAddTractionNode(woodCrusher, id, lenAbove, x, y, z, nx, ny, nz, yx, yy, yz)
 
             end
         end
-    else
-        woodCrusher.moveTriggerNodes[id] = nil
+
     end
 
 end
@@ -338,11 +361,11 @@ WoodCrusher.mrUpdateWoodCrusher = function(self, superFunc, woodCrusher, dt, isT
                     volumeToDeliver = woodCrusher.mrWaitingFillLevel
                     woodCrusher.mrWaitingFillLevel = 0
                 else
-                    volumeToDeliver = woodCrusher.mrWaitingFillLevel*dt/1000 --100% per second					
+                    volumeToDeliver = woodCrusher.mrWaitingFillLevel*dt/1000 --100% per second
                     woodCrusher.mrWaitingFillLevel = woodCrusher.mrWaitingFillLevel - volumeToDeliver
                 end
                 self:addFillUnitFillLevel(self:getOwnerFarmId(), woodCrusher.fillUnitIndex, volumeToDeliver, FillType.WOODCHIPS, ToolType.UNDEFINED)
-            end	
+            end
 
             --before processing the "crushNodes", check if there is a lost volume from the previous cut
             for key, checkSlipShape in pairs(woodCrusher.mrCheckSplitShapes) do
@@ -417,49 +440,34 @@ WoodCrusher.mrUpdateWoodCrusher = function(self, superFunc, woodCrusher, dt, isT
                 woodCrusher.mrFeedingActive = false
             end
 
+            --20260314 - check if there is a wood shape to add to the traction node (after a split)
+            for shapeId in pairs(woodCrusher.mrPendingTractionNodes) do
+                WoodCrusher.mrAddTractionNode(woodCrusher, shapeId)
+            end
+
             --MR : we don't want to apply forces or move the feeding roller when it is actually stopped
             if woodCrusher.mrFeedingActive then
 
                 --apply traction forces on "hooked" shapes
-                local maxAvailableForce = woodCrusher.mrMaxTractionForce
+                --local maxAvailableForce = woodCrusher.mrMaxTractionForce
 
-                for shapeId in pairs(woodCrusher.mrTractionNodes) do
-                    if not entityExists(shapeId) then
-                        woodCrusher.mrTractionNodes[shapeId] = nil
-                    else
-                        --check the current distance between shapeId and cutNode
-                        --more than 2m = too far away => stop applying force
-                        local tx, ty, tz = localToWorld(woodCrusher.cutNode, woodCrusher.mrCutLength, woodCrusher.mrCutTargetY, 0.5*woodCrusher.mrCutWidth) --world point we want to reach to be crushed = traction target point
-                        local x,y,z = woodCrusher.mrTractionNodes[shapeId].forcePointX, woodCrusher.mrTractionNodes[shapeId].forcePointY, woodCrusher.mrTractionNodes[shapeId].forcePointZ --this is the force point in the shape coordinate system
-                        local wx,wy,wz = localToWorld(shapeId, x, y, z) --this is the world point where to apply the force to the log
+                for shapeId, tractionNode in pairs(woodCrusher.mrTractionNodes) do
+                    if entityExists(shapeId) then
+                        --reduce translationLimit
+                        if tractionNode.jointId~=nil and (tractionNode.jointLimitZ>0 or tractionNode.jointLimitY>0.1) then
 
-                        local dist = MathUtil.vector3Length(tx-wx, ty-wy, tz-wz)
-                        if dist>2 then
-                            woodCrusher.mrTractionNodes[shapeId] = nil --we want to avoid log shapes being "hooked" by the traction force and then drive away from the crusher, from keeping being pulled by the crusher
-                        else
-                            --check the current velocity
-                            local vx,vy,vz = getLinearVelocity(shapeId)
-                            local lvx,_,_ = worldDirectionToLocal(woodCrusher.cutNode, vx,vy,vz) -- woodCrusherCutNode has always its x direction toward the cutter
-                            if lvx < woodCrusher.moveVelocityZ then --not enough speed
-                                --we apply a force from this point to the traction target point
-                                local force = math.min(woodCrusher.mrTractionNodes[shapeId].mass*12, maxAvailableForce) --limit to about 120% of the weight to avoid "IFO" (identified flying objects)
-                                --limit force according to current velocity of the log
-                                if woodCrusher.moveVelocityZ>0 then
-                                    force = force * math.min(1, math.abs((woodCrusher.moveVelocityZ-lvx)/woodCrusher.moveVelocityZ))
-                                end
-                                local vecX, vecY, vecZ = tx-wx, ty-wy, tz-wz -- vector direction
-                                local vLen = MathUtil.vector3Length(vecX, vecY, vecZ)
-                                if vLen>0 then
-                                    addForce(shapeId, force*vecX/vLen, force*vecY/vLen, force*vecZ/vLen, wx,wy,wz, false)
-                                    maxAvailableForce = math.max(0.1*woodCrusher.mrMaxTractionForce, maxAvailableForce - force) --we keep 10% of max force minimum
-                                end
-                                if (VehicleDebug.state == VehicleDebug.DEBUG_PHYSICS or VehicleDebug.state == VehicleDebug.DEBUG_TUNING) and self.isActiveForInputIgnoreSelectionIgnoreAI then
-                                    --display the applied force
-                                    drawDebugLine(wx, wy, wz, 1,0,0, tx, ty, tz, 1,0,1)
-                                    --DebugGizmo.renderAtPosition(cx, cy, cz, tx, ty, tz, 0, 1, 0, "Traction Force", false, 2)
-                                end
-                            end
+                            local translationChange = woodCrusher.mrMoveVelocityZ*woodCrusher.mrFeedingLastVelocityFactor*dt/1000
+                            tractionNode.jointLimitX = math.max(0, tractionNode.jointLimitX - translationChange)
+                            tractionNode.jointLimitY = math.max(0, tractionNode.jointLimitY - translationChange)
+                            tractionNode.jointLimitZ = math.max(0, tractionNode.jointLimitZ - translationChange)
+
+                            setJointTranslationLimit(tractionNode.jointId, 0, true, -tractionNode.jointLimitX, tractionNode.jointLimitX)
+                            setJointTranslationLimit(tractionNode.jointId, 1, true, 0, tractionNode.jointLimitY)
+                            setJointTranslationLimit(tractionNode.jointId, 2, true, 0, tractionNode.jointLimitZ)
+
                         end
+                    else
+                        WoodCrusher.mrRemoveTractionNode(woodCrusher, shapeId)
                     end
                 end
 
@@ -468,26 +476,6 @@ WoodCrusher.mrUpdateWoodCrusher = function(self, superFunc, woodCrusher, dt, isT
                     if not entityExists(id) then
                         woodCrusher.moveTriggerNodes[id] = nil
                     else
-
-                        for i=1, #woodCrusher.downForceNodes do
-                            local downForceNode = woodCrusher.downForceNodes[i]
-                            if downForceNode.triggerNodes[id] ~= nil or downForceNode.trigger == nil then
-                                local x, y, z = getWorldTranslation(downForceNode.node)
-                                local nx, ny, nz = localDirectionToWorld(downForceNode.node, 1,0,0)
-                                local yx, yy, yz = localDirectionToWorld(downForceNode.node, 0,1,0)
-
-                                local minY,maxY, minZ,maxZ = testSplitShape(id, x,y,z, nx,ny,nz, yx,yy,yz, downForceNode.sizeY, downForceNode.sizeZ)
-                                if minY ~= nil then
-                                    local cx,cy,cz = localToWorld(downForceNode.node, 0, (minY+maxY)*0.5, (minZ+maxZ)*0.5)
-                                    --MR : limit downforce according to log mass => avoid getting small branches flying all over the place
-                                    local logMass = getMass(id)
-                                    local downForce = math.min(downForceNode.force, logMass*5)
-                                    local downX,downY,downZ = localDirectionToWorld(downForceNode.node, 0, -downForce, 0)
-                                    addForce(id, downX,downY,downZ, cx,cy,cz, false) --apply more gravity -- 20250625
-                                    --#debug drawDebugLine(cx, cy, cz, 1, 0, 0, cx+downX, cy+downY, cz+downZ, 0, 1, 0, true)
-                                end
-                            end
-                        end
 
                         if woodCrusher.shapeSizeDetectionNode ~= nil then
                             local x, y, z = getWorldTranslation(woodCrusher.shapeSizeDetectionNode)
@@ -504,13 +492,13 @@ WoodCrusher.mrUpdateWoodCrusher = function(self, superFunc, woodCrusher, dt, isT
 
                             if minY==nil then
                                 --MR : also check before detectionNode => sometimes, the log is not "flat" but vertical or diagonaly positioned, and hitting the feeding roller collision box
-                                x, y, z = localToWorld(woodCrusher.shapeSizeDetectionNode, -0.2, 0, 0)
+                                x, y, z = localToWorld(woodCrusher.shapeSizeDetectionNode, -0.25, 0, 0)
                                 minY, maxY, _, _ = testSplitShape(id, x, y, z, nx, ny, nz, yx, yy, yz, woodCrusher.cutSizeY, woodCrusher.cutSizeZ)
                             end
 
                             if minY ~= nil then
                                 if woodCrusher.mainDrumRefNode ~= nil then
-                                    maxTreeSizeY = math.max(maxTreeSizeY, maxY)
+                                    maxTreeSizeY = math.max(maxTreeSizeY, maxY+0.1) --0.1 to keep some error margin
                                 end
                             end
                         end
@@ -562,6 +550,13 @@ WoodCrusher.mrWoodCrusherSplitShapeCallback = function(self, superFunc, shape, i
         g_treePlantManager:addingSplitShape(shape, self.shapeBeingCut)
     end
 
+    --remaining part = we want to add it to the tractionNodes if possible
+    if isBelow then
+        if entityExists(shape) then
+            self.mrPendingTractionNodes[shape] = true
+        end
+    end
+
 end
 WoodCrusher.woodCrusherSplitShapeCallback = Utils.overwrittenFunction(WoodCrusher.woodCrusherSplitShapeCallback, WoodCrusher.mrWoodCrusherSplitShapeCallback)
 
@@ -590,5 +585,176 @@ WoodCrusher.onWriteUpdateStream = function(self, streamId, connection, dirtyMask
         streamWriteBool(streamId, spec.mrFeedingActive)
     end
 end
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+--MR : use joint instead of applying force to move logs when they are dragged by the crusher roller
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WoodCrusher.mrCreateTractionJoint = function(woodCrusher, shapeId, distance)
+
+    -- Create the joint between the crusher and the log
+    local joint = JointConstructor.new()
+    joint:setActors(woodCrusher.vehicle.components[1].node, shapeId)
+
+    local zOffset = 0.3+woodCrusher.mrCutLength
+
+    local tx, ty, tz = localToWorld(woodCrusher.cutNode, zOffset, woodCrusher.mrCutTargetY, 0.5*woodCrusher.mrCutWidth) --world point we want to reach to be crushed = traction target point
+    local x,y,z = woodCrusher.mrTractionNodes[shapeId].forcePointX, woodCrusher.mrTractionNodes[shapeId].forcePointY, woodCrusher.mrTractionNodes[shapeId].forcePointZ --this is the force point in the shape coordinate system
+    local wx,wy,wz = localToWorld(shapeId, x, y, z) --this is the world point where to apply the force to the log
+
+    joint:setJointWorldPositions(tx, ty, tz, wx, wy, wz)
+
+    -- Set the axes and normals.
+    local targetLeftX, targetLeftY, targetLeftZ = localDirectionToWorld(woodCrusher.cutNode, 0, 0, 1)
+    joint:setJointWorldAxes(targetLeftX, targetLeftY, targetLeftZ, targetLeftX, targetLeftY, targetLeftZ)
+
+    local targetUpX, targetUpY, targetUpZ = localDirectionToWorld(woodCrusher.cutNode, 0, 1, 0)
+    joint:setJointWorldNormals(targetUpX, targetUpY, targetUpZ, targetUpX, targetUpY, targetUpZ)
+
+    local dx,dy,dz = localToLocal(shapeId, woodCrusher.cutNode, x,y,z)
+    dx = zOffset - dx
+    dy = dy - woodCrusher.mrCutTargetY
+    dz = math.abs(0.5*woodCrusher.mrCutWidth - dz)
+
+    local jointLimitX = 0.2+math.abs(dz)
+    local jointLimitY = 0.1+math.max(0, dy)
+    local jointLimitZ = math.max(0, dx)
+
+
+    -- Set the limits.
+    joint:setTranslationLimit(0, true, -jointLimitX, jointLimitX)
+    joint:setTranslationLimit(1, true, 0, jointLimitY)
+    joint:setTranslationLimit(2, true, 0, jointLimitZ)
+
+    joint:setRotationLimit(0, -math.huge, math.huge)
+    joint:setRotationLimit(1, -math.huge, math.huge)
+    joint:setRotationLimit(2, -math.huge, math.huge)
+
+    joint:setEnableCollision(true)
+
+    joint:setRotationLimitSpring(1,1,1,1,1,1)
+    --joint:setRotationLimitForceLimit(mass, mass, mass)
+
+
+     local mass =  woodCrusher.mrTractionNodes[shapeId].mass
+     local spring = math.max(10, 500*mass)
+     local damping = math.max(1, 10*mass)
+     local maxForce = math.min(woodCrusher.mrMaxTractionForce, 25*mass)
+
+     --more spring/force for the z axis
+     joint:setTranslationLimitSpring(0.1*spring, damping, spring, damping, spring, damping)
+     joint:setTranslationLimitForceLimit(0.5*maxForce, 0.5*maxForce, maxForce)
+
+     --joint:setBreakable(forceLimit, forceLimit) --breakForce, breakTorque
+
+
+    --joint:setLinearDrive(axis, bool drivePosition, bool driveVelocity, axisSpring, axisDamping, maxForce, position, velocity)
+
+     --joint:setLinearDrive(0, true, true, 1000, 10, math.min(100*mass, woodCrusher.mrMaxTractionForce), 0, 0.5)
+--      joint:setLinearDrive(0, true, true, 1000, 10, 20*mass, 0, 0.5)
+--      joint:setLinearDrive(1, true, true, 1000, 10, 20*mass, 0, 0.5)
+--      joint:setLinearDrive(2, true, true, 1000, 10, 20*mass, 0, 0.5)
+
+
+    woodCrusher.mrTractionNodes[shapeId].jointId = joint:finalize()
+    woodCrusher.mrTractionNodes[shapeId].jointLimitX = jointLimitX
+    woodCrusher.mrTractionNodes[shapeId].jointLimitY = jointLimitY
+    woodCrusher.mrTractionNodes[shapeId].jointLimitZ = jointLimitZ
+
+
+end
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+--MR : remove the joint between the crusher and the logs when the feeding is not active
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WoodCrusher.mrRemoveTractionJoints = function(woodCrusher)
+    for shapeId in pairs(woodCrusher.mrTractionNodes) do
+        if woodCrusher.mrTractionNodes[shapeId].jointId~=nil then
+            if entityExists(shapeId) then
+                removeJoint(woodCrusher.mrTractionNodes[shapeId].jointId)
+            end
+            woodCrusher.mrTractionNodes[shapeId].jointId=nil
+        end
+    end
+end
+
+
+WoodCrusher.mrRemoveTractionNode = function(woodCrusher, shapeId)
+    if woodCrusher.mrTractionNodes[shapeId]~=nil then
+        if entityExists(shapeId) then
+            if woodCrusher.mrTractionNodes[shapeId].jointId~=nil then
+                removeJoint(woodCrusher.mrTractionNodes[shapeId].jointId)
+            end
+        end
+        woodCrusher.mrTractionNodes[shapeId] = nil
+    end
+end
+
+
+
+WoodCrusher.mrAddTractionNode = function(woodCrusher, shapeId, lenAbove, x, y, z, nx, ny, nz, yx, yy, yz)
+
+    if woodCrusher.mrTractionNodes[shapeId]==nil or woodCrusher.mrTractionNodes[shapeId].jointId==nil then
+        --we need lenAbove
+        if lenAbove==nil then
+            if entityExists(shapeId) then
+                x,y,z = getWorldTranslation(woodCrusher.cutNode)
+                nx,ny,nz = localDirectionToWorld(woodCrusher.cutNode, 1,0,0)
+                _, lenAbove = getSplitShapePlaneExtents(shapeId, x,y,z, nx,ny,nz)
+            end
+        end
+    end
+
+    if lenAbove~=nil then
+        if woodCrusher.mrTractionNodes[shapeId]==nil then
+            local mass = getMass(shapeId)
+            if mass~=nil then
+                --1. we have to define where to apply the force to the log
+                --lenAbove = part we want to crush
+
+                yx,yy,yz = localDirectionToWorld(woodCrusher.cutNode, 0,1,0)
+
+                local lx,ly,lz
+                local offsetX = 0
+                if lenAbove>0 then
+                    lx,ly,lz = x, y, z
+                else
+                    offsetX = lenAbove-0.02
+                    lx,ly,lz = localToWorld(woodCrusher.cutNode, offsetX, 0, 0) -- the log has not reached the cutnode "cut plane" => we try to catch the log about 1 centimeter at the nearest end
+                end
+
+                local minY,_,minZ,maxZ = testSplitShape(shapeId, lx,ly,lz, nx,ny,nz, yx,yy,yz, woodCrusher.cutSizeY, woodCrusher.cutSizeZ) --results are local pos : minY and maxY = pos compared to ly // minZ and maxZ = pos compared to lz
+                if minY ~= nil then
+                    --add the "shape" to the tractionForce list
+                    woodCrusher.mrTractionNodes[shapeId] = {}
+                    woodCrusher.mrTractionNodes[shapeId].forcePointX, woodCrusher.mrTractionNodes[shapeId].forcePointY, woodCrusher.mrTractionNodes[shapeId].forcePointZ = localToLocal(woodCrusher.cutNode, shapeId, offsetX, minY-0.02, 0.5*(minZ+maxZ)) --position in the shape coordinate system
+                    woodCrusher.mrTractionNodes[shapeId].mass = mass
+                    WoodCrusher.mrCreateTractionJoint(woodCrusher, shapeId, -lenAbove)
+                end
+            end
+        elseif woodCrusher.mrTractionNodes[shapeId].jointId==nil then
+            WoodCrusher.mrCreateTractionJoint(woodCrusher, shapeId, -lenAbove)
+        end
+    end
+
+    if woodCrusher.mrTractionNodes[shapeId]~=nil then
+        woodCrusher.mrPendingTractionNodes[shapeId] = nil
+    end
+
+end
+
+
+
+function WoodCrusher.mrTurnOnWoodCrusher(self, superFunc, woodCrusher)
+    superFunc(self, woodCrusher)
+    woodCrusher.mrFeedingAnimationRunning = true
+end
+WoodCrusher.turnOnWoodCrusher = Utils.overwrittenFunction(WoodCrusher.turnOnWoodCrusher, WoodCrusher.mrTurnOnWoodCrusher)
+
+
 
 

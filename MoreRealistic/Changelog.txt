@@ -376,7 +376,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
 202602XX    - add converted Zunhammer vibro slurry tool
             - improved PowerConsumer.mrGetForceMultiplier (some field states were not detected correctely)
-            - add converted John Deere S7 combine harvester + RD35F and HD45X header and HD50F (not recommended for S7)
+            - add converted John Deere S7 combine harvester + RD35F and HD45X header and HD50F (not recommended for S7) + C16F corn header
             - some changes to better take into account tracks
             - combine speed regulation now relies on engine load rather than "peak engine power compared to pto power needed"
+            - new woodcrusher code = we want to limit/avoid the sliding at work = now we only rely on "joint" between the wood logs and the crusher (no more forces and frictionVelocity)
 

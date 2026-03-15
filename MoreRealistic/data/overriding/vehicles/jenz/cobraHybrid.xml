@@ -25,7 +25,7 @@
 
     Since the game does not handle 2 engines, we keep the CATERPILLAR and use the "powerRatio" feature of the mrTransmission to derate the engine while the crusher is not active
     -->
-    <mrWoodCrusher powerFx="1" idlePower="50" maxCrushingPower="900" maxTractionForce="15" cutFeedWidth="1.4" cutTargetY="0.1" />
+    <mrWoodCrusher powerFx="1" idlePower="50" maxCrushingPower="900" maxTractionForce="50" cutFeedWidth="1.4" cutTargetY="0.3" />
     <mrPowerConsumer forcePtoRpm="true" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
     <mrTransmission powerRatio="0.64" />
 
@@ -137,6 +137,11 @@
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(12)#rpm" value="2100"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(12)#torque" value="2.713"/>
+
+            <!-- fix "colPart5" -->
+            <set path="vehicle.base.objectChanges.objectChange(0)#node" value="0>2|2" />
+            <set path="vehicle.base.objectChanges.objectChange(0)#rotationActive" value="0 0 -10" />
+            <set path="vehicle.base.objectChanges.objectChange(0)#translationActive" value="0.3 2.787 -0.613" />
 
         </attributes>
     </parentFile>
