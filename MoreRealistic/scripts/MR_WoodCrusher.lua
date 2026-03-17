@@ -640,8 +640,14 @@ WoodCrusher.mrCreateTractionJoint = function(woodCrusher, shapeId, distance)
 
      local mass =  woodCrusher.mrTractionNodes[shapeId].mass
      local spring = math.max(10, 500*mass)
-     local damping = math.max(1, 10*mass)
+     local damping = math.max(1, 50*mass)
      local maxForce = math.min(woodCrusher.mrMaxTractionForce, 25*mass)
+
+     if distance<0.1 and mass<(0.02*woodCrusher.mrMaxTractionForce) then --less than 10cm and rather light wood log => more spring/force to "shallow it"
+        spring = 2*spring
+        damping = 2*damping
+        maxForce = math.min(1.5*woodCrusher.mrMaxTractionForce, maxForce)
+     end
 
      --more spring/force for the z axis
      joint:setTranslationLimitSpring(0.1*spring, damping, spring, damping, spring, damping)

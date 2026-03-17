@@ -380,4 +380,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - some changes to better take into account tracks
             - combine speed regulation now relies on engine load rather than "peak engine power compared to pto power needed"
             - new woodcrusher code = we want to limit/avoid the sliding at work = now we only rely on "joint" between the wood logs and the crusher (no more forces and frictionVelocity)
+            - add converted Lemken Solitair 12 seeder
+            - fix speed text display problem when there are 2 "dashboards" for the same node (example : John Deere 8R pillar speed display)
 
