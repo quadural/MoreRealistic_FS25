@@ -31,6 +31,7 @@
     <vehicle fileNameToOverride="data/vehicles/johnDeere/headerRD35F/headerRD35F.xml">vehicles/johnDeere/headerRD35F.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/johnDeere/headerHD50F/headerHD50F.xml">vehicles/johnDeere/headerHD50F.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/johnDeere/headerC16F/headerC16F.xml">vehicles/johnDeere/headerC16F.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/geringhoff/sunLite40/sunLite40.xml">vehicles/geringhoff/sunLite40.xml</vehicle>
 
     <!-- cultivators -->
     <vehicle fileNameToOverride="data/vehicles/lemken/smaragd9_500k/smaragd9_500k.xml">vehicles/lemken/smaragd9_500k.xml</vehicle>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/geringhoff/sunLite40/sunLite40.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="16" /> <!-- no choppers on this header -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 0" />
+            <set path="vehicle.base.components.component(0)#mass" value="3350" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="20" />
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="0" /> we don't want to apply draftforce when harvesting sunflower -->
+
+        </attributes>
+    </parentFile>
+
+
+</vehicle>
