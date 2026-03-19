@@ -894,6 +894,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
                 self.spec_motorized.mrEngineIsBraking = true
             elseif lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1)  then --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
                 newGearRatioMin = lastMinRatio * (1-dt/3000)
+                accPedal = 1
             elseif lastSpd>(targetSpeed-0.02) and motor.mrLastMotorObjectRotSpeed>targetEcoRot and motor.smoothedLoadPercentage<0.8 then --scenario = target speed reached and engine not @100% load
                 motorRotAccFx = -0.2
             elseif motor.rawLoadPercentage>0.91 or motor.mrLastMotorObjectRotSpeed<targetEcoRot then

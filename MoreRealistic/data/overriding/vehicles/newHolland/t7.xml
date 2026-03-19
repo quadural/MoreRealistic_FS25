@@ -8,7 +8,7 @@
         <attributes>
 
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.4 -0.44"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.33 -0.44"/>
             <set path="vehicle.base.components.component(0)#mass" value="7500"/>
             <set path="vehicle.base.components.component(1)#mass" value="720"/>
 

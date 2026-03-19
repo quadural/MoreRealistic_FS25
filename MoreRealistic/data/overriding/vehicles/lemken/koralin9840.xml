@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.2" />
+
+    <!--
+
+        leveling harrow + tandem roller DRF 400/400 + single-ow trailing harrow => about 9000kg
+
+        only "shallow" mode = 5-6cm
+
+        wheels = michelin 560/45R22.5
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/lemken/koralin9840/koralin9840.xml">
+        <attributes>
+
+            <set path="vehicle.powerConsumer#maxForce" value="48" />
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 0.7" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="-0.3 -0.3 0.5" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0.3 -0.3 0.5" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 0 0" />
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 -0.3 0" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="4155" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="1300" /> <!-- right wing -->
+            <set path="vehicle.base.components.component(2)#mass" value="1300" /> <!-- left wing -->
+            <set path="vehicle.base.components.component(3)#mass" value="600" /> <!-- drawbar -->
+            <set path="vehicle.base.components.component(4)#mass" value="500" /> <!-- attacher -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/michelin/cargoXBibHD/560_45R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/michelin/cargoXBibHD/560_45R22_5.xml"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#mass" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#mass" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#mass" value="0.2"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#radius" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#radius" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#radius" value="0.2"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#width" value="2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#width" value="2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#width" value="2"/>
+
+
+            <set path="vehicle.attachable.brakeForce#force" value="3" /> <!-- air brakes -->
+
+            <!-- take into account new transport wheel size -->
+            <set path="vehicle.animations.animation(0).part(14)#startRot" value="-65 0 0" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

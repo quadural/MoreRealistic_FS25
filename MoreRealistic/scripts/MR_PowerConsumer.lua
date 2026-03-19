@@ -1,3 +1,33 @@
+--groundType=
+            --1: NONE
+            --2: STUBBLE_TILLAGE
+            --3: CULTIVATED
+            --4: SEEDBED
+            --5: PLOWED
+            --6: ROLLED_SEEDBED
+            --7: RIDGE
+            --8: SOWN
+            --9: DIRECT_SOWN
+            --10: PLANTED
+            --11: RIDGE_SOWN
+            --12: ROLLER_LINES
+            --13: HARVEST_READY
+            --14: HARVEST_READY_OTHER
+            --15: GRASS
+            --16: GRASS_CUT
+
+PowerConsumer.mrLoosenedFieldGroundType = {}
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.STUBBLE_TILLAGE] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.CULTIVATED] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.SEEDBED] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.PLOWED] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.ROLLED_SEEDBED] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.RIDGE] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.RIDGE_SOWN] = true
+PowerConsumer.mrLoosenedFieldGroundType[FieldGroundType.ROLLER_LINES] = true
+
+
+
 PowerConsumer.mrLoadMrValues = function(self, xmlFile)
 
     self.mrPowerConsumerForcePointX = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#forcePointX")
@@ -114,40 +144,33 @@ PowerConsumer.mrGetForceMultiplier = function(self)
         end
         if found then
 
-            --local isOnField, densityBits, groundType = FSDensityMapUtil.getFieldDataAtWorldPosition(wx, wy, wz)
-            local isOnField, _, groundType = FSDensityMapUtil.getFieldDataAtWorldPosition(wx, wy, wz)
-
-            --groundType=
-            --1: NONE
-            --2: STUBBLE_TILLAGE
-            --3: CULTIVATED
-            --4: SEEDBED
-            --5: PLOWED
-            --6: ROLLED_SEEDBED
-            --7: RIDGE
-            --8: SOWN
-            --9: DIRECT_SOWN
-            --10: PLANTED
-            --11: RIDGE_SOWN
-            --12: ROLLER_LINES
-            --13: HARVEST_READY
-            --14: HARVEST_READY_OTHER
-            --15: GRASS
-            --16: GRASS_CUT
-
-            if isOnField then
-
-                --check if this is a crop (growing, ripe or harvested or withered)
-                --g_fruitTypeManager
-                local fruitTypeIndex, growState = FSDensityMapUtil.getFruitTypeIndexAtWorldPos(wx, wz)
-
-                if fruitTypeIndex~=nil and growState~=nil then
-                    --check growstate : above 1 = no already worked bonus
-                    if growState<=1 then
+            --check if this is a crop (growing, ripe or harvested or withered)
+            local fruitTypeIndex, growState = FSDensityMapUtil.getFruitTypeIndexAtWorldPos(wx, wz)
+            if fruitTypeIndex~=nil and growState~=nil then
+                --check growstate : above 1 = no already worked bonus
+                local fruitType = g_fruitTypeManager.indexToFruitType[fruitTypeIndex]
+                if fruitType and fruitType.allowsSeeding then -- we want to remove the "meadow" for example
+                    --max grow state for loosen soil
+                    local maxGrowState = math.max(fruitType.maxWeederHoeState, fruitType.maxWeederState)
+                    if fruitType.minWheelDestructionState then
+                        maxGrowState = math.max(maxGrowState, fruitType.minWheelDestructionState)
+                    end
+                    if growState<=maxGrowState then
                         multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
                     end
-                elseif groundType==FieldGroundType.STUBBLE_TILLAGE or groundType==FieldGroundType.CULTIVATED or groundType==FieldGroundType.SEEDBED or groundType==FieldGroundType.PLOWED or groundType==FieldGroundType.ROLLED_SEEDBED or groundType==FieldGroundType.RIDGE or groundType==FieldGroundType.RIDGE_SOWN or groundType==FieldGroundType.ROLLER_LINES then
-                    multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                end
+            else
+                --not a crop => check if this is a field
+                local isOnField, densityBits, _ = FSDensityMapUtil.getFieldDataAtWorldPosition(wx, wy, wz)
+                if isOnField then
+                    --check the groundType
+                    local _, groundTypeFirstChannel, groundTypeNumChannels = g_currentMission.fieldGroundSystem:getDensityMapData(FieldDensityMap.GROUND_TYPE)
+                    local densityType = bit32.band(bit32.rshift(densityBits, groundTypeFirstChannel), 2^groundTypeNumChannels - 1)
+                    local groundType = FieldGroundType.getTypeByValue(densityType)
+                    if PowerConsumer.mrLoosenedFieldGroundType[groundType] then
+                        --this is a field and groundType considered as already "loosen"
+                        multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                    end
                 end
             end
 
