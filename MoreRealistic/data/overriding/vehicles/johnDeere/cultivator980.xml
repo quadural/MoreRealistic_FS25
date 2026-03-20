@@ -12,11 +12,14 @@
 
          only "shallow" mode = 8-9cm
 
+         4m wide in game / 25 tines
+
          -->
 
     <parentFile xmlFilename="$data/vehicles/johnDeere/cultivator980/cultivator980.xml">
         <attributes>
-            <set path="vehicle.powerConsumer#maxForce" value="20" />
+            <set path="vehicle.base.speedLimit#value" value="13" />
+            <set path="vehicle.powerConsumer#maxForce" value="22" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 -0.1" />
             <set path="vehicle.base.components.component(0)#mass" value="1120" />
             <set path="vehicle.base.components.component(1)#mass" value="200" />

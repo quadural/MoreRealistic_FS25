@@ -6,9 +6,11 @@
 
     <!--
 
-        5075kg (double "u" roller) + rear harrow => about 5400kg
+        5570kg with "double tube". In game = double "u" roller + rear harrow => about 6150kg
 
         only "shallow" mode = 8-9cm
+
+        49 tines "duck foot"
 
          -->
 
@@ -20,11 +22,12 @@
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 -0.1" />
             <set path="vehicle.base.components.component(1)#centerOfMass" value="-0.25 -0.1 0.1" />
             <set path="vehicle.base.components.component(2)#centerOfMass" value="0.25 -0.1 0.1" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 0 -0.2" />
 
-            <set path="vehicle.base.components.component(0)#mass" value="2300" />
-            <set path="vehicle.base.components.component(1)#mass" value="1000" />
-            <set path="vehicle.base.components.component(2)#mass" value="1000" />
-            <set path="vehicle.base.components.component(3)#mass" value="300" />
+            <set path="vehicle.base.components.component(0)#mass" value="2410" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="1300" /> <!-- left -->
+            <set path="vehicle.base.components.component(2)#mass" value="1300" /> <!-- right -->
+            <set path="vehicle.base.components.component(3)#mass" value="400" /> <!-- drawbar -->
 
             <!-- remove unreal moving center of masses -->
             <remove path="vehicle.animations.animation(0).part(2)" />
@@ -34,6 +37,8 @@
             <set path="vehicle.animations.animation(0).part(12)#startTime" value="0.1" />
             <set path="vehicle.animations.animation(0).part(12)#endTime" value="0.7" />
 
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#xOffset" value="0.08"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#xOffset" value="0.08"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>

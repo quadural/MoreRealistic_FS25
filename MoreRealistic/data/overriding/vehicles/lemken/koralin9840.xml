@@ -8,7 +8,9 @@
 
         leveling harrow + tandem roller DRF 400/400 + single-ow trailing harrow => about 9000kg
 
-        only "shallow" mode = 5-6cm
+        only "shallow" mode = 8-9cm
+
+        28 tine + 54 discs
 
         wheels = michelin 560/45R22.5
 
@@ -17,7 +19,8 @@
     <parentFile xmlFilename="$data/vehicles/lemken/koralin9840/koralin9840.xml">
         <attributes>
 
-            <set path="vehicle.powerConsumer#maxForce" value="48" />
+            <set path="vehicle.base.speedLimit#value" value="17" />
+            <set path="vehicle.powerConsumer#maxForce" value="54" />
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 0.7" />
             <set path="vehicle.base.components.component(1)#centerOfMass" value="-0.3 -0.3 0.5" />

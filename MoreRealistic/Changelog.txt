@@ -387,4 +387,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - v1.17 of the game
             - fix broken detection of already loosened soil
             - fix for CVT : "transmission lock" like behavior when accelerating again at low speed (about 10kph) after an heavy engine braking (engine high in the rev when accelerating again)
+            - add converted Einboeck Taifun XXL 900
 

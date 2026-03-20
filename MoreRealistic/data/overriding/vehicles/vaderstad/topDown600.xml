@@ -19,6 +19,7 @@
     <parentFile xmlFilename="$data/vehicles/vaderstad/topDown600/topDown600.xml">
         <attributes>
 
+            <set path="vehicle.base.speedLimit#value" value="17" />
             <set path="vehicle.powerConsumer#maxForce" value="60" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 1.05" />
             <set path="vehicle.base.components.component(0)#mass" value="8720" />
