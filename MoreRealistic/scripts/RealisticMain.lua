@@ -56,6 +56,7 @@ source(Utils.getFilename("scripts/MR_WheelVisualPart.lua", g_currentModDirectory
 source(Utils.getFilename("scripts/MR_Wheels.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_WheelsUtil.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_WoodCrusher.lua", g_currentModDirectory))
+source(Utils.getFilename("scripts/MR_WorkArea.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/FIX_PF.lua", g_currentModDirectory))
 
 -- load "moreRealistic" figures for tire friction vs surface and rolling resistance

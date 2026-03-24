@@ -2,7 +2,7 @@
 <vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
 
     <MR>true</MR>
-    <mrPowerConsumer forcePointY="0.2" />
+    <mrPowerConsumer forcePointY="0.3" />
 
     <!--
 

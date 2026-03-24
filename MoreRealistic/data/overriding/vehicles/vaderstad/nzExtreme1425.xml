@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.2" />
+
+    <!--
+
+        12171kg (operator manual, uk version)
+
+        options in game =
+        double following harrow
+        => total = 12350kg
+
+        only "shallow" mode = 8-9cm
+
+        heavy-duty tine harrow
+        181 tines + crossboard front and rear
+
+         -->
+
+    <parentFile xmlFilename="$data/vehicles/vaderstad/nzExtreme1425/nzExtreme1425.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.shopTranslationOffset" value="0 0.2 0" /> <!-- correct y position when loading the implement in the shop to avoid bouncing -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="90" />
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.15" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0.1" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 0.1" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 0 0.1" />
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 0 0.1" />
+
+            <!--  weight of rollers and support wheels and virtual wheels are added at game time -->
+            <set path="vehicle.base.components.component(0)#mass" value="5700" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="1600" /> <!-- left wing -->
+            <set path="vehicle.base.components.component(2)#mass" value="1600" /> <!-- right wing -->
+            <set path="vehicle.base.components.component(3)#mass" value="1300" /> <!-- left far wing -->
+            <set path="vehicle.base.components.component(4)#mass" value="1300" /> <!-- right far wing -->
+
+            <!-- brakes only on the rear wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="0"/>
+
+            <!--better correct wheel size (IRL = 400/60R15.5 or 400/55R15.5) -->
+            <set path="vehicle.wheels.wheelConfigurations#tireCategories" value="TELEHANDLER" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10)#dimensions" value="400__50__15" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11)#dimensions" value="400__50__15" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="80"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="80"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="80"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="80"/> <!-- back -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="8"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="8"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="8"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="8"/> <!-- back -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="28"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="20"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="20"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="28"/> <!-- back -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="3.40"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="2.00"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="2.00"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="3.40"/> <!-- back -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="10"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="100"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="10"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="100"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#spring" value="10"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#spring" value="100"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#spring" value="10"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#spring" value="100"/> <!-- back -->
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.2"/> <!-- front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#suspTravel" value="0.05"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#suspTravel" value="0.05"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#suspTravel" value="0.05"/> <!-- back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#suspTravel" value="0.05"/> <!-- back -->
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#yOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#yOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#yOffset" value="0"/>
+
+
+
+
+            <set path="vehicle.attachable.brakeForce#force" value="2" />
+
+            <!-- take into account new transport wheel size + fix incorrect transport and raised position clearance -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#attacherHeight" value="0.6" />
+
+
+            <!-- depth indicator -->
+            <set path="vehicle.base.objectChanges.objectChange(0)#node" value="measurementArm02" />
+            <set path="vehicle.base.objectChanges.objectChange(0)#translationActive" value="0 -0.03 1.84" />
+            <set path="vehicle.base.objectChanges.objectChange(1)#node" value="measurementArm01" />
+            <set path="vehicle.base.objectChanges.objectChange(1)#rotationActive" value="-1 0 0" />
+            <set path="vehicle.cylindered.movingParts.movingPart(6)#referenceDistance" value="0.09" />
+
+            <!-- left wing -->
+            <set path="vehicle.animations.animation(0).part(4)#startRot" value="-20 0 0" />
+            <set path="vehicle.animations.animation(0).part(4)#endRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(5)#startRot" value="-20 0 0" />
+            <set path="vehicle.animations.animation(0).part(5)#endRot" value="10 0 0" />
+
+            <!-- right wing -->
+            <set path="vehicle.animations.animation(0).part(6)#startRot" value="-20 0 0" />
+            <set path="vehicle.animations.animation(0).part(6)#endRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(7)#startRot" value="-20 0 0" />
+            <set path="vehicle.animations.animation(0).part(7)#endRot" value="10 0 0" />
+
+            <!-- left outer wing -->
+            <set path="vehicle.animations.animation(0).part(8)#startRot" value="12 0 0" />
+            <set path="vehicle.animations.animation(0).part(8)#endRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(9)#startRot" value="-12 0 0" />
+            <set path="vehicle.animations.animation(0).part(9)#endRot" value="4 0 0" />
+            <set path="vehicle.animations.animation(0).part(10)#startRot" value="12 0 0" />
+            <set path="vehicle.animations.animation(0).part(10)#endRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(11)#startRot" value="-12 0 0" />
+            <set path="vehicle.animations.animation(0).part(11)#endRot" value="4 0 0" />
+
+            <!-- right outer wing -->
+            <set path="vehicle.animations.animation(0).part(12)#startRot" value="12 0 0" />
+            <set path="vehicle.animations.animation(0).part(12)#endRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(13)#startRot" value="-12 0 0" />
+            <set path="vehicle.animations.animation(0).part(13)#endRot" value="4 0 0" />
+            <set path="vehicle.animations.animation(0).part(14)#startRot" value="12 0 0" />
+            <set path="vehicle.animations.animation(0).part(14)#endRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(15)#startRot" value="-12 0 0" />
+            <set path="vehicle.animations.animation(0).part(15)#endRot" value="4 0 0" />
+
+            <!-- center -->
+            <set path="vehicle.animations.animation(0).part(16)#startRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(16)#endRot" value="-5 0 0" />
+            <set path="vehicle.animations.animation(0).part(17)#startRot" value="-10 0 0" />
+            <set path="vehicle.animations.animation(0).part(17)#endRot" value="6.5 0 0" />
+            <set path="vehicle.animations.animation(0).part(18)#startRot" value="-10 0 0" />
+            <set path="vehicle.animations.animation(0).part(18)#endRot" value="6.5 0 0" />
+
+            <!-- wing wheels are retracted in transport position -->
+            <set path="vehicle.animations.animation(0).part(35)#node" value="leftInnerArmAxisFront" />
+            <set path="vehicle.animations.animation(0).part(35)#startTime" value="12.5" />
+            <set path="vehicle.animations.animation(0).part(35)#endTime" value="17" />
+            <set path="vehicle.animations.animation(0).part(35)#startRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(35)#endRot" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(36)#node" value="leftInnerArmAxisFront_physics" />
+            <set path="vehicle.animations.animation(0).part(36)#startTime" value="12.5" />
+            <set path="vehicle.animations.animation(0).part(36)#endTime" value="17" />
+            <set path="vehicle.animations.animation(0).part(36)#startRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(36)#endRot" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(37)#node" value="rightInnerArmAxisFront" />
+            <set path="vehicle.animations.animation(0).part(37)#startTime" value="12.5" />
+            <set path="vehicle.animations.animation(0).part(37)#endTime" value="17" />
+            <set path="vehicle.animations.animation(0).part(37)#startRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(37)#endRot" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(38)#node" value="rightInnerArmAxisFront_physics" />
+            <set path="vehicle.animations.animation(0).part(38)#startTime" value="13.5" />
+            <set path="vehicle.animations.animation(0).part(38)#endTime" value="18" />
+            <set path="vehicle.animations.animation(0).part(38)#startRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(38)#endRot" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(39)#node" value="leftOuterAxis" />
+            <set path="vehicle.animations.animation(0).part(39)#startTime" value="2" />
+            <set path="vehicle.animations.animation(0).part(39)#endTime" value="7" />
+            <set path="vehicle.animations.animation(0).part(39)#startRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(39)#endRot" value="2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(40)#node" value="leftOuterAxisPart" />
+            <set path="vehicle.animations.animation(0).part(40)#startTime" value="2" />
+            <set path="vehicle.animations.animation(0).part(40)#endTime" value="7" />
+            <set path="vehicle.animations.animation(0).part(40)#startRot" value="4 0 0" />
+            <set path="vehicle.animations.animation(0).part(40)#endRot" value="-2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(41)#node" value="leftOuterAxis_physics" />
+            <set path="vehicle.animations.animation(0).part(41)#startTime" value="2" />
+            <set path="vehicle.animations.animation(0).part(41)#endTime" value="7" />
+            <set path="vehicle.animations.animation(0).part(41)#startRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(41)#endRot" value="2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(42)#node" value="leftOuterAxisPart_physics" />
+            <set path="vehicle.animations.animation(0).part(42)#startTime" value="2" />
+            <set path="vehicle.animations.animation(0).part(42)#endTime" value="7" />
+            <set path="vehicle.animations.animation(0).part(42)#startRot" value="4 0 0" />
+            <set path="vehicle.animations.animation(0).part(42)#endRot" value="-2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(43)#node" value="rightOuterArmAxis" />
+            <set path="vehicle.animations.animation(0).part(43)#startTime" value="3" />
+            <set path="vehicle.animations.animation(0).part(43)#endTime" value="8" />
+            <set path="vehicle.animations.animation(0).part(43)#startRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(43)#endRot" value="2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(44)#node" value="rightOuterArmAxisPart" />
+            <set path="vehicle.animations.animation(0).part(44)#startTime" value="3" />
+            <set path="vehicle.animations.animation(0).part(44)#endTime" value="8" />
+            <set path="vehicle.animations.animation(0).part(44)#startRot" value="4 0 0" />
+            <set path="vehicle.animations.animation(0).part(44)#endRot" value="-2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(45)#node" value="rightOuterArmAxis_physics" />
+            <set path="vehicle.animations.animation(0).part(45)#startTime" value="3" />
+            <set path="vehicle.animations.animation(0).part(45)#endTime" value="8" />
+            <set path="vehicle.animations.animation(0).part(45)#startRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(0).part(45)#endRot" value="2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(46)#node" value="rightOuterArmAxisPart_physics" />
+            <set path="vehicle.animations.animation(0).part(46)#startTime" value="3" />
+            <set path="vehicle.animations.animation(0).part(46)#endTime" value="8" />
+            <set path="vehicle.animations.animation(0).part(46)#startRot" value="4 0 0" />
+            <set path="vehicle.animations.animation(0).part(46)#endRot" value="-2 0 0" />
+
+            <!-- center -->
+            <set path="vehicle.animations.animation(0).part(47)#node" value="axisCenter" />
+            <set path="vehicle.animations.animation(0).part(47)#startTime" value="18" />
+            <set path="vehicle.animations.animation(0).part(47)#endTime" value="20" />
+            <set path="vehicle.animations.animation(0).part(47)#startRot" value="-5 0 0" />
+            <set path="vehicle.animations.animation(0).part(47)#endRot" value="-15 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(48)#node" value="axisCenterLeft" />
+            <set path="vehicle.animations.animation(0).part(48)#startTime" value="18" />
+            <set path="vehicle.animations.animation(0).part(48)#endTime" value="20" />
+            <set path="vehicle.animations.animation(0).part(48)#startRot" value="6.5 0 0" />
+            <set path="vehicle.animations.animation(0).part(48)#endRot" value="17 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(49)#node" value="axisCenterRight" />
+            <set path="vehicle.animations.animation(0).part(49)#startTime" value="18" />
+            <set path="vehicle.animations.animation(0).part(49)#endTime" value="20" />
+            <set path="vehicle.animations.animation(0).part(49)#startRot" value="6.5 0 0" />
+            <set path="vehicle.animations.animation(0).part(49)#endRot" value="17 0 0" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

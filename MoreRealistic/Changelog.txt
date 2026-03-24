@@ -210,7 +210,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 20250629    - woodcrushers : additionnal system allowing cutting less than minimum cut length if a wood shape remains under the cutter for too long
             - fix problem = when "automatic start motor" is desactivated => we control the player = move toward the tractor en press "E" key to enter it, and the tractor moves a little bit (because we don't always depress the move forward key just before pressing the "E" key to enter the tractor)
             - add varying center of masses for the converted Agromasz pov 5 xl plough
-            - add more spring to the back wheels of the converted Pottinger Terria 6040 (fix the "dancing" problem when detaching this tool while lowered in field)
+            - add more spring to the back wheels of the converted Pottinger Terria 6040 (trying to fix the "dancing" problem when detaching this tool while lowered in field)
             - adjust brake force converted Case IH Farmall C
             - debugMode : add slope value in percent (work when only "terrain" in front and behing the vehicle : check 2m in front and 2m behind "component 1")
 
@@ -388,4 +388,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - fix broken detection of already loosened soil
             - fix for CVT : "transmission lock" like behavior when accelerating again at low speed (about 10kph) after an heavy engine braking (engine high in the rev when accelerating again)
             - add converted Einboeck Taifun XXL 900
+            - add converted Vaderstad nz extreme 1425
+            - fix bug from 202602XX with implements that are "combine" (example : Grimme Evo290)
+            - new feature = disable implement wheels "DisplacementAllowed" in lowered position => prevent the bouncing effect we can witness when the implement is lowered and "still" (Example : Vaderstad NZ Extreme 1425)
+            - new feature = disable "workarea" processing when not moving. IRL, a cultivator or a plough not moving = nothing happen to the ground. This allows us to fix the well known problem with the Pottinger Terria 6040 = dancing effect when detached while working a field
 

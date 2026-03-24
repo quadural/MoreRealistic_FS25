@@ -125,7 +125,14 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         --overloadedFx = math.sqrt(neededPower/peakWantedPower)
 
         --20260306 - now rely on the engine smooth load percent
-        overloadedFx = 0.03 + self.spec_motorized.smoothedLoadPercentage
+        if self.spec_motorized then
+            overloadedFx = 0.03 + self.spec_motorized.smoothedLoadPercentage
+        else
+            local attacherVehicle = self:getAttacherVehicle()
+            if attacherVehicle ~= nil and attacherVehicle.spec_motorized then
+                overloadedFx = 0.03 + attacherVehicle.spec_motorized.smoothedLoadPercentage
+            end
+        end
 
         --check max capacity
         overloadedFx = math.max(overloadedFx, self.mrCombineLitersPerSecondS1/maxCapacity)

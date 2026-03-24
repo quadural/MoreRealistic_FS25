@@ -10,3 +10,5 @@ Cultivator.getWearMultiplier = function(self, superFunc)
 
     return multiplier
 end
+
+
