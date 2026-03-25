@@ -108,7 +108,11 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
             end
         end
 
+        --20260325 - mrImplement
+        self.mrImplementProcessAreaWhileNotMoving = getXMLBool(xmlFile, "vehicle.mrImplement#processAreaWhileNotMoving") or false --allow this implement to process its workareas even if not moving (example : powerharrow)
 
+        self.mrInlineAxleNumber = getXMLFloat(xmlFile, "vehicle.MR#inlineAxleNumber")
+        self.mrGetGeneralPressureForRrFx = Vehicle.mrGetGeneralPressureForRrFx(self, self.mrInlineAxleNumber)
 
         delete(xmlFile)
 
@@ -315,3 +319,47 @@ Vehicle.mrGetRawSpeedLimit = function(self, superFunc)
     return spdLimit
 end
 Vehicle.getRawSpeedLimit = Utils.overwrittenFunction(Vehicle.getRawSpeedLimit, Vehicle.mrGetRawSpeedLimit)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+-- Compute a general factor to apply to rolling resistance calculation function of the number of axle inline (wheels are following each other)
+-- idea = a 20T total weight 2 axle trailer would not sink as much as a 10T total weight 1 axle trailer
+
+-- indeed, the load per wheel is the same in both case.
+-- But for the 2 axles trailer = the first axle wheels would "sink" as much as the single axle trailer's wheels. But then, the second axle's wheels would not sink as much given that it is running on the same "track" (ground is already packed)
+
+-- so even if the ground pressure per wheel is the same in both case, the 2 axles trailer should not get 2 times the rolling resistance of the single axle trailer
+
+-- if the second axle = 50% of the first axle
+-- => avg sinking for the 2 axles = (1+0.5)/2=3/4 (0.75) avg factor
+
+-- for a 3 axles trailer => 3rd axle = 1/3 of the first one
+-- => avg sinking for 3 axles = (1+0.5+0.333)/3 = 0.6111111
+
+-- But : there is also the tractor's wheels that "pack" the ground before the trailer one...
+
+-- and so, we should also take into account the ground packing of the tractor before the trailer's wheels
+
+-- in such a case, the difference between a 1,2 or 3 axle trailer would be :
+-- 1 axle = 1/3 (because already packing from tractor front and rear wheels)
+-- 2 axles = (1/3 + 1/4)/2 = 0.29167 => 0.875 compared to single axle
+-- 3 axles = (1/3 + 1/4 + 1/5)/3 = 0.261111 => 0.783 compared to single axle
+-- 4 axles = (1/3 + 1/4 + 1/5 + 1/6)/4 = 0.7125 compared to single axle
+
+-- this is not a direct rolling resistance fx => this is a sinking fx
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- this is mainly for trailers or implements with more than one axle (following axle = wheel in the same track on each side) and with big load per wheel
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Vehicle.mrGetGeneralPressureForRrFx = function(self, inlineAxleNumber)
+    local fx = 1
+    if inlineAxleNumber~=nil and inlineAxleNumber>1 then
+        fx = 1/3
+        for i=2, inlineAxleNumber do
+            fx = fx + 1/(2+i)
+        end
+        fx = fx*3/inlineAxleNumber --divide by 1/3 == multiply by 3
+    end
+    return fx
+end
+

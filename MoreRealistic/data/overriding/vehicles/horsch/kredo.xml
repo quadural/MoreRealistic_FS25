@@ -3,6 +3,7 @@
 
     <MR>true</MR>
     <mrPowerConsumer forcePointY="0.1" ptoForSoilWork="true" />
+    <mrImplement processAreaWhileNotMoving="true" />
 
     <!--
     base weight : 1200kg

@@ -390,6 +390,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Einboeck Taifun XXL 900
             - add converted Vaderstad nz extreme 1425
             - fix bug from 202602XX with implements that are "combine" (example : Grimme Evo290)
-            - new feature = disable implement wheels "DisplacementAllowed" in lowered position => prevent the bouncing effect we can witness when the implement is lowered and "still" (Example : Vaderstad NZ Extreme 1425)
-            - new feature = disable "workarea" processing when not moving. IRL, a cultivator or a plough not moving = nothing happen to the ground. This allows us to fix the well known problem with the Pottinger Terria 6040 = dancing effect when detached while working a field
-
+            - new feature = disable implement wheels "DisplacementAllowed" in lowered position => prevent the bouncing effect we can witness when the implement is lowered and "still" (Example : Vaderstad NZ Extreme 1425) - new param = "mrNoGroundDisplacementWhenLowered"
+            - new feature = disable "workarea" processing when not moving. IRL, a cultivator or a plough not moving = nothing happen to the ground. This allows us to fix the well known problem with the Pottinger Terria 6040 = dancing effect when detached while working a field. this can be disabled by using "<mrImplement processAreaWhileNotMoving="true" />" (see Farmax rapid trailed for example)
+            - new feature = apply a factor to lessen the avg rolling resistance in field for trailer with more than one axle inline. Use the "inlineAxleNumber" param to specify the number of axles that are in line (wheels on the same side in the same track) - see brandtner TR34090 as example. See "Vehicle.mrGetGeneralPressureForRrFx" for more information on this feature.

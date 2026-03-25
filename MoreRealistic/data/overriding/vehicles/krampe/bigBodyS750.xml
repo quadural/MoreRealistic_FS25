@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
 
-    <MR>true</MR>
+    <MR inlineAxleNumber="2">true</MR>
 
     <!--
         volume without extension = 25.3M3

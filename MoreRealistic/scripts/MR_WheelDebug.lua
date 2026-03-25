@@ -44,7 +44,7 @@ WheelDebug.mrFillDebugValues = function(self, superFunc, debugTable)
     debugTable[21]  = debugTable[21]  .. string.format("%2.2f\n", slip)
     debugTable[22]  = debugTable[22]  .. string.format("%s\n", RealisticUtils.groundTypeToName[self.wheel.physics.mrLastGroundType])
     debugTable[23]  = debugTable[23]  .. string.format("%2.2f\n", self.wheel.physics.mrLastRrFx)
-    debugTable[24]  = debugTable[24]  .. string.format("%2.2f\n", WheelPhysics.mrGetPressureFx(self.wheel.physics.mrTotalWidth, self.wheel.physics.radius*self.wheel.physics.mrTrackFx, self.wheel.physics.mrLastTireLoad))
+    debugTable[24]  = debugTable[24]  .. string.format("%2.2f\n", self.wheel.physics.mrLastPressureFx)
 
 end
 WheelDebug.fillDebugValues = Utils.overwrittenFunction(WheelDebug.fillDebugValues, WheelDebug.mrFillDebugValues)

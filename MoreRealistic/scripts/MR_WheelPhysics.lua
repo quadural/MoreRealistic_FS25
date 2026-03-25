@@ -17,9 +17,11 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrTotalWidth = 0
     self.mrFrictionNeedUpdate = true
     self.mrLastRrFx = 0
+    self.mrLastPressureFx = 0
     self.mrLastContactNormalRatio = 1
     self.mrScaleRR = 1
     self.mrTrackFx = 1
+    self.mrNoGroundDisplacementWhenLowered = false --should be set to true for implement's wheels that are touching the ground in working position and are part of the workarea of the implement (example : vaderstad nz extreme 1425)
 
     return self
 
@@ -36,6 +38,7 @@ WheelPhysics.mrRegisterXMLPaths = function(schema, superFunc, key)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrForcePointPositionX", "Allow to force the x position of the forcepoint of the wheelshape")
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrScaleRR", "Allow to apply a scale factor to the rolling resistance of this wheel", 1)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrTrackFx", "Allow to specify a factor for the track surface area. Can also be used to cheat a wheel")
+    schema:register(XMLValueType.BOOL, key .. ".physics#mrNoGroundDisplacementWhenLowered", "should be set to true for implement's wheels that are touching the ground in working position and are part of the workarea of the implement (example : vaderstad nz extreme 1425)")
 
 end
 WheelPhysics.registerXMLPaths = Utils.overwrittenFunction(WheelPhysics.registerXMLPaths, WheelPhysics.mrRegisterXMLPaths)
@@ -105,6 +108,8 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
                 self.mrTrackFx = 1 --default value for wheel
             end
         end
+
+        self.mrNoGroundDisplacementWhenLowered = xmlObject:getValue(".physics#mrNoGroundDisplacementWhenLowered", false)
 
         return true
     end
@@ -280,12 +285,14 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
     --take into account wheel "crushed" under load => more rr if the wheel is "deformed"
     --this is especially relevant on soft ground
     local rrFx = 1
+    local pressurefx = 1
     if self.mrTotalWidth>0 then
         local groundWetness = g_currentMission.environment.weather:getGroundWetness()
-        rrFx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius*self.mrTrackFx, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness)
+        rrFx, pressurefx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius*self.mrTrackFx, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness, self.vehicle.mrGetGeneralPressureForRrFx)
         rrFx = rrFx * self.mrScaleRR
     end
     self.mrLastRrFx = rrFx
+    self.mrLastPressureFx = pressurefx
     --depend on surface (soft and field)
 
     --20250514 - only 10% rr at still to avoid strange behavior when tractor is not heavy enough to pull a trailer on hilly road or muddy field => only for not driven wheels
@@ -372,12 +379,13 @@ WheelPhysics.mrGetWetFx = function(pressureFx, groundType, groundSubType)
 end
 
 
-WheelPhysics.mrGetRrFx = function(width, radius, load, groundType, groundSubType, wetness)
+WheelPhysics.mrGetRrFx = function(width, radius, load, groundType, groundSubType, wetness, inlineAxleFx)
     local rrFx = 1
+    local pressureFx = 1
     if groundType==WheelsUtil.GROUND_FIELD or groundType==WheelsUtil.GROUND_SOFT_TERRAIN then
-        local pressureFx = WheelPhysics.mrGetPressureFx(width, radius, load)
+        pressureFx = WheelPhysics.mrGetPressureFx(width, radius, load)
         --limit max pressure (IRL, there would be no difference between 7bars or 20bars in bad conditions)
-        pressureFx = math.min(pressureFx, 7)
+        pressureFx = math.min(pressureFx, 7) * inlineAxleFx
         if wetness==0 then
             rrFx = WheelPhysics.mrGetDryFx(pressureFx, groundType, groundSubType)
         elseif wetness==1 then
@@ -387,7 +395,7 @@ WheelPhysics.mrGetRrFx = function(width, radius, load, groundType, groundSubType
             rrFx = (1-wetness) * WheelPhysics.mrGetDryFx(pressureFx, groundType, groundSubType) + wetness * WheelPhysics.mrGetWetFx(pressureFx, groundType, groundSubType)
         end
     end
-    return rrFx
+    return rrFx, pressureFx
 end
 
 WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)

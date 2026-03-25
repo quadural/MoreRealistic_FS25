@@ -11,7 +11,7 @@ WorkArea.mrGetIsWorkAreaActive = function(self, superFunc, workArea)
 
     local result = superFunc(self, workArea)
 
-    if result and self.isServer then
+    if result and self.isServer and self.mrIsMrVehicle and not self.mrImplementProcessAreaWhileNotMoving then --only for MR vehicle to avoid unmanaged cases
         if self.components[1].isDynamic then
             --check ground speed of the implement
             --local vx, vy, vz = getLocalLinearVelocity(self.components[1].node)
@@ -31,41 +31,41 @@ end
 WorkArea.getIsWorkAreaActive = Utils.overwrittenFunction(WorkArea.getIsWorkAreaActive, WorkArea.mrGetIsWorkAreaActive)
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---
---MR : add new listener for "onSetLowered"
---
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-WorkArea.mrRegisterEventListeners = function(vehicleType, superFunc)
+-- -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- --
+-- -- --MR : add new listener for "onSetLowered"
+-- -- --
+-- -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- WorkArea.mrRegisterEventListeners = function(vehicleType, superFunc)
 
-    superFunc(vehicleType)
-    SpecializationUtil.registerEventListener(vehicleType, "onSetLowered", WorkArea)
+--     superFunc(vehicleType)
+--     SpecializationUtil.registerEventListener(vehicleType, "onSetLowered", WorkArea)
 
-end
- WorkArea.registerEventListeners = Utils.overwrittenFunction(WorkArea.registerEventListeners, WorkArea.mrRegisterEventListeners)
+-- end
+--  WorkArea.registerEventListeners = Utils.overwrittenFunction(WorkArea.registerEventListeners, WorkArea.mrRegisterEventListeners)
 
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---
---MR : we don't want the implement wheels to leave "ruts" in working position => most of the time, the "workArea" processing function is just deleting that
---unwanted behavior = implement's wheels included in the work area are leaving heavy "ruts". At work, this is not perceptible because the processing area function is deleting it all the time
---but when we stop working, the implement sinks into the ground. And then, when we get back to work, the processing area function delete the "ruts" and the wheels bump a big time to get back to the "flat" surface
---for most implements, IRL, the wheels are not bearing the full implement weight in working position => the "ruts" would be small
---
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-WorkArea.onSetLowered = function(self, lowered)
+-- -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- --
+-- -- --MR : we don't want the implement wheels to leave "ruts" in working position => most of the time, the "workArea" processing function is just deleting that
+-- -- --unwanted behavior = implement's wheels included in the work area are leaving heavy "ruts". At work, this is not perceptible because the processing area function is deleting it all the time
+-- -- --but when we stop working, the implement sinks into the ground. And then, when we get back to work, the processing area function delete the "ruts" and the wheels bump a big time to get back to the "flat" surface
+-- -- --for most implements, IRL, the wheels are not bearing the full implement weight in working position => the "ruts" would be small
+-- -- --
+-- -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- WorkArea.mrOnSetLowered = function(self, lowered)
 
-    if self.isServer then
-        local spec = self.spec_wheels
-        if spec==nil or #spec.wheels==0 then
-            SpecializationUtil.removeEventListener(self, "onSetLowered", WorkArea)
-        else
-            for _, wheel in ipairs(spec.wheels) do
-                wheel.physics:setDisplacementAllowed(not lowered)
-                --wheel.physics:setDisplacementCollisionEnabled(not lowered)
-            end
-        end
-    end
+--     if self.isServer then
+--         local spec = self.spec_wheels
+--         if spec==nil or #spec.wheels==0 then
+--             SpecializationUtil.removeEventListener(self, "onSetLowered", WorkArea)
+--         else
+--             for _, wheel in ipairs(spec.wheels) do
+--                 wheel.physics:setDisplacementAllowed(not lowered)
+--                 --wheel.physics:setDisplacementCollisionEnabled(not lowered)
+--             end
+--         end
+--     end
 
-end
+-- end
