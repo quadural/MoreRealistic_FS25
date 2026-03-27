@@ -39,7 +39,7 @@ Dashboard.mrDefaultDashboardStateFunc = function(self, superFunc, dashboard, new
                 for j=1, #dashboard.groups do
                     if dashboard.groups[j].isActive then
                         refreshWanted = false
-                        dashboard.lastValue = 9999 -- force refresh of this dashboard the next time Dashboard.updateDashboards is called
+                        --dashboard.lastValue = 9999 -- force refresh of this dashboard the next time Dashboard.updateDashboards is called
                         break
                     end
                 end
@@ -48,9 +48,9 @@ Dashboard.mrDefaultDashboardStateFunc = function(self, superFunc, dashboard, new
         else
             local displayTypeTextIndex = Dashboard.TYPES["TEXT"]
             if dashboard.valueType.fullName=="motorized.rpm" and dashboard.displayTypeIndex==displayTypeTextIndex then
-                refreshWanted, newValue =  Dashboard.mrDisplayRateAndPrecision(self, dashboard, newValue, 400, 10, 1)
+                refreshWanted, newValue =  Dashboard.mrDisplayRateAndPrecision(self, dashboard, newValue, 300, 10, 1)
             elseif dashboard.valueType.fullName=="motorized.speed" and dashboard.displayTypeIndex==displayTypeTextIndex then
-                refreshWanted, newValue =  Dashboard.mrDisplayRateAndPrecision(self, dashboard, newValue, 500, 0.1, 1)
+                refreshWanted, newValue =  Dashboard.mrDisplayRateAndPrecision(self, dashboard, newValue, 400, 0.1, 1)
             elseif dashboard.valueType.fullName=="motorized.fuelUsage" and dashboard.displayTypeIndex==displayTypeTextIndex then
                 refreshWanted, newValue =  Dashboard.mrDisplayRateAndPrecision(self, dashboard, newValue, 900, 0.1, 5)
             elseif dashboard.valueType.fullName=="motorized.load" and dashboard.displayTypeIndex==displayTypeTextIndex then
@@ -61,6 +61,8 @@ Dashboard.mrDefaultDashboardStateFunc = function(self, superFunc, dashboard, new
 
     if refreshWanted then
         superFunc(self, dashboard, newValue, minValue, maxValue, isActive)
+    else
+        dashboard.lastValue = 9999 -- we want to test if refresh if needed or not the next update
     end
 
 end

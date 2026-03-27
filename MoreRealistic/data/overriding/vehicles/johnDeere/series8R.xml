@@ -4,7 +4,7 @@
 
     <MR>true</MR>
 
-    <!-- the front ballast collison shape is missing => there is no collision when we choose the frotn weight instead of the front 3pt hitch -->
+    <!-- the front ballast collison shape is missing => there is no collision when we choose the front weight instead of the front 3pt hitch -->
 
     <parentFile xmlFilename="$data/vehicles/johnDeere/series8R/series8R.xml">
         <attributes>

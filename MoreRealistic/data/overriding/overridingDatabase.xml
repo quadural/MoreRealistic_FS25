@@ -159,6 +159,8 @@
     <vehicle fileNameToOverride="data/vehicles/caseIH/puma/puma.xml">vehicles/caseIH/puma.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/steyr/absolut/absolut.xml">vehicles/steyr/absolut.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/johnDeere/series8R/series8R.xml">vehicles/johnDeere/series8R.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/valtra/sSeries/sSeries.xml">vehicles/valtra/sSeries.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/series9S/series9S.xml">vehicles/masseyFerguson/series9S.xml</vehicle>
 
     <!-- trailers -->
     <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>

@@ -63,6 +63,9 @@
             <!-- lift the back door higher -->
             <set path="vehicle.animations.animation(2).part(3)#endRot" value="78 0 0" />
 
+            <!-- tipping speed -->
+            <set path="vehicle.trailer.trailerConfigurations.trailerConfigurations(0).trailer.tipSide(0).animation#speedScale" value="0.7" />
+
         </attributes>
     </parentFile>
 
