@@ -48,6 +48,7 @@
     <vehicle fileNameToOverride="data/vehicles/lemken/koralin9840/koralin9840.xml">vehicles/lemken/koralin9840.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/einboeck/taifun900/taifun900.xml">vehicles/einboeck/taifun900.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/vaderstad/nzExtreme1425/nzExtreme1425.xml">vehicles/vaderstad/nzExtreme1425.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/summersMfg/superChisel/superChisel.xml">vehicles/summersMfg/superChisel.xml</vehicle>
 
     <!-- disc cultivators -->
     <vehicle fileNameToOverride="data/vehicles/vaderstad/carrierXL625/carrierXL625.xml">vehicles/vaderstad/carrierXL625.xml</vehicle>

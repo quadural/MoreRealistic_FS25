@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.9" />
+
+    <!--
+    base weight : 12464kg (Weight includes mounted harrows, which are standard with this model)
+
+    no brakes / 20mph (32kph) road speed
+
+    "deep" mode = 15-17cm
+    "shallow" mode = 8-9cm
+    => difference = about 8cm "height"
+
+    gauge wheels should be IF280/70R15 (11L x 15)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/summersMfg/superChisel/superChisel.xml">
+        <attributes>
+            <set path="vehicle.powerConsumer#maxForce" value="160" />
+
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#mass" value="4020" /> <!-- main -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#centerOfMass" value="0 1.1 -2.1" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#mass" value="2500" /> <!-- wing left -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#centerOfMass" value="0 0 -0.8" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(2)#mass" value="1100" /> <!-- outer wing left -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(2)#centerOfMass" value="-0.6 -0.4 -0.45" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(3)#mass" value="2500" /> <!-- wing right -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(3)#centerOfMass" value="0 0 -0.8" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(4)#mass" value="1100" /> <!-- outer wing right -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(4)#centerOfMass" value="0.6 -0.4 -0.45" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(5)#mass" value="500" /> <!-- drawbar default -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(5)#centerOfMass" value="0 0.1 -0.6" />
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="150"/> <!-- lift wheel left wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="150"/> <!-- lift wheel left outer wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="150"/> <!-- lift wheel left center -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="150"/> <!-- lift wheel right center -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="150"/> <!-- lift wheel right wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#spring" value="150"/> <!-- lift wheel right outer wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#spring" value="100"/> <!-- virtual middle front left -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#mrFrictionScale" value="0.6"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#spring" value="100"/> <!-- virtual middle front right -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#mrFrictionScale" value="0.6"/>
+
+
+            <!-- allow rot limit even when in raised position and unfolded -->
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(46)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(46)#endTime" value="2" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(47)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(47)#endTime" value="2" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(64)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(64)#endTime" value="14" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(65)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(65)#endTime" value="14" />
+
+
+            <!-- remove not realistic moving center of mass -->
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(48)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(48)#endCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(49)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(49)#endCenterOfMass" />
+
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(66)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(66)#endCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(67)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(0).animation(1).part(67)#endCenterOfMass" />
+
+
+            <!-- *********************************  wheel caster drawbar ***************************************-->
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#mass" value="4450" /> <!-- main -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#centerOfMass" value="0 1.1 -2.1" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#mass" value="2500" /> <!-- wing left -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#centerOfMass" value="0 0 -0.8" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#mass" value="1100" /> <!-- outer wing left -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#centerOfMass" value="-0.6 -0.4 -0.45" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(3)#mass" value="2500" /> <!-- wing right -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(3)#centerOfMass" value="0 0 -0.8" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(4)#mass" value="1100" /> <!-- outer wing right -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(4)#centerOfMass" value="0.6 -0.4 -0.45" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(5)#mass" value="500" /> <!-- drawbar default -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(5)#centerOfMass" value="0 0.1 -0.6" />
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#spring" value="150"/> <!-- lift wheel left wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#spring" value="150"/> <!-- lift wheel left outer wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#spring" value="150"/> <!-- lift wheel left center -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#spring" value="150"/> <!-- lift wheel right center -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#spring" value="150"/> <!-- lift wheel right wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(9).physics#spring" value="150"/> <!-- lift wheel right outer wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(9).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(9).physics#mrForcePointRatio" value="0.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(10).physics#spring" value="100"/> <!-- virtual middle front left -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(10).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(10).physics#mrFrictionScale" value="0.6"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(11).physics#spring" value="100"/> <!-- virtual middle front right -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(11).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(11).physics#mrFrictionScale" value="0.6"/>
+
+
+            <!-- allow rot limit even when in raised position and unfolded -->
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(44)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(44)#endTime" value="2" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(45)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(45)#endTime" value="2" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(62)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(62)#endTime" value="14" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(63)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(63)#endTime" value="14" />
+
+
+            <!-- remove not realistic moving center of mass -->
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(46)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(46)#endCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(47)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(47)#endCenterOfMass" />
+
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(64)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(64)#endCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(65)#startCenterOfMass" />
+            <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(65)#endCenterOfMass" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

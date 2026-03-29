@@ -395,3 +395,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - new feature = apply a factor to lessen the avg rolling resistance in field for trailer with more than one axle inline. Use the "inlineAxleNumber" param to specify the number of axles that are in line (wheels on the same side in the same track) - see brandtner TR34090 as example. See "Vehicle.mrGetGeneralPressureForRrFx" for more information on this feature.
             - add converted Valtra S 6th gen (tractor)
             - add converted Massey ferguson 9S (tractor)
+            - add converted Summers CP2050 (cultivator)
