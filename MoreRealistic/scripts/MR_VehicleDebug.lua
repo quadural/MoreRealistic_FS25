@@ -108,7 +108,6 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         Utils.renderMultiColumnText(0.17, 0.574, textSize, {str3,str4}, 0.008, {RenderText.ALIGN_RIGHT,RenderText.ALIGN_LEFT})
 
         --20250222 - display fuel liter per hour smoothed
-        self.spec_motorized.mrLastFuelUsageS = 0.99*self.spec_motorized.mrLastFuelUsageS + 0.01*self.spec_motorized.lastFuelUsage
         setTextAlignment(RenderText.ALIGN_LEFT)
         renderText(0.45, 0.562, textSize, string.format("%1.1f",self.spec_motorized.mrLastFuelUsageS))
 

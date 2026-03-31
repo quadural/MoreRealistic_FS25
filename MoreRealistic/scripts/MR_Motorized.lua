@@ -195,6 +195,11 @@ Motorized.mrUpdateConsumers = function(self, superFunc, dt, accInput)
         end
     end
 
+    spec.mrLastFuelUsageS = 0.99*spec.mrLastFuelUsageS + 0.01*spec.lastFuelUsage
+    if spec.lastFuelUsage<0.01 and spec.mrLastFuelUsageS<0.01 then
+        spec.mrLastFuelUsageS = 0
+    end
+
 end
 Motorized.updateConsumers = Utils.overwrittenFunction(Motorized.updateConsumers, Motorized.mrUpdateConsumers)
 
@@ -409,6 +414,11 @@ Motorized.mrGetDashboardSpeedDir = function(self)
             return self.lastSignedSpeed*3600 --differentialRotSpeed ?
         end
     end
+end
+
+-- see Dashboard.mrRegisterDashboardValueType
+Motorized.mrGetDashboardFuelUsage = function(self)
+    return self.spec_motorized.mrLastFuelUsageS
 end
 
 

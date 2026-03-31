@@ -19,7 +19,10 @@
 
     <parentFile xmlFilename="$data/vehicles/summersMfg/superChisel/superChisel.xml">
         <attributes>
-            <set path="vehicle.powerConsumer#maxForce" value="160" />
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.powerConsumer#maxForce" value="140" />
 
             <set path="vehicle.attachable.brakeForce#force" value="0" />
 
@@ -175,6 +178,10 @@
             <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(64)#endCenterOfMass" />
             <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(65)#startCenterOfMass" />
             <remove path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(65)#endCenterOfMass" />
+
+            <!-- fix bug : when buying/loading this implement => unfold the first time : visually, it is in "shallow mode" but for the game, it is in deep mode -->
+            <set path="vehicle.workModes.workMode(0).animation#repeatAfterUnfolding" value="true" />
+            <set path="vehicle.workModes.workMode(1).animation#repeatAfterUnfolding" value="true" />
 
         </attributes>
     </parentFile>

@@ -396,3 +396,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Valtra S 6th gen (tractor)
             - add converted Massey ferguson 9S (tractor)
             - add converted Summers CP2050 (cultivator)
+            - add converted John Deere 9R (tractor)

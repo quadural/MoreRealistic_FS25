@@ -15,7 +15,7 @@
         <attributes>
 
             <set path="vehicle.base.components#maxMass" value="99999"/> <!-- remove this unrealistic things ! -->
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 0"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 0"/>
             <set path="vehicle.base.components.component(0)#mass" value="3500"/>
 
             <set path="vehicle.base.speedLimit#value" value="20" />
@@ -50,7 +50,7 @@
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="22"/>
             <set path="vehicle.powerConsumer#ptoRpm" value="540"/>
 
-            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2 -0.3"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 -0.3"/>
 
             <set path="vehicle.animations.animation(1).part(0)#endRot" value="-73 0 0"/>
             <set path="vehicle.animations.animation(1).part(1)#endRot" value="70 0 0"/>

@@ -18,15 +18,15 @@
     <parentFile xmlFilename="$data/vehicles/poettinger/rotocareV12400/rotocareV12400.xml">
         <attributes>
 
-            <set path="vehicle.base.components.component(0)#mass" value="1160" />
+            <set path="vehicle.base.components.component(0)#mass" value="1460" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.4 0.3" />
-            <set path="vehicle.base.components.component(1)#mass" value="550" />
+            <set path="vehicle.base.components.component(1)#mass" value="500" />
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.25 -0.2" />
-            <set path="vehicle.base.components.component(2)#mass" value="400" />
+            <set path="vehicle.base.components.component(2)#mass" value="300" />
             <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.25 -0.2" />
-            <set path="vehicle.base.components.component(3)#mass" value="550" />
+            <set path="vehicle.base.components.component(3)#mass" value="500" />
             <set path="vehicle.base.components.component(3)#centerOfMass" value="0 -0.25 -0.2" />
-            <set path="vehicle.base.components.component(4)#mass" value="400" />
+            <set path="vehicle.base.components.component(4)#mass" value="300" />
             <set path="vehicle.base.components.component(4)#centerOfMass" value="0 -0.25 -0.2" />
 
             <!-- no need to remove speed limit modifier nonsense => MR engine doesn't take it into account -->

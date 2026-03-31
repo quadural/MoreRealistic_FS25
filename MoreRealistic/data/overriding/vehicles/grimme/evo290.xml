@@ -16,7 +16,6 @@
 
             <set path="vehicle.storeData.specs.neededPower" value="180" />
 
-            <set path="vehicle.base.speedLimit#value" value="9" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0.1 1.8 -0.9" />
             <set path="vehicle.base.components.component(0)#mass" value="13700" />
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.4 -0.1" />

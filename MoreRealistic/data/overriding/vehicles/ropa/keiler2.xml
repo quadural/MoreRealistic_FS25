@@ -16,8 +16,6 @@
             <set path="vehicle.combine#threshingScale" value="0.94"/>
 
             <set path="vehicle.storeData.specs.neededPower" value="150" />
-
-            <set path="vehicle.base.speedLimit#value" value="9" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="-0.65 1.6 -0.65" />
             <set path="vehicle.base.components.component(0)#mass" value="13200" />
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0.2" />
