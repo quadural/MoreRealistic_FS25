@@ -14,6 +14,8 @@
     <parentFile xmlFilename="$data/vehicles/agromasz/pov5xl/pov5xl.xml">
         <attributes>
 
+            <set path="vehicle.storeData.shopTranslationOffset" value="0 0.17 0" /> <!-- correct y position when loading the implement in the shop to avoid bouncing -->
+
             <set path="vehicle.base.speedLimit#value" value="15"/>
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0.30 0.86 0"/>

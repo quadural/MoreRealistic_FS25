@@ -11,7 +11,7 @@
     <parentFile xmlFilename="$data/vehicles/lemken/solitair12/solitair12.xml">
         <attributes>
 
-            <set path="vehicle.base.speedLimit#value" value="12" />
+            <set path="vehicle.base.speedLimit#value" value="15" />
 
             <set path="vehicle.attachable.brakeForce#force" value="3" /> <!-- pneumatic brake -->
 
