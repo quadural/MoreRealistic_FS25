@@ -397,3 +397,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Massey ferguson 9S (tractor)
             - add converted Summers CP2050 (cultivator)
             - add converted John Deere 9R (tractor)
+
+202604XX    - fix bug : remove the "maxMass" setting for the John Deere S7 combine harvester (not relevant => cause bug when the hopper is near full level and the combine weight reaches 35T)
+            - rolling resistance tweaking (a driven wheel is easier to "pull" in wet soft ground than a not driven one)

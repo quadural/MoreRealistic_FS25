@@ -16,6 +16,9 @@
 
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0"/>
 
+            <!-- remove the maxMass setting which is a "nonsense" for a combine harvester -->
+            <remove path="vehicle.base.components#maxMass" />
+
             <!-- about 23500kgs (empty, no fuel, front 76cm track) => about 12000kg on the rear axle with full fuel tank and DEF -->
             <!-- remove exagerated intertia = very weird behavior when "cornering" (combine keeps on sliding) -->
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 2.1 0.5"/>

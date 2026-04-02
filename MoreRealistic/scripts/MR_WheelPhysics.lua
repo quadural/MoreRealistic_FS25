@@ -4,6 +4,7 @@ WheelPhysics.mrNew = function(wheel, superFunc)
 
     self.mrTireGroundRollingResistanceCoeff = 0.01
     self.mrLastTireLoad = 0
+    self.mrLastTireLoadS = 0
     self.mrLastWheelSpeed = 0
     self.mrLastWheelSpeedS = 0
     self.mrLastLongSlip = 0
@@ -191,7 +192,7 @@ WheelPhysics.mrUpdateDynamicFriction = function(self, dt)
 
             --limit "dynamic help" for narrow tires
             --we don't want player to keep narrow tire for every task
-            local maxScale = 100*self.mrTotalWidth*self.radius*self.mrTrackFx/math.max(0.1, self.mrLastTireLoad)
+            local maxScale = 100*self.mrTotalWidth*self.radius*self.mrTrackFx/math.max(0.1, self.mrLastTireLoadS)
             maxScale = math.max(0.8, maxScale)
 
             if maxScale>1 then
@@ -288,9 +289,10 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
     local pressurefx = 1
     if self.mrTotalWidth>0 then
         local groundWetness = g_currentMission.environment.weather:getGroundWetness()
-        rrFx, pressurefx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius*self.mrTrackFx, self.mrLastTireLoad, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness, self.vehicle.mrGetGeneralPressureForRrFx)
+        rrFx, pressurefx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius*self.mrTrackFx, self.mrLastTireLoadS, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness, self.vehicle.mrGetGeneralPressureForRrFx, self.mrIsDriven)
         rrFx = rrFx * self.mrScaleRR
     end
+    rrFx = 0.9*self.mrLastRrFx + 0.1*rrFx --02/04/2026 smooth rrFx
     self.mrLastRrFx = rrFx
     self.mrLastPressureFx = pressurefx
     --depend on surface (soft and field)
@@ -303,7 +305,7 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
         startFx = math.min(1, 0.1 + 1.8*math.abs(wheelSpeed))
     end
 
-    return startFx * tireLoad * rrCoeff * rrFx
+    return startFx * rrFx * tireLoad * rrCoeff
 end
 
 
@@ -324,7 +326,7 @@ WheelPhysics.mrGetPressureFx = function(width, radius, load)
 end
 
 
-WheelPhysics.mrGetDryFx = function(pressureFx, groundType, groundSubType)
+WheelPhysics.mrGetSoftTerrainDryFx = function(pressureFx, groundType, groundSubType, isDrivenWheel)
     local fx = 1
     if groundType==WheelsUtil.GROUND_FIELD then
         --loose field ground type
@@ -357,10 +359,15 @@ WheelPhysics.mrGetDryFx = function(pressureFx, groundType, groundSubType)
             fx = 0.504+pressureFx*0.16   -- fx=1.304 @5 pressure
         end
     end
-    return fx
+
+    if isDrivenWheel then
+        return 0.9 * fx
+    else
+        return fx
+    end
 end
 
-WheelPhysics.mrGetWetFx = function(pressureFx, groundType, groundSubType)
+WheelPhysics.mrGetSoftTerrainWetFx = function(pressureFx, groundType, groundSubType, isDrivenWheel)
     local fx = 1
     if groundType==WheelsUtil.GROUND_FIELD then
     --loose field ground type
@@ -375,24 +382,28 @@ WheelPhysics.mrGetWetFx = function(pressureFx, groundType, groundSubType)
     elseif groundType==WheelsUtil.GROUND_SOFT_TERRAIN then
         fx = 0.8+pressureFx*0.13   -- fx=1 @1.54 pressure
     end
-    return fx
+    if isDrivenWheel then
+        return 0.75 * fx
+    else
+        return fx
+    end
 end
 
 
-WheelPhysics.mrGetRrFx = function(width, radius, load, groundType, groundSubType, wetness, inlineAxleFx)
+WheelPhysics.mrGetRrFx = function(width, radius, tireLoad, groundType, groundSubType, wetness, inlineAxleFx, isDrivenWheel)
     local rrFx = 1
     local pressureFx = 1
     if groundType==WheelsUtil.GROUND_FIELD or groundType==WheelsUtil.GROUND_SOFT_TERRAIN then
-        pressureFx = WheelPhysics.mrGetPressureFx(width, radius, load)
+        pressureFx = WheelPhysics.mrGetPressureFx(width, radius, tireLoad)
         --limit max pressure (IRL, there would be no difference between 7bars or 20bars in bad conditions)
         pressureFx = math.min(pressureFx, 7) * inlineAxleFx
         if wetness==0 then
-            rrFx = WheelPhysics.mrGetDryFx(pressureFx, groundType, groundSubType)
+            rrFx = WheelPhysics.mrGetSoftTerrainDryFx(pressureFx, groundType, groundSubType)
         elseif wetness==1 then
-            rrFx = WheelPhysics.mrGetWetFx(pressureFx, groundType, groundSubType)
+            rrFx = WheelPhysics.mrGetSoftTerrainWetFx(pressureFx, groundType, groundSubType)
         else --in between wetness
             wetness = wetness^0.5
-            rrFx = (1-wetness) * WheelPhysics.mrGetDryFx(pressureFx, groundType, groundSubType) + wetness * WheelPhysics.mrGetWetFx(pressureFx, groundType, groundSubType)
+            rrFx = (1-wetness) * WheelPhysics.mrGetSoftTerrainDryFx(pressureFx, groundType, groundSubType, isDrivenWheel) + wetness * WheelPhysics.mrGetSoftTerrainWetFx(pressureFx, groundType, groundSubType, isDrivenWheel)
         end
     end
     return rrFx, pressureFx
@@ -450,6 +461,7 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                 damping = self.mrRotationDamping
             end
             self.mrLastTireLoad = tireLoad --KN
+            self.mrLastTireLoadS = 0.99*self.mrLastTireLoadS + 0.01*tireLoad
             self.mrLastWheelSpeedS = 0.9*self.mrLastWheelSpeedS + 0.1*wheelSpeed
             self.mrLastWheelSpeed = wheelSpeed
 
@@ -482,12 +494,16 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
 
         --20250601 - increase damping at low speed
         if self.hasGroundContact then
-            local lastSpeed = self.vehicle:getLastSpeed() --kph
+            local lastSpeed = math.abs(self.mrLastWheelSpeed * 3.6)
+            --we want to simulate rolling resistance here since this is not really possible at very low speed with forces
             if lastSpeed<3 then
-                damping = (100-33*lastSpeed)*damping --we want to simulate rolling resistance here since this is not really possible at very low speed with forces
+                if self.mrIsDriven then
+                    damping = (13-4*lastSpeed)*damping
+                else
+                    damping = (31-10*lastSpeed)*damping
+                end
             end
         end
-
 
         --brakeForce to force = value * radius (in fact, brakeForce param of this function = brake torque => force * radius = torque)
         setWheelShapeProps(self.wheel.node, self.wheelShape, 0, totalForce*self.radius, self.steeringAngle, damping)

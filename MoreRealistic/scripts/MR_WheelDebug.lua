@@ -9,6 +9,8 @@ WheelDebug.mrGetDebugValueHeader = function(self, superFunc)
     table1[22]="GType\n"
     table1[23]="rrFx\n"
     table1[24]="GPressure\n"
+    table1[25]="Load\n"
+
     return table1
 end
 WheelDebug.getDebugValueHeader = Utils.overwrittenFunction(WheelDebug.getDebugValueHeader, WheelDebug.mrGetDebugValueHeader)
@@ -45,6 +47,8 @@ WheelDebug.mrFillDebugValues = function(self, superFunc, debugTable)
     debugTable[22]  = debugTable[22]  .. string.format("%s\n", RealisticUtils.groundTypeToName[self.wheel.physics.mrLastGroundType])
     debugTable[23]  = debugTable[23]  .. string.format("%2.2f\n", self.wheel.physics.mrLastRrFx)
     debugTable[24]  = debugTable[24]  .. string.format("%2.2f\n", self.wheel.physics.mrLastPressureFx)
+    debugTable[25]  = debugTable[25]  .. string.format("%2.2f\n", self.wheel.physics.mrLastTireLoadS)
+
 
 end
 WheelDebug.fillDebugValues = Utils.overwrittenFunction(WheelDebug.fillDebugValues, WheelDebug.mrFillDebugValues)
