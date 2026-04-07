@@ -493,15 +493,12 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
         end
 
         --20250601 - increase damping at low speed
-        if self.hasGroundContact then
-            local lastSpeed = math.abs(self.mrLastWheelSpeed * 3.6)
+        --20260403 - see end of "mrGetRollingResistance" function
+        if self.hasGroundContact and not self.mrIsDriven then
+            local lastSpeed = math.abs(self.mrLastWheelSpeed) --m/s
             --we want to simulate rolling resistance here since this is not really possible at very low speed with forces
-            if lastSpeed<3 then
-                if self.mrIsDriven then
-                    damping = (13-4*lastSpeed)*damping
-                else
-                    damping = (31-10*lastSpeed)*damping
-                end
+            if lastSpeed<0.5 then
+                damping = (10-18*lastSpeed)*damping
             end
         end
 

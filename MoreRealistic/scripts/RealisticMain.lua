@@ -28,6 +28,7 @@ source(Utils.getFilename("scripts/MR_ConveyorLoaderVehicle.lua", g_currentModDir
 source(Utils.getFilename("scripts/MR_Cultivator.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Dashboard.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Drivable.lua", g_currentModDirectory))
+source(Utils.getFilename("scripts/MR_DynamicMountAttacher.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_FillTypeManager.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_FillUnit.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_FruitPreparer.lua", g_currentModDirectory))

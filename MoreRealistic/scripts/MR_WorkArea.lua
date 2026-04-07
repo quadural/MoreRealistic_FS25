@@ -11,7 +11,7 @@ WorkArea.mrGetIsWorkAreaActive = function(self, superFunc, workArea)
 
     local result = superFunc(self, workArea)
 
-    if result and self.isServer and self.mrIsMrVehicle and not self.mrImplementProcessAreaWhileNotMoving then --only for MR vehicle to avoid unmanaged cases
+    if result and self.isServer and self.mrIsMrVehicle and workArea.requiresGroundContact and not self.mrImplementProcessAreaWhileNotMoving then --only for MR vehicle to avoid unmanaged cases
         if self.components[1].isDynamic then
             --check ground speed of the implement
             --local vx, vy, vz = getLocalLinearVelocity(self.components[1].node)

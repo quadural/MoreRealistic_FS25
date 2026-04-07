@@ -68,10 +68,6 @@ PowerConsumer.mrOnLoad = function(self, savegame)
 
     self.mrLastForce = 0
     self.mrLastNeededPtoPower = 0
-
-    local categories = self.xmlFile:getValue("vehicle.storeData.category")
-    self.mrStoreCategory = categories~=nil and categories[1] or "none"
-
     self.mrPtoPowerFxMin = 0.1
     self.mrPtoPowerFx = 1
     if self.spec_workArea~=nil and self.spec_workArea.forceNode ~= nil and self.mrPowerConsumerPtoForSoilWork then

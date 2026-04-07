@@ -16,18 +16,18 @@
             <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#mass" value="6700"/>
 
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="10"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="10"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="19"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="19"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="25"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="25"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="20"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="20"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="170"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="170"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="200"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="34"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="34"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="110"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0.035"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0.035"/>
@@ -61,10 +61,10 @@
 
 
             <!-- gsVehicleAnalyze fix -->
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="6.75"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="6.75"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="5.26"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="5.26"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="5.63"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="5.63"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="4.09"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="4.09"/>
 
             <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#lower" value="0.317"/>
             <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#upper" value="1.251"/>
@@ -72,10 +72,10 @@
             <set path="vehicle.attacherJoints.attacherJoint(1).distanceToGround#lower" value="0.595"/>
             <set path="vehicle.attacherJoints.attacherJoint(1).distanceToGround#upper" value="1.150"/>
 
-            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#lowerRotationOffset" value="-0.79"/>
-            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#upperRotationOffset" value="-0.79"/>
-            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0).distanceToGround#lower" value="0.336"/>
-            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0).distanceToGround#upper" value="1.294"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#lowerRotationOffset" value="-1.26"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#upperRotationOffset" value="-1.26"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0).distanceToGround#lower" value="0.322"/>
+            <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0).distanceToGround#upper" value="1.281"/>
 
             <!-- end gsVehicleAnalyze -->
 

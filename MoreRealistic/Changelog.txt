@@ -400,3 +400,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
 202604XX    - fix bug : remove the "maxMass" setting for the John Deere S7 combine harvester (not relevant => cause bug when the hopper is near full level and the combine weight reaches 35T)
             - rolling resistance tweaking (a driven wheel is easier to "pull" in wet soft ground than a not driven one)
+            - fix bug : with a combine, when attaching/detaching the header onto a "header trailer", by leaving the combine above the "header trailer" without driver, the combine was linked to the "header trailer" (only way to free it = resetting the trailer to the shop)
+            - fix MR bug : enable "workarea" processing when not moving for combine harvesters (now check "workArea.requiresGroundContact") => this was causing a huge pile of straw when straw dropping is enable and the combine is not moving while activated

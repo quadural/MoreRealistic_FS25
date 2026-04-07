@@ -17,6 +17,8 @@
     <parentFile xmlFilename="$data/vehicles/horsch/maestro2450SV/maestro2450SV.xml">
         <attributes>
 
+            <set path="vehicle.storeData.shopTranslationOffset" value="0 0.25 0" /> <!-- correct y position when loading the implement in the shop to avoid bouncing -->
+
             <set path="vehicle.base.speedLimit#value" value="12" />
 
             <set path="vehicle.base.components.component(0)#mass" value="7500" />

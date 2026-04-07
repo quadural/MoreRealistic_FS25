@@ -123,6 +123,14 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         self.mrLastUpdateWheelsPhysicsTime = 0
         self.mrTemporizeAccelerationTimer = 0
 
+        local categories = self.xmlFile:getValue("vehicle.storeData.category")
+        self.mrStoreCategory = categories~=nil and categories[1] or "none"
+
+        --we want to know if this is a "combine header trailer" implement
+        if self.mrStoreCategory=="cutterTrailers" or self.mrStoreCategory=="forageHarvesterCutterTrailers" then
+            self.mrIsHeaderTrailer = true
+        end
+
     end
 
     return result
