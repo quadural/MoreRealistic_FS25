@@ -430,7 +430,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         accPedal = 0
         if motor.lastRealMotorRpm>(motor.minRpm+1) then
             self.spec_motorized.mrEngineIsBraking = true
-            self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower)*motor.lastRealMotorRpm/motor.maxRpm
+            self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.5*motor.mrEngineBrakingPowerFx*motor.peakMotorPower)*motor.lastRealMotorRpm/motor.maxRpm
         end
     elseif currentClutchSpd>targetRot then
         accPedal = math.min(accPedal, 1-(currentClutchSpd-targetRot)/10.472)
