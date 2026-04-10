@@ -9,7 +9,7 @@
     <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
     <!-- IRL, this combine would perform worst than the mf8570 most of the time, but we don't want that in game since the 8570 is the "old" one with which we start our farm -->
-    <mrCombine chopperIdlePower="10" chopperPowerFx="1" unloadingPower="20" threshingIdlePower="30" threshingPowerFx="1" irlSpotTonPerHour="30" maxFieldThreshingSpeed="14" />
+    <mrCombine chopperIdlePower="10" chopperPowerFx="1" unloadingPower="20" threshingIdlePower="30" threshingPowerFx="0.8" irlSpotTonPerHour="30" maxFieldThreshingSpeed="14" />
 
             <!-- IRL => hydrostatic, 3 gears
                 no data found

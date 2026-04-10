@@ -402,3 +402,11 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - rolling resistance tweaking (a driven wheel is easier to "pull" in wet soft ground than a not driven one)
             - fix bug : with a combine, when attaching/detaching the header onto a "header trailer", by leaving the combine above the "header trailer" without driver, the combine was linked to the "header trailer" (only way to free it = resetting the trailer to the shop)
             - fix MR bug : enable "workarea" processing when not moving for combine harvesters (now check "workArea.requiresGroundContact") => this was causing a huge pile of straw when straw dropping is enable and the combine is not moving while activated
+            - add converted Claas 6900 (combine) + convioFlex 1080 (header)
+            - add converted Krampe RamBody AS750+ (trailer)
+            - add converted Demco 850 (auger wagon)
+            - add converted Bergmann GTW330 (auger wagon)
+            - some changes for the "motor damping" when pto is active
+            - more natural engine braking and less agressive speed reduction in certain circumtances (especially when pto is active)
+            - rework of the Agrifac condor (was not up to the mr standard = first vehicle converted to test "hydromotive" transmission)
+            - add converted J&M X-Tended Reach 1112 (auger wagon)

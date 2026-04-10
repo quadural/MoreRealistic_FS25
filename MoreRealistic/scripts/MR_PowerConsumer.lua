@@ -60,6 +60,7 @@ PowerConsumer.mrLoadMrValues = function(self, xmlFile)
 
     self.mrPowerConsumerMaxGroundDistanceToApplyDraftForce = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#maxGroundDistance")
     self.mrPowerConsumerToolCategory = getXMLString(xmlFile, "vehicle.mrPowerConsumer#mrToolCategory")
+    self.mrPowerConsumerPtoPowerStartingTime = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#ptoPowerStartingTime") or 2000 --milliseconds. Time to smooth the pto power when starting a tool (example : auger wagon)
 
 end
 
@@ -560,7 +561,7 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
 
             --MR = 2s to reach power needed
             if self.mrLastNeededPtoPower~=neededPtoPower then
-                neededPtoPower = math.min(neededPtoPower, self.mrLastNeededPtoPower + neededPtoPower*g_physicsDtLastValidNonInterpolated/500)
+                neededPtoPower = math.min(neededPtoPower, self.mrLastNeededPtoPower + neededPtoPower*g_physicsDtLastValidNonInterpolated/self.mrPowerConsumerPtoPowerStartingTime)
                 self.mrLastNeededPtoPower = neededPtoPower
             end
 

@@ -37,9 +37,9 @@ Motorized.mrLoadMotor = function(self, superFunc, xmlFile, motorId)
     end
 
     if motorEngineBrakingFx==nil then
-        self.spec_motorized.motor.mrEngineBrakingPowerFx = 0.7
+        self.spec_motorized.motor.mrEngineBrakingPowerFx = RealisticMain.ENGINE_BRAKING_FX_DEFAULT
         if self.mrTransmissionIsHydrostatic then
-            self.spec_motorized.motor.mrEngineBrakingPowerFx = 0.9
+            self.spec_motorized.motor.mrEngineBrakingPowerFx = RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC
         end
     else
         self.spec_motorized.motor.mrEngineBrakingPowerFx = motorEngineBrakingFx
@@ -255,8 +255,12 @@ Motorized.mrUpdateMotorProperties=function(self)
 
     --damping is consuming power, and so, we only want to set the right value when "decelerating" to simulate engine braking power
     local fx = 0.24
-    if spec.mrEngineIsBraking then
-        fx = 10*fx
+    if spec.mrEngineIsBraking and not spec.mrPreventMotorObjectEngineBraking then
+        if motor.lastMotorExternalTorque==0 then
+            fx = 5*fx
+        else
+            fx = 4*fx --less damping when the pto is activated
+        end
     end
 
     local dampingRateZeroThrottleClutchDisengaged = fx*motor.peakMotorTorque/1000
@@ -359,9 +363,12 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
 
     if self.isServer and spec.motorizedNode~=nil then
 
+
+
         --case : auto start motor disabled and a woodcrusher is working without driver
+        local neededPtoTorque = 0
         if motorState == MotorState.ON and not self:getIsAIActive() and self.getIsControlled ~= nil and not self:getIsControlled() then
-            local neededPtoTorque, _ = PowerConsumer.getTotalConsumedPtoTorque(self)
+            neededPtoTorque, _ = PowerConsumer.getTotalConsumedPtoTorque(self)
             if neededPtoTorque>0 then
                 neededPtoTorque = neededPtoTorque / spec.motor:getPtoMotorRpmRatio()
                 local minRotForPTO, _ = spec.motor:getRequiredMotorRpmRange()
@@ -375,14 +382,9 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
             end
         end
 
-
         --update motorizedNode get values
         spec.motor.mrLastMotorObjectRotSpeed, _, spec.motor.mrLastMotorObjectGearRatio = getMotorRotationSpeed(spec.motorizedNode)
-
-        if spec.motor.mrLastMotorObjectRotSpeed<(spec.motor.mrMinRot+0.5)
-        or (spec.motor.lastMotorExternalTorque>0 and self.lastSpeedReal*3600<0.2) then --not good when in neutral => we don't want engine braking if "real" engine rpm is at idle
-            spec.mrEngineIsBraking = false
-        end
+        spec.motor.mrLastPtoPower = neededPtoTorque * spec.motor.mrLastMotorObjectRotSpeed --KW
 
         local needUpdate = spec.mrLastEngineIsBraking~=spec.mrEngineIsBraking or spec.motor.mrIsChangingDirection
         if self.mrTransmissionPowerRatio<1 then
@@ -392,6 +394,24 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
                 self.mrLastTurnedOnState = turnedOn
             end
         end
+
+        --20260408 - do not allow full increase damping effect when the pto is engaged
+        if (spec.motor.mrLastMotorExternalTorque==0 and spec.motor.lastMotorExternalTorque>0) or (spec.motor.lastMotorExternalTorque==0 and spec.motor.mrLastMotorExternalTorque>0) then
+            spec.motor.mrLastMotorExternalTorque = spec.motor.lastMotorExternalTorque
+            needUpdate = true
+        end
+
+        --20260409 - do not allow any increase damping effect when engine rpm is too low(take into account if the pto is engaged too)
+        local preventMotorObjectEngineBraking = false
+        if (spec.motor.mrLastMotorObjectRotSpeed<(spec.motor.mrMinRot+0.5) or (spec.motor.lastMotorExternalTorque>0 and spec.motor.mrLastMotorObjectRotSpeed<spec.motor.mrLastMinRotForPTO)) then
+            preventMotorObjectEngineBraking = true
+        end
+
+        if preventMotorObjectEngineBraking~=spec.mrPreventMotorObjectEngineBraking then
+            needUpdate = true
+            spec.mrPreventMotorObjectEngineBraking = preventMotorObjectEngineBraking
+        end
+
         if needUpdate then
             spec.mrLastEngineIsBraking = spec.mrEngineIsBraking
             self:updateMotorProperties()

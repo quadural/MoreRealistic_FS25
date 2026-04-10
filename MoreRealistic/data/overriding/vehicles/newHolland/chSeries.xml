@@ -56,7 +56,7 @@
 
             <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="1100"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2100"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="32"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="15"/>

@@ -106,6 +106,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
                 self.mrTransmissionPtoModeMinEngineRotWanted = self.mrTransmissionPtoModeMinEngineRotWanted * math.pi / 30 --rpm to rad/s
                 self.mrTransmissionAutomotiveTargetRot = 0
             end
+            self.mrTransmissionLastMaxEngineRotWanted = 0
         end
 
         --20260325 - mrImplement

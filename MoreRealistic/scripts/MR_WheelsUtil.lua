@@ -101,8 +101,10 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         end
     end
 
-    minRotForPTOidle = math.max(minRotForPTOidle, motor.mrMinRot)
 
+    minRotForPTOidle = math.max(minRotForPTOidle, motor.mrMinRot)
+    motor.mrLastMinRotForPTOidle = minRotForPTOidle
+    motor.mrLastMinRotForPTO = minRotForPTO
 
 
 
@@ -489,6 +491,9 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     end
 
     --self:controlVehicle(accPedal, electronicMaxSpeed, maxAcceleration, minRotToApply, targetRot, maxMotorRotAcceleration, minGearRatio, maxGearRatio, clutchForce, neededPtoTorque)
+    --if neededPtoTorque>0 and self.mrForcePtoRpm then
+    --    accPedal = math.max(0.1, accPedal) --we need some accpedal if the pto is engaged and "forced"
+    --end
     self:controlVehicle(accPedal, electronicMaxSpeed, maxAcceleration, minMotorRot, targetRot, maxMotorRotAcceleration, minGearRatio, maxGearRatio, clutchForce, neededPtoTorque)
 
 
@@ -515,6 +520,15 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
         targetRot = self.mrTransmissionPtoModeMaxEngineRotWanted
     end
     targetRot = math.max(targetRot, minRotForPTO)
+
+    --20260408 - smooth the changing from pto mode to road mode
+    if self.mrTransmissionLastMaxEngineRotWanted==0 then
+        self.mrTransmissionLastMaxEngineRotWanted = targetRot
+    end
+    targetRot = 0.99*self.mrTransmissionLastMaxEngineRotWanted + 0.01*targetRot
+    self.mrTransmissionLastMaxEngineRotWanted = targetRot
+
+
 
 
 
@@ -572,16 +586,18 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
             newGearRatio = (1+0.005*dt*0.06) * curGearRatio * targetRot / math.max(1, motor.mrLastMotorObjectRotSpeed)
             newGearRatio = math.min(newGearRatio, wantedGearRatio)
             newGearRatio = math.max(newGearRatio, minGearRatio) --avoid getting ratio too low when going downhill
+            local fx = 0.85 --a little less "agressive" than when changing direction
             if accPedal>0 then
                 accPedal = 1
+                fx = 15/newGearRatio
             end
-            self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*15/newGearRatio)
+            self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, fx*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
 
         else
             --we are in the wanted gearRatio
             newGearRatio = curGearRatio
             if accPedal==0 and wantedGearRatio==maxGearRatioPossible then
-                self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
+                self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.9*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
             else
 
                 if motor.mrLastMotorObjectRotSpeed>1.02*targetRot then
@@ -604,10 +620,10 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostatic = function(self, dt, accPedal, maxAc
         newGearRatio = curGearRatio * targetRot / math.max(1, motor.mrLastMotorObjectRotSpeed)
         newGearRatio = math.min(newGearRatio, maxGearRatioPossible)
         accPedal = 0
-        --20250604- apply a factor of 0.2 since the controlVehicle is also braking the vehicle with the engine inertia
-        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.2*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
 
-        if newGearRatio == maxGearRatioPossible and math.abs(motor.differentialRotSpeed)<0.2 then --0.1 = 0.72kph
+        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
+
+        if newGearRatio == maxGearRatioPossible then
             --engage right direction
             --gearDirection = motor.currentDirection
             accPedal = 1
@@ -687,14 +703,14 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
         --limit at low speed
         ffx = math.min(ffx, 0.25*lastSpd)
         --20251204- apply a factor of 0.5 since the controlVehicle is also braking the vehicle with the engine inertia
-        self.spec_motorized.mrEngineBrakingPowerToApply = 0.3*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
+        self.spec_motorized.mrEngineBrakingPowerToApply = 0.8*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio*ffx
     end
 
     self.mrTransmissionAutomotiveTargetRot = math.max(self.mrTransmissionAutomotiveTargetRot, targetMinRot)
 
 
     if math.abs(motor.differentialRotSpeed)<0.01 or motor.differentialRotSpeed*gearDirection>0 then
-        if lastSpd<targetSpeed then
+        if lastSpd<(targetSpeed-0.013) then --0.05kph
             --not enough speed
 
             --accPedal = 1
@@ -739,8 +755,8 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
         newGearRatio = (self.mrTransmissionAutomotiveTargetRot+minRadsDrop) / math.max(0.1, lastSpd)
         newGearRatio = math.min(newGearRatio, maxRatio)
 
-        --20251204- apply a factor of 0.3 since the controlVehicle is also braking the vehicle with the engine inertia
-        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, 0.3*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
+
+        self.spec_motorized.mrEngineBrakingPowerToApply = math.max(self.spec_motorized.mrEngineBrakingPowerToApply, motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio)
 
         if newGearRatio == maxRatio then
             --engage right direction

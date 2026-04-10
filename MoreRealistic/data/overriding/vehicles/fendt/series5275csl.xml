@@ -7,7 +7,7 @@
     <mrTransmission isHydrostatic="true" maxRpmWanted="2000" powerRatio="0.8" />
     <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
-    <mrCombine chopperIdlePower="10" chopperPowerFx="0.95" unloadingPower="24" threshingIdlePower="35" threshingPowerFx="0.95" irlSpotTonPerHour="34" maxFieldThreshingSpeed="13" />
+    <mrCombine chopperIdlePower="10" chopperPowerFx="0.95" unloadingPower="24" threshingIdlePower="35" threshingPowerFx="0.8" irlSpotTonPerHour="34" maxFieldThreshingSpeed="13" />
 
         <!-- ONLY FOR ICON GENERATION -->
     <storeData>

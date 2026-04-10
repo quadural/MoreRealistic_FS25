@@ -109,6 +109,11 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
 
     newMotor.mrCvtRatioIncRate = 0 --only for mr CVT transmission
 
+    newMotor.mrLastMotorExternalTorque = 0
+    newMotor.mrLastMinRotForPTOidle = 0
+    newMotor.mrLastMinRotForPTO = 0
+    newMotor.mrLastPtoPower = 0
+
     return newMotor
 
 end
@@ -1111,7 +1116,7 @@ VehicleMotor.mrFindGearChangeTargetGearPrediction = function(self, curGear, gear
     --20250422 - new way of determining if we should shift down or not = check the "motorRotAcceleration" and the totalTime we are below wantedRpm
     --if motorRotAcc is positive and we are not so low in rpm = don't shift down and keep the current gear
 
-    if not gearFound and engineRpm<minRpmWanted then --and self.mrTransmissionLastShiftDirection<=0 then
+    if not gearFound and (forceLug or engineRpm<minRpmWanted) then --and self.mrTransmissionLastShiftDirection<=0 then
 
         --increment "lug" time
         if forceLug then

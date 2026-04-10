@@ -23,6 +23,7 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrScaleRR = 1
     self.mrTrackFx = 1
     self.mrNoGroundDisplacementWhenLowered = false --should be set to true for implement's wheels that are touching the ground in working position and are part of the workarea of the implement (example : vaderstad nz extreme 1425)
+    self.mrLastEngineBrakeForce = 0
 
     return self
 
@@ -71,7 +72,7 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
         self.mrTotalWidth = self.width
 
         --add some randomness to the damping value
-        self.rotationDamping = (0.5+math.random())*self.rotationDamping --80% to 120% base value
+        self.rotationDamping = (0.5+math.random())*self.rotationDamping --50% to 150% base value
         self.mrRotationDamping = self.rotationDamping
         --load mrABS
         self.mrABS = xmlObject:getValue(".physics#mrABS", false)
@@ -473,13 +474,18 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                 if self.mrLastTireLoad>0 and self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels>0 then
                     --force * speed = power => force = power / speed
                     local engineBrake = self.vehicle.spec_motorized.mrEngineBrakingPowerToApply*self.mrLastTireLoad/self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels
-                    --max engine brake "power" down to 3mph
-                    engineBrakeForce = engineBrake/math.max(3, math.abs(wheelSpeed))
+                    --max engine brake "power" down to 1.8kph
+                    engineBrakeForce = engineBrake/math.max(0.5, math.abs(wheelSpeed))
+                    if engineBrakeForce>self.mrLastEngineBrakeForce then
+                        --do not give the full engine brake force to the wheel right away = there is a "response time" from the engine. Far smoother gameplay experience when "playing" with the power shuttle quickly
+                        engineBrakeForce = 0.99*self.mrLastEngineBrakeForce + 0.01*engineBrakeForce
+                    end
                 end
             end
 
         end
 
+        self.mrLastEngineBrakeForce = engineBrakeForce
         self.mrLastBrakeForce = bForce
 
         local totalForce = rrForce+bForce+engineBrakeForce
@@ -576,35 +582,34 @@ WheelPhysics.mrUpdateBase = function(self, superFunc)
             self.wheelShapeCreated = false
         end
 
-        local spring = self.spring
-        local damperCompressionLowSpeed = self.damperCompressionLowSpeed
-        local damperCompressionHighSpeed = self.damperCompressionHighSpeed
-        local damperRelaxationLowSpeed = self.damperRelaxationLowSpeed
-        local damperRelaxationHighSpeed = self.damperRelaxationHighSpeed
-
-        if self.dynamicSuspension ~= nil then
-            local springMultiplier = MathUtil.lerp(1, self.dynamicSuspension.springLoadMultiplier, self.dynamicSuspension.appliedAlpha)
-            local dampingMultiplier = MathUtil.lerp(1, self.dynamicSuspension.dampingLoadMultiplier, self.dynamicSuspension.appliedAlpha)
-
-            spring = spring * springMultiplier
-            damperCompressionLowSpeed = damperCompressionLowSpeed * dampingMultiplier
-            damperCompressionHighSpeed = damperCompressionHighSpeed * dampingMultiplier
-            damperRelaxationLowSpeed = damperRelaxationLowSpeed * dampingMultiplier
-            damperRelaxationHighSpeed = damperRelaxationHighSpeed * dampingMultiplier
-        end
+        local spring = self.spring * self.springMultiplier
+        local damperCompressionLowSpeed = self.damperCompressionLowSpeed * self.dampingMultiplier
+        local damperCompressionHighSpeed = self.damperCompressionHighSpeed * self.dampingMultiplier
+        local damperRelaxationLowSpeed = self.damperRelaxationLowSpeed * self.dampingMultiplier
+        local damperRelaxationHighSpeed = self.damperRelaxationHighSpeed * self.dampingMultiplier
 
         local collisionGroup = WheelPhysics.COLLISION_GROUP
         local collisionMask = self.collisionMask or WheelPhysics.COLLISION_MASK
+
+        ----------------------------------------------------------------------------------------------------
+        -- MR MODIFICATION ---------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------
+
         --MR : greater wheel mass to simulate inertia
         local mass = 2*self.wheel:getMass()
 
         --20260307 - additionnal "mass inertia" for crawler (IRL = crawler is a whole but in the game, it is represented by 2 or 3 wheelshape
-        if self.tireType==WheelsUtil.getTireType("crawler") then
-            mass = 2 * mass
-        end
+        --if self.tireType==WheelsUtil.getTireType("crawler") then
+        --   mass = 2 * mass
+        ---end
 
         self.mrRotationDamping = 2*self.rotationDamping
+
         self.wheelShape = createWheelShape(self.wheel.node, positionX, positionY, positionZ, self.radius, self.suspTravel, spring, damperCompressionLowSpeed, damperCompressionHighSpeed, self.damperCompressionLowSpeedThreshold, damperRelaxationLowSpeed, damperRelaxationHighSpeed, self.damperRelaxationLowSpeedThreshold, mass, collisionGroup, collisionMask, self.wheelShape)
+
+        ----------------------------------------------------------------------------------------------------
+        -- END MR MODIFICATION -----------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------
 
         local forcePointY = positionY - self.radius * self.forcePointRatio
         local steeringX, steeringY, steeringZ = localToLocal(getParent(self.wheel.repr), self.wheel.node, self.wheel.startPositionX, self.wheel.startPositionY+self.deltaY, self.wheel.startPositionZ)
