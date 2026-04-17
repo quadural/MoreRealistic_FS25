@@ -1,3 +1,7 @@
+Combine.MR_MIN_SPEED_LIMIT = 2
+
+
+
 Combine.mrLoadMrValues = function(self, xmlFile)
 
     self.mrIsMrCombine = hasXMLProperty(xmlFile, "vehicle.mrCombine")
@@ -19,8 +23,10 @@ Combine.mrLoadMrValues = function(self, xmlFile)
         self.mrCombineLitersBufferTime = 0
         self.mrCombineLastValidFruitTypeDesc = nil
         self.mrCombineLastRegulatingAccFactor = 1
-        self.mrCombineSpeedBuffer = 0
-        self.mrCombineSpeedBufferCount = 0
+        --self.mrCombineSpeedBuffer = 0
+        --self.mrCombineSpeedBufferCount = 0
+        self.mrCombineDistanceBuffer = 0
+        self.mrCombineBufferStartTime = 0
         self.mrCombineCapacitySpeedLimitCurrent = 999
     end
 
@@ -57,10 +63,14 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
     local spec = self.spec_combine
     local isTurnedOn = self:getIsTurnedOn()
     local neededPower = 0
+    local increaseFx = 1
 
     --pipe
     if self.spec_dischargeable.currentDischargeState~=Dischargeable.DISCHARGE_STATE_OFF then
         neededPower = neededPower + self.mrCombineUnloadingPower
+        if self:getIsAIActive() then
+            increaseFx = 0.3 --limited speed increase when the ai is driving the combine and unloading
+        end
     end
 
     if isTurnedOn then
@@ -90,23 +100,30 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         self.mrCombineLitersBuffer = self.mrCombineLitersBuffer + self.mrCombineLastLitersThreshed
         self.mrCombineLastLitersThreshed = 0
 
-        self.mrCombineSpeedBuffer = self.mrCombineSpeedBuffer + self.lastSpeedReal
-        self.mrCombineSpeedBufferCount = self.mrCombineSpeedBufferCount + 1
+        self.mrCombineDistanceBuffer = self.mrCombineDistanceBuffer + self.lastMovedDistance --meters
+
+        --self.mrCombineSpeedBuffer = self.mrCombineSpeedBuffer + self.lastSpeedReal
+        --self.mrCombineSpeedBufferCount = self.mrCombineSpeedBufferCount + 1
 
         --sample every 750 millisecond
         if g_time>self.mrCombineLitersBufferTime then
             local maxTime = 750
-            local totalTime = maxTime + g_time - self.mrCombineLitersBufferTime
+            --local totalTime = maxTime + g_time - self.mrCombineLitersBufferTime
+            local totalTime = g_time - self.mrCombineBufferStartTime
             self.mrCombineLitersPerSecond = 1000*self.mrCombineLitersBuffer / totalTime
             self.mrCombineLitersPerSecondS1 = 0.5*self.mrCombineLitersPerSecondS1 + 0.5*self.mrCombineLitersPerSecond --smooth1
             self.mrCombineLitersPerSecondS2 = 0.8*self.mrCombineLitersPerSecondS2 + 0.2*self.mrCombineLitersPerSecond --smooth2
 
-            local avgSpeed = 3600 * self.mrCombineSpeedBuffer / self.mrCombineSpeedBufferCount
+            --local avgSpeed = 3600 * self.mrCombineSpeedBuffer / self.mrCombineSpeedBufferCount
+            local avgSpeed = self.mrCombineDistanceBuffer / totalTime --meters per millisecond
+            avgSpeed = avgSpeed * 3600 --kph
 
 
             self.mrCombineLitersBuffer = 0
-            self.mrCombineSpeedBuffer = 0
-            self.mrCombineSpeedBufferCount = 0
+            self.mrCombineDistanceBuffer = 0
+            self.mrCombineBufferStartTime = g_time
+            --self.mrCombineSpeedBuffer = 0
+            --self.mrCombineSpeedBufferCount = 0
 
             self.mrCombineLitersBufferTime = g_time + maxTime
 
@@ -149,7 +166,6 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         --local peakWantedPower = 0.8*self.spec_powerConsumer.sourceMotorPeakPower
         local engineLoad = 0
 
-        local minSpeedLimit = 2
         local maxSpeedLimit = self.mrCombineSpeedLimitMax
         self.mrCombineSpeedLimit = math.min(maxSpeedLimit, self.mrCombineSpeedLimit)
 
@@ -173,18 +189,18 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         if self.mrCombineSpeedLimit>self.mrCombineCapacitySpeedLimitCurrent then
             --we are going too fast compared to the combine harvesting capacity (nothing to do with power = IRL the combine would be plugged or losing grain)
             local spd = self.mrCombineSpeedLimit-self.mrCombineCapacitySpeedLimitCurrent
-            self.mrCombineSpeedLimit = math.max(self.mrCombineSpeedLimit-spd*g_physicsDtLastValidNonInterpolated/2000, self.mrCombineCapacitySpeedLimitCurrent, minSpeedLimit) --deceleration = 2 seconds to reach the difference
+            self.mrCombineSpeedLimit = math.max(self.mrCombineSpeedLimit-spd*g_physicsDtLastValidNonInterpolated/2000, self.mrCombineCapacitySpeedLimitCurrent, Combine.MR_MIN_SPEED_LIMIT) --deceleration = 2 seconds to reach the difference
         elseif self.mrCombineLitersPerSecond==0 then
             --no more crop ?
-            self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit+g_physicsDtLastValidNonInterpolated/500, maxSpeedLimit) -- acc = 2kph per second
+            self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit+increaseFx*g_physicsDtLastValidNonInterpolated/500, maxSpeedLimit) -- acc = 2kph per second
         elseif engineLoad>1.005 then
             --engine overloaded = lower the speedlimit
             --local spd = overloadedFx-1
-            self.mrCombineSpeedLimit = math.max(self.mrCombineSpeedLimit-g_physicsDtLastValidNonInterpolated/20000, minSpeedLimit) --acc = 0.05kph per second
+            self.mrCombineSpeedLimit = math.max(self.mrCombineSpeedLimit-g_physicsDtLastValidNonInterpolated/20000, Combine.MR_MIN_SPEED_LIMIT) --acc = 0.05kph per second
         elseif engineLoad<0.95 then
             --no enough engine load -> increase speed limit
             local spd = 1-engineLoad
-            self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit+spd*g_physicsDtLastValidNonInterpolated/1000, self.mrCombineCapacitySpeedLimitCurrent, maxSpeedLimit) --acc = 0.5kph per second @50% engine load
+            self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit+spd*increaseFx*g_physicsDtLastValidNonInterpolated/1000, self.mrCombineCapacitySpeedLimitCurrent, maxSpeedLimit) --acc = 0.5kph per second @50% engine load
         end
 
 --[[

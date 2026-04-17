@@ -3,7 +3,9 @@
 
     <MR inlineAxleNumber="2">true</MR>
 
-    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="4000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="3000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+
+    <mrSuspension referenceMass="36000" />
 
     <!--
 
@@ -52,7 +54,7 @@
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.7 -0.35"/>
 
             <!-- empty speed -->
-            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="380"/>
+            <set path="vehicle.dischargeable.dischargeNode#emptySpeed" value="380"/>
 
             <!-- drawbar protection against tractor's wheel -->
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.85 1" />

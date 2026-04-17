@@ -17,7 +17,7 @@
     <parentFile xmlFilename="$data/vehicles/volvo/fh16/fh16.xml">
         <attributes>
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 2.4"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.15 1.9"/>
             <set path="vehicle.base.components.component(0)#mass" value="6100"/>
             <set path="vehicle.base.components.component(1)#mass" value="700"/>
 
@@ -39,8 +39,7 @@
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.12"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.12"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#frictionScale" value="1.6"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#frictionScale" value="1.6"/>
+
 
 
             <!-- ATO3812 + axle ratio=5.41  wheels=315/80R22.5 => 0.53775 radius. Normalized wheels = 1m radius => 5.41/0.53775=10.06 -->
@@ -83,7 +82,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxForwardSpeed" value="91"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxBackwardSpeed" value="32"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#brakeForce" value="30" />
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="200" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="400" />
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#rpm" value="600"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#torque" value="1.6"/>
@@ -102,11 +101,6 @@
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#rpm" value="1900"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#torque" value="2.65"/>
-
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#rpm" value="2000"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#torque" value="1.75"/>
-
-
 
         </attributes>
     </parentFile>

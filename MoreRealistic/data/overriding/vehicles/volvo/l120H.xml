@@ -33,6 +33,8 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="33"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="20"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="110"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrEngineBrakingFx" value="1.1"/> <!-- torque converter + good engine braking power -->
+
 
 
             <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="54"/>

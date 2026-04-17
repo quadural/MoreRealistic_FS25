@@ -7,13 +7,16 @@
 
     <!--
 
+        1 pumps Altek P500 with 322 liter per minute at 4 bar for agitation and spraying
+        1 pump Hypro centrifugal pump 9343P as filling pump => 1700L-1800L/min
 
     -->
 
     <parentFile xmlFilename="$data/vehicles/agrifac/condorEndurance2/condorEndurance2.xml">
         <attributes>
 
-            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10"/>
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="18" /> <!-- about 25hp -->
             <set path="vehicle.powerConsumer#ptoRpm" value="250"/> <!-- about 1000 engine rpm min when pumps are active -->
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 2 0"/>
@@ -86,6 +89,9 @@
 
 
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.4 0"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="30"/>
 
         </attributes>
     </parentFile>

@@ -340,7 +340,7 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
         if motorState == MotorState.STARTING or motorState == MotorState.ON then
             -- update sounds
             local rpm, minRpm, maxRpm = spec.motor:getLastModulatedMotorRpm(), spec.motor.minRpm, spec.motor.maxRpm
-            local rpmPercentage = math.clamp((rpm - minRpm) / (maxRpm - minRpm), 0, 1)
+            --local rpmPercentage = math.clamp((rpm - minRpm) / (maxRpm - minRpm), 0, 1)
 
             --MR apply min load percentage function of rpm
             local minLoadPercentage = -1
@@ -354,8 +354,26 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
             local loadPercentage = spec.smoothedLoadPercentage
             loadPercentage = math.max(loadPercentage, minLoadPercentage)
 
+
             --if the rpmPercentage is proportionnal to actual rpm = weird : if the sounds is right at 2200rpm, when the engine drop to 1500rpm, it sounds like it is under 1000rpm
-            rpmPercentage = rpmPercentage^0.25
+            --rpmPercentage = rpmPercentage^0.25
+            local minHighTorqueRpm = spec.motor.mrMinEcoRot * 9.5493 --rad/s to rpm => * 30 / math.pi
+            local rpmPercentage = 0
+            if minHighTorqueRpm>minRpm and minHighTorqueRpm<maxRpm then
+                if rpm<=minHighTorqueRpm then
+                    --0.5 rpmPercentage @minHighTorqueRpm
+                    rpmPercentage = 0.6 * (rpm - minRpm) / (minHighTorqueRpm - minRpm)
+                else
+                    rpmPercentage = 0.6 + 0.4 * math.sqrt((rpm - minHighTorqueRpm) / (maxRpm - minHighTorqueRpm))
+                end
+            else
+                rpmPercentage = (rpm - minRpm) / (maxRpm - minRpm)
+            end
+            rpmPercentage = rpmPercentage * (0.95+0.1*math.random()) --add some randomness to avoid the "buzz" sound with cvt/hydrostatic transmission at full speed/rpm //0.95-1.05 factor
+            rpmPercentage = math.clamp(rpmPercentage, 0, 1)
+
+            --up to max torque = faster to increase
+            --then, rather proportionnal
 
             g_soundManager:setSamplesLoopSynthesisParameters(spec.motorSamples, rpmPercentage, loadPercentage)
         end

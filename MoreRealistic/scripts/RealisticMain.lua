@@ -15,6 +15,8 @@ RealisticMain.COMBINE_CAPACITY_FX = 1.25 --apply a 20% factor since this is a ga
 RealisticMain.ENGINE_BRAKING_FX_DEFAULT = 0.85 -- default factor applied to engine braking power
 RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC = 1.1 -- default factor applied to engine braking power when the transmission is hydrostatic
 
+RealisticMain.SPRAYER_EMPTYSPEED_FX = 1.5 --default factor applied to dischargeNode#emptySpeed for sprayer
+
 --VehicleDebug.setState(VehicleDebug.DEBUG_PHYSICS)
 
 local version = g_modManager:getModByName(g_currentModName).version

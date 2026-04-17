@@ -3,6 +3,8 @@
 
     <MR inlineAxleNumber="2">true</MR>
 
+    <mrSuspension referenceMass="44000" />
+
     <!--
 
         Krampe RamBody 750 plus (volume tailgate)
@@ -21,11 +23,11 @@
     <parentFile xmlFilename="$data/vehicles/krampe/ramBodyAS750/ramBodyAS750.xml">
         <attributes>
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 -0.8"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.75 -0.8"/>
             <set path="vehicle.base.components.component(0)#mass" value="7700"/>
 
             <remove path="vehicle.attachable.brakeForce" />
-            <set path="vehicle.attachable.brakeForce#force" value="2.7"/>
+            <set path="vehicle.attachable.brakeForce#force" value="2.5"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.18"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.18"/>
@@ -33,10 +35,10 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.18"/>
 
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="90"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="90"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="100"/>
 
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="20"/>
@@ -72,6 +74,9 @@
 
             <!-- 80s pushing time -->
             <set path="vehicle.trailer.trailerConfigurations.trailerConfiguration(0).trailer.tipSide(1).animation#speedScale" value="0.1875" />
+
+            <!-- steering axle speed limit -->
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="20" />
 
         </attributes>
     </parentFile>

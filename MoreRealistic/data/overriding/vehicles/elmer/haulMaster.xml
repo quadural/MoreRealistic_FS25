@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="augerWagon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="3000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+
+    <mrSuspension referenceMass="67000" />
+
+    <!--
+
+        this is not the "current" version. The model = comes from FS19. This is the old version before 2018, with the belt driven horizontal auger and 2d spout settings
+        there was only 2 tank sizes = small (850, 1000 and 1150 bushels) and large (1300, 1600, 2000 bushels)
+        in our case this is the large one (we can also find the "1600" reference in the i3d file. This is not the "1700" model which is more recent)
+
+        no brakes on this one ! => only drive empty on road
+
+
+        empty mass = 11800 / 12000 / 12250kg
+
+        about 175 PTO HP requirement
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/elmersMfg/haulMaster/haulMaster.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 0.6"/>
+            <set path="vehicle.base.components.component(0)#mass" value="6800"/>
+
+
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#neededMaxPtoPower" value="130" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(1)#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(1)#neededMaxPtoPower" value="130" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(2)#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(2)#neededMaxPtoPower" value="130" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <remove path="vehicle.attachable.airConsumer" />
+            <set path="vehicle.attachable.brakeForce#force" value="0"/>
+
+
+
+
+            <!-- track setup -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.2"/> <!-- left back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.25"/> <!-- left front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.2"/> <!-- right back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.25"/> <!-- right front -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrFrictionScale" value="0.7"/> <!-- left front -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrFrictionScale" value="0.7"/> <!-- right front -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="240"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="190"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="240"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="190"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="-0.07"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#yOffset" value="-0.07"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mass" value="1.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mass" value="1.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mass" value="1.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mass" value="1.25"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#supportsWheelSink" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#supportsWheelSink" value="true"/>
+
+            <!-- end wheel configs -->
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.7 -0.4"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.8 -0.4"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.9 -0.4"/>
+
+            <!-- extension 1600 -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(15)#node" value="haulMaster_main_component1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(15)#mrAddMassActive" value="200"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(15)#mrAddMassCOMActive" value="0 3.9 -0.4"/>
+
+            <!-- extension 2000 -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(15)#node" value="haulMaster_main_component1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(15)#mrAddMassActive" value="450"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(15)#mrAddMassCOMActive" value="0 4 -0.4"/>
+
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="350"/>
+
+            <!-- drawbar protection against tractor's wheel -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint#lowerRotLimitScale" value="1 0.85 1" />
+
+            <!-- unloading "stream" of grain -->
+            <set path="vehicle.dischargeable.dischargeNode.effects.effectNode(0)#maxBending" value="0.8"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

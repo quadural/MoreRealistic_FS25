@@ -183,58 +183,56 @@ WheelPhysics.mrUpdateDynamicFriction = function(self, dt)
 
     if self.mrIsDriven then
         if self.mrLastBrakeForce>0 then
-            if self.mrDynamicFrictionScale>1.2 then
+            if self.mrDynamicFrictionScale~=1.2 then
                 self.mrDynamicFrictionScale = 1.2
                 self.isFrictionDirty = true
             end
         else
 
             local newDynamicFrictionScale = 1
+            local maxScale = 10 --no limit
+            local absSlip = math.abs(self.vehicle.spec_wheels.mrAvgDrivenWheelsSlip)--math.abs(self.mrLastLongSlipS)
 
-            --limit "dynamic help" for narrow tires
-            --we don't want player to keep narrow tire for every task
-            local maxScale = 100*self.mrTotalWidth*self.radius*self.mrTrackFx/math.max(0.1, self.mrLastTireLoadS)
-            maxScale = math.max(0.8, maxScale)
-
-            if maxScale>1 then
-                local absSlip = math.abs(self.vehicle.spec_wheels.mrAvgDrivenWheelsSlip)--math.abs(self.mrLastLongSlipS)
-
-                if self.hasSnowContact then
+            if self.hasSnowContact then
+                newDynamicFrictionScale = 1
+            elseif self.mrLastGroundType==WheelsUtil.GROUND_ROAD then
+                if absSlip>=0.3 then
+                    newDynamicFrictionScale = 0.9
+                else
+                    newDynamicFrictionScale = 2.1-4*absSlip
+                end
+            elseif self.mrLastGroundType==WheelsUtil.GROUND_HARD_TERRAIN then
+                maxScale = WheelPhysics.mrGetMaxDynamicScale(self, 1.5)
+                if absSlip>=0.3 then
+                    newDynamicFrictionScale = 0.9
+                else
+                    newDynamicFrictionScale = 1.755-2.85*absSlip
+                end
+            elseif self.mrLastGroundType==WheelsUtil.GROUND_SOFT_TERRAIN then
+                maxScale = WheelPhysics.mrGetMaxDynamicScale(self, 1.2)
+                if absSlip>=0.5 then
                     newDynamicFrictionScale = 1
-                elseif self.mrLastGroundType==WheelsUtil.GROUND_ROAD then
-                    if absSlip>=0.3 then
-                        newDynamicFrictionScale = 0.9
-                    else
-                        newDynamicFrictionScale = 2.1-4*absSlip
-                    end
-                elseif self.mrLastGroundType==WheelsUtil.GROUND_HARD_TERRAIN then
-                    if absSlip>=0.3 then
-                        newDynamicFrictionScale = 0.9
-                    else
-                        newDynamicFrictionScale = 1.755-2.85*absSlip
-                    end
-                elseif self.mrLastGroundType==WheelsUtil.GROUND_SOFT_TERRAIN then
+                else
+                    newDynamicFrictionScale = 1.6-1.2*absSlip
+                end
+            elseif self.mrLastGroundType==WheelsUtil.GROUND_FIELD then
+                if self.mrLastGroundSubType==1 then --firmer ground field (eg: harvest state)
+                    maxScale = WheelPhysics.mrGetMaxDynamicScale(self, 0.9)
                     if absSlip>=0.5 then
                         newDynamicFrictionScale = 1
                     else
-                        newDynamicFrictionScale = 1.6-1.2*absSlip
+                        newDynamicFrictionScale = 1.4-0.8*absSlip
                     end
-                elseif self.mrLastGroundType==WheelsUtil.GROUND_FIELD then
-                    if self.mrLastGroundSubType==1 then --firmer ground field (eg: harvest state)
-                        if absSlip>=0.5 then
-                            newDynamicFrictionScale = 1
-                        else
-                            newDynamicFrictionScale = 1.4-0.8*absSlip
-                        end
-                    else --"soft" field
-                        if absSlip>=0.5 then
-                            newDynamicFrictionScale = 1
-                        else
-                            newDynamicFrictionScale = 1.1-0.2*absSlip
-                        end
+                else --"soft" field
+                    maxScale = WheelPhysics.mrGetMaxDynamicScale(self, 0.8)
+                    if absSlip>=0.5 then
+                        newDynamicFrictionScale = 1
+                    else
+                        newDynamicFrictionScale = 1.1-0.2*absSlip
                     end
                 end
             end
+
 
             newDynamicFrictionScale = math.min(newDynamicFrictionScale, maxScale)
 
@@ -271,6 +269,14 @@ WheelPhysics.mrUpdateDynamicFriction = function(self, dt)
         end
     end
 
+end
+
+WheelPhysics.mrGetMaxDynamicScale = function(self, minScale)
+    --limit "dynamic help" for narrow tires
+    --we don't want player to keep narrow tire for every task
+    local maxDynamicScale = 100*self.mrTotalWidth*self.radius*self.mrTrackFx/math.max(0.1, self.mrLastTireLoadS)
+    maxDynamicScale = math.max(minScale, maxDynamicScale)
+    return maxDynamicScale
 end
 
 

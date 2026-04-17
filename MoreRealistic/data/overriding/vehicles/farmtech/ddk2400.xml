@@ -3,6 +3,8 @@
 
 <MR inlineAxleNumber="3">true</MR>
 
+<mrSuspension referenceMass="29000" />
+
     <!--
         load capacity 17t
         gross weight 24T (technical = 27T)
@@ -22,12 +24,12 @@
     <parentFile xmlFilename="$data/vehicles/farmtech/ddk2400/ddk2400.xml">
         <attributes>
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -0.7"/>
-            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.3 0"/>
-            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.35"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -1.1"/> <!-- main -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.3 0"/> <!-- front axle -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.35"/> <!-- drawbar -->
 
-            <set path="vehicle.base.components.component(0)#mass" value="3000"/>
-            <set path="vehicle.base.components.component(1)#mass" value="1500"/>
+            <set path="vehicle.base.components.component(0)#mass" value="3300"/>
+            <set path="vehicle.base.components.component(1)#mass" value="1200"/>
             <set path="vehicle.base.components.component(2)#mass" value="600"/>
 
             <remove path="vehicle.attachable.brakeForce" />

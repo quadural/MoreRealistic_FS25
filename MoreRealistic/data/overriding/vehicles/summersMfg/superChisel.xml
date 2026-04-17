@@ -20,7 +20,7 @@
     <parentFile xmlFilename="$data/vehicles/summersMfg/superChisel/superChisel.xml">
         <attributes>
 
-            <set path="vehicle.base.speedLimit#value" value="12" />
+            <set path="vehicle.base.speedLimit#value" value="14" />
 
             <set path="vehicle.powerConsumer#maxForce" value="140" />
 

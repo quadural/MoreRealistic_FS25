@@ -410,3 +410,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - more natural engine braking and less agressive speed reduction in certain circumtances (especially when pto is active)
             - rework of the Agrifac condor (was not up to the mr standard = first vehicle converted to test "hydromotive" transmission)
             - add converted J&M X-Tended Reach 1112 (auger wagon)
+            - add converted Case IH Patriot 4450 (sprayer)
+            - add converted Agrio Dino II (sprayer)
+            - add converted Elmer's HaulMaster (auger wagon)
+            - modified engine sound function of rpm
+            - new "mrSuspension" setting to allow varying spring/damper function of mass (useful for trailer with 2 axles or more = to get some "softness" from the suspension when empty like IRL. We also get less difference in height when empty and fully loaded)

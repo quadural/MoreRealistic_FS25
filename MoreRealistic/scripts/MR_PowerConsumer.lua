@@ -60,7 +60,7 @@ PowerConsumer.mrLoadMrValues = function(self, xmlFile)
 
     self.mrPowerConsumerMaxGroundDistanceToApplyDraftForce = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#maxGroundDistance")
     self.mrPowerConsumerToolCategory = getXMLString(xmlFile, "vehicle.mrPowerConsumer#mrToolCategory")
-    self.mrPowerConsumerPtoPowerStartingTime = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#ptoPowerStartingTime") or 2000 --milliseconds. Time to smooth the pto power when starting a tool (example : auger wagon)
+    self.mrPowerConsumerPtoPowerStartingTime = getXMLFloat(xmlFile, "vehicle.mrPowerConsumer#ptoPowerStartingTime") or 1000 --milliseconds. Time to smooth the pto power when starting a tool (example : auger wagon)
 
 end
 
@@ -300,6 +300,8 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
             spec.turnOnPeakPowerTimer = spec.turnOnPeakPowerTimer - dt
         end
 
+        PowerConsumer.mrUpdatePtoPower(self, dt)
+
     end
 
 end
@@ -500,26 +502,57 @@ PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier = function(toolCategory)
 
 end
 
-
+--this function is called a lot of times ("getCanBeTurnedOn")
 PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignoreTurnOnPeak)
-    if self:getDoConsumePtoPower() or (expected ~= nil and expected) then
+
+    local spec = self.spec_powerConsumer
+    local rpm = spec.ptoRpm
+    if rpm <= 0.001 then
+        return 0, 1
+    end
+
+    local neededPtoPower = self.mrLastNeededPtoPower
+
+    if expected then
+        if not self:getDoConsumePtoPower() then
+            neededPtoPower = spec.neededMaxPtoPower
+        end
+    end
+
+    --no need to compute anything for such low power/torque
+    if neededPtoPower<0.1 then
+        return 0, 1
+    end
+
+    local turnOnPeakPowerMultiplier = 1
+    if ignoreTurnOnPeak==nil and ignoreTurnOnPeak==false and spec.turnOnPeakPowerTimer>0 then
+        turnOnPeakPowerMultiplier = math.max(math.max(math.min(spec.turnOnPeakPowerTimer / spec.turnOnPeakPowerDuration, 1), 0) * spec.turnOnPeakPowerMultiplier, 1)
+    end
+
+    if self.rootVehicle ~= nil and self.rootVehicle.getMotor ~= nil then
+        rpm = math.max(0.85, self.mrPtoCurrentRpmRatio)*rpm
+    end
+
+    return neededPtoPower / (rpm*0.10472), spec.virtualPowerMultiplicator * turnOnPeakPowerMultiplier --math.pi/30 = 0.10472
+
+end
+PowerConsumer.getConsumedPtoTorque = Utils.overwrittenFunction(PowerConsumer.getConsumedPtoTorque, PowerConsumer.mrGetConsumedPtoTorque)
+
+
+PowerConsumer.mrUpdatePtoPower = function(self, dt)
+    if self:getDoConsumePtoPower() then
         local spec = self.spec_powerConsumer
 
         local rpm = spec.ptoRpm
         if rpm > 0.001 then
 
-            local ptoRpmForTorque = rpm
+            --local ptoRpmForTorque = rpm
 
             local consumingLoad, count = self:getConsumingLoad()
             if count > 0 then
                 consumingLoad = consumingLoad / count
             else
                 consumingLoad = 1
-            end
-
-            local turnOnPeakPowerMultiplier = 1
-            if ignoreTurnOnPeak == false then
-                turnOnPeakPowerMultiplier = math.max(math.max(math.min(spec.turnOnPeakPowerTimer / spec.turnOnPeakPowerDuration, 1), 0) * spec.turnOnPeakPowerMultiplier, 1)
             end
 
             local neededPtoPower = 0
@@ -539,7 +572,7 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
             if self.mrFruitPreparerAreaPerSecondS~=nil then --m2 per second
                 if self.mrFruitPreparerAreaPerSecondS>0 then
                     if not self.spec_fruitPreparer.isWorking then
-                        self.mrFruitPreparerAreaPerSecondS = self.mrFruitPreparerAreaPerSecondS * (1 - g_physicsDtLastValidNonInterpolated/3000) --3s to reach 0 KW when not working
+                        self.mrFruitPreparerAreaPerSecondS = self.mrFruitPreparerAreaPerSecondS * (1 - dt/3000) --3s to reach 0 KW when not working
                     end
                     neededPtoPower = neededPtoPower + math.min(self.mrFruitPreparerMaxPower, self.mrFruitPreparerAreaPerSecondS * self.mrFruitPreparerAreaPowerScaling)
                 end
@@ -555,30 +588,32 @@ PowerConsumer.mrGetConsumedPtoTorque = function(self, superFunc, expected, ignor
                     if self.mrPowerConsumerForcePtoRpm then
                         rootVehicle.mrForcePtoRpm = true --tell the motorized vehicle to keep the pto rpm high, even at still/idle
                     end
-                    ptoRpmForTorque = math.max(0.85, self.mrPtoCurrentRpmRatio)*rpm
+                    --ptoRpmForTorque = math.max(0.85, self.mrPtoCurrentRpmRatio)*rpm
                 end
             end
 
             --MR = 2s to reach power needed
             if self.mrLastNeededPtoPower~=neededPtoPower then
-                neededPtoPower = math.min(neededPtoPower, self.mrLastNeededPtoPower + neededPtoPower*g_physicsDtLastValidNonInterpolated/self.mrPowerConsumerPtoPowerStartingTime)
+                neededPtoPower = math.min(neededPtoPower, self.mrLastNeededPtoPower + neededPtoPower*dt/self.mrPowerConsumerPtoPowerStartingTime)
                 self.mrLastNeededPtoPower = neededPtoPower
             end
 
-            return neededPtoPower / (ptoRpmForTorque*math.pi/30), spec.virtualPowerMultiplicator * turnOnPeakPowerMultiplier
+            --return neededPtoPower / (ptoRpmForTorque*math.pi/30), spec.virtualPowerMultiplicator * turnOnPeakPowerMultiplier
         end
     else
         --not turned on
         self.mrPtoCurrentRpm = 0
-        self.mrPtoCurrentRpmRatio = 0
+        self.mrPtoCurrentRpmRatio = 1
+        if self.mrLastNeededPtoPower>0 then --prevent going from full load to zero load in not time when desengaging the pto (example : combine)
+            self.mrLastNeededPtoPower = 0.95*self.mrLastNeededPtoPower
+            if self.mrLastNeededPtoPower<0.1 then
+                self.mrLastNeededPtoPower = 0
+            end
+        end
+        self.mrCombineSpeedLimit = 999 --reset speed limit for combine
     end
 
-    self.mrLastNeededPtoPower = 0
-    self.mrCombineSpeedLimit = 999 --reset speed limit for combine
-
-    return 0, 1
 end
-PowerConsumer.getConsumedPtoTorque = Utils.overwrittenFunction(PowerConsumer.getConsumedPtoTorque, PowerConsumer.mrGetConsumedPtoTorque)
 
 
 

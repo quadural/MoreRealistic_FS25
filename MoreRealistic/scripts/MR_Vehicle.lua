@@ -115,8 +115,6 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         self.mrInlineAxleNumber = getXMLFloat(xmlFile, "vehicle.MR#inlineAxleNumber")
         self.mrGetGeneralPressureForRrFx = Vehicle.mrGetGeneralPressureForRrFx(self, self.mrInlineAxleNumber)
 
-        delete(xmlFile)
-
         self.mrAutoDirChangeWantedDirection = 0 --only useful when DIRECTION_CHANGE_MODE_MANUAL is off
         self.mrAutoDirChangeWaitingForRelease = false
         self.mrLastTurnedOnState = false
@@ -131,6 +129,23 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         if self.mrStoreCategory=="cutterTrailers" or self.mrStoreCategory=="forageHarvesterCutterTrailers" then
             self.mrIsHeaderTrailer = true
         end
+
+        --very important for trailers : big difference in weight between empty and loaded => IRL, the suspension are not linear. This is always a system to get less spring when empty and more spring when loaded (example : multiple overlapping leaf springs. but not the same length which means the trailer is mainly using the longest spring when empty, and all the spring leaf when overloaded)
+        --tips to fine tune a trailer ingame = fully fill the trailer with wheat, set the reference mass to the fully filled trailer mass, adjust the spring in the xml file. And then, look at what you get when empty without touching anything, it should be better than without the mrSuspension (in base game = trailers suspension are "hard as nail" when empty)
+        --very important for a trailer with more than one axle. Especially useful for tracks (Example : augerwagon). Otherwise, you always end with one or more "wheelshape" not touching the ground at all.
+        self.mrSuspensionActive = false
+        self.mrSuspensionReferenceMass = getXMLFloat(xmlFile, "vehicle.mrSuspension#referenceMass") --kilos
+
+        --should not be used when "wheelAxle" is present/in use for this vehicle
+        if self.mrSuspensionReferenceMass~=nil and self.mrSuspensionReferenceMass>0 and self.spec_wheels~=nil and not self.spec_wheels.hasAxles then
+            self.mrSuspensionActive = true
+            self.mrSuspensionReferenceMass = 0.001 * self.mrSuspensionReferenceMass --kilos to tonnes
+            self.mrSuspensionPowCurveFx = getXMLFloat(xmlFile, "vehicle.mrSuspension#powCurveFx") or 0.5 --default = 0.5 (0.5 = sqrt => 4x more mass means 2x more spring)
+            self.mrSuspensionMinChangeForUpdate = 0.05*self.mrSuspensionReferenceMass --only update suspension if there is more than 5% difference in mass
+            self.mrSuspensionLastMass = 0
+        end
+
+        delete(xmlFile)
 
     end
 
@@ -372,3 +387,30 @@ Vehicle.mrGetGeneralPressureForRrFx = function(self, inlineAxleNumber)
     return fx
 end
 
+
+
+Vehicle.mrUpdateTick = function(self, superFunc, dt)
+
+    superFunc(self, dt)
+
+    if self.isServer then
+        if self.mrSuspensionActive then
+            --check mass compared to mrSuspensionReferenceMass
+            --more than 5% difference = update spring value
+            --if self.lastSpeedReal~=0 then --quick check because and "idle" vehicle that is not updated by the physics engine => lastSpeedReal == 0
+            if self.serverMass~=self.mrSuspensionLastMass then
+                if math.abs(self.serverMass-self.mrSuspensionLastMass)>self.mrSuspensionMinChangeForUpdate then
+                    local factorSpring = math.pow(self.serverMass/self.mrSuspensionReferenceMass, self.mrSuspensionPowCurveFx)
+                    local factorDamper = math.sqrt(factorSpring)
+                    for i=1, #self.spec_wheels.wheels do
+                        --same way as "wheelAxle" from base game (which means we should not use both for the same vehicle)
+                        self.spec_wheels.wheels[i].physics:setSuspensionMultipliers(factorSpring, factorDamper)
+                    end
+                    self.mrSuspensionLastMass = self.serverMass
+                end
+            end
+        end
+    end
+
+end
+Vehicle.updateTick = Utils.overwrittenFunction(Vehicle.updateTick, Vehicle.mrUpdateTick)

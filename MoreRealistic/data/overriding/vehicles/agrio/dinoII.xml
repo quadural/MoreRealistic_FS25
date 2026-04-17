@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="selfPropelledSprayer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+
+<mrTransmission isHydrostatic="true" minRpmWanted="1600" maxRpmWanted="2200" powerRatio="0.9" />
+
+    <!--
+
+        max flow rate = 2x182L/min (360L/min, 16,4KW maxi)
+        => 6L/s (this is the maximum speed possible, IRL, the avg speed would be lower)
+
+        11450 kilos with 30 meters boom and 380/90R46 wheels (full fuel, def, rinse tank and driver)
+        11850 kilos with 36 meters boom
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/agrio/dinoII/dinoII.xml">
+        <attributes>
+
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="8"/> <!-- about 11hp -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="466"/> <!-- about 1900 engine rpm min when pumps are active -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.7 0"/>
+            <set path="vehicle.base.components.component(0)#mass" value="10325"/>
+
+            <!-- 20kph max spraying speed -->
+            <set path="vehicle.base.speedLimit#value" value="22" />
+
+            <!-- override the motor.brakeForce setting = redundant -->
+            <remove path="vehicle.motorized.brakeForce" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.18"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="80"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="20"/>
+
+
+
+
+
+
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="55"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(1)#usage" value="4.2"/>
+
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="52"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="18"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="4.074"/>
+            <!-- governor regulation -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="100" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minForwardGearRatio" value="16.55"/> <!-- 50kph @2200rpm -->
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minBackwardGearRatio" value="46"/> <!-- 18kph @2200rpm -->
+
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="15"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="850"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="0.800"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="1000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="0.910"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1220"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="1.090"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="1.150"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1700"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="1.100"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="1.000"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="2200"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="0.915"/>
+
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.4 -2"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="6"/>
+
+            <!-- fule tank capacity -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#capacity" value="290" />
+
+            <!-- boom weight change -->
+            <!-- 27m -->
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(0).objectChange(8)#node" value="dinoII_main_component1" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(0).objectChange(8)#mrAddMassActive" value="700" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(0).objectChange(8)#mrAddMassCOMActive" value="0 2 -4.5" />
+
+            <!-- 30m -->
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(1).objectChange(8)#node" value="dinoII_main_component1" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(1).objectChange(8)#mrAddMassActive" value="750" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(1).objectChange(8)#mrAddMassCOMActive" value="0 2 -4.5" />
+
+            <!-- 30m -->
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(2).objectChange(8)#node" value="dinoII_main_component1" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(2).objectChange(8)#mrAddMassActive" value="1050" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(2).objectChange(8)#mrAddMassCOMActive" value="0 2 -4.5" />
+
+            <!-- 36m -->
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(3).objectChange(8)#node" value="dinoII_main_component1" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(3).objectChange(8)#mrAddMassActive" value="1150" />
+            <set path="vehicle.variableWorkWidth.variableWorkWidthConfigurations.variableWorkWidthConfiguration(3).objectChange(8)#mrAddMassCOMActive" value="0 2 -4.5" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

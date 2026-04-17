@@ -27,7 +27,7 @@
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-2" />
 
             <!-- empty speed -->
-            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="10"/>
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="7"/> <!-- no pump, should depend on the rear sprayer pump -->
 
         </attributes>
     </parentFile>

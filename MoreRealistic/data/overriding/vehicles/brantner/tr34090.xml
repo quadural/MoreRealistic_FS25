@@ -3,6 +3,8 @@
 
     <MR inlineAxleNumber="3">true</MR>
 
+    <mrSuspension referenceMass="48000" />
+
     <!--
         tr34090 is "uncommon" (9m length)
         the real model = 34080 (8m length)

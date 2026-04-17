@@ -3,7 +3,7 @@
 
     <MR inlineAxleNumber="1">true</MR>
 
-    <mrPowerConsumer forcePtoRpm="true" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="3000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
 
     <!--
 

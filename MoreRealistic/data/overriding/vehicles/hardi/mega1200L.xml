@@ -14,7 +14,7 @@
 
 
         max flow rate with optional pump = 280 liters per minute
-        => 280L/min => 4.7L/s (this is the maximum speed possible, IRL, the avg speed would be lower) => for game purpose, we set it to 50%more => 7L/s
+        => 280L/min => 4.7L/s (this is the maximum speed possible, IRL, the avg speed would be lower)
 
 
     -->
@@ -29,12 +29,12 @@
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-8" />
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value="0.65" />
 
+            <remove path="vehicle.powerConsumer" />
             <set path="vehicle.powerConsumer#ptoRpm" value="500" />
-            <set path="vehicle.powerConsumer#neededMinPtoPower" value="7" />
-            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="7" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="6.5" /> <!-- about 9hp -->
 
             <!-- empty speed -->
-            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="7"/>
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="4.7"/>
 
         </attributes>
     </parentFile>

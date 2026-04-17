@@ -3,7 +3,9 @@
 
     <MR inlineAxleNumber="1">true</MR>
 
-    <mrPowerConsumer forcePtoRpm="true" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="3000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+
+    <mrSuspension referenceMass="43000" />
 
     <!--
 
@@ -27,8 +29,8 @@
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 -0.2"/>
             <set path="vehicle.base.components.component(0)#mass" value="5580"/>
 
-            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#ptoRpm" value="540" />
-            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#neededMaxPtoPower" value="90" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="90" />
 
             <remove path="vehicle.attachable.brakeForce" />
             <remove path="vehicle.attachable.airConsumer" />
