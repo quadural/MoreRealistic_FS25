@@ -181,6 +181,7 @@
     <vehicle fileNameToOverride="data/vehicles/brantner/z18051/z18051.xml">vehicles/brantner/z18051.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/krampe/bigBodyS750/bigBodyS750.xml">vehicles/krampe/bigBodyS750.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/krampe/ramBodyAS750/ramBodyAS750.xml">vehicles/krampe/ramBodyAS750.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/brantner/dd24073/dd24073.xml">vehicles/brantner/dd24073.xml</vehicle>
 
     <!-- trucks -->
     <vehicle fileNameToOverride="data/vehicles/volvo/fh16/fh16.xml">vehicles/volvo/fh16.xml</vehicle>

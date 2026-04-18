@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="3">true</MR>
+
+    <mrSuspension referenceMass="26000" />
+
+    <!--
+
+        about 7200kg empty (385/65R22.5 + 800&800)
+
+        Platform size inside = 7230 x 2410
+        800+800 extension = 27.9M3
+
+        ingame = 800+500 (22.5m3) or 800+600+600 (34M3) ? doesn't seem to match. The 2 extensions are the same in game. so, it should be 800+600 and 800+600+600.
+        but the difference in height = 670mm between the 2 fillvolume
+        and the difference between the extension and the main side = 150mm => main side = 800mm and extension = 650mm ? that doesn't match
+        by checking in the i3d again, the first fillvolume is 9cm too small in height
+        which means that instead of 700mm difference in height between the 2 fillvolume, there is only there is only 610mm now (which match a 600mm extension this time)
+
+        so, the visual = 800+600 (24.39M3) and 800+600+600 (34.85M3)
+        => we can modify the first extension level capacity to 24.4M3
+
+        ingame 24.4M3 = 7050kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/brantner/dd24073/dd24073.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.35 -1.7"/> <!-- main -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.3 0"/> <!-- front axle -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.35"/> <!-- drawbar -->
+
+            <set path="vehicle.base.components.component(0)#mass" value="3300"/>
+            <set path="vehicle.base.components.component(1)#mass" value="1400"/>
+            <set path="vehicle.base.components.component(2)#mass" value="600"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.3"/>
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="80"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="11"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#suspTravel" value="0.12"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#brakeFactor" value="1"/>
+
+
+            <!-- bale config -->
+
+
+            <!-- small extension -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(16)#node" value="dd24073_main_component1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(16)#mrAddMassActive" value="1000"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(16)#mrAddMassCOMActive" value="0 1.9 -1.2"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 -1.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#capacity" value="24400"/>
+
+            <!-- double extension -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(17)#node" value="dd24073_main_component1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(17)#mrAddMassActive" value="1500"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).objectChange(17)#mrAddMassCOMActive" value="0 3.1 -1.2"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 -1.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(2).fillUnits.fillUnit(0)#capacity" value="34800"/>
+
+
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(0)#emptySpeed" value="1400"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(1)#emptySpeed" value="200"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(2)#emptySpeed" value="2000"/>
+            <set path="vehicle.dischargeable.dischargeableConfigurations.dischargeableConfiguration(1).dischargeNode(3)#emptySpeed" value="2000"/>
+
+            <!-- can't set the correct tipping angle which should be 48° for the back tipping -->
+            <set path="vehicle.animations.animation(0).part(0)#endRot" value="-40 0 0" />
+
+            <set path="vehicle.cylindered.movingParts.movingPart(1).translatingPart(0)#maxZTrans" value="0.36" />
+            <set path="vehicle.cylindered.movingParts.movingPart(1).translatingPart(1)#maxZTrans" value="0.36" />
+            <set path="vehicle.cylindered.movingParts.movingPart(1).translatingPart(2)#maxZTrans" value="0.37" />
+            <set path="vehicle.cylindered.movingParts.movingPart(1).translatingPart(3)#maxZTrans" value="0.37" />
+            <set path="vehicle.cylindered.movingParts.movingPart(1).translatingPart(4)#maxZTrans" value="0.38" />
+            <set path="vehicle.cylindered.movingParts.movingPart(1).translatingPart(5)#maxZTrans" value="0.39" />
+
+            <set path="vehicle.cylindered.movingParts.movingPart(3).translatingPart(0)#maxZTrans" value="0.36" />
+            <set path="vehicle.cylindered.movingParts.movingPart(3).translatingPart(1)#maxZTrans" value="0.36" />
+            <set path="vehicle.cylindered.movingParts.movingPart(3).translatingPart(2)#maxZTrans" value="0.37" />
+            <set path="vehicle.cylindered.movingParts.movingPart(3).translatingPart(3)#maxZTrans" value="0.37" />
+            <set path="vehicle.cylindered.movingParts.movingPart(3).translatingPart(4)#maxZTrans" value="0.38" />
+            <set path="vehicle.cylindered.movingParts.movingPart(3).translatingPart(5)#maxZTrans" value="0.39" />
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

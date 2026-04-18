@@ -414,3 +414,34 @@ Vehicle.mrUpdateTick = function(self, superFunc, dt)
 
 end
 Vehicle.updateTick = Utils.overwrittenFunction(Vehicle.updateTick, Vehicle.mrUpdateTick)
+
+
+Vehicle.mrUpdate = function(self, superFunc, dt)
+
+    superFunc(self, dt)
+
+    if self.isServer then
+
+        if self.mrRecoveryModeActive then
+            if self.mrRecoveryModeTimer==nil or self.mrRecoveryModeTimer==0 then
+                self.mrRecoveryModeTimer = dt
+            else
+                self.mrRecoveryModeTimer = self.mrRecoveryModeTimer + dt
+            end
+
+            if self.mrRecoveryModeTimer>10000 then --10s to try recovering
+                --stop recovry process
+                self.mrRecoveryModeTimer=0
+                self.mrRecoveryModeActive = false
+            else
+                local fx = math.pow(self.mrRecoveryModeTimer/10000, 0.5)
+                addForce(self.components[1].node, 0, fx*7*self.serverMass, 0, 0, 5, 0, true)
+                local wx, wy, wz = localToWorld(self.components[1].node, 0, 5, 0)
+                DebugGizmo.renderAtPosition(wx, wy, wz, 0, 1, 0, 0, 0, 1, "RecoveryTractionPoint")
+            end
+        end
+
+    end
+
+end
+Vehicle.update = Utils.overwrittenFunction(Vehicle.update, Vehicle.mrUpdate)

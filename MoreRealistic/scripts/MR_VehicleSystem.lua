@@ -22,3 +22,33 @@ VehicleSystem.saveVehicleToXML = Utils.overwrittenFunction(VehicleSystem.saveVeh
 
 
 
+VehicleSystem.mrNew = function(mission, superFunc, customMt)
+    local self = superFunc(mission, customMt)
+    if mission:getIsServer() then
+        addConsoleCommand("mrVehicleRecover", "try to recover the currently entered vehicle at the current position by lifting it", "mrConsoleCommandRecoverVehicle", self)
+    end
+    return self
+end
+VehicleSystem.new = Utils.overwrittenFunction(VehicleSystem.new, VehicleSystem.mrNew)
+
+
+VehicleSystem.delete = function(self, superFunc)
+    superFunc(self)
+    removeConsoleCommand("mrVehicleRecover")
+end
+VehicleSystem.delete = Utils.overwrittenFunction(VehicleSystem.delete, VehicleSystem.mrDelete)
+
+
+VehicleSystem.mrConsoleCommandRecoverVehicle = function(self)
+    local vehicleToRecover = g_localPlayer:getCurrentVehicle()
+    if vehicleToRecover~=nil then
+        vehicleToRecover.mrRecoveryModeActive = true
+        if vehicleToRecover.getAttachedImplements~=nil then
+            local attachedImplements = vehicleToRecover:getAttachedImplements()
+            for _, implement in pairs(attachedImplements) do
+                implement.object.mrRecoveryModeActive = true
+            end
+        end
+    end
+end
+
