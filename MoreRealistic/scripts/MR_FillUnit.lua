@@ -61,3 +61,92 @@ FillUnit.mrGetAdditionalComponentMass = function(self, superFunc0, superFunc, co
     return additionalMass
 end
 FillUnit.getAdditionalComponentMass = Utils.overwrittenFunction(FillUnit.getAdditionalComponentMass, FillUnit.mrGetAdditionalComponentMass)
+
+
+--new value type for dashboard = fillUnit.mrFillMass to display the mass instead of the fillLevel (example : auger wagon / motherbin)
+--mass in kilos
+FillUnit.mrAddFillUnitFillLevel = function(self, superFunc, farmId, fillUnitIndex, fillLevelDelta, fillTypeIndex, toolType, fillPositionData)
+
+    local appliedDelta = superFunc(self, farmId, fillUnitIndex, fillLevelDelta, fillTypeIndex, toolType, fillPositionData)
+
+    if appliedDelta~=0 then
+        local fillUnit = self.spec_fillUnit.fillUnits[fillUnitIndex]
+        if fillUnit.hasDashboards and self.updateDashboardValueType ~= nil then
+            self:updateDashboardValueType("fillUnit.mrFillMass")
+        end
+    end
+
+    return appliedDelta
+
+end
+FillUnit.addFillUnitFillLevel = Utils.overwrittenFunction(FillUnit.addFillUnitFillLevel, FillUnit.mrAddFillUnitFillLevel)
+
+
+
+FillUnit.mrLoadFillUnitFromXML = function(self, superFunc, xmlFile, key, entry, index)
+
+    local result = superFunc(self, xmlFile, key, entry, index)
+
+    if result and self.isClient and self.registerDashboardValueType ~= nil then
+
+        local spec = self.spec_fillUnit
+
+        local fillUnitLoadFunc = function(self, xmlFile, key, dashboard, isActive)
+            local fillTypeName = xmlFile:getValue(key .. "#fillType")
+            if fillTypeName ~= nil then
+                local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(fillTypeName)
+                if fillTypeIndex ~= nil then
+                    for _, fillUnit in ipairs(spec.fillUnits) do
+                        if fillUnit.supportedFillTypes[fillTypeIndex] then
+                            dashboard.fillUnit = fillUnit
+                        end
+                    end
+                end
+            end
+
+            local fillUnitIndex = xmlFile:getValue(key .. "#fillUnitIndex")
+            if fillUnitIndex ~= nil then
+                dashboard.fillUnit = spec.fillUnits[fillUnitIndex]
+            end
+
+            if dashboard.fillUnit ~= nil then
+                dashboard.fillUnit.hasDashboards = true
+            else
+                entry.hasDashboards = true
+            end
+
+            return true
+        end
+
+        local fillMass = DashboardValueType.new("fillUnit", "mrFillMass")
+        fillMass:setXMLKey(key)
+        fillMass:setValue(entry, function(_fillUnit, dashboard)
+            local fillUnit = dashboard.fillUnit or _fillUnit
+            local fillLevel = fillUnit.fillLevel
+            if fillLevel>0 then
+                local density = 1
+                local fillTypeDesc = g_fillTypeManager:getFillTypeByIndex(fillUnit.fillType)
+                if fillTypeDesc ~= nil and fillTypeDesc.massPerLiter ~= 0 then
+                    density = 1000*fillTypeDesc.massPerLiter
+                end
+                return fillUnit.fillLevel * density
+            else
+                return 0
+            end
+        end)
+        fillMass:setRange(0, function(_fillUnit, dashboard)
+            return (dashboard.fillUnit or _fillUnit).capacity * 2
+        end)
+        fillMass:setInterpolationSpeed(function(_fillUnit, dashboard)
+            return (dashboard.fillUnit or _fillUnit).capacity * 0.001
+        end)
+        fillMass:setAdditionalFunctions(fillUnitLoadFunc, nil)
+        fillMass:setPollUpdate(false)
+        self:registerDashboardValueType(fillMass)
+
+    end
+
+    return result
+
+end
+FillUnit.loadFillUnitFromXML = Utils.overwrittenFunction(FillUnit.loadFillUnitFromXML, FillUnit.mrLoadFillUnitFromXML)

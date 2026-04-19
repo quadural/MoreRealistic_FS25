@@ -6,6 +6,7 @@
     <vehicle fileNameToOverride="data/vehicles/bergmann/gtw330/gtw330.xml">vehicles/bergmann/gtw330.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/jmManufacturing/x1112/x1112.xml">vehicles/jmManufacturing/x1112.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/elmersMfg/haulMaster/haulMaster.xml">vehicles/elmer/haulMaster.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/walkabout/motherBin4000/motherBin4000.xml">vehicles/walkabout/motherBin4000.xml</vehicle>
 
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>

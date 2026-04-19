@@ -417,3 +417,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - new "mrSuspension" setting to allow varying spring/damper function of mass (useful for trailer with 2 axles or more = to get some "softness" from the suspension when empty like IRL. We also get less difference in height when empty and fully loaded)
             - add converted Brantner dd24073 (trailer)
             - new console command for server side = "mrVehicleRecover" (this allows fast recovery 'inplace' when testing vehicle stability) - nothing is lost, the trailer/implement content is kept. This is not a reset. The vehicle is "lifted" to get back to its wheels.
+            - add converted Walkabout WMB 4000 (mother bin) with working display scale and in kilos instead of liters
+            - add "mrFillMass" dashboard valueType (see Walkabout WMB4000 motherbin as example)

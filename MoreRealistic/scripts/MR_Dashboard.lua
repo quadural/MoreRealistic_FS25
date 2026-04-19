@@ -112,7 +112,6 @@ Dashboard.mrDisplayRateAndPrecision = function(self, dashboard, newValue, timeSt
 end
 
 
-
 --update all the individual dashboard timers
 Dashboard.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
 

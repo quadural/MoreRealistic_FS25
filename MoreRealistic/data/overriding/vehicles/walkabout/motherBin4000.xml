@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="augerWagon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="7">true</MR>
+
+    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="3000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+
+    <!--
+
+
+
+        no brakes on this one ! => only drive carefully and empty on road
+
+        maximum transportation speed = 17mph
+        maximum cornering speed = 3MPH ! (with all wheels steering)
+
+        this is not a "lay on the ground" motherbin => the axles and wheels are bearing the weight when filled : IRL, this is really not advisebale trying to move it fully filled.
+
+        tires should be 425/65R22.5
+
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/walkabout/motherBin4000/motherBin4000.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 0.8"/>
+            <set path="vehicle.base.components.component(0)#mass" value="17200"/>
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -0.3"/> <!-- drawbar -->
+            <set path="vehicle.base.components.component(1)#mass" value="800"/>
+
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#neededMaxPtoPower" value="160" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(12).physics#spring" value="500"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(13).physics#spring" value="500"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 0.2"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="500"/>
+
+            <!-- drawbar protection against tractor's wheel -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.85 1" />
+
+            <!-- unloading "stream" of grain -->
+            <set path="vehicle.dischargeable.dischargeNode.effects.effectNode(0)#maxBending" value="0.8"/>
+
+            <!-- fix broken fillLevel display -->
+            <set path="vehicle.dashboard#maxUpdateDistance" value="50"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0).dashboard#valueType" value="mrFillMass" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
