@@ -445,3 +445,23 @@ Vehicle.mrUpdate = function(self, superFunc, dt)
 
 end
 Vehicle.update = Utils.overwrittenFunction(Vehicle.update, Vehicle.mrUpdate)
+
+
+Vehicle.getName = function(self)
+    local storeItem = g_storeManager:getItemByXMLFilename(self.configFileName)
+    if storeItem == nil then
+        return "Unknown"
+    end
+
+    if storeItem.configurations ~= nil then
+        for configName, _ in pairs(storeItem.configurations) do
+            local configId = self.configurations[configName]
+            local config = storeItem.configurations[configName][configId]
+            if config~=nil and config.vehicleName ~= nil and config.vehicleName ~= "" then --check config is not nil
+                return config.vehicleName
+            end
+        end
+    end
+
+    return storeItem.name
+end

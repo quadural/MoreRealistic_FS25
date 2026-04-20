@@ -32,7 +32,7 @@ end
 VehicleSystem.new = Utils.overwrittenFunction(VehicleSystem.new, VehicleSystem.mrNew)
 
 
-VehicleSystem.delete = function(self, superFunc)
+VehicleSystem.mrDelete = function(self, superFunc)
     superFunc(self)
     removeConsoleCommand("mrVehicleRecover")
 end
@@ -51,4 +51,3 @@ VehicleSystem.mrConsoleCommandRecoverVehicle = function(self)
         end
     end
 end
-
