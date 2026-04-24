@@ -19,7 +19,7 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrFrictionNeedUpdate = true
     self.mrLastRrFx = 0
     self.mrLastPressureFx = 0
-    self.mrLastContactNormalRatio = 1
+    --self.mrLastContactNormalRatio = 1
     self.mrScaleRR = 1
     self.mrTrackFx = 1
     self.mrNoGroundDisplacementWhenLowered = false --should be set to true for implement's wheels that are touching the ground in working position and are part of the workarea of the implement (example : vaderstad nz extreme 1425)
@@ -454,15 +454,26 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                     end
 
                     --20250701 - adding getWheelShapeContactNormal to help get better result for dynamicFrictionScale
-                    local _,ny,_ = getWheelShapeContactNormal(self.wheel.node, self.wheelShape)
-                    if ny~=nil then
-                        self.mrLastContactNormalRatio = ny
-                    else
-                        self.mrLastContactNormalRatio = 1
-                    end
+--                     local _,ny,_ = getWheelShapeContactNormal(self.wheel.node, self.wheelShape)
+--                     if ny~=nil then
+--                         self.mrLastContactNormalRatio = ny
+--                     else
+--                         self.mrLastContactNormalRatio = 1
+--                     end
                 end
                 rrForce = WheelPhysics.mrGetRollingResistance(self, wheelSpeed, tireLoad, self.mrTireGroundRollingResistanceCoeff) --20250725 - do not take into account wheelshape weight for rolling resistance
                 --tireLoad = tireLoad + wheelWeight
+
+                local absWheelSpd = math.abs(wheelSpeed)
+                if not self.mrIsDriven and absWheelSpd<0.5 then
+                    --20260403 - see end of "mrGetRollingResistance" function
+                    damping = (10-18*absWheelSpd)*damping
+                elseif self.vehicle.lastSpeedReal>0.006 then --6ms = 21.6kph
+                    damping = 0
+                elseif self.vehicle.lastSpeedReal>0.002 then --2ms = 7.2kph
+                    damping = damping * math.max(0, 1.5-250*self.vehicle.lastSpeedReal) --0.25*1000 = 250
+                end
+
             else
                 --no ground contact = "random" damping (see loadFromXML)
                 damping = self.mrRotationDamping
@@ -501,16 +512,6 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
             if totalForce>self.restLoad then --minimum force = restLoad (10% of restLoad weight since normal (vertical) force = 9.81*restload)
                 totalForce = math.min(totalForce, self.mrLastTireLoad*self.tireGroundFrictionCoeff)
                 totalForce = math.max(totalForce, self.restLoad)
-            end
-        end
-
-        --20250601 - increase damping at low speed
-        --20260403 - see end of "mrGetRollingResistance" function
-        if self.hasGroundContact and not self.mrIsDriven then
-            local lastSpeed = math.abs(self.mrLastWheelSpeed) --m/s
-            --we want to simulate rolling resistance here since this is not really possible at very low speed with forces
-            if lastSpeed<0.5 then
-                damping = (10-18*lastSpeed)*damping
             end
         end
 

@@ -419,3 +419,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - new console command for server side = "mrVehicleRecover" (this allows fast recovery 'inplace' when testing vehicle stability) - nothing is lost, the trailer/implement content is kept. This is not a reset. The vehicle is "lifted" to get back to its wheels.
             - add converted Walkabout WMB 4000 (mother bin) with working display scale and in kilos instead of liters
             - add "mrFillMass" dashboard valueType (see Walkabout WMB4000 motherbin as example)
+            - add Amity Crop Chaser 1000 (Multi-crop Cart)
+            - add some downforce at high speed to simulate the air flowing around the vehicle
+            - major change : get ride of the wheel "damping" effect of the base game when driving at "high" speed => prevent the "sluggish" speed increase with trucks when getting some speed on the road for example. (MoreRealistic is even more realistic)

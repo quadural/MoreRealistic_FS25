@@ -204,6 +204,15 @@ Vehicle.mrUpdateVehicleSpeed = function(self, superFunc, dt)
                 local spd = MathUtil.vector3Length(vx, vy, vz)
                 if spd>0.002 then
                     addForce(self.components[1].node, dragForce*vx/spd, dragForce*vy/spd, dragForce*vz/spd,0,0.4*self.size.height,0,true)
+                    --20250424 - add some downforce too at high speed to simulate the "downforce" we get IRL when the "air" is flowing around the vehicle
+                    if self.lastSpeedReal>0.005 then --0.005 = 18kph
+                        local downX,downY,downZ = localDirectionToWorld(self.components[1].node, 0, dragForce, 0)
+                        addForce(self.components[1].node, downX,downY,downZ,self.components[1].mrDefaultCOMx, self.components[1].mrDefaultCOMy, self.components[1].mrDefaultCOMz,true)
+--                          DEBUG
+--                         local cx,cy,cz = localToWorld(self.components[1].node, self.components[1].mrDefaultCOMx, self.components[1].mrDefaultCOMy, self.components[1].mrDefaultCOMz)
+--                         local downX2,downY2,downZ2 = localDirectionToWorld(self.components[1].node, 0, 10*dragForce, 0)
+--                         drawDebugLine(cx, cy, cz, 1, 0, 0, cx+downX2, cy+downY2, cz+downZ2, 0, 1, 0, true)
+                    end
                 end
             end
         end
