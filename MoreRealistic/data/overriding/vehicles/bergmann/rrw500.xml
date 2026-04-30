@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="augerWagon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="3">true</MR>
+
+    <mrPowerConsumer forcePtoRpm="true" ptoPowerStartingTime="3000" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
+
+    <mrSuspension referenceMass="52000" />
+
+    <!--
+
+        about 13600kg empty without option and minimal tires (710/50R26.5)
+
+        options in game =
+        800/45R30.5 tires
+        forced steering axle
+        => about 13900kg in game
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/bergmann/rrw500/rrw500.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 -0.2"/>
+            <set path="vehicle.base.components.component(0)#mass" value="11900"/>
+
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer.powerConsumerConfigurations.powerConsumerConfiguration(0)#neededMaxPtoPower" value="40" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.18"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#suspTravel" value="0.18"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="120"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="20"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.3 -0.6"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode#emptySpeed" value="900"/>
+
+            <!-- drawbar protection against tractor's wheel -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.77 1" />
+
+            <!-- steering axle speed limit -->
+            <set path="vehicle.attachable.steeringAxleAngleScale#speedDependent" value="true" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#startSpeed" value="15" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="25" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

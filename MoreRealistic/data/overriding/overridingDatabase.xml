@@ -8,6 +8,8 @@
     <vehicle fileNameToOverride="data/vehicles/elmersMfg/haulMaster/haulMaster.xml">vehicles/elmer/haulMaster.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/walkabout/motherBin4000/motherBin4000.xml">vehicles/walkabout/motherBin4000.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/amityTechnology/cc1000/cc1000.xml">vehicles/amity/cc1000.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/meridian/conveyAllCST1550/conveyAllCST1550.xml">vehicles/meridian/conveyAllCST1550.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/bergmann/rrw500/rrw500.xml">vehicles/bergmann/rrw500.xml</vehicle>
 
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>

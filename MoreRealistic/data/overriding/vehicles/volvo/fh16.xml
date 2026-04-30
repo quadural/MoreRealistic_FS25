@@ -3,42 +3,245 @@
 
     <MR>true</MR>
 
+    <mrSuspension referenceMass="8300" useVehicleAndImplementsMasses="true" />
+
     <!--
 
-        empty = 7400kg / 5400 front and 2000 rear
-        wheels are set to 500kg in base game (maybe to better handle the huge torque of the engine ?)
+        Chassis weight includes oil, water, AdBlue, 0 litres fuel and without driver (315/80R22.5 wheels everywhere) => no option (sleeper cab, small fuel tank, etc)
+
+        4x2
+        5600kg front / 1930kg rear
+        in game with fuel and driver and 385/65r22.5 steering wheels = 5920kg front axle and 2350kg rear = 8270kg
+
+        6x4
+        5400kg front / 3750kg rear
+        in game with fuel and driver and 385/65r22.5 steering wheels = 5800kg front axle and 4050kg rear = 9850kg
+
+        8x4 TAG or pusher
+        5610kg front / 4655kg rear
+        in game with fuel and driver and 385/65r22.5 steering wheels = 6050kg front axle and 5000kg rear = 11050kg
+
+
+        wheels are set to 500kg each in base game (maybe to better handle the huge torque of the engine ?)
         should be something like 600kg for the 6
 
         component1 = main
         component2 = front axle
+
+        hydraulic front wheel assist (up to 20kph) = "x-track" by Terberg
+        front hubs should be colored
+        44KW max per wheel
+        => not present in game
+
+        6x4 and 8x4 = the "towbar" (5th wheel) should be mounted closer toward the front of the truck. In the game, they are not "ideally" centered for the load (most of the load on the last axle)
+        8x4 TAG = doesn't seem to be "realistic". rather something we would see on a rigid truck, not a semi
 
     -->
 
     <parentFile xmlFilename="$data/vehicles/volvo/fh16/fh16.xml">
         <attributes>
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.15 1.9"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.15 2.05"/> <!-- main -->
             <set path="vehicle.base.components.component(0)#mass" value="6100"/>
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0"/> <!--front axle -->
             <set path="vehicle.base.components.component(1)#mass" value="700"/>
 
             <!-- more rotation for the 5th wheel -->
             <set path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(0).attacherJoint(0)#lowerRotLimit" value="5 105 12"/>
 
-            <!-- 780 consumption -->
-            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(0)#usage" value="75"/>
-            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(1)#usage" value="4.35"/> <!-- 5.8% -->
 
-            <!-- differential 4x2 = far less torque on the front axle (x-track system, up to 20kph only IRL) -->
-            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration(0).differentials.differential(2)#torqueRatio" value="0.1"/>
 
-            <!-- 4x2 config suspension -->
+            <!-- differential 4x2 = no front wheel assist -->
+            <!-- <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration(0).differentials.differential(2)#torqueRatio" value="0.1"/> -->
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(0).differentials.differential(0)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(0).differentials.differential(1)" />
+
+            <!-- differential 6x4 = no front wheel assist -->
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(1).differentials.differential(0)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(1).differentials.differential(3)" />
+
+            <!-- differential 8x4 TAG = no front wheel assist and no last rear axle -->
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(2).differentials.differential(0)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(2).differentials.differential(2)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(2).differentials.differential(3)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(2).differentials.differential(3)" />
+
+            <!-- differential 8x4 PUSHER AXLE = no front wheel assist and no first rear axle -->
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(3).differentials.differential(0)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(3).differentials.differential(0)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(3).differentials.differential(3)" />
+            <remove path="vehicle.motorized.differentialConfigurations.differentialConfiguration(3).differentials.differential(3)" />
+
+            <!-- 4x2 config suspension/wheels -->
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.12"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.12"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="200"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrABS" value="true"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.12"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="10"/>
+
+            <!-- 6x4 config suspension/wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mrABS" value="true"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#yOffset" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#yOffset" value="-0.01"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#yOffset" value="-0.01"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).objectChange(9)#node" value="fh16_main_component1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).objectChange(9)#mrAddMassActive" value="1020"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).objectChange(9)#mrAddMassCOMActive" value="0 1 -1.1"/>
+
+            <!-- 8x4 TAG config suspension/wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(1).physics#mrABS" value="true"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(2).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(2).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(3).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(3).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(2).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(3).physics#yOffset" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(4).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(5).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(4).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(5).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(4).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(5).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(4).physics#yOffset" value="-0.01"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(5).physics#yOffset" value="-0.01"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(6).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(7).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(6).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(7).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(6).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(7).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(6).physics#yOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(7).physics#yOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(6).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).wheels.wheel(7).physics#mrABS" value="true"/>
+
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).objectChange(10)"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).objectChange(10)#node" value="fh16_main_component1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).objectChange(10)#mrAddMassActive" value="2000"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(2).objectChange(10)#mrAddMassCOMActive" value="0 1 -1.1"/>
+
+            <!-- 8x4 PUSH config suspension/wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(0).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(1).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(1).physics#mrABS" value="true"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(2).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(3).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(2).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(3).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(3).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(2).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(3).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(2).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(3).physics#mrABS" value="true"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(4).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(5).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(4).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(5).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(4).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(5).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(4).physics#yOffset" value="-0.01"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(5).physics#yOffset" value="-0.01"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(6).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(7).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(6).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(7).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(6).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(7).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(6).physics#yOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).wheels.wheel(7).physics#yOffset" value="-0.02"/>
+
+
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).objectChange(10)"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).objectChange(10)#node" value="fh16_main_component1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).objectChange(10)#mrAddMassActive" value="2000"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(3).objectChange(10)#mrAddMassCOMActive" value="0 1 -1.1"/>
+
+
+
+            <!-- globe trotter cab additionnal weight -->
+            <set path="vehicle.designConfigurations.designConfiguration(0).objectChange(5)#node" value="fh16_main_component1"/>
+            <set path="vehicle.designConfigurations.designConfiguration(0).objectChange(5)#mrAddMassActive" value="150"/>
+            <set path="vehicle.designConfigurations.designConfiguration(0).objectChange(5)#mrAddMassCOMActive" value="0 2.8 3"/>
+
+            <!-- aero sides -->
+            <set path="vehicle.design2Configurations.design2Configuration(1).objectChange(7)#node" value="fh16_main_component1"/>
+            <set path="vehicle.design2Configurations.design2Configuration(1).objectChange(7)#mrAddMassActive" value="40"/>
+            <set path="vehicle.design2Configurations.design2Configuration(1).objectChange(7)#mrAddMassCOMActive" value="0 1 1"/>
+
+            <set path="vehicle.design2Configurations.design2Configuration(2).objectChange(7)#node" value="fh16_main_component1"/>
+            <set path="vehicle.design2Configurations.design2Configuration(2).objectChange(7)#mrAddMassActive" value="70"/>
+            <set path="vehicle.design2Configurations.design2Configuration(2).objectChange(7)#mrAddMassCOMActive" value="0 2.8 2.4"/>
+
+            <set path="vehicle.design2Configurations.design2Configuration(3).objectChange(7)#node" value="fh16_main_component1"/>
+            <set path="vehicle.design2Configurations.design2Configuration(3).objectChange(7)#mrAddMassActive" value="110"/>
+            <set path="vehicle.design2Configurations.design2Configuration(3).objectChange(7)#mrAddMassCOMActive" value="0 2.2 1.9"/>
+
+            <!-- front guard -->
+            <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(3)#node" value="fh16_main_component1"/>
+            <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(3)#mrAddMassActive" value="60"/>
+            <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(3)#mrAddMassCOMActive" value="0 1.2 4.5"/>
+
+            <set path="vehicle.design3Configurations.design3Configuration(2).objectChange(3)#node" value="fh16_main_component1"/>
+            <set path="vehicle.design3Configurations.design3Configuration(2).objectChange(3)#mrAddMassActive" value="60"/>
+            <set path="vehicle.design3Configurations.design3Configuration(2).objectChange(3)#mrAddMassCOMActive" value="0 1.2 4.5"/>
+
+            <set path="vehicle.design3Configurations.design3Configuration(3).objectChange(3)#node" value="fh16_main_component1"/>
+            <set path="vehicle.design3Configurations.design3Configuration(3).objectChange(3)#mrAddMassActive" value="60"/>
+            <set path="vehicle.design3Configurations.design3Configuration(3).objectChange(3)#mrAddMassCOMActive" value="0 1.2 4.5"/>
 
 
 
@@ -73,34 +276,104 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(3)#gearRatio" value="2.48"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(3)#name" value="R4"/>
 
+
+            <!-- 600 consumption -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="59"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(1)#usage" value="3.4"/> <!-- 5.8% -->
+
+            <!-- 700 consumption -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(1).consumer(0)#usage" value="67"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(1).consumer(1)#usage" value="3.9"/> <!-- 5.8% -->
+
+            <!-- 780 consumption -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(0)#usage" value="75"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(1)#usage" value="4.35"/> <!-- 5.8% -->
+
+
+            <!-- D17A600 EU6SCR  -->
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="1880"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="91"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="32"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="30" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="320" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="1.600"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="2.200"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="3.000"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1380"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="3.000"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1880"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="2.245"/>
+
+            <!-- D17A700 EU6SCR  -->
+            <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#torqueScale" value="1"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#minRpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxRpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#ptoMotorRpmRatio" value="3.15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxForwardSpeed" value="91"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxBackwardSpeed" value="32"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#brakeForce" value="30" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#mrGovernorRpmRange" value="300" />
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(0)#rpm" value="600"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(0)#torque" value="1.600"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(1)#rpm" value="800"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(1)#torque" value="2.200"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(2)#rpm" value="950"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(2)#torque" value="3.400"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(3)#rpm" value="1400"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(3)#torque" value="3.400"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(4)#rpm" value="1500"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(4)#torque" value="3.250"/>
+
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(5)#rpm" value="1900"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(5)#torque" value="2.590"/>
+
+
             <!-- D17A780 EU6SCR  -->
             <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor" />
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#minRpm" value="600"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxRpm" value="2000"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxRpm" value="1900"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#ptoMotorRpmRatio" value="3.15"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxForwardSpeed" value="91"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxBackwardSpeed" value="32"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#brakeForce" value="30" />
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="400" />
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="300" />
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#rpm" value="600"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#torque" value="1.6"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#torque" value="1.600"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#rpm" value="800"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#torque" value="2.2"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#torque" value="2.200"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#rpm" value="1000"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#torque" value="3.8"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#torque" value="3.800"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#rpm" value="1200"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#torque" value="3.79"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#torque" value="3.790"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#rpm" value="1700"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#torque" value="3.225"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#rpm" value="1900"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#torque" value="2.65"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#torque" value="2.650"/>
 
         </attributes>
     </parentFile>

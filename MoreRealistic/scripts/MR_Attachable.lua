@@ -47,7 +47,7 @@ Attachable.setLowered = Utils.overwrittenFunction(Attachable.setLowered, Attacha
 
 Attachable.mrOnFoldStateChanged = function(self, superFunc, direction, moveToMiddle)
 
-    superFunc(self, direcion, moveToMiddle)
+    superFunc(self, direction, moveToMiddle)
 
     local spec = self.spec_foldable
     if spec.foldMiddleAnimTime ~= nil then
@@ -70,3 +70,22 @@ Attachable.mrManagedLoweredEvent = function(self, lowered)
     end
 
 end
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+--MR : requiresExternalPower = no problem running when no motorized vehicle attached, but then, this is problematic if there is a motorized vehicle not running attached ?)
+--fix that
+--example : conveyAll CST1550
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--superFunc1 = Attachable.getIsPowered
+--superFunc0 = genuine overriden function by Attachable.getIsPowered
+Attachable.mrGetIsPowered = function(self, superFunc1, superFunc0)
+    if not self.spec_attachable.requiresExternalPower then
+        --MR: we don't want to check the attacher vehicle in such case
+        return superFunc0(self)
+    else
+        return superFunc1(self, superFunc0)
+    end
+end
+Attachable.getIsPowered = Utils.overwrittenFunction(Attachable.getIsPowered, Attachable.mrGetIsPowered)

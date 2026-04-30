@@ -141,6 +141,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
             self.mrSuspensionActive = true
             self.mrSuspensionReferenceMass = 0.001 * self.mrSuspensionReferenceMass --kilos to tonnes
             self.mrSuspensionPowCurveFx = getXMLFloat(xmlFile, "vehicle.mrSuspension#powCurveFx") or 0.5 --default = 0.5 (0.5 = sqrt => 4x more mass means 2x more spring)
+            self.mrSuspensionUseVehicleAndImplementsMasses = getXMLBool(xmlFile, "vehicle.mrSuspension#useVehicleAndImplementsMasses") or false
             self.mrSuspensionMinChangeForUpdate = 0.05*self.mrSuspensionReferenceMass --only update suspension if there is more than 5% difference in mass
             self.mrSuspensionLastMass = 0
         end
@@ -406,16 +407,25 @@ Vehicle.mrUpdateTick = function(self, superFunc, dt)
         if self.mrSuspensionActive then
             --check mass compared to mrSuspensionReferenceMass
             --more than 5% difference = update spring value
-            --if self.lastSpeedReal~=0 then --quick check because and "idle" vehicle that is not updated by the physics engine => lastSpeedReal == 0
-            if self.serverMass~=self.mrSuspensionLastMass then
-                if math.abs(self.serverMass-self.mrSuspensionLastMass)>self.mrSuspensionMinChangeForUpdate then
-                    local factorSpring = math.pow(self.serverMass/self.mrSuspensionReferenceMass, self.mrSuspensionPowCurveFx)
+            local currentMass = self.serverMass
+            if self.mrSuspensionUseVehicleAndImplementsMasses then
+                if self.getAttachedImplements~=nil then
+                    local attachedImplements = self:getAttachedImplements()
+                    for _, implement in pairs(attachedImplements) do
+                        currentMass = currentMass + implement.object.serverMass
+                    end
+                end
+            end
+
+            if currentMass~=self.mrSuspensionLastMass then
+                if math.abs(currentMass-self.mrSuspensionLastMass)>self.mrSuspensionMinChangeForUpdate then
+                    local factorSpring = math.pow(currentMass/self.mrSuspensionReferenceMass, self.mrSuspensionPowCurveFx)
                     local factorDamper = math.sqrt(factorSpring)
                     for i=1, #self.spec_wheels.wheels do
                         --same way as "wheelAxle" from base game (which means we should not use both for the same vehicle)
                         self.spec_wheels.wheels[i].physics:setSuspensionMultipliers(factorSpring, factorDamper)
                     end
-                    self.mrSuspensionLastMass = self.serverMass
+                    self.mrSuspensionLastMass = currentMass
                 end
             end
         end

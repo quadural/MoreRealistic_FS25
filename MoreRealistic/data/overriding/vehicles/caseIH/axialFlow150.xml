@@ -114,7 +114,10 @@
             <set path="vehicle.cylindered.movingTools.movingTool(0).rotation#rotMin" value="-25"/>
 
             <!-- unloading "stream" of grain -->
-            <set path="vehicle.dischargeable.dischargeNode.effects.effectNode(0)#maxBending" value="0.8"/>
+            <set path="vehicle.dischargeable.dischargeNode.effects.effectNode(0)#maxBending" value="0.7"/>
+
+            <!-- since patch ??? 202604 this is a 7160 model => 12500L hopper -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="12500"/>
 
         </attributes>
     </parentFile>

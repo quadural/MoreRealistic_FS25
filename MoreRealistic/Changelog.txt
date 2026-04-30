@@ -422,3 +422,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Amity Crop Chaser 1000 (Multi-crop Cart)
             - add some downforce at high speed to simulate the air flowing around the vehicle
             - major change : get ride of the wheel "damping" effect of the base game when driving at "high" speed => prevent the "sluggish" speed increase with trucks when getting some speed on the road for example. (MoreRealistic is even more realistic)
+            - add converted convey all CST1550 (seed tender trailer)
+            - add converted Bergmann RRW500 (beet transfer trailer)
+            - add completed converted Volvo FH16 (truck, only 780 4x2 config was converted previously for test purpose)

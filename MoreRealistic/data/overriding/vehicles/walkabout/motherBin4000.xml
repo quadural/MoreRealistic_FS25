@@ -98,7 +98,7 @@
             <!-- unloading "stream" of grain -->
             <set path="vehicle.dischargeable.dischargeNode.effects.effectNode(0)#maxBending" value="0.8"/>
 
-            <!-- fix broken fillLevel display -->
+            <!-- fix broken fillLevel display (we want to see kilos, not liters. And we want the figures to be updated when looking at the display scale, not when we are close to the center of the motherbin... -->
             <set path="vehicle.dashboard#maxUpdateDistance" value="50"/>
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0).dashboard#valueType" value="mrFillMass" />
 

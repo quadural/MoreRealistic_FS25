@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="augerWagon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="3">true</MR>
+
+    <mrSuspension referenceMass="48000" />
+
+    <!--
+        seed tender trailer
+
+        7.3 M3 per compartment
+        43.92M3 total tank size
+
+        2tons/min unloading speed // about 20min to fully unload => about 37Liters per second
+        15°min / 40°max elevation angle
+        144° swing angle
+
+
+        25060Lbs empty = 11367 kilos
+        + 57 liters fuel tank + 189 liter oil tank => 11600kg
+
+        tires = 11R24.5 => about 280/85R24.5
+
+        the small diesel engine sound is missing when the unloading conveyor is working
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/meridian/conveyAllCST1550/conveyAllCST1550.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 0.6"/>
+            <set path="vehicle.base.components.component(0)#mass" value="10300"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.7"/>
+
+            <!-- air suspension -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#suspTravel" value="0.2"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="20"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrABS" value="true"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#yOffset" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#xOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#xOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#xOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#xOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#xOffset" value="-0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#xOffset" value="-0.02"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4)#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5)#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#configId" value="dual"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#configId" value="dual"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#configId" value="dual"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#configId" value="dual"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4)#configId" value="dual"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5)#configId" value="dual"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).additionalWheel#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).additionalWheel#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).additionalWheel#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).additionalWheel#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).additionalWheel#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).additionalWheel#filename" value="$data/shared/wheels/tires/lizard/truck/_11R24_5.xml"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).additionalWheel#configId" value="dualRim"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).additionalWheel#configId" value="dualRim"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).additionalWheel#configId" value="dualRim"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).additionalWheel#configId" value="dualRim"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).additionalWheel#configId" value="dualRim"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).additionalWheel#configId" value="dualRim"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).additionalWheel#offset" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).additionalWheel#offset" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).additionalWheel#offset" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).additionalWheel#offset" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).additionalWheel#offset" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).additionalWheel#offset" value="0.05"/>
+
+            <!-- $data/shared/wheels/tires/lizard/truck/_11R24_5.xml -->
+            <!-- $data/shared/wheels/tires/continental/offRoadHCS/325_95R24.xml -->
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="40"/>
+            <set path="vehicle.dischargeable.dischargeNode(1)#emptySpeed" value="40"/>
+            <set path="vehicle.dischargeable.dischargeNode(2)#emptySpeed" value="40"/>
+            <set path="vehicle.dischargeable.dischargeNode(3)#emptySpeed" value="40"/>
+            <set path="vehicle.dischargeable.dischargeNode(4)#emptySpeed" value="40"/>
+            <set path="vehicle.dischargeable.dischargeNode(5)#emptySpeed" value="40"/>
+
+
+            <!-- fix broken unloading visual when moving down or up the unloading conveyor (100% unatural stream of grain = seems like a forage harvester "spout" !  -->
+            <set path="vehicle.dischargeable.dischargeNode(5).raycast#useWorldNegYDirection" value="true"/>
+            <set path="vehicle.dischargeable.dischargeNode(5).raycast#yOffset" value="1"/>
+
+            <set path="vehicle.cylindered.movingTools.movingTool(0).dependentAnimation#name" value="grainStreamAnim" />
+            <set path="vehicle.cylindered.movingTools.movingTool(0).dependentAnimation#rotationAxis" value="1" />
+            <set path="vehicle.cylindered.movingTools.movingTool(0).dependentAnimation#minValue" value="-40" />
+            <set path="vehicle.cylindered.movingTools.movingTool(0).dependentAnimation#maxValue" value="-10" />
+
+            <set path="vehicle.animations.animation(3)#name" value="grainStreamAnim" />
+            <set path="vehicle.animations.animation(3).part(0)#node" value="pipeEffect" />
+            <set path="vehicle.animations.animation(3).part(0)#startTime" value="0" />
+            <set path="vehicle.animations.animation(3).part(0)#endTime" value="1" />
+            <set path="vehicle.animations.animation(3).part(0)#startRot" value="-180 50 90" />
+            <set path="vehicle.animations.animation(3).part(0)#endRot" value="-180 80 90" />
+
+            <!-- more clearance for the trailer support -->
+            <set path="vehicle.animations.animation(1).part(0)#endTrans" value="0 -0.4 0" />
+            <set path="vehicle.attachable.support#delayedOnAttach" value="false" />
+            <set path="vehicle.attachable.support#detachAfterAnimation" value="true" />
+            <set path="vehicle.attachable.support#detachAnimationTime" value="0.5" />
+
+
+            <!-- slower unfolding anim -->
+            <set path="vehicle.pipe.animation#speedScale" value="0.4" />
+
+            <!-- fix broken selected hopper at the back of the trailer (we want updated number when looking at the rear of the trailer, not when being near the center of the trailer -->
+            <set path="vehicle.dashboard#maxUpdateDistance" value="25"/>
+
+            <!-- no power need from the attached vehicle (embedded 50Hp diesel engine on the trailer) -->
+            <set path="vehicle.attachable.power#requiresExternalPower" value="false" />
+
+            <!-- application point for mass of fillVolume -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.4 6.515"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.4 4.575"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(2)#mrCenterOfMass" value="0 2.4 2.697"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(3)#mrCenterOfMass" value="0 2.4 0.82"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(4)#mrCenterOfMass" value="0 2.4 -1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(5)#mrCenterOfMass" value="0 2.4 -3"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
