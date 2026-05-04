@@ -331,12 +331,37 @@ Motorized.loadDifferentials = Utils.overwrittenFunction(Motorized.loadDifferenti
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
 
+    local reverseSoundsample = nil
+    local spec = self.spec_motorized
+
+    --override reverse beep sound management
+    if self.isClient then
+        reverseSoundsample = spec.samples.reverseDrive
+        spec.samples.reverseDrive = nil
+    end
+
     superFunc(self, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
 
     local motorState = self:getMotorState()
-    local spec = self.spec_motorized
 
     if self.isClient then
+
+        --override reverse beep sound management
+        if reverseSoundsample~=nil then
+            if g_soundManager:getIsSamplePlaying(spec.motorSamples[1]) then
+                --check currently engaged "direction"
+                local forwardDirection = self.getReverserDirection == nil and 1 or self:getReverserDirection()
+                local isReverseDriving = spec.motor.currentDirection<0 and (self.movingDirection~=forwardDirection or self:getLastSpeed()<1)
+                if not isReverseDriving then
+                    g_soundManager:stopSample(reverseSoundsample)
+                elseif not g_soundManager:getIsSamplePlaying(reverseSoundsample) then
+                    g_soundManager:playSample(reverseSoundsample)
+                end
+            end
+            --set back the value of the genuine variable
+            spec.samples.reverseDrive = reverseSoundsample
+        end
+
         if motorState == MotorState.STARTING or motorState == MotorState.ON then
             -- update sounds
             local rpm, minRpm, maxRpm = spec.motor:getLastModulatedMotorRpm(), spec.motor.minRpm, spec.motor.maxRpm

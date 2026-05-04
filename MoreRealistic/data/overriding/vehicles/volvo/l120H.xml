@@ -6,8 +6,6 @@
     <parentFile xmlFilename="$data/vehicles/volvo/l120H/l120H.xml">
         <attributes>
 
-
-
             <set path="vehicle.base.components.component(0)#mass" value="8000"/> <!-- main -->
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.3 -1.3" />
 

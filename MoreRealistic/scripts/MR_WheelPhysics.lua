@@ -157,10 +157,6 @@ WheelPhysics.postUpdate = Utils.prependedFunction(WheelPhysics.postUpdate, Wheel
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 WheelPhysics.mrUpdateTireFriction = function(self, superFunc)
     if self.vehicle.isServer and self.vehicle.isAddedToPhysics then
-        --test
---         self.maxLongStiffness = 300
---         self.maxLatStiffness = 5
---         self.maxLatStiffnessLoad = 1
         self.frictionScale = self.mrDynamicFrictionScale --update for debug display only
         self.mrLastFrictionApplied = self.tireGroundFrictionCoeff*self.mrDynamicFrictionScale
         setWheelShapeTireFriction(self.wheel.node, self.wheelShape, self.maxLongStiffness, self.maxLatStiffness, self.maxLatStiffnessLoad, self.tireGroundFrictionCoeff*self.mrDynamicFrictionScale)
