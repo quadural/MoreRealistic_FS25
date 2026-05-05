@@ -427,3 +427,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add completed converted Volvo FH16 (truck, only 780 4x2 config was converted previously for test purpose)
 
 202605XX    - new reverse reverse sound management (reverse sound is playing even at still when the reverse "gear" is engaged)
+            - new reverse light management (reverse light is active when the reverse "gear" is engaged)
