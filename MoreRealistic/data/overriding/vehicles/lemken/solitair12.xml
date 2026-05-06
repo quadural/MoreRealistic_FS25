@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
 
-<MR>true</MR>
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointY="0" forcePointZ="-3" />
 
 <!--
 
@@ -36,6 +38,7 @@
 
             <set path="vehicle.powerConsumer#maxForce" value="34" />
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="25" /> <!-- air turbine + electric distribution -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="385" />
 
             <!-- "folding animation" = moving center of masses -->
             <set path="vehicle.animations.animation(0).part(11)#startTime" value="6.5" />

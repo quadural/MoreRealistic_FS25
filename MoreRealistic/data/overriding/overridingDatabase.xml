@@ -126,6 +126,7 @@
     <vehicle fileNameToOverride="data/vehicles/agromasz/aquilaDrive400/aquilaDrive400.xml">vehicles/agromasz/aquilaDrive400.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/aerosemVT5000DD/aerosemVT5000DD.xml">vehicles/poettinger/aerosemVT5000DD.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lemken/solitair12/solitair12.xml">vehicles/lemken/solitair12.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/amazone/citan15001C/citan15001C.xml">vehicles/amazone/citan15001C.xml</vehicle>
 
     <!-- seeder front tanks -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/tf1512/tf1512.xml">vehicles/kuhn/tf1512.xml</vehicle>

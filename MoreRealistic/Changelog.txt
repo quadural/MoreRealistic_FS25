@@ -428,3 +428,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
 202605XX    - new reverse reverse sound management (reverse sound is playing even at still when the reverse "gear" is engaged)
             - new reverse light management (reverse light is active when the reverse "gear" is engaged)
+            - add converted Amazone Citan 15001C (seeder)
