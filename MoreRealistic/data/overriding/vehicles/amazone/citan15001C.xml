@@ -33,10 +33,10 @@
             <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- pneumatic brake -->
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.1" /> <!-- main body -->
-            <set path="vehicle.base.components.component(0)#mass" value="6300" />
+            <set path="vehicle.base.components.component(0)#mass" value="5950" />
 
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -0.35" /> <!--drawbar-->
-            <set path="vehicle.base.components.component(1)#mass" value="450" />
+            <set path="vehicle.base.components.component(1)#mass" value="800" /> <!-- more mass than IRL to help stabilize joint -->
 
             <!-- seed ramp -->
             <set path="vehicle.base.components.component(2)#centerOfMass" value="-0.5 0 0.2" />
@@ -63,9 +63,15 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="6"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="6"/>
 
+            <!-- IRL = most of the weight of the seeding ramps is beared by the ground contact, not the wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrScaleRR" value="0.5"/>
+
             <set path="vehicle.powerConsumer#maxForce" value="40" />
-            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="35" /> <!-- air turbine (seeds + ferti) + electric distribution -->
-            <set path="vehicle.powerConsumer#ptoRpm" value="385" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="30" /> <!-- air turbine (seeds + ferti) + electric distribution -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
 
             <!-- seeds hopper center of mass, 7800L total -->
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 1.8"/> <!-- fertilizer 3000L -->

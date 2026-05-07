@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointY="0" forcePointZ="-2.5" />
+
+<!--
+
+    triple hopper = 6400L = 30:10:60 = 1920L + 640L + 3840L => 1920L+640L = fertilizer / 3840L = seeds
+    option = minidrill = 400L = fertilizer too
+
+    about 11500kg empty
+
+-->
+
+    <parentFile xmlFilename="$data/vehicles/horsch/avatar1225/avatar1225.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="15" />
+
+            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- pneumatic brake -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.4 1.5" /> <!-- main body -->
+            <set path="vehicle.base.components.component(0)#mass" value="6500" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0" /> <!--arm middle-->
+            <set path="vehicle.base.components.component(1)#mass" value="800" />
+
+            <!-- seed ramp -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.1 -0.5" /> <!--arm left-->
+            <set path="vehicle.base.components.component(2)#mass" value="1500" />
+
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 -0.1 -0.5" /> <!--arm right-->
+            <set path="vehicle.base.components.component(3)#mass" value="1500" />
+
+
+            <!-- wheels -->
+            <set path="vehicle.wheels.wheelConfigurations#tireCategories" value="TRACTOR HARVESTER" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="150"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="150"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="40"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="6"/>
+
+            <!-- IRL = most of the weight of the seeding ramps is beared by the ground contact, not the wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrScaleRR" value="0.5"/>
+
+            <!-- better wide tires -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1)#price" value="5000"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0)#dimensions" value="900_60R32"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1)#dimensions" value="900_60R32"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#xOffset" value="0.07"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#xOffset" value="0.07"/>
+
+            <set path="vehicle.powerConsumer#maxForce" value="40" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="22" /> <!-- air turbine (seeds + ferti) + electric distribution -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
+
+            <!-- seeds hopper center of mass, 6400L total /6800L with minidrill -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 2.7"/> <!-- fertilizer 1920L+640L=2560L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#fillTypes" value="fertilizer"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="2560"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.1 1.15"/> <!-- seeds = 3840L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#fillTypes" value="seeds"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 2.7"/> <!-- fertilizer 1920L+640L+400L=2960L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#fillTypes" value="fertilizer"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#capacity" value="2960"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.1 1.15"/> <!-- seeds = 3840L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#fillTypes" value="seeds"/>
+
+            <set path="vehicle.sowingMachine#fillUnitIndex" value="2"/>
+            <set path="vehicle.sprayer#fillUnitIndex" value="1"/>
+            <set path="vehicle.sprayer#unloadInfoIndex" value="1"/>
+
+            <set path="vehicle.configurationSets.configurationSet(0)#params" value="$l10n_fillType_seeds|3840L|$l10n_configuration_fertilizer|2560L" />
+            <set path="vehicle.configurationSets.configurationSet(1)#params" value="$l10n_fillType_seeds|3840L|$l10n_configuration_fertilizer|2960L" />
+
+            <!-- trailer hitch rot adjustment -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.85 1" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

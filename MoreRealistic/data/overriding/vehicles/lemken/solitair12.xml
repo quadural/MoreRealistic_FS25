@@ -35,10 +35,16 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#supportsWheelSink" value="false" />
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#supportsWheelSink" value="false" />
 
+            <!-- IRL = most of the weight of the seeding ramps is beared by the ground contact, not the wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrScaleRR" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrScaleRR" value="0.5"/>
+
 
             <set path="vehicle.powerConsumer#maxForce" value="34" />
-            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="25" /> <!-- air turbine + electric distribution -->
-            <set path="vehicle.powerConsumer#ptoRpm" value="385" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="15" /> <!-- air turbine + electric distribution -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
 
             <!-- "folding animation" = moving center of masses -->
             <set path="vehicle.animations.animation(0).part(11)#startTime" value="6.5" />
