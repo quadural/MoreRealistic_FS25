@@ -61,7 +61,8 @@
             <set path="vehicle.attachable.inputAttacherJoints#inputAttacherJoint(0)#lowerRotLimitScale" value="0.05 0 1" />
 
             <set path="vehicle.powerConsumer#maxForce" value="36" />
-            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="7" /> <!-- air turbine -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="9" /> <!-- air turbine -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
 
             <!-- 2800L fillunit -->
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.3 0"/>

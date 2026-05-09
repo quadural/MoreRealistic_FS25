@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointY="0" forcePointZ="-0.5" />
+
+<!--
+
+    alpha drill = small seeds / micro granular / oilseed radish
+    this is not an extension of the seeds tank
+
+    double hopper = 5000L = 60:40 = 3000L rear : seeds / 2000L front : fertilizer
+
+    about 9600kg empty without any option
+
+    bug : air turbine sound is missing ?
+
+-->
+
+    <parentFile xmlFilename="$data/vehicles/bednar/omega6000FL/omega6000FL.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="17" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- pneumatic brake -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.1 -1" /> <!-- main body -->
+            <set path="vehicle.base.components.component(0)#mass" value="4000" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 -1.2" /> <!--drawbar-->
+            <set path="vehicle.base.components.component(1)#mass" value="650" />
+
+            <!-- seed ramp -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.15" /> <!--attacher-->
+            <set path="vehicle.base.components.component(2)#mass" value="650" />
+
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 -0.2 -0.6" /> <!--arm left-->
+            <set path="vehicle.base.components.component(3)#mass" value="1750" />
+
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0 -0.2 -0.6" /> <!--arm right-->
+            <set path="vehicle.base.components.component(4)#mass" value="1750" />
+
+
+            <!-- wheels -->
+
+            <!-- middle front + back -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+
+            <!-- main wheels = road transport -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="130"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="130"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#width" value="0.9"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#width" value="0.9"/>
+
+            <!-- wing wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="6"/>
+
+            <set path="vehicle.powerConsumer#maxForce" value="54" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="13" /> <!-- air turbine (seeds + ferti) + electric distribution -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
+
+            <!-- seeds hopper center of mass, 6400L total /6800L with minidrill -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.2 1.6"/> <!-- fertilizer 2000L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#fillTypes" value="fertilizer"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.2 0"/> <!-- seeds = 3000L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#fillTypes" value="seeds"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.2 1.4"/> <!-- fertilizer 2000+400=2400L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#fillTypes" value="fertilizer"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.2 0"/> <!-- seeds = 3000L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(1)#fillTypes" value="seeds"/>
+
+            <set path="vehicle.sowingMachine#fillUnitIndex" value="2"/>
+            <set path="vehicle.sprayer#fillUnitIndex" value="1"/>
+            <set path="vehicle.sprayer#unloadInfoIndex" value="1"/>
+            <set path="vehicle.sprayer#fillVolumeIndex" value="1"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0)#params" value="$l10n_fillType_seeds|3000L|$l10n_configuration_fertilizer|2000L" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1)#params" value="$l10n_fillType_seeds|3000L|$l10n_configuration_fertilizer|2400L" />
+
+            <!-- animations - remove not realistic rot limit and moving center of masses -->
+            <remove path="vehicle.animations.animation(2).part(10)" />
+            <remove path="vehicle.animations.animation(2).part(10)" />
+
+            <remove path="vehicle.animations.animation(2).part(18)" />
+            <remove path="vehicle.animations.animation(2).part(19)" />
+
+            <!-- add air turbine sound -->
+            <set path="vehicle.sowingMachine.sounds.airBlower#template" value="defaultSowingAirBlower_02" />
+            <set path="vehicle.sowingMachine.sounds.airBlower#linkNode" value="omega6000FL_main_component1" />
+            <set path="vehicle.sowingMachine.sounds.airBlower#pitchScale" value="1.0" />
+            <set path="vehicle.sowingMachine.sounds.airBlower#fadeIn" value="0.1" />
+            <set path="vehicle.sowingMachine.sounds.airBlower#fadeOut" value="0.2" />
+            <set path="vehicle.sowingMachine.sounds.airBlower#volumeScale" value="0.6" />
+
+            <!-- ridge marker mass -->
+            <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(4)#node" value="omega6000FL_armLeft_component4" />
+            <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(4)#mrAddMassActive" value="60" />
+            <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(4)#mrAddMassCOMActive" value="1.1 0.3 -1.1" />
+
+            <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(5)#node" value="omega6000FL_armRight_component5" />
+            <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(5)#mrAddMassActive" value="60" />
+            <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(5)#mrAddMassCOMActive" value="-1.1 0.3 -1.1" />
+
+            <!-- alpha drill mass -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(3)#node" value="omega6000FL_main_component1" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(3)#mrAddMassActive" value="180" />
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).objectChange(3)#mrAddMassCOMActive" value="0 1.5 -3" />
+
+            <!-- track tines mass -->
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(2)#node" value="omega6000FL_main_component1" />
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(2)#mrAddMassActive" value="120" />
+            <set path="vehicle.designConfigurations.designConfiguration(1).objectChange(2)#mrAddMassCOMActive" value="0 0.4 1.6" />
+
+            <!-- front tire roller mass -->
+            <set path="vehicle.design2Configurations.design2Configuration(1).objectChange(6)#node" value="omega6000FL_main_component1" />
+            <set path="vehicle.design2Configurations.design2Configuration(1).objectChange(6)#mrAddMassActive" value="460" />
+            <set path="vehicle.design2Configurations.design2Configuration(1).objectChange(6)#mrAddMassCOMActive" value="0 0.4 1.7" />
+
+            <!-- front levelling board mass -->
+            <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(7)#node" value="omega6000FL_main_component1" />
+            <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(7)#mrAddMassActive" value="410" />
+            <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(7)#mrAddMassCOMActive" value="0 0.4 2" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
