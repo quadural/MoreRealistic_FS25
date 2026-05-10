@@ -431,3 +431,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Amazone Citan 15001C (seeder)
             - add converted Horsch Avatar 12.25 SD (seeder)
             - add converted Bednar Omega 6000FL (seeder)
+            - add converted Kuhn Espro 6000RC (seeder)
+            - better MR CVT management (trying to get a better driving experience in some situations)

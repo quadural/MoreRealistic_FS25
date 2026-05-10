@@ -786,10 +786,11 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
     local motor = self.spec_motorized.motor
     local gearDirection = motor.currentDirection
-    local targetMaxRot = motor.peakMotorPowerRotSpeed
+    --local targetMaxRot = motor.peakMotorPowerRotSpeed
     local targetBrakingRot = 1.05*motor.mrMaxRot
     local targetMinRot = math.max(motor.mrMinRot, minRotForPTO)
     local targetEcoRot = math.max(targetMinRot, motor.mrMinEcoRot)
+    local forceMaxRot = 0
 
     local cvtEngineBrakingFx = 0.7 --0.7 because CVT = less "engine braking" than hydrostatic
     local motorRotAccFx = 0.5
@@ -817,7 +818,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
     --check current engine rpm and gearRatio
     local lastRatio = math.abs(motor.mrLastMotorObjectGearRatio)
-    local lastMinRatio = math.abs(self.spec_motorized.mrLastMinGearRatioSet)
+    --local lastMinRatio = math.abs(self.spec_motorized.mrLastMinGearRatioSet)
     --local lastMaxRatio = math.abs(self.spec_motorized.mrLastMaxGearRatioSet)
 
     if lastRatio==0 then
@@ -882,8 +883,8 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
 
         --we are overspeeding => engine brake
         if lastSpd>(targetSpeed+0.12) then
-            local ffx = math.max(1, lastSpd/math.max(1,targetSpeed))
-            ffx = math.min(ffx-0.995, 0.1)*10 --max braking power when 10% more speed (resulting ffx between 0.05 and 1)
+            local ffx = math.max(1, lastSpd/math.max(1,targetSpeed+0.12))
+            ffx = math.min(ffx-0.999, 0.1)*10 --max braking power when 10% more speed (resulting ffx between 0.01 and 1)
             --limit at low speed
             --ffx = math.min(ffx, 0.25*lastSpd)
             local rpmFactor = cvtEngineBrakingFx*motor.mrLastMotorObjectRotSpeed/targetBrakingRot
@@ -911,19 +912,29 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
             newGearRatioMin = minGearRatio
             motorRotAccFx = 0.2
 
-            if motor.mrLastMotorObjectRotSpeed>self.spec_motorized.mrLastMaxMotorRotSpeedSet then --something is "pushing" the vehicle = the engine should handle it (example : going downward on a road)
+            if motor.mrLastMotorObjectRotSpeed>(self.spec_motorized.mrLastMaxMotorRotSpeedSet+1) then --something is "pushing" the vehicle = the engine should handle it (example : going downward on a road)
                 self.spec_motorized.mrEngineIsBraking = true
-            elseif lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1)  then --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
-                newGearRatioMin = lastMinRatio * (1-dt/3000)
-                accPedal = 1
-            elseif lastSpd>(targetSpeed-0.02) and motor.mrLastMotorObjectRotSpeed>targetEcoRot and motor.smoothedLoadPercentage<0.8 then --scenario = target speed reached and engine not @100% load
-                motorRotAccFx = -0.2
+--                 if motor.mrLastMotorObjectRotSpeed>(motor.peakMotorPowerRotSpeed+2) then
+--                     local rpmFactor = cvtEngineBrakingFx*motor.mrLastMotorObjectRotSpeed/targetBrakingRot
+--                     self.spec_motorized.mrEngineBrakingPowerToApply = rpmFactor*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio
+--                 end
+                forceMaxRot = self.spec_motorized.mrLastMaxMotorRotSpeedSet
+
+            --elseif false and lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1)  then --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
+            --    newGearRatioMin = lastMinRatio * (1-dt/3000)
+            --    accPedal = 1
+            elseif lastSpd>(targetSpeed-0.02) then
+                if motor.mrLastMotorObjectRotSpeed>targetEcoRot and motor.smoothedLoadPercentage<0.8 then --scenario = target speed reached and engine not @100% load
+                    motorRotAccFx = -0.2
+                else
+                    motorRotAccFx = 0 -- no engine rpm change wanted
+                end
             elseif motor.rawLoadPercentage>0.91 or motor.mrLastMotorObjectRotSpeed<targetEcoRot then
                 --limit motorRotAccFx when near target speed
                 local ffx3 = 0.5 + 0.5*math.min(1, math.abs(targetSpeed-lastSpd))
                 motorRotAccFx = motorRotAccFx * ffx3
-            elseif lastRatio>minGearRatio then
-                motorRotAccFx = 0 -- no engine rpm change wanted
+            --elseif lastRatio>minGearRatio then
+            --   motorRotAccFx = 0 -- no engine rpm change wanted
             end
 
         end
@@ -936,7 +947,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
                 newGearRatioMin = lastRatio * (1+dt/500)
                 newGearRatioMax = newGearRatioMin
                 motorRotAccFx = 1
-            else
+            elseif not self.spec_motorized.mrEngineIsBraking then
                 --all is good, allow more ratio (lower minRatio and greater maxratio)
                 newGearRatioMin = minGearRatio
                 newGearRatioMax = lastRatio * (1+dt/500)
@@ -970,8 +981,12 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     newGearRatioMin = newGearRatioMin * gearDirection
     newGearRatioMax = newGearRatioMax * gearDirection
 
-    local maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
-    --local maxRot = self.spec_motorized.mrLastMaxMotorRotSpeedSet + motorRotAccFx * maxMotorRotAcceleration * dt/1000
+    local maxRot
+    if forceMaxRot~=0 then
+        maxRot = forceMaxRot
+    else
+        maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
+    end
 
     targetMinRot = motor.mrLastMotorObjectRotSpeed-2
     targetMinRot = math.min(maxRot-1, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)

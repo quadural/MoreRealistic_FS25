@@ -32,7 +32,6 @@
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 -1.2" /> <!--drawbar-->
             <set path="vehicle.base.components.component(1)#mass" value="650" />
 
-            <!-- seed ramp -->
             <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.15" /> <!--attacher-->
             <set path="vehicle.base.components.component(2)#mass" value="650" />
 
@@ -100,12 +99,8 @@
             <remove path="vehicle.animations.animation(2).part(19)" />
 
             <!-- add air turbine sound -->
-            <set path="vehicle.sowingMachine.sounds.airBlower#template" value="defaultSowingAirBlower_02" />
+            <set path="vehicle.sowingMachine.sounds.airBlower#template" value="defaultSowingAirBlower" />
             <set path="vehicle.sowingMachine.sounds.airBlower#linkNode" value="omega6000FL_main_component1" />
-            <set path="vehicle.sowingMachine.sounds.airBlower#pitchScale" value="1.0" />
-            <set path="vehicle.sowingMachine.sounds.airBlower#fadeIn" value="0.1" />
-            <set path="vehicle.sowingMachine.sounds.airBlower#fadeOut" value="0.2" />
-            <set path="vehicle.sowingMachine.sounds.airBlower#volumeScale" value="0.6" />
 
             <!-- ridge marker mass -->
             <set path="vehicle.ridgeMarker.ridgeMarkerConfigurations.ridgeMarkerConfiguration(1).objectChange(4)#node" value="omega6000FL_armLeft_component4" />

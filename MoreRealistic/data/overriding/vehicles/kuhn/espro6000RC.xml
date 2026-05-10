@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="fertilizingSowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointY="0" forcePointZ="-1.3" />
+
+<!--
+
+    double hopper = 5000L = 50:50 = 2750+2750 = 5500L
+
+    about 9200kg empty (min config ?)
+
+    rear tires should be 210/95R20 (trelleborg IM220)
+
+-->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/espro6000RC/espro6000RC.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="17" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- pneumatic brake, even if not visible ingame -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -1.35" /> <!-- main body -->
+            <set path="vehicle.base.components.component(0)#mass" value="7900" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0" /> <!--drawbar-->
+            <set path="vehicle.base.components.component(1)#mass" value="800" />
+
+
+            <!-- wheels -->
+
+            <!-- back wheels : wing -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="6"/>
+
+            <!-- main wheels = road transport -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="130"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="130"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="6"/>
+
+            <!-- front wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="30"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="30"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="6"/>
+
+            <set path="vehicle.powerConsumer#maxForce" value="54" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="13" /> <!-- air turbine (seeds + ferti) + electric distribution -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
+
+            <!-- front wheel mounted in reverse direction -->
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(14).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(15).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(16).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(17).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(18).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(19).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(20).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(21).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(22).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(23).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(24).tire#isInverted" value="true" />
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(25).tire#isInverted" value="true" />
+
+
+
+            <!-- seeds hopper center of mass -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.2 1.5"/> <!-- seeds 2750L -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(1)#mrCenterOfMass" value="0 2.2 0.3"/> <!-- fertilizer = 2750L -->
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
