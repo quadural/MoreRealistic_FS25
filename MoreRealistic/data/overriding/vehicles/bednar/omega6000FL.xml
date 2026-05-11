@@ -131,7 +131,6 @@
             <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(7)#mrAddMassActive" value="410" />
             <set path="vehicle.design3Configurations.design3Configuration(1).objectChange(7)#mrAddMassCOMActive" value="0 0.4 2" />
 
-
         </attributes>
     </parentFile>
 

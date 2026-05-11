@@ -130,6 +130,7 @@
     <vehicle fileNameToOverride="data/vehicles/horsch/avatar1225/avatar1225.xml">vehicles/horsch/avatar1225.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/bednar/omega6000FL/omega6000FL.xml">vehicles/bednar/omega6000FL.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kuhn/espro6000RC/espro6000RC.xml">vehicles/kuhn/espro6000RC.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/novag/tForcePlus950/tForcePlus950.xml">vehicles/novag/tForcePlus950.xml</vehicle>
 
     <!-- seeder front tanks -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/tf1512/tf1512.xml">vehicles/kuhn/tf1512.xml</vehicle>
