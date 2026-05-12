@@ -14,6 +14,9 @@
         => 46m3 with 800mm extension
         empty weight without extension = 11200kgs (560/60R22.5 tires) => 11650kgs with 650/55R26.5 or 710/50r26.5
         empty weight with 800mm extension = +400kgs
+
+        running gear = 30T, 55% brake efficiency => 30*0.55/6 = 2.75
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/brantner/tr34090/tr34090.xml">
@@ -23,7 +26,7 @@
             <set path="vehicle.base.components.component(0)#mass" value="9800"/>
 
             <remove path="vehicle.attachable.brakeForce" />
-            <set path="vehicle.attachable.brakeForce#force" value="2.5"/>
+            <set path="vehicle.attachable.brakeForce#force" value="2.75"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.2"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.2"/>

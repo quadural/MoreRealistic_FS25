@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrPowerConsumer forcePointY="0" forcePointZ="-1.4" />
+
+<!--
+
+    brake drum 406x120
+    10T, 55% brake efficiency => 10*0.55/2 = 2.75
+
+    10100kg
+
+    bug : the link between main body and middle arm is badly set.
+    the 2pt hitch should be part of the middle arm, not the main body (the lifting cylinder is part of the middle arm)
+    IRL, the link between the 2pt arms and the main body is free to rotate
+    in game, this can lead to lifting the drawbar from the tractor (when hopper is empty)
+    to cheat that : we apply a "forcing" rotation of the joint node to report load onto the middle part instead of the main body
+
+    Direct sowing : IRL, it should means we are using the "TC coulter" (15mm wide)
+
+-->
+
+    <parentFile xmlFilename="$data/vehicles/koeckerling/ultima800/ultima800.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="20" />
+
+            <set path="vehicle.storedata.shopTranslationOffset" value="0 0.26 0" />
+
+            <!-- no brakes on the tracks -->
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.75" />
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 3" /> <!-- main body -->
+            <set path="vehicle.base.components.component(0)#mass" value="1000" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 -1.3" /> <!--middle seedbar-->
+            <set path="vehicle.base.components.component(1)#mass" value="3200" />
+
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="-0.2 -0.4 -1.3" /> <!--left seedbar-->
+            <set path="vehicle.base.components.component(2)#mass" value="2200" />
+
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0.2 -0.4 -1.3" /> <!--right seedbar-->
+            <set path="vehicle.base.components.component(3)#mass" value="2200" />
+
+
+            <!-- wheels -->
+
+            <!-- caster wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+
+            <!-- transport wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="150"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="150"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="6"/>
+
+            <!-- virtual wheels -->
+
+            <!-- rear roller -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#damper" value="10"/>
+
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="45" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="13" /> <!-- air turbine + hydraulic distribution/metering units -->
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" />
+
+
+
+            <!-- seeds hopper center of mass, 8400L total -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 2.7"/>
+
+            <!-- trailer hitch rot adjustment -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.87 1" />
+
+
+
+            <!-- remove not realistic rot limit (and badly set => not sthe same for the 2 wings...) -->
+            <remove path="vehicle.animations.animation(1).part(0)" />
+            <remove path="vehicle.animations.animation(1).part(0)" />
+            <remove path="vehicle.animations.animation(1).part(0)" />
+
+            <!-- remove not realistic moving center of masses -->
+            <remove path="vehicle.animations.animation(1).part(9)" />
+            <remove path="vehicle.animations.animation(1).part(9)" />
+
+            <!-- trying to mitigate the badly set joint between the main body and the middle arm -->
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="200 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="20 0 0" />
+
+            <!-- cheating the rotation of the joint node to report some load onto the drawbar -->
+            <set path="vehicle.animations.animation(1).part(4)#endRot" value="-5 0 0" />
+            <set path="vehicle.animations.animation(1).part(10)#startRot" value="-5 0 0" />
+            <set path="vehicle.animations.animation(1).part(10)#endRot" value="10 0 0" />
+
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

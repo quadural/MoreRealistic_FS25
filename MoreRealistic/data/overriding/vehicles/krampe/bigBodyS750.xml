@@ -12,6 +12,9 @@
         empty weight 7300 with 600/55R26.5, no extension, no steering axle
         in game = 600/60r30.5 and steering axle => +300kg = 7600
 
+        410x180 brake drum
+        running gear = 26T, 60% brake efficiency => 26*0.6/4 = 3.9
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/krampe/bigBodyS750/bigBodyS750.xml">
@@ -21,7 +24,7 @@
             <set path="vehicle.base.components.component(0)#mass" value="6500"/>
 
             <remove path="vehicle.attachable.brakeForce" />
-            <set path="vehicle.attachable.brakeForce#force" value="2.7"/>
+            <set path="vehicle.attachable.brakeForce#force" value="3.9"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.18"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.18"/>

@@ -30,7 +30,7 @@
 
             <set path="vehicle.base.speedLimit#value" value="16" />
 
-            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- pneumatic brake -->
+            <set path="vehicle.attachable.brakeForce#force" value="3" /> <!-- pneumatic brake -->
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.1" /> <!-- main body -->
             <set path="vehicle.base.components.component(0)#mass" value="5950" />

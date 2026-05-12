@@ -21,7 +21,7 @@
             <set path="vehicle.base.speedLimit#value" value="17" />
 
             <remove path="vehicle.attachable.brakeForce" />
-            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- pneumatic brake, even if not visible ingame -->
+            <set path="vehicle.attachable.brakeForce#force" value="2.5" /> <!-- pneumatic brake, even if not visible ingame -->
 
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -1.35" /> <!-- main body -->
             <set path="vehicle.base.components.component(0)#mass" value="7900" />

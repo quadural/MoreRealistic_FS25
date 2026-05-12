@@ -434,3 +434,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Kuhn Espro 6000RC (seeder)
             - better MR CVT management (trying to get a better driving experience in some situations)
             - add converted Novag T-ForcePlus 950 (seeder)
+            - add converetd Kockerling Ultima 800 (seeder)

@@ -9,6 +9,8 @@
         steel trailer
 
         5900kg
+
+        running gear = 18T, 60% brake efficiency => 18*0.60/4 = 2.7
     -->
 
     <parentFile xmlFilename="$data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB_back.xml">

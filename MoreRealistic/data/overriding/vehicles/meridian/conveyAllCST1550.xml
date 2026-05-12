@@ -23,6 +23,8 @@
 
         the small diesel engine sound is missing when the unloading conveyor is working
 
+        running gear = 27T, 60% brake efficiency => 27*0.6/6 = 2.7
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/meridian/conveyAllCST1550/conveyAllCST1550.xml">

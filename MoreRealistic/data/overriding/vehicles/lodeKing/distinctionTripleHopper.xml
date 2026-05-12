@@ -20,6 +20,8 @@
         in our case = 45'6 length and 82" height (smallest one)
 
         6700kg
+
+        running gear = 27T, 60% brake efficiency => 27*0.6/6 = 2.7
     -->
 
     <parentFile xmlFilename="$data/vehicles/lodeKing/distinctionTripleHopper/distinctionTripleHopper.xml">
