@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="turnOnCultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" ptoForSoilWork="true" />
+    <mrImplement processAreaWhileNotMoving="true" />
+
+    <!--
+    base weight : 4755kg with steelliner packer
+
+    max working speed 10kph
+    220Hp tractor required. up to 460Hp possible
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/hr6040RCS/hr6040RCS.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="3255" /> <!-- main + left and right wings without rollers -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 0.9" />
+            <set path="vehicle.base.components.component(1)#mass" value="50" /> <!-- left roller -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.3 0" />
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
+            <set path="vehicle.base.components.component(2)#mass" value="50" /> <!-- right roller -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.3 0" />
+            <set path="vehicle.base.components.component(2)#inertiaScale" value="1 1 1" />
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="26" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="130" /> <!-- this is the pto power when working at 8kph => less power needed when working slower. Idle pto power = 10% -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="130" /> <!-- difference between min and max = only for "cylindered" => hydraulics -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrFrictionScale" value="0.5"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="8" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value = "0.05 0 0" />
+
+            <!-- more weight on the roller in working position -->
+            <set path="vehicle.animations.animation(1).part(4)#startTransMaxLimit" value="0 0.15 0" />
+            <set path="vehicle.animations.animation(1).part(5)#startTransMaxLimit" value="0 0.15 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.6" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

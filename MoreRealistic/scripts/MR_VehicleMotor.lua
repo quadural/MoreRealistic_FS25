@@ -109,7 +109,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
 
     newMotor.mrCvtRatioIncRate = 0 --only for mr CVT transmission
 
-    newMotor.mrLastMotorExternalTorque = 0
+    newMotor.mrLastMotorExternalTorqueChange = 0
     newMotor.mrLastMinRotForPTOidle = 0
     newMotor.mrLastMinRotForPTO = 0
     newMotor.mrLastPtoPower = 0

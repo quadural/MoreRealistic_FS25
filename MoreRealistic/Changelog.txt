@@ -434,4 +434,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Kuhn Espro 6000RC (seeder)
             - better MR CVT management (trying to get a better driving experience in some situations)
             - add converted Novag T-ForcePlus 950 (seeder)
-            - add converetd Kockerling Ultima 800 (seeder)
+            - add converted Kockerling Ultima 800 (seeder)
+            - add converted Kuhn HR6040RCS (power harrow)
+            - reworked CVT transmission pto mode (sluggish in some situations and not delivering the expected power)
+            - power harrows and spaders do not consume less power when the rpm is higher than the wanted rpm anymore

@@ -515,7 +515,7 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
         setWheelShapeProps(self.wheel.node, self.wheelShape, 0, totalForce*self.radius, self.steeringAngle, damping)
 
         --brakeForce = 0
-        setWheelShapeAutoHoldBrakeForce(self.wheel.node, self.wheelShape, (bForce or 0) * self.autoHoldBrakeFactor) --what for ?
+        setWheelShapeAutoHoldBrakeForce(self.wheel.node, self.wheelShape, math.max(bForce, 1) * self.autoHoldBrakeFactor) --what for ?
 
     end
 end

@@ -940,24 +940,47 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
         end
 
         --pto mode
-        if minRotForPTO>motor.mrMinRot then
+        if minRotForPTO>motor.mrMinRot and not self.spec_motorized.mrEngineIsBraking then
+            motorRotAccFx = math.max(0.1, 1-motor.motorExternalTorque/motor.peakMotorTorque)
 
-            if motor.mrLastMotorObjectRotSpeed<(minRotForPTO-5) then
-                --rpm too low = decrease speed to get more rpm
-                newGearRatioMin = lastRatio * (1+dt/500)
-                newGearRatioMax = newGearRatioMin
-                motorRotAccFx = 1
-            elseif not self.spec_motorized.mrEngineIsBraking then
-                --all is good, allow more ratio (lower minRatio and greater maxratio)
+            --pto engine rpm wanted is below max power rpm => we can rely on the "controlVehicle" function of base game engine
+            if minRotForPTO<motor.peakMotorPowerRotSpeed then --or motor.mrLastMotorObjectRotSpeed<motor.peakMotorPowerRotSpeed then
                 newGearRatioMin = minGearRatio
-                newGearRatioMax = lastRatio * (1+dt/500)
-                if isIncreasingRate then
-                   motorRotAccFx = 1
-                else
+                newGearRatioMax = maxGearRatio
+            else
+                --engine rpm for pto greater than max power rpm => we can't rely on the base game engine since it will stop raising the engine rpm to the max power rpm
+                --in pto mode, what we want is basically a fixed ratio gear box
+                local wantedGearRatio = lastRatio
+
+                if motor.mrLastMotorObjectRotSpeed>(minRotForPTO+1) then
+                    --wantedGearRatio = lastRatio * (1-(motor.mrLastMotorObjectRotSpeed+motor.motorRotAcceleration)/minRotForPTO*dt/1000)--minRotForPTO/math.max(1, motor.mrLastMotorObjectRotSpeed)
+                    --local ffx4 = ((motor.mrLastMotorObjectRotSpeed+motor.motorRotAccelerationSmoothed)/minRotForPTO)^3
+
+                    --limit gear ratio change when near the target speed
+                    local ffx4 = 0.5 + 0.5*math.min(1, math.abs(targetSpeed-lastSpd))
+                    --the greater the gear ratio (low speed), the quicker the change (avoid sluggish effect after changing direction for example) (gear ratio going down from 1000 to whatever the "destination" ratio)
+                    ffx4 = ffx4*lastRatio/100
+
+                    wantedGearRatio = lastRatio * (1-ffx4*dt/1000)
+                elseif motor.mrLastMotorObjectRotSpeed<(minRotForPTO-1) then
+                    if motor.motorRotAccelerationSmoothed<20 then
+                        wantedGearRatio = lastRatio * (1+dt/1000)--minRotForPTO/math.max(1, motor.mrLastMotorObjectRotSpeed)
+                    end
+                end
+
+                newGearRatioMin = math.max(newGearRatioMin, wantedGearRatio)
+                newGearRatioMax = newGearRatioMin
+            end
+
+            --decrease engine rpm when not needed
+            if not self.spec_motorized.mrEngineIsBraking and not isIncreasingRate and motor.mrLastMotorObjectRotSpeed>(minRotForPTO+5) then
+                if motor.mrLastMotorObjectRotSpeed>(motor.peakMotorPowerRotSpeed+1) then
+                    motorRotAccFx = 0
+                elseif lastSpd>(targetSpeed-0.14) then
                     if motor.smoothedLoadPercentage<0.6 then
-                        motorRotAccFx = motor.smoothedLoadPercentage -0.65
+                        motorRotAccFx = -0.05
                     elseif motor.smoothedLoadPercentage>0.85 then
-                        motorRotAccFx = motor.smoothedLoadPercentage -0.8
+                        motorRotAccFx = 0.05
                     else
                         motorRotAccFx = 0
                     end
@@ -986,6 +1009,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
         maxRot = forceMaxRot
     else
         maxRot = motor.mrLastMotorObjectRotSpeed + motorRotAccFx * maxMotorRotAcceleration * dt/1000
+        maxRot = math.min(maxRot, targetBrakingRot)
     end
 
     targetMinRot = motor.mrLastMotorObjectRotSpeed-2

@@ -113,6 +113,7 @@
 
     <!-- power harrows  -->
     <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kuhn/hr6040RCS/hr6040RCS.xml">vehicles/kuhn/hr6040RCS.xml</vehicle>
 
     <!-- rollers  -->
     <vehicle fileNameToOverride="data/vehicles/vaderstad/rexius1230/rexius1230.xml">vehicles/vaderstad/rexius1230.xml</vehicle>

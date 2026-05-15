@@ -439,8 +439,8 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
         end
 
         --20260408 - do not allow full increase damping effect when the pto is engaged
-        if (spec.motor.mrLastMotorExternalTorque==0 and spec.motor.lastMotorExternalTorque>0) or (spec.motor.lastMotorExternalTorque==0 and spec.motor.mrLastMotorExternalTorque>0) then
-            spec.motor.mrLastMotorExternalTorque = spec.motor.lastMotorExternalTorque
+        if (spec.motor.mrLastMotorExternalTorqueChange==0 and spec.motor.lastMotorExternalTorque>0) or (spec.motor.lastMotorExternalTorque==0 and spec.motor.mrLastMotorExternalTorqueChange>0) then
+            spec.motor.mrLastMotorExternalTorqueChange = spec.motor.lastMotorExternalTorque
             needUpdate = true
         end
 

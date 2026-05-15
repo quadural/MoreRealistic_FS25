@@ -442,7 +442,9 @@ PowerConsumer.mrGetPtoPowerMultiplier = function(self, toolCategory, speed, wetn
     local multiplier = 1
 
     --take into account rpm ? problem = we can cheat by shifting up a gear or 2 => lower rpm = lower power since the torque is the same (=> more speed even if we lug the engine)
-    -- IRL = the quality of the work would no be the same and less rpm = more "chunks" of ground to work at each rotation when driving at the same speed = more torque at the pto
+    -- IRL = the quality of the work would not be the same and less rpm = more "chunks" of ground to work at each rotation when driving at the same speed = more torque at the pto
+    --20260515 - problem with manual gearbox and autoshift => the pto power decreasing when the engine rpm increase means that the system shit up a gear and then the pto power is greater = revert back to the previous gear. etc etc
+    --here, we are talking of power, not torque. And so, IRL, the "power" consumed at the pto should be quite similar betwee : more pto rpm (less torque but more rotating speed of the moving tool) and less pto rpm (more torque but less rotating speed of the moving tool)
 
     if toolCategory=="spaders" then
         if speed<3 then
@@ -452,7 +454,7 @@ PowerConsumer.mrGetPtoPowerMultiplier = function(self, toolCategory, speed, wetn
         else
             multiplier = 1
         end
-        multiplier = multiplier / math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2)
+        --multiplier = multiplier / math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2)
         multiplier = multiplier * currentGroundForceMultiplier
         --no malus with wetness for spaders
     elseif toolCategory=="powerHarrows" then
@@ -464,7 +466,7 @@ PowerConsumer.mrGetPtoPowerMultiplier = function(self, toolCategory, speed, wetn
         else
             multiplier = 1
         end
-        multiplier = multiplier / math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2)
+        --multiplier = multiplier / math.clamp(self.mrPtoCurrentRpmRatio, 0.75, 1.2)
         multiplier = multiplier * currentGroundForceMultiplier
         --no malus with wetness for power harrows
     end
@@ -479,10 +481,7 @@ end
 --
 --
 --toolCategory = "storeData.category" value
---speed = kilometers per hour
---wetness = 0 to 1
---currentGroundForceMultiplier = 0 to 1 (if there is a force multiplier applied to the draftforce => example : ground already cultivated or ploughed = less force needed)
---currentPtoRatio = 0 to 1.X (current pto rpm against wanted pto rpm)
+--
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier = function(toolCategory)
 
@@ -493,7 +492,7 @@ PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier = function(toolCategory)
     elseif toolCategory=="planters" then
         multiplier = 0.55
     elseif toolCategory=="powerHarrows" then
-        multiplier = 0.85
+        multiplier = 0.75
     elseif toolCategory=="spaders" then
         multiplier = 0.75
     end
