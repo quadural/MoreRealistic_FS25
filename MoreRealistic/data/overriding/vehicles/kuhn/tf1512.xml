@@ -35,7 +35,6 @@
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value = "0 1 0" />
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#allowsJointTransLimitMovement" value = "true" />
 
-            <set path="vehicle.powerConsumer#forceNode" value="tf1512_main_component1" />
             <set path="vehicle.powerConsumer#ptoRpm" value="432" />
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="10" /> <!-- hydraulics : air turbine -->
 

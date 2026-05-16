@@ -114,6 +114,7 @@
     <!-- power harrows  -->
     <vehicle fileNameToOverride="data/vehicles/horsch/versa3KR/kredo.xml">vehicles/horsch/kredo.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kuhn/hr6040RCS/hr6040RCS.xml">vehicles/kuhn/hr6040RCS.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/bednar/katorKNProfi8000/katorKNProfi8000.xml">vehicles/bednar/katorKNProfi8000.xml</vehicle>
 
     <!-- rollers  -->
     <vehicle fileNameToOverride="data/vehicles/vaderstad/rexius1230/rexius1230.xml">vehicles/vaderstad/rexius1230.xml</vehicle>
@@ -133,6 +134,7 @@
     <vehicle fileNameToOverride="data/vehicles/kuhn/espro6000RC/espro6000RC.xml">vehicles/kuhn/espro6000RC.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/novag/tForcePlus950/tForcePlus950.xml">vehicles/novag/tForcePlus950.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/koeckerling/ultima800/ultima800.xml">vehicles/koeckerling/ultima800.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kuhn/btfr6030/btfr6030.xml">vehicles/kuhn/btfr6030.xml</vehicle>
 
     <!-- seeder front tanks -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/tf1512/tf1512.xml">vehicles/kuhn/tf1512.xml</vehicle>

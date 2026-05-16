@@ -198,8 +198,9 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
 
     if self.isActive then
         local spec = self.spec_powerConsumer
+        local maxForce = spec.maxForce
 
-        if spec.forceNode ~= nil and self.movingDirection~=0 and self.lastSpeedReal > 0.0001 then --0.36kph
+        if spec.forceNode ~= nil and maxForce>0 and self.movingDirection~=0 and self.lastSpeedReal > 0.0001 then --0.36kph
 
             local vx, vy, vz = getLinearVelocity(spec.forceNode)
             if vx==nil or vz==nil then
@@ -225,7 +226,7 @@ PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isAct
                         end
                     end
 
-                    local maxForce = spec.maxForce
+
 
                     --MR : max force dependant of speed and tool
                     local groundWetness = g_currentMission.environment.weather:getGroundWetness()

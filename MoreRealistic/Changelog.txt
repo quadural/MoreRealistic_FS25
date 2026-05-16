@@ -438,3 +438,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Kuhn HR6040RCS (power harrow)
             - reworked CVT transmission pto mode (sluggish in some situations and not delivering the expected power)
             - power harrows and spaders do not consume less power when the rpm is higher than the wanted rpm anymore
+            - add converted Kuhn btfr6030 (seeder)
+            - add converted Bednar Kator KN Profi 8000 (power harrow)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="sowingMachine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.1" forcePointZ="-0.3" ptoForSoilWork="true" />
+
+
+    <!--
+    hr6040RCS power harrow : 4755kg with steelliner packer
+    seeds ramp 40 ranks = 1620kg
+    total = 6375kg (vanilla game = the power harrow only is heavier than the power arrow + seed ramp ?)
+
+    max working speed 12kph (power harrow not working the ground as hard as in solo mode)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/btfr6030/btfr6030.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="3255" /> <!-- main + left and right wings without rollers, without seed ramp -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 0.9" />
+            <set path="vehicle.base.components.component(1)#mass" value="840" /> <!-- left roller + left seed ramp -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.4 0" />
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
+            <set path="vehicle.base.components.component(2)#mass" value="840" /> <!-- right roller + right seed ramp -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.4 0" />
+            <set path="vehicle.base.components.component(2)#inertiaScale" value="1 1 1" />
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="30" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMinPtoPower" value="100" /> <!-- this is the pto power when working at 8kph => less power needed when working slower. Idle pto power = 10% -->
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="100" /> <!-- difference between min and max = only for "cylindered" => hydraulics -->
+
+            <!-- steelliner roller -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mass" value="0.35"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.002"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrFrictionScale" value="0.5"/>
+
+            <!-- virtual wheels for the rear tines ramp -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrKeepMass" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="0.5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="0.5"/>
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="12" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value = "1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value = "0.05 0 0" />
+
+            <!-- more weight on the roller in working position, less working depth -->
+            <set path="vehicle.animations.animation(3).part(6)#startTransMaxLimit" value="0 0.12 0" />
+            <set path="vehicle.animations.animation(3).part(7)#startTransMaxLimit" value="0 0.12 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.63" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
