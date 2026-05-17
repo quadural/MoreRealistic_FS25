@@ -440,3 +440,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - power harrows and spaders do not consume less power when the rpm is higher than the wanted rpm anymore
             - add converted Kuhn btfr6030 (seeder)
             - add converted Bednar Kator KN Profi 8000 (power harrow)
+            - add converted Case IH Vestrum (tractor)
+            - update "tractorConversion.xml" file (brakes, spring and damper help)

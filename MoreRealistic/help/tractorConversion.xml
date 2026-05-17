@@ -14,8 +14,47 @@
     for trailer high, the benchmark trailer = rudolph TDK 301 RP
 
 
+    *************************************************************************************
+    brakes :
+
+    if we know the tractor deceleration (example : DLG test report)
+    force = acceleration * mass
+    brake force at the wheel = deceleration * mass
+    since in the game, the brake force is applied to each wheel and the value in the xml is muliplied by 2 for tractors =>
+    value to set in the xml = deceleration * mass / 8
+
+    The DLG result = IRL result, effective deceleration of the vehicle. In our case, the xml value = the brake force at the wheel. We can then set a little higher value => 10% more.
+    value to set in the xml = deceleration * mass * 0.14
+
+    example : case ih vestrum. DLG test report = 5.1m/s2 and 5800kg => value to set in the xml file = 5.1*5.8*0.14 = 4.14
 
 
+    *************************************************************************************
+    spring :
 
+    we have to take into account the max possible mass for each axle.
+    if only the max permissible load is known, we can estimate :
+    front axle max load = 0.42 * max load
+    rear axle max load = 0.62 * max load
+
+    a good starting value in the xml = 15 * max axle load
+
+    example : case ih vestrum = 3700kg front and 5500kg rear
+    value to set in xml : front = 3.7*15=55 / rear = 5.5*15=82
+
+    *************************************************************************************
+    damper :
+
+    the value depends on the "dampingratio" we want to achieve
+    0.1 for "hard" tire, 0.2 for "soft" and suspended tire
+
+    good starting values for tractor :
+    front = 0.17
+    rear = 0.13
+
+    value in the xml = 2 * dampingratio * sqrt(5*spring*max axle load)
+
+    example : case ih vestrum
+    value to set in xml : front = 2*0.17*sqrt(5*55*3.7)=10.85 / rear = 2*0.13*sqrt(5*82*5.5)=12.35
 
 -->
