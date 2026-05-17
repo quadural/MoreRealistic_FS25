@@ -482,7 +482,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     --20250608 - manual + clutch = accPedal can't be "0" (we don't want the tractor to stall at idle, with a gear engaged
     if g_gameSettings:getValue(GameSettings.SETTING.GEAR_SHIFT_MODE) == VehicleMotor.SHIFT_MODE_MANUAL_CLUTCH  and self.spec_motorized:getIsMotorStarted() then
         local tMinRot = math.max(minMotorRot, motor.mrMinRot)
-        if motor.mrLastMotorObjectRotSpeed<tMinRot then
+        if motor.mrLastMotorObjectRotSpeed<=(tMinRot+0.1) then -- for some reason, the "idle" speed of the engine doesn't always return the exact value set in "setMotorProperties" (0.1 = about 1 rpm)
             local clutchRot = motor.differentialRotSpeed*self.spec_motorized.mrLastMinGearRatioSet
             if clutchRot<tMinRot then
                 if clutchRot<(tMinRot-10) then
