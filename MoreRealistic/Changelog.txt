@@ -443,3 +443,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Case IH Vestrum (tractor)
             - update "tractorConversion.xml" file (brakes, spring and damper help)
             - fix problem with manual clutch and vehicle not moving when releasing the cluch pedal without depressing the accelerator
+            - add converted John Deere X9.1100 combine harvester
