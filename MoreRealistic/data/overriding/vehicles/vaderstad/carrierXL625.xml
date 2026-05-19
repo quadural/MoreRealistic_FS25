@@ -13,7 +13,9 @@
 
     <parentFile xmlFilename="$data/vehicles/vaderstad/carrierXL625/carrierXL625.xml">
         <attributes>
-            <!-- <set path="vehicle.storeData.name"  value="MR Carrier XL 625"/> -->
+
+            <set path="vehicle.base.speedLimit#value" value="18" />
+
             <set path="vehicle.powerConsumer#maxForce" value="39" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.65 0.1" />
             <set path="vehicle.base.components.component(0)#mass" value="8400" />

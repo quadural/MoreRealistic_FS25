@@ -486,16 +486,18 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier = function(toolCategory)
 
-    local multiplier = 0.7
+    local multiplier = 0.65
 
     if toolCategory=="seeders" then
         multiplier = 0.45
     elseif toolCategory=="planters" then
         multiplier = 0.55
+    elseif toolCategory=="discHarrows" then
+        multiplier = 0.5
     elseif toolCategory=="powerHarrows" then
-        multiplier = 0.75
+        multiplier = 0.85
     elseif toolCategory=="spaders" then
-        multiplier = 0.75
+        multiplier = 0.85
     end
 
     return multiplier

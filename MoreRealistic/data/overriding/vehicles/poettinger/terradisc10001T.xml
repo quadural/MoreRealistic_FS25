@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="-0.1" forcePointZ="-3.2" />
+
+    <!--
+
+        air brakes (air lines visible on the tractor, but the brakes and brake's actuators are not visible)
+
+        weight with conoroll roller + tines = 12700kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/poettinger/terradisc10001T/terradisc10001T.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="3800" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="3000" /> <!-- left wing -->
+            <set path="vehicle.base.components.component(2)#mass" value="3000" /> <!-- right wing-->
+
+            <!-- remove unnatural inertia scale -->
+            <remove path="vehicle.base.components.component(1)#inertiaScale" />
+            <remove path="vehicle.base.components.component(2)#inertiaScale" />
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.7" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="-0.5 -0.2 0.3" /> <!-- left arm -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0.5 -0.2 0.3" /> <!-- righ arm -->
+
+            <!-- transport wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="150"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="150"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="3.67"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="3.67"/>
+
+            <!-- front support wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="0.88"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="0.88"/>
+
+            <!-- left roller wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#restLoad" value="2.98"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#restLoad" value="1.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#supportsWheelSink" value="false"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#width" value="1"/>
+
+            <!-- right roller wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#restLoad" value="2.98"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#restLoad" value="1.06"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#supportsWheelSink" value="false"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#width" value="1"/>
+
+            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- air brakes -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="64" />
+
+            <!-- transport wheels with more load in work position -->
+            <set path="vehicle.animations.animation(0).part(15)#startRot" value="10 0 0" />
+            <set path="vehicle.animations.animation(0).part(16)#startRot" value="-10 0 0" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
