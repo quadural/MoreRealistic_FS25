@@ -81,6 +81,22 @@
             <set path="vehicle.animations.animation(0).part(15)#startRot" value="10 0 0" />
             <set path="vehicle.animations.animation(0).part(16)#startRot" value="-10 0 0" />
 
+            <!-- IRL, the wings are not "free" at work = add some "spring" to put more force on the outer "wheels" -->
+            <!-- <set path="vehicle.animations.animation(0).part()#" -->
+            <set path="vehicle.base.components.joint(0)#rotDriveRotation" value="0 0 5" />
+            <set path="vehicle.base.components.joint(0)#rotDriveSpring" value="0 0 10" />
+            <set path="vehicle.base.components.joint(0)#rotDriveDamping" value="0 0 10" />
+            <set path="vehicle.base.components.joint(0)#maxRotDriveForce" value="0 0 10" />
+
+            <set path="vehicle.base.components.joint(1)#rotDriveRotation" value="0 0 -5" />
+            <set path="vehicle.base.components.joint(1)#rotDriveSpring" value="0 0 10" />
+            <set path="vehicle.base.components.joint(1)#rotDriveDamping" value="0 0 10" />
+            <set path="vehicle.base.components.joint(1)#maxRotDriveForce" value="0 0 10" />
+
+            <!-- keep some wing flexibility even when in lifted position -->
+            <set path="vehicle.animations.animation(0).part(0)#endTime" value="12" />
+            <set path="vehicle.animations.animation(0).part(1)#endTime" value="12" />
+
         </attributes>
     </parentFile>
 

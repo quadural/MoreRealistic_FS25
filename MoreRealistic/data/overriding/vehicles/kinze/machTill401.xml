@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0" forcePointZ="-2" />
+
+    <!--
+
+        no brakes
+        17145kg with 20" discs (in game = 20", not 22")
+
+        manual says : IDEAL OPERATING SPEED is 10-12 mph. Minimum operating speed is 8 mph. Maximum operating speed is 14 mph
+
+        tube roller option : doesn't seem to exist IRL. Moreover, this tube roller is  not realistic at all (only one "star" on each side. Nothing to reinforce the tube roller on the middle => this thing would be broken after the first pass in the field, no way such a roller could bear the implement weight on the headland !
+
+           IRL, at work, the "transport wheel" cylinder is in floating position. Not possible here since there is only one component for he whole implement
+           IRL, the wing cylinder are kept under pressure with an hydraulic accumulator. This allows some flexibility for the wings. Not possible here.
+
+        this is NOT a 412 mach till model
+        412 mach till model = 98 discs. (12.7m wide)
+        this one = 93 discs. This is an older 401 model (12m wide)
+        we can see it in the i3d file = the name of the file and the name of the component = 401
+        same as a "Degelman" model
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kinze/machTill401/machTill401.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="14600" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -1.4" />
+
+            <!-- remove unrealistic tube roller config -->
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="false"/>
+
+
+            <!-- transport wheels -->
+
+            <!-- correct tire not available, should be 750/45/22.5 ALLIANCE 380HD -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/bkt/ridemaxFL693M/710_45R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/bkt/ridemaxFL693M/710_45R22_5.xml"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="6.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="6.15"/>
+
+            <!-- front support wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/bkt/fl630/600_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/bkt/fl630/600_50R22_5.xml"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="2.9"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="2.9"/>
+
+            <!-- roller wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#restLoad" value="2.50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#restLoad" value="2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#restLoad" value="2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#mass" value="0.6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#supportsWheelSink" value="false"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#supportsWheelSink" value="false"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#width" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#width" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#width" value="3"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#rotationDamping" value="0.003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#rotationDamping" value="0.003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#rotationDamping" value="0.003"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#initialCompression" value="50"/>
+
+            <remove path="vehicle.attachable.brakeForce#force" /> <!-- no brakes -->
+            <!-- remove hose and sound too -->
+            <remove path="vehicle.connectionHoses.sounds.connect(0)" />
+            <remove path="vehicle.connectionHoses.sounds.disconnect(0)" />
+            <remove path="vehicle.connectionHoses.hose(7)" />
+            <remove path="vehicle.connectionHoses.hose(7)" />
+
+            <set path="vehicle.base.objectChanges.objectChange(0)#node" value="airDoubleRed_detached" />
+            <set path="vehicle.base.objectChanges.objectChange(0)#visibilityActive" value="false" />
+            <set path="vehicle.base.objectChanges.objectChange(1)#node" value="airDoubleYellow_detached" />
+            <set path="vehicle.base.objectChanges.objectChange(1)#visibilityActive" value="false" />
+
+
+
+            <set path="vehicle.powerConsumer#maxForce" value="50" />
+            <set path="vehicle.base.speedLimit#value" value="23" />
+
+            <!-- trailer hitch rot adjustment -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.84 1" />
+
+            <!-- moving center of mass -->
+            <set path="vehicle.animations.animation(0).part(16)#componentIndex" value="1" />
+            <set path="vehicle.animations.animation(0).part(16)#startCenterOfMass" value="0 1 -1.4" />
+            <set path="vehicle.animations.animation(0).part(16)#endCenterOfMass" value="0 1.8 0.9" />
+            <set path="vehicle.animations.animation(0).part(16)#startTime" value="2" />
+            <set path="vehicle.animations.animation(0).part(16)#endTime" value="18" />
+
+            <!-- slower folding speed -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration.foldingParts.foldingPart(0)#speedScale" value="0.6" />
+
+            <!-- more depth at work -->
+            <set path="vehicle.animations.animation(0).part(0)#startRot" value="-22 0 0" />
+            <set path="vehicle.animations.animation(0).part(1)#startRot" value="-16 0 0" />
+            <set path="vehicle.animations.animation(0).part(2)#startRot" value="-16 0 0" />
+            <set path="vehicle.animations.animation(0).part(1)#endRot" value="2 0 0" />
+            <set path="vehicle.animations.animation(0).part(2)#endRot" value="2 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(3)#startRot" value="20 0 0" />
+            <set path="vehicle.animations.animation(0).part(4)#startRot" value="20 0 0" />
+            <set path="vehicle.animations.animation(0).part(5)#startRot" value="20 0 0" />
+
+            <set path="vehicle.animations.animation(0).part(14)#startRot" value="16 0 0" />
+            <set path="vehicle.animations.animation(0).part(15)#startRot" value="16 0 0" />
+            <set path="vehicle.animations.animation(0).part(14)#endRot" value="-2 0 0" />
+            <set path="vehicle.animations.animation(0).part(15)#endRot" value="-2 0 0" />
+
+            <!-- roller rotating speed depending on the wheelshape, not the ground speed ! -->
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(0)#groundReferenceNodeIndex" />
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(1)#groundReferenceNodeIndex" />
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(2)#groundReferenceNodeIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#wheelIndex" value="5" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#wheelIndex" value="6" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#wheelIndex" value="7" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

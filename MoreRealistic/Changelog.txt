@@ -446,3 +446,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted John Deere X9.1100 combine harvester
             - add converted Pottinger TerraDisc 10001T (disc cultivator)
             - already worked ground draft multipliers changes
+            - add converted Kinze mach till 412 (disc cultivator)

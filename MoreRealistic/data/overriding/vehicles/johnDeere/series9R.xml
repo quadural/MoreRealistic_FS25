@@ -15,9 +15,17 @@
             <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#centerOfMass" value="0 0.1 0.2"/> <!-- back -->
             <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#mass" value="6700"/>
 
-            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotLimit=" value="0 0 0" />
-            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotLimitSpring=" value="0 0 25000" />
-            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotLimitDamping=" value="0 0 1500" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotLimit=" value="0 0 10" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotLimitSpring=" value="0 0 20000" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotLimitDamping=" value="0 0 200" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotDriveSpring" value="0 0 10000" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#rotDriveDamping" value="0 0 100" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).joint(0)#maxRotDriveForce" value="0 0 10" />
+
+            <!-- reduce rot speed -->
+            <set path="vehicle.articulatedAxis#rotSpeed" value="-16" />
 
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="40"/>
@@ -368,8 +376,8 @@
             <!-- ************************************************************************************************************************-->
 
             <!-- attacher joint rot limit -->
-            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotLimit" value="25 80 50"/> <!-- trailer low -->
-            <set path="vehicle.attacherJoints.attacherJoint(1)#lowerRotLimit" value="25 80 50"/> <!-- trailer high -->
+            <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotLimit" value="25 91 50"/> <!-- trailer low -->
+            <set path="vehicle.attacherJoints.attacherJoint(1)#lowerRotLimit" value="25 89 50"/> <!-- trailer high -->
 
             <!-- back weight but without 3pt htich = no additional weight -->
             <remove path="vehicle.attacherJoints.attacherJointConfigurations.attacherJointConfiguration(1).objectChange(3)"/>

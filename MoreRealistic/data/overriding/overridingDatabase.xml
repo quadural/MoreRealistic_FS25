@@ -69,6 +69,7 @@
     <vehicle fileNameToOverride="data/vehicles/knoche/crossmax300/crossmax300.xml">vehicles/knoche/crossmax300.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/unia/aresXL/aresXL.xml">vehicles/unia/aresXL.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/terradisc10001T/terradisc10001T.xml">vehicles/poettinger/terradisc10001T.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kinze/machTill401/machTill401.xml">vehicles/kinze/machTill401.xml</vehicle>
 
     <!-- fertilizer spreaders -->
     <vehicle fileNameToOverride="data/vehicles/amazone/zats3200/zats3200.xml">vehicles/amazone/zats3200.xml</vehicle>
