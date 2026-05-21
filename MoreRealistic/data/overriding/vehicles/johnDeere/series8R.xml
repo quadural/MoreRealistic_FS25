@@ -274,7 +274,7 @@
             <set path="vehicle.attacherJoints.attacherJoint(2)#lowerRotLimit" value="25 68 50"/> <!-- trailer low -->
 
             <set path="vehicle.attacherJoints.attacherJoint(4)#lowerRotLimit" value="25 92 50"/> <!-- us - trailer high -->
-            <set path="vehicle.attacherJoints.attacherJoint(5)#lowerRotLimit" value="25 94 50"/> <!-- us - trailer low -->
+            <set path="vehicle.attacherJoints.attacherJoint(5)#lowerRotLimit" value="25 96 50"/> <!-- us - trailer low -->
 
             <!-- fuel tank -->
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="651"/> <!-- e-autopower or CIS = 651L instead of 727 -->
