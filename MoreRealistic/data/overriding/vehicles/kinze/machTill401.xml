@@ -101,7 +101,7 @@
 
 
 
-            <set path="vehicle.powerConsumer#maxForce" value="50" />
+            <set path="vehicle.powerConsumer#maxForce" value="65" />
             <set path="vehicle.base.speedLimit#value" value="23" />
 
             <!-- trailer hitch rot adjustment -->

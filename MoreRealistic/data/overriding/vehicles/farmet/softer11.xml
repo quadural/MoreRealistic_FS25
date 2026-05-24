@@ -108,7 +108,7 @@
 
             <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- air brakes -->
 
-            <set path="vehicle.powerConsumer#maxForce" value="52" />
+            <set path="vehicle.powerConsumer#maxForce" value="62" />
             <set path="vehicle.base.speedLimit#value" value="16" />
 
 
