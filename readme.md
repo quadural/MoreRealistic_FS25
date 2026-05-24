@@ -15,7 +15,7 @@ A deep modification of the game to make it enjoyable for me (especially the driv
 ---------------------------------------------
 MoreRealistic history :
 
-IRL, I drove my first tractor at the age of 7 (only the steering wheel, Ford 7000 and IH745)  
+IRL, I drove my first tractor at the age of 7 (only the steering wheel, Ford 5000 and IH745)  
 I am also a software engineer (but not only)  
 I discovered and played LS2009 just before Farming Simulator 2011 was released  
 I started modding with FS2011 -> the game physics was too bad (unrealistic flying tractor. The more weight on the wheels, the more power you get, no rolling resistance, etc etc)  
@@ -44,7 +44,7 @@ The driving experience was too bad :
 What can you expect from MoreRealistic ?
 
 * rolling resistance (something not present in base game engine, but really, really, really important IRL for farming vehicles) // air resistance too, but not so important
-* better tire forces (example : no more possible to pull more than your weight)
+* better tire forces (example : no more possible to pull more than your weight => that do NOT mean you can't pull an heavier equipment than yourself, of course)
 * earth gravity (this was not the case in base game FS2011 and 2013)
 * IRL mass (realistic fillType density, no mass limit, better center of mass)
 * More realistic harvest and working speed (still a bit "easy" compared to IRL, but you will want that high horse power shinny tractor or bigger combine now.)
