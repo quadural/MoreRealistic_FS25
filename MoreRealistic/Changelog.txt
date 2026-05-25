@@ -449,3 +449,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Kinze mach till 412 (disc cultivator)
             - add converted Farmet Softer 11 PS (disc cultivator)
             - add converted Dalbo Powerchain 800 (not a disc cultivator)
+            - add converted Vaderstad Carrier 625XL (disc cultivator, already present, but old conversion)
