@@ -72,6 +72,7 @@
     <vehicle fileNameToOverride="data/vehicles/kinze/machTill401/machTill401.xml">vehicles/kinze/machTill401.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/farmet/softer11/softer11.xml">vehicles/farmet/softer11.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/dalbo/powerchain800/powerchain800.xml">vehicles/dalbo/powerchain800.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/bednar/swifterdiscXEmega/swifterdiscXEmega.xml">vehicles/bednar/swifterdiscXEmega.xml</vehicle>
 
     <!-- fertilizer spreaders -->
     <vehicle fileNameToOverride="data/vehicles/amazone/zats3200/zats3200.xml">vehicles/amazone/zats3200.xml</vehicle>

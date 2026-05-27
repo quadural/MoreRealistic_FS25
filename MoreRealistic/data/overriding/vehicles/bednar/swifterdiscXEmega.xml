@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="cultivator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrPowerConsumer forcePointY="0.05" forcePointZ="-5" />
+
+    <!--
+
+        560mm discs
+        v-ring packer (169kg/m)
+        about 22000kgs
+
+        about 5T on the drawbar in transport mode ?
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/bednar/swifterdiscXEmega/swifterdiscXEmega.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="5600" /> <!-- main -->
+            <set path="vehicle.base.components.component(1)#mass" value="8000" /> <!-- middle - we need to cheat this component mass to stabilize physics engine -->
+            <set path="vehicle.base.components.component(2)#mass" value="2000" /> <!-- left wing-->
+            <set path="vehicle.base.components.component(3)#mass" value="2000" /> <!-- right wing -->
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.15 -0.5" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.1 0" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 0.8" />
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0 0 0.8" />
+
+            <!-- remove unrealistic inertia scale -->
+            <set path="vehicle.base.components.component(0)#inertiaScale" value="1 1 1" />
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
+            <set path="vehicle.base.components.component(2)#inertiaScale" value="1 1 1" />
+            <set path="vehicle.base.components.component(3)#inertiaScale" value="1 1 1" />
+
+            <!-- increased spring required to reduce wing from "plunging" in transport position (only the collision shape + support wheel ref) -->
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="999999 999999 999999" />
+            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="999999 999999 999999" />
+            <set path="vehicle.base.components.joint(2)#rotLimitSpring" value="999999 999999 999999" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="9999 9999 9999" />
+            <set path="vehicle.base.components.joint(1)#rotLimitDamping" value="9999 9999 9999" />
+            <set path="vehicle.base.components.joint(2)#rotLimitDamping" value="9999 9999 9999" />
+
+
+            <!-- transport wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="25"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="200"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="200"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="19"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="19"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="19"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="19"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="4.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="4.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="4.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="4.25"/>
+
+            <!-- front support wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#spring" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#spring" value="25"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#restLoad" value="3.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#restLoad" value="3.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#restLoad" value="3.2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#restLoad" value="3.2"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#brakeFactor" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#supportsWheelSink" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#supportsWheelSink" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#supportsWheelSink" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#supportsWheelSink" value="true"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#initialCompression" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#initialCompression" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#initialCompression" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#initialCompression" value="40"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mrFrictionScale" value="0.85"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mrFrictionScale" value="0.85"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(8).physics#mrFrictionScale" value="0.85"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(9).physics#mrFrictionScale" value="0.85"/>
+
+            <!-- roller wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#spring" value="70"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#damper" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#damper" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#restLoad" value="2.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#restLoad" value="2.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#restLoad" value="2.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#restLoad" value="2.1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#mass" value="0.777"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#mass" value="0.777"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#mass" value="0.777"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#mass" value="0.777"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#rotationDamping" value="0.003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#rotationDamping" value="0.003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#rotationDamping" value="0.003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#rotationDamping" value="0.003"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#initialCompression" value="31"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#initialCompression" value="44"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#initialCompression" value="44"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#initialCompression" value="31"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(6).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(7).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(10).physics#mrFrictionScale" value="0.7"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(11).physics#mrFrictionScale" value="0.7"/>
+
+
+
+            <set path="vehicle.attachable.brakeForce#force" value="2" /> <!-- air brakes -->
+
+            <set path="vehicle.powerConsumer#maxForce" value="104" />
+            <set path="vehicle.base.speedLimit#value" value="21" />
+
+            <!-- replace moving center of mass with cheating middle arm moving center of mass -->
+            <set path="vehicle.animations.animation(1).part(23)#startTime" value="5.5" />
+            <set path="vehicle.animations.animation(1).part(23)#endTime" value="15.0" />
+            <set path="vehicle.animations.animation(1).part(23)#startCenterOfMass" value="0 -0.6 -0.6" />
+            <set path="vehicle.animations.animation(1).part(23)#endCenterOfMass" value="0 3.0 -0.4" />
+            <remove path="vehicle.animations.animation(1).part(25)" />
+            <remove path="vehicle.animations.animation(1).part(26)" />
+
+            <!-- more weight on the front support wheels at work -->
+            <set path="vehicle.animations.animation(1).part(1)#startRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(1).part(2)#startRot" value="-4 0 0" />
+            <set path="vehicle.animations.animation(1).part(3)#startRot" value="-5 0 0" />
+            <set path="vehicle.animations.animation(1).part(4)#startRot" value="-5 0 0" />
+
+            <set path="vehicle.animations.animation(1).part(1)#endRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(2)#endRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(3)#endRot" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(4)#endRot" value="0 0 0" />
+
+            <!-- mitigate the hideous fact that support wheels that are not aligned with the "axle" in transport mode -->
+            <set path="vehicle.animations.animation(1).part(33)#node" value="armRightWheelArmPhys" />
+            <set path="vehicle.animations.animation(1).part(33)#startTime" value="6.0" />
+            <set path="vehicle.animations.animation(1).part(33)#endTime" value="15.0" />
+            <set path="vehicle.animations.animation(1).part(33)#startTrans" value="-3.04 0.161 0.265" />
+            <set path="vehicle.animations.animation(1).part(33)#endTrans" value="-3.04 0.2 0.21" />
+
+            <set path="vehicle.animations.animation(1).part(34)#node" value="armLeftWheelArmPhys" />
+            <set path="vehicle.animations.animation(1).part(34)#startTime" value="6.0" />
+            <set path="vehicle.animations.animation(1).part(34)#endTime" value="15.0" />
+            <set path="vehicle.animations.animation(1).part(34)#startTrans" value="3.04 0.161 0.265" />
+            <set path="vehicle.animations.animation(1).part(34)#endTrans" value="3.04 0.2 0.21" />
+
+
+            <!-- trailer hitch rot adjustment -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.95 1" />
+
+            <!-- slower folding speed -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration.foldingParts.foldingPart(0)#speedScale" value="0.5" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

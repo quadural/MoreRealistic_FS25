@@ -426,7 +426,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Bergmann RRW500 (beet transfer trailer)
             - add completed converted Volvo FH16 (truck, only 780 4x2 config was converted previously for test purpose)
 
-202605XX    - new reverse reverse sound management (reverse sound is playing even at still when the reverse "gear" is engaged)
+202605XX    - new reverse sound management (reverse sound is playing even at still when the reverse "gear" is engaged)
             - new reverse light management (reverse light is active when the reverse "gear" is engaged)
             - add converted Amazone Citan 15001C (seeder)
             - add converted Horsch Avatar 12.25 SD (seeder)
@@ -450,3 +450,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Farmet Softer 11 PS (disc cultivator)
             - add converted Dalbo Powerchain 800 (not a disc cultivator)
             - add converted Vaderstad Carrier 625XL (disc cultivator, already present, but old conversion)
+            - add converted Bednar Swifterdisc XE 18400 Mega (disc cultivator)
