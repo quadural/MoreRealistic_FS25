@@ -6,7 +6,7 @@
     <mrTransmission isHydrostatic="true" maxRpmWanted="1600" ptoModeMaxRpmWanted="2000" powerRatio="0.75" />
     <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
-    <mrCombine chopperIdlePower="15" chopperPowerFx="0.94" unloadingPower="35" threshingIdlePower="70" threshingPowerFx="1.03" irlSpotTonPerHour="90" maxFieldThreshingSpeed="14" />
+    <mrCombine chopperIdlePower="15" chopperPowerFx="0.94" unloadingPower="35" threshingIdlePower="70" threshingPowerFx="1.05" irlSpotTonPerHour="90" maxFieldThreshingSpeed="14" />
 
     <parentFile xmlFilename="$data/vehicles/johnDeere/seriesS7/seriesS7.xml">
         <attributes>

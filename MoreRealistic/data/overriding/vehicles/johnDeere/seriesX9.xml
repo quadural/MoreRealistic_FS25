@@ -6,7 +6,7 @@
     <mrTransmission isHydrostatic="true" maxRpmWanted="1600" ptoModeMaxRpmWanted="1900" powerRatio="0.75" />
     <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
-    <mrCombine chopperIdlePower="20" chopperPowerFx="0.87" unloadingPower="45" threshingIdlePower="90" threshingPowerFx="0.92" irlSpotTonPerHour="120" maxFieldThreshingSpeed="16" />
+    <mrCombine chopperIdlePower="16" chopperPowerFx="0.8" unloadingPower="45" threshingIdlePower="75" threshingPowerFx="0.75" irlSpotTonPerHour="120" maxFieldThreshingSpeed="16" />
 
     <parentFile xmlFilename="$data/vehicles/johnDeere/seriesX9/seriesX9.xml">
         <attributes>

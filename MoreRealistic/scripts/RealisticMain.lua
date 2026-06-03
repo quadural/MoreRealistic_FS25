@@ -9,11 +9,11 @@ end
 
 RealisticMain = {}
 
-RealisticMain.COMBINE_CAPACITY_FX = 1.25 --apply a 20% factor since this is a game to avoid getting too low max harvesting speed
+RealisticMain.COMBINE_CAPACITY_FX = 1.15 --apply a 15% factor since this is a game to avoid getting too low max harvesting speed
 
 --see MR_Motorized, "self.spec_motorized.motor.mrEngineBrakingPowerFx"
 RealisticMain.ENGINE_BRAKING_FX_DEFAULT = 0.85 -- default factor applied to engine braking power
-RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC = 1.1 -- default factor applied to engine braking power when the transmission is hydrostatic
+RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC = 1.5 -- default factor applied to engine braking power when the transmission is hydrostatic
 
 RealisticMain.SPRAYER_EMPTYSPEED_FX = 1.5 --default factor applied to dischargeNode#emptySpeed for sprayer
 

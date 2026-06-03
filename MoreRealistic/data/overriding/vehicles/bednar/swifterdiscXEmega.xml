@@ -3,6 +3,7 @@
 
     <MR>true</MR>
     <mrPowerConsumer forcePointY="0.05" forcePointZ="-5" />
+    <MR inlineAxleNumber="2">true</MR>
 
     <!--
 

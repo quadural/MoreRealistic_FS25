@@ -45,6 +45,8 @@
     <vehicle fileNameToOverride="data/vehicles/claas/lexion6900/lexion6900.xml">vehicles/claas/lexion6900.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/claas/convioFlex1080/convioFlex1080.xml">vehicles/claas/convioFlex1080.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/johnDeere/seriesX9/seriesX9.xml">vehicles/johnDeere/seriesX9.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/claas/lexion8900/lexion8900.xml">vehicles/claas/lexion8900.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/claas/convioFlex1380/convioFlex1380.xml">vehicles/claas/convioFlex1380.xml</vehicle>
 
     <!-- cultivators -->
     <vehicle fileNameToOverride="data/vehicles/lemken/smaragd9_500k/smaragd9_500k.xml">vehicles/lemken/smaragd9_500k.xml</vehicle>

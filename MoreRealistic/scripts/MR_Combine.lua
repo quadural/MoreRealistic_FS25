@@ -15,6 +15,7 @@ Combine.mrLoadMrValues = function(self, xmlFile)
         self.mrCombineSpeedLimitMax = getXMLFloat(xmlFile, "vehicle.mrCombine#maxFieldThreshingSpeed") or 15
         self.mrCombineSpeedLimit = 999
         self.mrCombineLastTonsPerHour = 0
+        self.mrCombineLastTonsPerHourAvg = 0
         self.mrCombineLastLitersThreshed = 0
         self.mrCombineLitersPerSecond = 0
         self.mrCombineLitersPerSecondS1 = 0
@@ -188,58 +189,31 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
 
         if self.mrCombineSpeedLimit>self.mrCombineCapacitySpeedLimitCurrent then
             --we are going too fast compared to the combine harvesting capacity (nothing to do with power = IRL the combine would be plugged or losing grain)
-            local spd = self.mrCombineSpeedLimit-self.mrCombineCapacitySpeedLimitCurrent
+            local spd = math.pow(self.mrCombineSpeedLimit-self.mrCombineCapacitySpeedLimitCurrent, 2) --20260602 => close to limit = little changing. Far from wanted limit = quick changing
             self.mrCombineSpeedLimit = math.max(self.mrCombineSpeedLimit-spd*g_physicsDtLastValidNonInterpolated/2000, self.mrCombineCapacitySpeedLimitCurrent, Combine.MR_MIN_SPEED_LIMIT) --deceleration = 2 seconds to reach the difference
         elseif self.mrCombineLitersPerSecond==0 then
             --no more crop ?
             self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit+increaseFx*g_physicsDtLastValidNonInterpolated/500, maxSpeedLimit) -- acc = 2kph per second
-        elseif engineLoad>1.005 then
+        elseif engineLoad>1.01 then
             --engine overloaded = lower the speedlimit
             --local spd = overloadedFx-1
             self.mrCombineSpeedLimit = math.max(self.mrCombineSpeedLimit-g_physicsDtLastValidNonInterpolated/20000, Combine.MR_MIN_SPEED_LIMIT) --acc = 0.05kph per second
-        elseif engineLoad<0.95 then
+        elseif engineLoad<0.96 then
             --no enough engine load -> increase speed limit
             local spd = 1-engineLoad
             self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit+spd*increaseFx*g_physicsDtLastValidNonInterpolated/1000, self.mrCombineCapacitySpeedLimitCurrent, maxSpeedLimit) --acc = 0.5kph per second @50% engine load
         end
 
---[[
-        if overloadedFx<1 then
-            --increase speed
-            --the lower the overloadedFx, the faster the increase speed
-            --self.mrCombineSpeedLimit = math.min(maxSpeedLimit, self.mrCombineSpeedLimit+(1-overloadedFx)*g_physicsDtLastValidNonInterpolated/800)
-
-            --20260409
-            --accFactor with time
-            if self.mrCombineLitersPerSecond==0 then
-                --nothing to "eat" = faster increase speed
-                self.mrCombineLastRegulatingAccFactor = 1
-            else
-                self.mrCombineLastRegulatingAccFactor = math.min(1, self.mrCombineLastRegulatingAccFactor + g_physicsDtLastValidNonInterpolated/2000)
-            end
-            self.mrCombineSpeedLimit = math.min(maxSpeedLimit, self.mrCombineSpeedLimit+self.mrCombineLastRegulatingAccFactor*g_physicsDtLastValidNonInterpolated/800)
-        else
-            self.mrCombineLastRegulatingAccFactor = 0
-            if overloadedFx>1.02 then
-                --decrease speed
-                --the higher the overloadedFx, the faster the decrease speed
-                --up to 1.1 => very slow adjustment
-                --if overloadedFx<1.1 then
-                    self.mrCombineSpeedLimit = math.max(minSpeedLimit, self.mrCombineSpeedLimit-(overloadedFx-1)*g_physicsDtLastValidNonInterpolated/2000) --0.05 per second @1.1
-                --else
-                    --self.mrCombineSpeedLimit = math.max(minSpeedLimit, self.mrCombineSpeedLimit-(overloadedFx^4)*g_physicsDtLastValidNonInterpolated/10000) --0.146 per second when overloadedFx=1.1
-                --end
-            end
-        end
-
-        self.mrCombineSpeedLimit = math.min(self.mrCombineSpeedLimit, self.mrCombineCapacitySpeedLimitCurrent)
-
-        --]]
-
         --update last ton per hour rate
         if spec.lastCuttersOutputFillType~=nil and spec.lastCuttersOutputFillType~=FillType.UNKNOWN then
             local fillTypeDesc = g_fillTypeManager:getFillTypeByIndex(spec.lastCuttersOutputFillType)
             self.mrCombineLastTonsPerHour = fillTypeDesc.massPerLiter * self.mrCombineLitersPerSecondS2 * 3600
+        end
+
+        if self.mrCombineLastTonsPerHourAvg == 0 then
+            self.mrCombineLastTonsPerHourAvg = self.mrCombineLastTonsPerHour
+        else
+            self.mrCombineLastTonsPerHourAvg = 0.995*self.mrCombineLastTonsPerHourAvg + 0.005*self.mrCombineLastTonsPerHour
         end
 
     else
@@ -250,8 +224,8 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
         self.mrCombineLastValidFruitTypeDesc = nil
         self.mrCombineLastRegulatingAccFactor = 1
         self.mrCombineCapacitySpeedLimitCurrent = 999
+        self.mrCombineLastTonsPerHourAvg = 0
     end
-
 
     return neededPower
 

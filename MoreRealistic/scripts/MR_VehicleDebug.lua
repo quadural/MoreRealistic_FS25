@@ -122,7 +122,7 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         setTextAlignment(RenderText.ALIGN_LEFT)
         renderText(0.8, 0.5, textSize, string.format("Spd limit=%1.2f", self.mrCombineSpeedLimit))
         renderText(0.8, 0.52, textSize, string.format("Spd capacity=%1.2f", self.mrCombineCapacitySpeedLimitCurrent))
-        renderText(0.8, 0.54, textSize, string.format("T/h=%1.2f", self.mrCombineLastTonsPerHour))
+        renderText(0.8, 0.54, textSize, string.format("T/h=%1.2f / Avg=%1.2f", self.mrCombineLastTonsPerHour, self.mrCombineLastTonsPerHourAvg))
     end
 
     if self.spec_woodCrusher then

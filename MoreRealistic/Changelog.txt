@@ -451,3 +451,9 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Dalbo Powerchain 800 (not a disc cultivator)
             - add converted Vaderstad Carrier 625XL (disc cultivator, already present, but old conversion)
             - add converted Bednar Swifterdisc XE 18400 Mega (disc cultivator)
+
+202606XX    - add converted Claas Lexion 8900/8800 (combine harvester) + convio flex 1380 header
+            - improved harvesting limiting speed
+            - reworked of existing combine harvesters (RealisticMain.COMBINE_CAPACITY_FX is now 1.15, all combines harvesters tested again with and without chopper in a 100% yield wheat flat field)
+            - more realistic max cutter bar harvesting speed (for converted headers)
+            - more "engine brake power" for hydrostatic transmission

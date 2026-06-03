@@ -125,10 +125,10 @@
 
             <!-- ************************************************************************************************************************-->
             <!-- man D26 6 cylinders 12.4L/507hp/373KW same as fendt ideal 8 combine ? => D2676 LE121 // -->
-            <!-- Fuel = 95L/h @1800rpm and 373KW -->
-            <!-- DEF = no data => 4% of the fuel rate -->
-            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="95"/>
-            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(1)#usage" value="3.8"/>
+            <!-- Fuel = 88L/h @1800rpm and 373KW -->
+            <!-- DEF = no data => 7% of the fuel rate -->
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="88"/>
+            <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(1)#usage" value="6"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minForwardGearRatio" value="14.6"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minBackwardGearRatio" value="40.73"/>

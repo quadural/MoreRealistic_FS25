@@ -5,7 +5,7 @@
 
     <parentFile xmlFilename="$data/vehicles/claas/vario620/vario620.xml">
         <attributes>
-            <set path="vehicle.base.speedLimit#value" value="15" />
+            <set path="vehicle.base.speedLimit#value" value="13" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.35 0" />
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />

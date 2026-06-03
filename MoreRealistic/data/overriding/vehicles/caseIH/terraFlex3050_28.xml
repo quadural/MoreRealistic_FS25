@@ -6,7 +6,7 @@
     <parentFile xmlFilename="$data/vehicles/caseIH/terraFlex3050_28/terraFlex3050_28.xml">
         <attributes>
 
-            <set path="vehicle.base.speedLimit#value" value="15" />
+            <set path="vehicle.base.speedLimit#value" value="12" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.3" />
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />

@@ -6,7 +6,7 @@
     <mrTransmission isHydrostatic="true" maxRpmWanted="2100" powerRatio="0.8" />
     <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
-    <mrCombine chopperIdlePower="12" chopperPowerFx="0.92" unloadingPower="23" threshingIdlePower="40" threshingPowerFx="0.95" irlSpotTonPerHour="45" maxFieldThreshingSpeed="12" />
+    <mrCombine chopperIdlePower="12" chopperPowerFx="1" unloadingPower="23" threshingIdlePower="40" threshingPowerFx="1.05" irlSpotTonPerHour="45" maxFieldThreshingSpeed="12" />
 
     <parentFile xmlFilename="$data/vehicles/newHolland/chSeries/chSeries.xml">
         <attributes>

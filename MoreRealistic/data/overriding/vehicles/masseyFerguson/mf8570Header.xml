@@ -5,7 +5,7 @@
 
     <parentFile xmlFilename="$data/vehicles/masseyFerguson/mf8570Header/mf8570Header.xml">
         <attributes>
-            <set path="vehicle.base.speedLimit#value" value="14" />
+            <set path="vehicle.base.speedLimit#value" value="10" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.25 -0.7" />
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />

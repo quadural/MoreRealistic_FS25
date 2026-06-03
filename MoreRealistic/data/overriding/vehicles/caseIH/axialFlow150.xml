@@ -6,7 +6,7 @@
     <mrTransmission isHydrostatic="true" maxRpmWanted="2100" powerRatio="0.7" />
     <!-- chopperPowerFx below 1 means more efficient system than average = less power required -->
     <!-- threshingPowerFx below 1 means more efficient system than average = less power required -->
-    <mrCombine chopperIdlePower="12" chopperPowerFx="1" unloadingPower="26" threshingIdlePower="50" threshingPowerFx="1.06" irlSpotTonPerHour="57" maxFieldThreshingSpeed="12" />
+    <mrCombine chopperIdlePower="12" chopperPowerFx="1" unloadingPower="26" threshingIdlePower="50" threshingPowerFx="1.08" irlSpotTonPerHour="57" maxFieldThreshingSpeed="12" />
 
     <parentFile xmlFilename="$data/vehicles/caseIH/axialFlow150/axialFlow150.xml">
         <attributes>
