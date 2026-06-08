@@ -5,6 +5,8 @@
 
     <!-- 4050kg without canola extension -->
 
+    <!-- BUGS = reel lifting cylinders are not aligned correctely (visible when we lift the reel) -->
+
     <parentFile xmlFilename="$data/vehicles/claas/convioFlex1080/convioFlex1080.xml">
         <attributes>
 
@@ -30,6 +32,16 @@
 
             <set path="vehicle.animations.animation(3).part(0)#startRot" value="-10 0 0" />
             <set path="vehicle.animations.animation(3).part(0)#endRot" value="-22 0 0" />
+
+            <!-- reel should move more toward forward if needed -->
+            <set path="vehicle.cylindered.movingTools.movingTool(0).translation#transMin" value="-0.45" />
+
+            <!-- reel should move more toward up if needed -->
+            <set path="vehicle.cylindered.movingTools.movingTool(1).rotation#rotMin" value="-25" />
+
+            <!-- reel speed function of ground speed -->
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation(0)#speedScale" value="0.8" />
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation(0)#mrMovingSpeedRatio" value="0.36" /> <!-- 2.78 meters per second (10kph) => anim speed ratio will be x1 -->
 
         </attributes>
     </parentFile>

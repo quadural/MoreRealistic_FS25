@@ -10,10 +10,9 @@
     <parentFile xmlFilename="$data/vehicles/johnDeere/headerC16F/headerC16F.xml">
         <attributes>
 
-            <!-- 3957kg -->
             <set path="vehicle.base.speedLimit#value" value="12" /> <!-- less speed because of the chopping feature -->
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.4" />
-            <set path="vehicle.base.components.component(0)#mass" value="6000" />
+            <set path="vehicle.base.components.component(0)#mass" value="6040" />
 
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="60" />

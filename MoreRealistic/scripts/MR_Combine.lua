@@ -23,7 +23,7 @@ Combine.mrLoadMrValues = function(self, xmlFile)
         self.mrCombineLitersBuffer = 0
         self.mrCombineLitersBufferTime = 0
         self.mrCombineLastValidFruitTypeDesc = nil
-        self.mrCombineLastRegulatingAccFactor = 1
+        --self.mrCombineLastRegulatingAccFactor = 1
         --self.mrCombineSpeedBuffer = 0
         --self.mrCombineSpeedBufferCount = 0
         self.mrCombineDistanceBuffer = 0
@@ -216,13 +216,13 @@ Combine.mrGetActiveConsumedPtoPower = function(self)
             self.mrCombineLastTonsPerHourAvg = 0.995*self.mrCombineLastTonsPerHourAvg + 0.005*self.mrCombineLastTonsPerHour
         end
 
-    else
+    else --not isTurnedOn
         self.mrCombineLitersPerSecond = 0
         self.mrCombineLitersPerSecondS1 = 0
         self.mrCombineLitersPerSecondS2 = 0
         self.mrCombineSpeedLimit = 999
         self.mrCombineLastValidFruitTypeDesc = nil
-        self.mrCombineLastRegulatingAccFactor = 1
+        --self.mrCombineLastRegulatingAccFactor = 1
         self.mrCombineCapacitySpeedLimitCurrent = 999
         self.mrCombineLastTonsPerHourAvg = 0
     end

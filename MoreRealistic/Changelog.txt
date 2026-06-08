@@ -457,3 +457,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - reworked of existing combine harvesters (RealisticMain.COMBINE_CAPACITY_FX is now 1.15, all combines harvesters tested again with and without chopper in a 100% yield wheat flat field)
             - more realistic max cutter bar harvesting speed (for converted headers)
             - more "engine brake power" for hydrostatic transmission
+            - add converted New Holland CR11 combine harvester + MacDon FD250 (MacDon + NH + CaseIh version)
+            - add converted case IH AF11 combine harvester
+            - add "mrMovingSpeedRatio" param for "turnOnVehicle.turnedOnAnimation" => allow varying the speed of the animation depending on the ground speed (example : MacDon FD250 reel)

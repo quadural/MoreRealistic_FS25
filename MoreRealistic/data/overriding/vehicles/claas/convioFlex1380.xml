@@ -3,7 +3,9 @@
 
     <MR>true</MR>
 
-    <!-- 4600kg without canola extension -> 4680kg in game -->
+    <!-- 4600kg without canola extension -> 4680kg in game with stabilizer wheels -->
+
+    <!-- BUGS = reel lifting cylinders are not aligned correctely (visible when we lift the reel) -->
 
     <parentFile xmlFilename="$data/vehicles/claas/convioFlex1380/convioFlex1380.xml">
         <attributes>
@@ -29,6 +31,16 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="30"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#supportsWheelSink" value="false"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#supportsWheelSink" value="false"/>
+
+            <!-- reel should move more toward forward if needed -->
+            <set path="vehicle.cylindered.movingTools.movingTool(0).translation#transMin" value="-0.45" />
+
+            <!-- reel should move more toward up if needed -->
+            <set path="vehicle.cylindered.movingTools.movingTool(1).rotation#rotMin" value="-25" />
+
+            <!-- reel speed function of ground speed -->
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation(0)#speedScale" value="0.8" />
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation(0)#mrMovingSpeedRatio" value="0.36" /> <!-- 2.78 meters per second (10kph) => anim speed ratio will be x1 -->
 
         </attributes>
     </parentFile>

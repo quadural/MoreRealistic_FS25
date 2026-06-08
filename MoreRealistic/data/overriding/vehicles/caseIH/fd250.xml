@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/macDon/fd250/fd250.xml">
+        <attributes>
+
+            <!-- exact same code than "MACDON FD250" MR version -->
+
+            <set path="vehicle.base.speedLimit#value" value="13" />
+
+            <!-- *****  no transport wheels config ***** -->
+
+            <!-- main = central part -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#mass" value="1700" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#centerOfMass" value="0 0.5 0.1" />
+
+            <!-- left part -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#mass" value="1000" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#centerOfMass" value="0 -0.263 -0.1" />
+
+            <!-- right part -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(2)#mass" value="1000" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(2)#centerOfMass" value="0 -0.263 -0.1" />
+
+            <!-- FM200 adapter -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(3)#mass" value="1200" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(3)#centerOfMass" value="0 0 0.2" />
+
+            <!-- default mass = 100kg for wheels, this is too much for these ones -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mass" value="0.04"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.04"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.015"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#brakeFactor" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#brakeFactor" value="0"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#rotationDamping" value="0.0005"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#rotationDamping" value="0.0005"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#rotationDamping" value="0.0001"/>
+
+            <!-- ***** transport wheels config ***** -->
+
+            <!-- main = central part -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#mass" value="1700" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#centerOfMass" value="0 0.5 0.1" />
+
+            <!-- left part -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#mass" value="300" /> <!-- only 300kg because there is the front wheels + drawbar component attached with increased weight for physics stability -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#centerOfMass" value="0 -0.263 -0.1" />
+
+            <!-- right part -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#mass" value="1050" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#centerOfMass" value="0 -0.263 -0.1" />
+
+            <!-- FM200 adapter -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(3)#mass" value="1200" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(3)#centerOfMass" value="0 0 0.2" />
+
+            <!-- front wheels -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(4)#mass" value="500" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(4)#centerOfMass" value="0 0 0" />
+
+            <!-- drawbar -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(5)#mass" value="250" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(5)#centerOfMass" value="0 0 0" />
+
+
+            <!-- default mass = 100kg for wheels, this is too much for these ones -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#mass" value="0.015"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#rotationDamping" value="0.0001"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#rotationDamping" value="0.0001"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#mass" value="0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#mass" value="0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#mass" value="0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#mass" value="0.02"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#spring" value="70"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#damper" value="5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#initialCompression" value="20"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#restLoad" value="1.3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#restLoad" value="1.3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#restLoad" value="1.3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#restLoad" value="1.3"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#yOffset" value="0.025"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#yOffset" value="0.025"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#yOffset" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(7).physics#yOffset" value="0.02"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(6).physics#brakeFactor" value="1"/>
+
+            <!-- center of mass of front transport wheels component in transport/working position -->
+            <!-- trying to get the center of masses of the drawbar and front wheels components close to the center of mass of the left wing component in working position -->
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(5)#startCenterOfMass" value="0 0.01 0" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(5)#endCenterOfMass" value="-0.3 0.7 0.75" />
+
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(25)#componentIndex" value="6" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(25)#startTime" value="1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(25)#endTime" value="2" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(25)#startCenterOfMass" value="0 0 -1" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(25)#endCenterOfMass" value="0.5 0.84 -0.88" />
+
+
+            <!-- no brakes // unstable behavior when detached = we allow a small "brake foece to avoid that -->
+            <!-- <remove path="vehicle.attachable.brakeForce" /> -->
+            <set path="vehicle.attachable.brakeForce#force" value="0.1" />
+            <set path="vehicle.attachable.brakeForce#loweredForce" value="0" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="30" />
+            <set path="vehicle.powerConsumer#maxForce" value="12" />
+            <set path="vehicle.powerConsumer#forceNode" value="fd250_main_component1" />
+
+            <!-- more than 75° rotation possible when turning -->
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(23)#startRotLimit" value="0 140 0" />
+
+            <!-- transport wheels are too buggy in working position (especially the front one => so we raise them in working position since this is possible IRL) -->
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(8)#endRot" value="115 0 0" />
+            <set path="vehicle.animations.animationConfigurations.animationConfiguration(1).animation(1).part(16)#endRot" value="40 0 0" />
+
+            <!-- speedrotatingParts config is wrong when the transport wheel config is selected => we have to replace "wheelIndex" by "wheelNodes"-->
+            <!-- "elegant way" = we should be able to define different "speedRotatingParts" config depending on the vehicle config selected. But it seems this is not possible -->
+
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(0)#wheelIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(0)#wheelNodes" value="wheelLeft01Phy" />
+
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(1)#wheelIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#wheelNodes" value="wheelLeft02Phy" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(1)#hasConfigWheels" value="true" />
+
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(2)#wheelIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#wheelNodes" value="wheelLeft02Phy" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(2)#hasConfigWheels" value="true" />
+
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(4)#wheelIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(4)#wheelNodes" value="wheelRight02Phy" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(4)#hasConfigWheels" value="true" />
+
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(5)#wheelIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(5)#wheelNodes" value="wheelRight02Phy" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(5)#hasConfigWheels" value="true" />
+
+            <remove path="vehicle.speedRotatingParts.speedRotatingPart(7)#wheelIndex" />
+            <set path="vehicle.speedRotatingParts.speedRotatingPart(7)#wheelNodes" value="wheelRight01Phy" />
+
+            <!-- reel speed function of ground speed -->
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation(0)#speedScale" value="0.9" />
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation(0)#mrMovingSpeedRatio" value="0.36" /> <!-- 2.78 meters per second (10kph) => anim speed ratio will be x1 -->
+
+            <!-- ************  END OF MR MODIFICATION ****************  -->
+
+            <set path="vehicle.storeData.brand" value="CASEIH"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/caseIH/fd250/store_fd250.png"/>
+
+            <set path="vehicle.storeData.specs.combination(0)#xmlFilename" value="$data/vehicles/caseIH/af11/af11.xml"/>
+            <set path="vehicle.storeData.specs.combination(1)#xmlFilename" value="$data/vehicles/demco/hdht52/hdht52.xml"/>
+
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(1)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(2)#isSelectable" value="true"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(3)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(4)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(5)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(6)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(7)#isSelectable" value="false"/>
+            <set path="vehicle.designColorConfigurations.designColorConfiguration(8)#isSelectable" value="false"/>
+         </attributes>
+    </parentFile>
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>FD250 FlexDraper®</name>
+        <image>$data/vehicles/caseIH/fd250/store_fd250.png</image>
+        <brand>CASEIH</brand>
+        <category>cutters</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+</vehicle>

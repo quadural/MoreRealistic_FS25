@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <vehicle type="combineDrivable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
 
-    <!-- about 24500kg with front 89cm tracks and rear 620 tires -->
+    <!-- about 27000kg with front 89cm tracks and rear 620 tires and full fuel tanks -->
 
     <MR>true</MR>
     <!-- hydrostatic transmission means we don't have the full engine power to the wheels. it depends on the hydraulics motors -->
@@ -19,12 +19,12 @@
             <set path="vehicle.powerConsumer#neededMaxPtoPower" value="0"/>
 
 
-            <!-- about 22400kgs TT version with full fuel/DEF tanks -->
+            <!-- about 27000kgs TT version with full fuel/DEF tanks -->
 
-            <set path="vehicle.base.components.component(0)#mass" value="17650"/>
+            <set path="vehicle.base.components.component(0)#mass" value="20150"/>
             <set path="vehicle.base.components.component(1)#mass" value="3000"/>
 
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 2 0.2"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 2 0.6"/>
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.1 0"/>
 
 
@@ -120,7 +120,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxRpm" value="1900"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxForwardSpeed" value="40.1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#maxBackwardSpeed" value="16"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#ptoMotorRpmRatio" value="3.3333"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#ptoMotorRpmRatio" value="3.426"/>
 
             <!-- governor regulation -->
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor#mrGovernorRpmRange" value="200" />
@@ -162,7 +162,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxRpm" value="1900"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxForwardSpeed" value="40.1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#maxBackwardSpeed" value="16"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#ptoMotorRpmRatio" value="3.3333"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#ptoMotorRpmRatio" value="3.426"/>
 
             <!-- governor regulation -->
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor#mrGovernorRpmRange" value="200" />
