@@ -27,3 +27,27 @@ DynamicMountAttacher.mrDynamicMountTriggerCallback = function(self, superFunc, t
 
 end
 DynamicMountAttacher.dynamicMountTriggerCallback = Utils.overwrittenFunction(DynamicMountAttacher.dynamicMountTriggerCallback, DynamicMountAttacher.mrDynamicMountTriggerCallback)
+
+
+
+--replace xmlFilename by mr xmlFilename if present
+DynamicMountAttacher.mrLoadDynamicLockPositionFromXML = function(self, superFunc, xmlFile, key, lockPosition)
+
+    if superFunc(self, xmlFile, key, lockPosition) then
+        local searchString = lockPosition.xmlFilename
+        if string.startsWith(searchString, "vehicles/") then
+            searchString = "$data/" .. searchString
+        end
+        local item = RealisticUtils.getOverridingXmlFileNameData(searchString)
+        if item~=nil then
+            lockPosition.xmlFilename = item.newFileName
+        end
+
+        return true
+    end
+
+    return false
+
+
+end
+DynamicMountAttacher.loadDynamicLockPositionFromXML = Utils.overwrittenFunction(DynamicMountAttacher.loadDynamicLockPositionFromXML, DynamicMountAttacher.mrLoadDynamicLockPositionFromXML)

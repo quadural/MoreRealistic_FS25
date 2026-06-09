@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="109"> <!-- v1.19 -->
     <author>Dural</author>
-    <version>0.26.06.08</version>
+    <version>0.26.06.09</version>
     <multiplayer supported="true" />
     <title>
         <en>MoreRealistic game engine</en>
@@ -14,6 +14,6 @@
 
     <extraSourceFiles>
         <sourceFile filename="scripts/RealisticMain.lua"/>
-        <sourceFile filename="scripts/DEBUG.lua"/>
+        <!-- <sourceFile filename="scripts/DEBUG.lua"/> -->
     </extraSourceFiles>
 </modDesc>

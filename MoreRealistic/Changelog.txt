@@ -460,3 +460,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted New Holland CR11 combine harvester + MacDon FD250 (MacDon + NH + CaseIh version)
             - add converted case IH AF11 combine harvester
             - add "mrMovingSpeedRatio" param for "turnOnVehicle.turnedOnAnimation" => allow varying the speed of the animation depending on the ground speed (example : MacDon FD250 reel)
+            - add converted Case IH 4418N and New Holland 980CR 18-22 corn head
+            - add converted Geringhoff Northstar 1830 corn head
+            - add converted Geringhoff Milostar 1630 milo/sorghum head
+            - header trailers can now recognize converted MR headers (DynamicMountAttacher/lockPositions)

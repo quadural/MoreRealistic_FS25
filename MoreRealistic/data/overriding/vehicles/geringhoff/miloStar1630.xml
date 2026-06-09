@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <parentFile xmlFilename="$data/vehicles/geringhoff/miloStar1630/miloStar1630.xml">
+        <attributes>
+
+            <!-- 4926kg -->
+            <set path="vehicle.base.speedLimit#value" value="16" /> <!-- no choppers on this header -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.15" />
+            <set path="vehicle.base.components.component(0)#mass" value="4926" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="35" /> <!-- less power needed compared to corn head -->
+
+        </attributes>
+    </parentFile>
+
+
+</vehicle>

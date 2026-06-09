@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!-- northstar 1830 AFT => "Adaptive Flex Technology" => not working in game (i3d model is rigid) -->
+
+    <mrPowerConsumer maxGroundDistance="0.4" /> <!-- we don't want to apply draftforce when harvesting sunflower -->
+
+    <parentFile xmlFilename="$data/vehicles/geringhoff/northStar1830/northStar1830.xml">
+        <attributes>
+
+            <!-- 6514kg -->
+            <set path="vehicle.base.speedLimit#value" value="16" /> <!-- no choppers on this header -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.15" />
+            <set path="vehicle.base.components.component(0)#mass" value="6514" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="60" />
+            <set path="vehicle.powerConsumer#maxForce" value="18" />
+            <set path="vehicle.powerConsumer#forceNode" value="0>" />
+
+        </attributes>
+    </parentFile>
+
+
+</vehicle>

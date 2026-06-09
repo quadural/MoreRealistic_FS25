@@ -52,6 +52,10 @@
     <vehicle fileNameToOverride="data/vehicles/newHolland/fd250/fd250.xml">vehicles/newHolland/fd250.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/caseIH/fd250/fd250.xml">vehicles/caseIH/fd250.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/caseIH/af11/af11.xml">vehicles/caseIH/af11.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/header4418N/header4418N.xml">vehicles/caseIH/header4418N.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/cr980_1830/cr980_1830.xml">vehicles/newHolland/cr980_1830.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/geringhoff/northStar1830/northStar1830.xml">vehicles/geringhoff/northStar1830.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/geringhoff/miloStar1630/miloStar1630.xml">vehicles/geringhoff/miloStar1630.xml</vehicle>
 
     <!-- cultivators -->
     <vehicle fileNameToOverride="data/vehicles/lemken/smaragd9_500k/smaragd9_500k.xml">vehicles/lemken/smaragd9_500k.xml</vehicle>

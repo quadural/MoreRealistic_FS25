@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="cutter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!-- this corn head doesn't exist IRL
+
+        980CR 18-30 would mean a 18 rows head with 30" per row => 13.7m wide header
+        in game, this is the same i3d as the caseIH 4418N = 18 rows with 22" per row = 10m wide head
+        => rename into 980CR 18-22
+
+    -->
+
+    <mrPowerConsumer maxGroundDistance="0.4" /> <!-- we don't want to apply draftforce when harvesting sunflower -->
+
+    <parentFile xmlFilename="$data/vehicles/caseIH/header4418N/header4418N.xml">
+        <attributes>
+
+            <!-- MR settings - same as case ih header 4418N -->
+            <!-- 4799kg with chopping units -->
+            <set path="vehicle.base.speedLimit#value" value="12" /> <!-- less speed because of the chopping feature -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.4 -0.4" />
+            <set path="vehicle.base.components.component(0)#mass" value="4800" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <set path="vehicle.powerConsumer#neededMaxPtoPower" value="50" />
+            <set path="vehicle.powerConsumer#maxForce" value="27" /> <!-- more draftforce because of the chopping feature -->
+            <set path="vehicle.powerConsumer#forceNode" value="header4418N_main_component1" />
+
+            <!-- giants settings -->
+            <set path="vehicle.storeData.name" value="980CR 18-22"/>
+            <set path="vehicle.storeData.brand" value="NEWHOLLAND"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/newHolland/cr980_1830/store_cr980_1830.png"/>
+
+            <set path="vehicle.storeData.specs.combination(0)#xmlFilename" value="$data/vehicles/newHolland/cr11/cr11.xml"/>
+            <set path="vehicle.storeData.specs.combination(1)#xmlFilename" value="$data/vehicles/newHolland/cr11/cr11GoldEdition.xml"/>
+
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="true"/>
+
+        </attributes>
+    </parentFile>
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>980CR 18-22</name>
+        <image>$data/vehicles/newHolland/cr980_1830/store_cr980_1830.png</image>
+        <brand>NEWHOLLAND</brand>
+        <category>cornHeaders</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+
+</vehicle>
