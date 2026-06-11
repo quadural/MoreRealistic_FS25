@@ -74,6 +74,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
 
         PowerConsumer.mrLoadMrValues(self, xmlFile)
         Combine.mrLoadMrValues(self, xmlFile)
+        Baler.mrLoadMrValues(self, xmlFile)
         MRConveyorLoaderVehicle.mrLoadMrValues(self, xmlFile)
 
         self.mrForcePtoRpm = false
@@ -349,6 +350,9 @@ Vehicle.mrGetRawSpeedLimit = function(self, superFunc)
     local spdLimit = superFunc(self)
     if self.mrIsMrCombine then
         spdLimit = math.min(spdLimit, self.mrCombineSpeedLimit)
+    end
+    if self.mrIsMrBaler then
+        spdLimit = math.min(spdLimit, self.mrBalerSpeedLimit)
     end
     return spdLimit
 end

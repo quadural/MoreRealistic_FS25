@@ -26,7 +26,6 @@
     Since the game does not handle 2 engines, we keep the CATERPILLAR and use the "powerRatio" feature of the mrTransmission to derate the engine while the crusher is not active
     -->
     <mrWoodCrusher powerFx="1" idlePower="50" maxCrushingPower="900" maxTractionForce="50" cutFeedWidth="1.4" cutTargetY="0.3" />
-    <mrPowerConsumer forcePtoRpm="true" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
     <mrTransmission powerRatio="0.64" />
 
     <parentFile xmlFilename="$data/vehicles/jenz/cobraHybrid/cobraHybrid.xml">

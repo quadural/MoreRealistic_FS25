@@ -515,6 +515,9 @@ VehicleMotor.mrGetSpeedLimit = function(self, superFunc)
     if self.vehicle.mrIsMrCombine then
         spdLimit = math.min(spdLimit, self.vehicle.mrCombineSpeedLimit)
     end
+    if self.vehicle.mrIsMrBaler then
+        spdLimit = math.min(spdLimit, self.vehicle.mrBalerSpeedLimit)
+    end
     return spdLimit
 end
 VehicleMotor.getSpeedLimit = Utils.overwrittenFunction(VehicleMotor.getSpeedLimit, VehicleMotor.mrGetSpeedLimit)

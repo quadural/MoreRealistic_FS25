@@ -82,6 +82,10 @@ PowerConsumer.mrOnLoad = function(self, savegame)
         self.mrPowerConsumerVaryWithVisibilityNode = I3DUtil.indexToObject(self.components, self.mrPowerConsumerVaryWithVisibilityNodeStr, self.i3dMappings)
     end
 
+    --20260611 - protection against funny values
+    --max "ptoRpm" value should be 540 because in the game, every tractor is configured with 540pto speed (xml : motor#ptoMotorRpmRatio)
+    self.spec_powerConsumer.ptoRpm = math.min(self.spec_powerConsumer.ptoRpm, 580)
+
 end
 PowerConsumer.onLoad = Utils.appendedFunction(PowerConsumer.onLoad, PowerConsumer.mrOnLoad)
 
@@ -560,6 +564,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
             local neededPtoPower = 0
             if self.mrIsMrCombine then--mr combine
                 neededPtoPower = Combine.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrBaler then--mr baler
+                neededPtoPower = Baler.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)
@@ -612,7 +618,10 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 self.mrLastNeededPtoPower = 0
             end
         end
-        self.mrCombineSpeedLimit = 999 --reset speed limit for combine
+
+        if self.mrIsMrCombine then self.mrCombineSpeedLimit = 999 end--reset speed limit for combine
+        if self.mrIsMrBaler then self.mrBalerSpeedLimit = 999 end --reset speed limit for baler
+
     end
 
 end

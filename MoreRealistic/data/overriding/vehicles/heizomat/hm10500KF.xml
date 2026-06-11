@@ -22,7 +22,6 @@
     make sure you set a high pto rpm wanted (powerConsumer#ptoRpm) to help tractors
     -->
     <mrWoodCrusher powerFx="1" idlePower="30" maxCrushingPower="300" maxTractionForce="10" cutFeedWidth="1" cutTargetY="0.25" />
-    <mrPowerConsumer forcePtoRpm="true" /> <!-- forcePtoRpm means we want full pto rpm even at idle/not moving -->
 
     <parentFile xmlFilename="$data/vehicles/heizomat/hm10500KF/hm10500KF.xml">
         <attributes>

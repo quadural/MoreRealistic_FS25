@@ -125,6 +125,12 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         renderText(0.8, 0.54, textSize, string.format("T/h=%1.2f / Avg=%1.2f", self.mrCombineLastTonsPerHour, self.mrCombineLastTonsPerHourAvg))
     end
 
+    if self.mrIsMrBaler then
+        setTextAlignment(RenderText.ALIGN_LEFT)
+        renderText(0.8, 0.56, textSize, string.format("Spd limit=%1.2f", self.mrBalerSpeedLimit))
+        renderText(0.8, 0.58, textSize, string.format("T/h=%1.2f / Avg=%1.2f", self.mrBalerLastTonsPerHour, self.mrBalerLastTonsPerHourAvg))
+    end
+
     if self.spec_woodCrusher then
         --20250619 - display woodcrusher power consumption
         if self.mrWoodCrusherPowerConsumption~=nil then

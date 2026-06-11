@@ -464,3 +464,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Geringhoff Northstar 1830 corn head
             - add converted Geringhoff Milostar 1630 milo/sorghum head
             - header trailers can now recognize converted MR headers (DynamicMountAttacher/lockPositions)
+            - fix problem with woodcrushers and out of limit rpm value
+            - add converted John Deere V452R round baler

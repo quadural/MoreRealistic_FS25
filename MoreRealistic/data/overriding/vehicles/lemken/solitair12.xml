@@ -56,6 +56,9 @@
             <!-- seeds hopper center of mass -->
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.4 0"/>
 
+            <!-- adjusting ground reference -->
+            <set path="vehicle.groundReferenceNodes.groundReferenceNode(0)#threshold" value="0.1" />
+
         </attributes>
     </parentFile>
 

@@ -9,6 +9,14 @@ WoodCrusher.mrLoadWoodCrusher = function(self, superFunc, woodCrusher, xmlFile, 
     woodCrusher.mrMaxTractionForce = getXMLFloat(xmlFileMR, "vehicle.mrWoodCrusher#maxTractionForce") or 10
     woodCrusher.mrCutWidth = getXMLFloat(xmlFileMR, "vehicle.mrWoodCrusher#cutFeedWidth")
     woodCrusher.mrCutTargetY = getXMLFloat(xmlFileMR, "vehicle.mrWoodCrusher#cutTargetY")
+
+    --check if forcePtoRpm is set in the xml. If no value set => we set it to true for a woodcrusher
+    --only work if "WoodCrusher" spec is loaded after "PowerConsumer" spec
+    local testForcePtoRpm = getXMLBool(xmlFileMR, "vehicle.mrPowerConsumer#forcePtoRpm")
+    if testForcePtoRpm==nil then
+        self.mrPowerConsumerForcePtoRpm = true
+    end
+
     delete(xmlFileMR)
 
     if woodCrusher.mrCutWidth==nil then
@@ -755,7 +763,7 @@ end
 
 
 
-function WoodCrusher.mrTurnOnWoodCrusher(self, superFunc, woodCrusher)
+WoodCrusher.mrTurnOnWoodCrusher = function(self, superFunc, woodCrusher)
     superFunc(self, woodCrusher)
     woodCrusher.mrFeedingAnimationRunning = true
 end
