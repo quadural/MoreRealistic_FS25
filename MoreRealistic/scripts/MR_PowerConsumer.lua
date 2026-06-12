@@ -84,7 +84,12 @@ PowerConsumer.mrOnLoad = function(self, savegame)
 
     --20260611 - protection against funny values
     --max "ptoRpm" value should be 540 because in the game, every tractor is configured with 540pto speed (xml : motor#ptoMotorRpmRatio)
-    self.spec_powerConsumer.ptoRpm = math.min(self.spec_powerConsumer.ptoRpm, 580)
+    local spec = self.spec_powerConsumer
+    if spec.ptoRpm>540 then
+        spec.neededMinPtoPower = spec.neededMinPtoPower * 540/spec.ptoRpm
+        spec.neededMaxPtoPower = spec.neededMaxPtoPower * 540/spec.ptoRpm
+        spec.ptoRpm = 540
+    end
 
 end
 PowerConsumer.onLoad = Utils.appendedFunction(PowerConsumer.onLoad, PowerConsumer.mrOnLoad)
@@ -586,7 +591,7 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 end
             end
 
-            if neededPtoPower>1 and self:getDoConsumePtoPower() then
+            if neededPtoPower>1 then --and self:getDoConsumePtoPower() then => getDoConsumePtoPower already called to get here
                 --update current pto rpm
                 local rootVehicle = self.rootVehicle
                 if rootVehicle ~= nil and rootVehicle.getMotor ~= nil then
