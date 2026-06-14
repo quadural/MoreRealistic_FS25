@@ -466,3 +466,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - header trailers can now recognize converted MR headers (DynamicMountAttacher/lockPositions)
             - fix problem with woodcrushers and out of limit rpm value
             - add converted John Deere V452R round baler
+            - pto load can "brake" the vehicle when the engine torque is not sufficient
+            - bale mass = computed from fillLevel and fillType density

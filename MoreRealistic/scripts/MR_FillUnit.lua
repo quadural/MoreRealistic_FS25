@@ -150,3 +150,12 @@ FillUnit.mrLoadFillUnitFromXML = function(self, superFunc, xmlFile, key, entry, 
 
 end
 FillUnit.loadFillUnitFromXML = Utils.overwrittenFunction(FillUnit.loadFillUnitFromXML, FillUnit.mrLoadFillUnitFromXML)
+
+--take into account baler densityFactor
+FillUnit.mrSetFillUnitCapacity = function(self, superFunc, fillUnitIndex, capacity, noEventSend)
+    if self.mrIsMrBaler then
+        capacity = self.mrBalerDensityFactor * capacity
+    end
+    superFunc(self, fillUnitIndex, capacity, noEventSend)
+end
+FillUnit.setFillUnitCapacity = Utils.overwrittenFunction(FillUnit.setFillUnitCapacity, FillUnit.mrSetFillUnitCapacity)

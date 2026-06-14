@@ -10,6 +10,7 @@ Baler.mrLoadMrValues = function(self, xmlFile)
         self.mrBalerPowerIncreaseWithBaleMass = getXMLFloat(xmlFile, "vehicle.mrBaler#powerIncreaseWithBaleMass") or 0
         self.mrBalerMaxTonsPerHour = getXMLFloat(xmlFile, "vehicle.mrBaler#maxTonsPerHour") or 50
         self.mrBalerUnfinishedBaleThreshold = getXMLFloat(xmlFile, "vehicle.mrBaler#unfinishedBaleThreshold")
+        self.mrBalerDensityFactor = getXMLFloat(xmlFile, "vehicle.mrBaler#densityFactor") or 1
 
         if self.mrBalerUnfinishedBaleThreshold~=nil then
             self.mrBalerUnfinishedBaleThreshold = math.clamp(self.mrBalerUnfinishedBaleThreshold, 0.5, 0.99) --protection against bad values
@@ -23,7 +24,14 @@ Baler.mrLoadMrValues = function(self, xmlFile)
         self.mrBalerLitersPerSecondS = 0
         self.mrBalerLastTonsPerHour = 0
         self.mrBalerLastTonsPerHourAvg = 0
+        self.mrBalerLastNeededPower = 0
         self.mrBalerSpeedLimit = 999
+
+
+        self.mrBalerNettingTimer = 0
+        self.mrBalerNettingDuration = 1000 * (getXMLFloat(xmlFile, "vehicle.mrBaler#nettingDuration") or 0) --seconds to milliseconds
+        self.mrBalerHasNettingDuration = self.mrBalerNettingDuration>0
+
     end
 
 end
@@ -33,7 +41,7 @@ end
 Baler.mrGetActiveConsumedPtoPower = function(self)
     local spec = self.spec_baler
     local isTurnedOn = self:getIsTurnedOn()
-    local neededPower = self.mrBalerIdlePower
+    local neededPower = 0
 
     if isTurnedOn then
 
@@ -42,6 +50,9 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
         if fillUnit~=nil and fillUnit.fillLevel>0 and fillUnit.fillType~=FillType.UNKNOWN then
             desc = g_fillTypeManager:getFillTypeByIndex(fillUnit.fillType)
         end
+
+        --idle power
+        neededPower = self.mrBalerIdlePower
 
         --power to "rotate" the bale
         if desc~=nil and self.mrBalerPowerIncreaseWithBaleMass>0 then
@@ -54,7 +65,7 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
         self.mrBalerLastLitersPickedUp = 0
 
         if g_time>self.mrBalerLitersBufferTime then
-            local maxTime = 500
+            local maxTime = 1000
             local totalTime = g_time - self.mrBalerBufferStartTime
             self.mrBalerLitersPerSecond = 1000*self.mrBalerLitersBuffer / totalTime
             if self.mrBalerLitersPerSecond>self.mrBalerLitersPerSecondS then
@@ -68,29 +79,51 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
         end
 
         local currentKilosPerSecond = 0
-        local currentKilosPerSecondS = 0
+        --local currentKilosPerSecondS = 0
         if desc~=nil then
             currentKilosPerSecond = self.mrBalerLitersPerSecond * desc.massPerLiter * 1000 -- 1000 => massPerLiter is in tons, we want kilos
-            currentKilosPerSecondS = self.mrBalerLitersPerSecondS * desc.massPerLiter * 1000
+            --currentKilosPerSecondS = self.mrBalerLitersPerSecondS * desc.massPerLiter * 1000
         end
 
         self.mrBalerLastTonsPerHour = currentKilosPerSecond * 3.6  --3.6 = kilos per seconds to tons per hour
-        self.mrBalerLastTonsPerHourAvg = 0.99*self.mrBalerLastTonsPerHourAvg + 0.01*self.mrBalerLastTonsPerHour
+        self.mrBalerLastTonsPerHourAvg = 0.995*self.mrBalerLastTonsPerHourAvg + 0.005*self.mrBalerLastTonsPerHour
 
         --power of the feeding system
         if desc~=nil and self.mrBalerPowerIncreaseWithFeedingKilosPerSecond>0 then
-            neededPower = neededPower + currentKilosPerSecondS * self.mrBalerPowerIncreaseWithFeedingKilosPerSecond
+            neededPower = neededPower + currentKilosPerSecond * self.mrBalerPowerIncreaseWithFeedingKilosPerSecond
         end
 
         if self.mrBalerSpeedLimit==999 then
             self.mrBalerSpeedLimit = self.speedLimit
         end
 
-        if self.mrBalerLastTonsPerHour>self.mrBalerMaxTonsPerHour then
-            self.mrBalerSpeedLimit = math.max(self.mrBalerSpeedLimit - g_physicsDtLastValidNonInterpolated/500, Baler.MR_MIN_SPEED_LIMIT) --2kph per second
+        --0.9 factor to prevent going above "mrBalerMaxTonsPerHour" most of the time. "mrBalerMaxTonsPerHour" should really be a "high" limit.
+        local invCapacityFx = 0.9*self.mrBalerMaxTonsPerHour/math.max(1, math.max(self.mrBalerLastTonsPerHour,self.mrBalerLastTonsPerHourAvg))
+
+        --**************
+        --PROBLEM : when using the "lastSpeedReal" = if we are not working, but pto is on, when making a turn, the baler "lastSpeedReal" is lower than the tractor speed = we limit the tractor speed for nothing
+        --local currentSpd = self.lastSpeedReal*3600--math.min(self.mrBalerSpeedLimit, self.lastSpeedReal*3600+1)
+
+        --PROBLEM : when using the self.mrBalerSpeedLimit, the response time is "horrible" (ping-pong effect)
+        --local currentSpd = self.mrBalerSpeedLimit
+
+        --using the rootvehicle speed
+        local rootAttacherVehicle = self.rootVehicle --return self when there is only one vehicle
+        local currentSpd = rootAttacherVehicle.lastSpeedReal*3600
+
+
+        local powFx = 1
+        if invCapacityFx<1 then --too much material
+            powFx = 0.2
+        elseif currentSpd>10 then
+            powFx = 0.05
+        elseif currentSpd>7 then
+            powFx = 0.1
         else
-            self.mrBalerSpeedLimit = math.min(self.mrBalerSpeedLimit + g_physicsDtLastValidNonInterpolated/500, self.speedLimit) --2kph per second
+            powFx = 0.2
         end
+        self.mrBalerSpeedLimit = currentSpd * math.pow(invCapacityFx, powFx) --flatten the response
+        self.mrBalerSpeedLimit = math.clamp(self.mrBalerSpeedLimit, Baler.MR_MIN_SPEED_LIMIT, self.speedLimit)
 
     else -- not turned on
 
@@ -101,10 +134,17 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
         self.mrBalerLastTonsPerHour = 0
         self.mrBalerLastTonsPerHourAvg = 0
         self.mrBalerSpeedLimit = 999
+        self.mrBalerLastNeededPower = 0
 
     end
 
-    return neededPower
+    if self.mrBalerLastNeededPower==0 then
+        self.mrBalerLastNeededPower = neededPower
+    else
+        self.mrBalerLastNeededPower = 0.99*self.mrBalerLastNeededPower + 0.01*neededPower
+    end
+
+    return self.mrBalerLastNeededPower
 
 end
 
@@ -148,6 +188,48 @@ Baler.mrUpdateUnfinishedBaleThresholdCapacity = function(self)
     end
 end
 
+
+--manage netting timer
+Baler.mrOnUpdateTick = function(self, superFunc, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
+
+    if self.mrBalerHasNettingDuration and self:getIsTurnedOn() then
+        if self.mrBalerNettingTimer>0 then
+            self.mrBalerNettingTimer = self.mrBalerNettingTimer - dt
+            if self.mrBalerNettingTimer<=0 then
+                self.mrBalerNettingTimer = -1
+                self:setIsUnloadingBale(true)
+                self.mrBalerNettingTimer = 0
+            end
+        end
+    end
+
+    superFunc(self, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
+
+end
+Baler.onUpdateTick = Utils.overwrittenFunction(Baler.onUpdateTick, Baler.mrOnUpdateTick)
+
+--do not allow unloading during the netting time
+Baler.mrIsUnloadingAllowed = function(self, superFunc)
+    if self.mrBalerHasNettingDuration and self.mrBalerNettingTimer>0 then
+        return false
+    else
+        return superFunc(self)
+    end
+end
+Baler.isUnloadingAllowed = Utils.overwrittenFunction(Baler.isUnloadingAllowed, Baler.mrIsUnloadingAllowed)
+
+
+--wait for the netting time before actually unloading the bale
+Baler.mrSetIsUnloadingBale = function(self, superFunc, isUnloadingBale, noEventSend)
+
+    if self.mrBalerHasNettingDuration and isUnloadingBale and self.mrBalerNettingTimer==0 and not noEventSend then
+        self.mrBalerNettingTimer = self.mrBalerNettingDuration
+    else
+        superFunc(self, isUnloadingBale, noEventSend)
+    end
+
+end
+Baler.setIsUnloadingBale = Utils.overwrittenFunction(Baler.setIsUnloadingBale, Baler.mrSetIsUnloadingBale)
 
 
 

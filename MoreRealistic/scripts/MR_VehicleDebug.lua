@@ -1,6 +1,6 @@
 VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
 
-    --Fix BUG when selectin a bigbag attached to a frontloader attachment
+    --Fix BUG when selecting a bigbag attached to a frontloader attachment
     local tempSpec = self.spec_attachable
     if self.spec_attachable~=nil and self.getBrakeForce==nil then
         self.spec_attachable=nil
@@ -127,8 +127,9 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
 
     if self.mrIsMrBaler then
         setTextAlignment(RenderText.ALIGN_LEFT)
-        renderText(0.8, 0.56, textSize, string.format("Spd limit=%1.2f", self.mrBalerSpeedLimit))
-        renderText(0.8, 0.58, textSize, string.format("T/h=%1.2f / Avg=%1.2f", self.mrBalerLastTonsPerHour, self.mrBalerLastTonsPerHourAvg))
+        renderText(0.8, 0.60, textSize, string.format("Spd limit=%1.2f", self.mrBalerSpeedLimit))
+        renderText(0.8, 0.62, textSize, string.format("T/h=%1.2f / Avg=%1.2f", self.mrBalerLastTonsPerHour, self.mrBalerLastTonsPerHourAvg))
+        renderText(0.8, 0.64, textSize, string.format("Pto power=%1.2f", self.mrBalerLastNeededPower))
     end
 
     if self.spec_woodCrusher then

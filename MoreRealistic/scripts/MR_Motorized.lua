@@ -206,26 +206,34 @@ Motorized.updateConsumers = Utils.overwrittenFunction(Motorized.updateConsumers,
 
 Motorized.mrControlVehicle = function(self, superFunc, acceleratorPedal, maxSpeed, maxAcceleration, minMotorRotSpeed, maxMotorRotSpeed, maxMotorRotAcceleration, minGearRatio, maxGearRatio, maxClutchTorque, neededPtoTorque)
 
-    if getIsSleeping(self.spec_motorized.motorizedNode) then
+    local spec = self.spec_motorized
+
+    if getIsSleeping(spec.motorizedNode) then
         --awake if player inside vehicle and rpm <> minRpm
-        --if math.abs(self.spec_motorized.motor.differentialRotSpeed)>0.03 or self.spec_motorized.motor.lastRealMotorRpm>(self.spec_motorized.motor.minRpm+1) then --0.108kph
-        if math.abs(self.spec_motorized.motor.differentialRotSpeed)>0.03 or self.spec_motorized.motor.mrLastMotorObjectRotSpeed>(1+self.spec_motorized.motor.minRpm*math.pi/30) then --0.108kph
+        --if math.abs(spec.motor.differentialRotSpeed)>0.03 or spec.motor.lastRealMotorRpm>(spec.motor.minRpm+1) then --0.108kph
+        if math.abs(spec.motor.differentialRotSpeed)>0.03 or spec.motor.mrLastMotorObjectRotSpeed>(1+spec.motor.minRpm*math.pi/30) then --0.108kph
             local isEntered = self.getIsEntered ~= nil and self:getIsEntered()
             local isControlled = self.getIsControlled ~= nil and self:getIsControlled()
             if isEntered or isControlled then
-                I3DUtil.wakeUpObject(self.spec_motorized.motorizedNode)
+                I3DUtil.wakeUpObject(spec.motorizedNode)
             end
         end
     end
 
-    if self.spec_motorized.mrLastMinGearRatioSet~=minGearRatio then
-        self.spec_motorized.motor.mrLastGearRatioChangeTime = g_time
+    if spec.mrLastMinGearRatioSet~=minGearRatio then
+        spec.motor.mrLastGearRatioChangeTime = g_time
     end
 
-    self.spec_motorized.mrLastMinGearRatioSet = minGearRatio
-    self.spec_motorized.mrLastMaxGearRatioSet = maxGearRatio
-    self.spec_motorized.mrLastMaxMotorRotSpeedSet = maxMotorRotSpeed
-    self.spec_motorized.mrLastMinMotorRotSpeedSet = minMotorRotSpeed
+    spec.mrLastMinGearRatioSet = minGearRatio
+    spec.mrLastMaxGearRatioSet = maxGearRatio
+    spec.mrLastMaxMotorRotSpeedSet = maxMotorRotSpeed
+    spec.mrLastMinMotorRotSpeedSet = minMotorRotSpeed
+
+    --check if pto power is too high = engine brake for the wheels
+    if neededPtoTorque>(0.01+spec.motor.lastMotorAvailableTorque) then
+        local overTorque = neededPtoTorque - spec.motor.lastMotorAvailableTorque
+        spec.mrEngineBrakingPowerToApply = spec.mrEngineBrakingPowerToApply + overTorque * spec.motor.mrLastMotorObjectRotSpeed
+    end
 
     superFunc(self, acceleratorPedal, maxSpeed, maxAcceleration, minMotorRotSpeed, maxMotorRotSpeed, maxMotorRotAcceleration, minGearRatio, maxGearRatio, maxClutchTorque, neededPtoTorque)
 
@@ -426,6 +434,8 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
         end
 
         --update motorizedNode get values
+        spec.motor.mrLastMotorObjectRotSpeedPrev2 = spec.motor.mrLastMotorObjectRotSpeedPrev1
+        spec.motor.mrLastMotorObjectRotSpeedPrev1 = spec.motor.mrLastMotorObjectRotSpeed
         spec.motor.mrLastMotorObjectRotSpeed, _, spec.motor.mrLastMotorObjectGearRatio = getMotorRotationSpeed(spec.motorizedNode)
         spec.motor.mrLastPtoPower = neededPtoTorque * spec.motor.mrLastMotorObjectRotSpeed --KW
 

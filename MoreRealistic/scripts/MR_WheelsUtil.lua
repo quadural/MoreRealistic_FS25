@@ -385,7 +385,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         electronicMaxSpeed = motor:getMaximumBackwardSpeed()
     end
 
-    local maxSpeed = (0.45+motor:getSpeedLimit())/3.6 --m/s (0.45 more kph because most of the time, there is slippage = we don't reach the target speed)
+    local maxSpeed = (0.2+motor:getSpeedLimit())/3.6 --m/s (0.2 more kph because most of the time, there is slippage = we don't reach the target speed)
     local targetRot = motor.mrMaxRot
 
     if maxGearRatio~=motor.mrLastGearRatio then

@@ -3,11 +3,14 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="12" powerIncreaseWithFeedingKilosPerSecond="3.5" powerIncreaseWithBaleMass="15" maxTonsPerHour="50" unfinishedBaleThreshold="0.95" />
+    <mrBaler idlePower="12" powerIncreaseWithFeedingKilosPerSecond="3.5" powerIncreaseWithBaleMass="15" maxTonsPerHour="50" unfinishedBaleThreshold="0.95" densityFactor="1" nettingDuration="2" />
 
     <!-- 5325kg
 
-        total time to unload and close the door = 3s
+        total time to unload and close the door = 3s (125cm diameter bales)
+        netting time IRL = 5-6s (125cm diameter bales)
+        total time at still IRL = about 8s => since the unloading animation + delay to close the door = about 6s here, we add a 2s netting time delay to get something close to IRL
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/johnDeere/v452R/v452R.xml">
@@ -57,11 +60,7 @@
             <!-- close animation speed -->
             <set path="vehicle.baler.baleAnimation#closeAnimationSpeed" value="1" />
 
-            <!-- unload animation speed -->
-            <set path="vehicle.baler.baleTypes.baleType(0).animations#dropAnimationTime" value="5" />
-            <set path="vehicle.baler.baleTypes.baleType(1).animations#dropAnimationTime" value="5" />
-
-            <!-- pickup max feed speed -->
+            <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
             <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
 
         </attributes>
