@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrBaler idlePower="13" powerIncreaseWithFeedingKilosPerSecond="3.6" powerIncreaseWithBaleMass="17" maxTonsPerHour="50" unfinishedBaleThreshold="0.95" densityFactor="1" nettingDuration="5" />
+
+    <!--
+
+        copy-paste from new holland probelt 165
+
+        cropcutter version = 4800kg with 620 tires
+
+        total time to unload and close the door = 6s (125cm diameter bales)
+        netting time IRL = 5-6s (125cm diameter bales)
+        total time at still IRL = about 11s => since the unloading animation + delay to close the door = about 6s here, we add a 5s netting time delay to get something close to IRL
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/newHolland/proBelt165/proBelt165.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="120" />
+
+            <set path="vehicle.base.speedLimit#value" value="20" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.5 -0.1" />
+            <set path="vehicle.base.components.component(0)#mass" value="4250" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.15 -0.2" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="200" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <!-- correct tire size -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" value="620_40R22_5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" value="620_40R22_5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).innerRim#offset" value="-0.04"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).innerRim#offset" value="-0.04"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#xOffset" value="0.05"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#xOffset" value="0.05"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.03"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mass" value="0.02"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mass" value="0.02"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0003"/>
+
+
+
+            <!-- small air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.92 1" />
+
+            <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
+            <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.9 -0.6"/>
+
+
+            <!-- ************************ ENF OF MR ********************************-->
+
+            <set path="vehicle.storeData.brand" value="CASEIH"/>
+            <set path="vehicle.storeData.name"  value="RB 456 HD Pro"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/caseIH/rb456/store_rb456.png"/>
+
+            <remove path="vehicle.configurationSets" />
+
+            <set path="vehicle.wheels.hubMaterial#materialTemplateName" value="CASEIH_BLACK"/>
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(1)#isSelectable" value="false"/>
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(2)#isSelectable" value="true"/>
+
+            <set path="vehicle.designConfigurations#isYesNoOption" value="true"/>
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(2)#isSelectable" value="true"/>
+            <set path="vehicle.designConfigurations.designConfiguration(3)#isSelectable" value="true"/>
+
+
+
+
+        </attributes>
+    </parentFile>
+
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>RB 456 HD Pro</name>
+        <image>$data/vehicles/caseIH/rb456/store_rb456.png</image>
+        <brand>CASEIH</brand>
+        <category>balers</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+
+</vehicle>

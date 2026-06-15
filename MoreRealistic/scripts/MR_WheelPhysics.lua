@@ -464,6 +464,9 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                 if not self.mrIsDriven and absWheelSpd<0.5 then
                     --20260403 - see end of "mrGetRollingResistance" function
                     damping = (10-18*absWheelSpd)*damping
+                elseif self.mrIsDriven and self.vehicle.spec_motorized.mrLastNeutralActive then
+                    --transmission losses
+                    --no reduce damping
                 elseif self.vehicle.lastSpeedReal>0.006 then --6ms = 21.6kph
                     damping = 0
                 elseif self.vehicle.lastSpeedReal>0.002 then --2ms = 7.2kph
@@ -473,6 +476,9 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
             else
                 --no ground contact = "random" damping (see loadFromXML)
                 damping = self.mrRotationDamping
+                if self.mrIsDriven then
+                    damping = 3*damping --more damping since there is transmission losses
+                end
             end
             self.mrLastTireLoad = tireLoad --KN
             self.mrLastTireLoadS = 0.99*self.mrLastTireLoadS + 0.01*tireLoad
@@ -491,7 +497,8 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                     engineBrakeForce = engineBrake/math.max(0.5, math.abs(wheelSpeed))
                     if engineBrakeForce>self.mrLastEngineBrakeForce then
                         --do not give the full engine brake force to the wheel right away = there is a "response time" from the engine. Far smoother gameplay experience when "playing" with the power shuttle quickly
-                        engineBrakeForce = 0.99*self.mrLastEngineBrakeForce + 0.01*engineBrakeForce
+                        local fx = 0.01 + 0.01*math.min(math.abs(wheelSpeed),10)
+                        engineBrakeForce = (1-fx)*self.mrLastEngineBrakeForce + fx*engineBrakeForce
                     end
                 end
             end

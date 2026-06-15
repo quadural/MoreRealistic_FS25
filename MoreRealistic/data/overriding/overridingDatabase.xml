@@ -13,6 +13,8 @@
 
     <!-- baler (round) -->
     <vehicle fileNameToOverride="data/vehicles/johnDeere/v452R/v452R.xml">vehicles/johnDeere/v452R.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/newHolland/proBelt165/proBelt165.xml">vehicles/newHolland/proBelt165.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/caseIH/rb456/rb456.xml">vehicles/caseIH/rb456.xml</vehicle>
 
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>

@@ -468,3 +468,4 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted John Deere V452R round baler
             - pto load can "brake" the vehicle when the engine torque is not sufficient
             - bale mass = computed from fillLevel and fillType density
+            - add converted New Holland ProBelt 165/450 and Case IH RB456 round baler

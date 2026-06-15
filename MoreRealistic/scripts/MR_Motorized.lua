@@ -50,6 +50,7 @@ Motorized.mrLoadMotor = function(self, superFunc, xmlFile, motorId)
     self.spec_motorized.motor.mrLastGearRatioChangeTime = 0
     self.spec_motorized.mrLastMaxMotorRotSpeedSet = 0
     self.spec_motorized.mrLastMinMotorRotSpeedSet = 0
+    self.spec_motorized.mrLastNeutralActive = false
 
     --20250605 - we don't want a "autoGearChangeTime" == 0, this is not "realistic"
     if self.spec_motorized.motor.autoGearChangeTime==0 then
@@ -229,10 +230,15 @@ Motorized.mrControlVehicle = function(self, superFunc, acceleratorPedal, maxSpee
     spec.mrLastMaxMotorRotSpeedSet = maxMotorRotSpeed
     spec.mrLastMinMotorRotSpeedSet = minMotorRotSpeed
 
-    --check if pto power is too high = engine brake for the wheels
-    if neededPtoTorque>(0.01+spec.motor.lastMotorAvailableTorque) then
-        local overTorque = neededPtoTorque - spec.motor.lastMotorAvailableTorque
-        spec.mrEngineBrakingPowerToApply = spec.mrEngineBrakingPowerToApply + overTorque * spec.motor.mrLastMotorObjectRotSpeed
+    spec.mrLastNeutralActive = (minGearRatio==0 and maxGearRatio==0)
+
+    if not spec.mrLastNeutralActive then
+        --check if pto power is too high = engine brake for the wheels
+        local availabletorqueForPTO = spec.motor.lastMotorAvailableTorque
+        if neededPtoTorque>(0.01+availabletorqueForPTO) then
+            local overTorque = neededPtoTorque - availabletorqueForPTO
+            spec.mrEngineBrakingPowerToApply = spec.mrEngineBrakingPowerToApply + overTorque * spec.motor.mrLastMotorObjectRotSpeed
+        end
     end
 
     superFunc(self, acceleratorPedal, maxSpeed, maxAcceleration, minMotorRotSpeed, maxMotorRotSpeed, maxMotorRotAcceleration, minGearRatio, maxGearRatio, maxClutchTorque, neededPtoTorque)
