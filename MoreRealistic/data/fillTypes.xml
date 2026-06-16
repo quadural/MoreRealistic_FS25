@@ -28,7 +28,7 @@
     <fillType name="SEEDS" density="0.66" />
 
     <fillType name="DRYGRASS" density="0.06" /> <!-- 1M3 = 60 kilos -->
-    <fillType name="DRYGRASS_WINDROW" density="0.06" /> <!-- 1M3 = 60 kilos -->
-    <fillType name="STRAW" density="0.044" /> <!-- 1M3 = 44 kilos // 5000L = 220kg -->
+    <fillType name="DRYGRASS_WINDROW" density="0.06" /> <!-- 1M3 = 60 kilos // 5000L = 300kg -->
+    <fillType name="STRAW" density="0.040" /> <!-- 1M3 = 40 kilos // 5000L = 200kg -->
 
 </fillTypes>

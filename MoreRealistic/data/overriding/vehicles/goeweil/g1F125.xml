@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrBaler idlePower="5" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="70" maxTonsPerHour="35" unfinishedBaleThreshold="0.95" densityFactor="0.9" nettingDuration="9" />
+
+    <!-- 5580kg
+
+        fixed chamber (rollers) baler = more power with bale mass / les density and less productivity (we have to slow down to get heavy bales)
+
+        total time to unload and close the door = 5s (125cm diameter bales)
+        netting time IRL = 10-11s (125cm diameter bales)
+        total time at still IRL = about 15s => since the unloading animation + delay to close the door = about 5s here, we add a 9s netting time delay to get something close to IRL
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/goeweil/g1F125/g1F125.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="120" />
+
+            <set path="vehicle.base.speedLimit#value" value="20" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.3 -0.1" />
+            <set path="vehicle.base.components.component(0)#mass" value="4960" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0.1 0.2" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="300" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.03"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0003"/>
+
+
+
+            <!-- small air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.83 1" />
+
+
+            <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
+            <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.6 -0.5"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

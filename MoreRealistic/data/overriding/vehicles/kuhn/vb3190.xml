@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrBaler idlePower="10" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="13" maxTonsPerHour="30" unfinishedBaleThreshold="0.95" densityFactor="0.9" nettingDuration="6" />
+
+    <!-- 2800-3700kg
+    ingame = opticut 14 + wide tires => close to 3700kg
+
+        this is not a "power" round baler like the John Deee V452R or the New Holland Probelt (the equivalent model would be VB3195 or VB7190)
+
+        total time to unload and close the door = 8s (125cm diameter bales)
+        netting time IRL = 6-7s (125cm diameter bales)
+        total time at still IRL = about 14s => since the unloading animation + delay to close the door = about 8s here, we add a 6s netting time delay to get something close to IRL
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/vb3190/vb3190.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="85" />
+
+            <set path="vehicle.base.speedLimit#value" value="20" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 -0.2" />
+            <set path="vehicle.base.components.component(0)#mass" value="3200" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 0" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="200" />
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.03"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0003"/>
+
+
+
+            <!-- hydraulic brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="0.8" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.92 1" />
+
+            <!-- pickup limit when lowered -->
+            <set path="vehicle.animations.animation(1).part(0)#endRot" value="20 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#endRotLimit" value="35 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#startTime" value="0" />
+
+            <!-- close animation speed = about 4.5s -->
+            <set path="vehicle.baler.baleAnimation#closeAnimationSpeed" value="0.36" />
+
+            <!-- unload animation speed = about 3s -->
+            <set path="vehicle.baler.baleTypes.baleType(0).animations#unloadAnimationSpeed" value="0.5" />
+            <set path="vehicle.baler.baleTypes.baleType(1).animations#unloadAnimationSpeed" value="0.5" />
+            <set path="vehicle.baler.baleTypes.baleType(2).animations#unloadAnimationSpeed" value="0.5" />
+
+            <!-- pickup liftspeed -->
+            <set path="vehicle.pickup.animation#liftSpeed" value="-1.7" />
+
+
+            <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
+            <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.65 -0.7"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
