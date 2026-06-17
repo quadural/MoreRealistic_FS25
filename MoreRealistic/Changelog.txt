@@ -471,4 +471,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted New Holland ProBelt 165/450 and Case IH RB456 round baler
             - add converetd Goeweil G1 F125 round baler
             - add converted Kuhn VB3190 round baler
+            - add converted Krone VariPack V190XC Plus
 

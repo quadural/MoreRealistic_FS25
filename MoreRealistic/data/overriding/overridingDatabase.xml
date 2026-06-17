@@ -17,6 +17,7 @@
     <vehicle fileNameToOverride="data/vehicles/caseIH/rb456/rb456.xml">vehicles/caseIH/rb456.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/goeweil/g1F125/g1F125.xml">vehicles/goeweil/g1F125.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kuhn/vb3190/vb3190.xml">vehicles/kuhn/vb3190.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/krone/varipackV190XC/varipackV190XC.xml">vehicles/krone/varipackV190XC.xml</vehicle>
 
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>

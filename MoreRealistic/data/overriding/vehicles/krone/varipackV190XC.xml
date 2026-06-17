@@ -3,24 +3,24 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="12" powerIncreaseWithFeedingKilosPerSecond="3.5" powerIncreaseWithBaleMass="15" maxTonsPerHour="50" unfinishedBaleThreshold="0.95" densityFactor="1.05" nettingDuration="2" />
+    <mrBaler idlePower="14" powerIncreaseWithFeedingKilosPerSecond="4" powerIncreaseWithBaleMass="17" maxTonsPerHour="55" unfinishedBaleThreshold="0.95" densityFactor="1.1" nettingDuration="5" />
 
-    <!-- 5325kg
+    <!-- about 5000kg with xcut + 600/50R22.5 + 3 net rolls
 
-        total time to unload and close the door = 3s (125cm diameter bales)
-        netting time IRL = 5-6s (125cm diameter bales)
-        total time at still IRL = about 8s => since the unloading animation + delay to close the door = about 6s here, we add a 2s netting time delay to get something close to IRL
+        total time to unload and close the door = less than 5s (125cm diameter bales)
+        netting time IRL = about 7s (125cm diameter bales)
+        total time at still IRL = about 12s => since the unloading animation + delay to close the door = about 7s here, we add a 5s netting time delay to get something close to IRL
 
     -->
 
-    <parentFile xmlFilename="$data/vehicles/johnDeere/v452R/v452R.xml">
+    <parentFile xmlFilename="$data/vehicles/krone/varipackV190XC/varipackV190XC.xml">
         <attributes>
 
-            <set path="vehicle.storeData.specs.neededPower" value="130" />
+            <set path="vehicle.storeData.specs.neededPower" value="140" />
 
             <set path="vehicle.base.speedLimit#value" value="20" />
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.4 -0.5" />
-            <set path="vehicle.base.components.component(0)#mass" value="4670" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.3 0.2" />
+            <set path="vehicle.base.components.component(0)#mass" value="4400" />
 
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 0.1" /> <!-- pickup -->
             <set path="vehicle.base.components.component(1)#mass" value="200" />
@@ -52,18 +52,30 @@
             <set path="vehicle.attachable.brakeForce#force" value="1" />
 
             <!-- drawbar -->
-            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.94 1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.93 1" />
 
             <!-- pickup limit when lowered -->
-            <set path="vehicle.animations.animation(2).part(1)#endRotMinLimit" value="-20 0 0" />
+            <set path="vehicle.animations.animation(1).part(0)#startRot" value="-15 0 0" />
+            <set path="vehicle.animations.animation(1).part(0)#endRot" value="8 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#endRotLimit" value="17 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#startTime" value="0.7" />
+
+            <!-- open animation speed -->
+            <set path="vehicle.baler.baleTypes.baleType(0).animations#unloadAnimationSpeed" value="1.33" />
+            <set path="vehicle.baler.baleTypes.baleType(1).animations#unloadAnimationSpeed" value="1.33" />
+            <set path="vehicle.baler.baleTypes.baleType(2).animations#unloadAnimationSpeed" value="1.33" />
+
+            <set path="vehicle.baler.baleTypes.baleType(0).animations#dropAnimationTime" value="3.75" />
+            <set path="vehicle.baler.baleTypes.baleType(1).animations#dropAnimationTime" value="3.75" />
+            <set path="vehicle.baler.baleTypes.baleType(2).animations#dropAnimationTime" value="3.75" />
 
             <!-- close animation speed -->
-            <set path="vehicle.baler.baleAnimation#closeAnimationSpeed" value="1" />
+            <set path="vehicle.baler.baleAnimation#closeAnimationSpeed" value="0.7" />
 
             <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
             <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
 
-            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 -1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 -0.5"/>
 
         </attributes>
     </parentFile>
