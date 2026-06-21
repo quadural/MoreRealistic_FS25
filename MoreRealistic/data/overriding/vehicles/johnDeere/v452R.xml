@@ -3,7 +3,7 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="12" powerIncreaseWithFeedingKilosPerSecond="3.5" powerIncreaseWithBaleMass="15" maxTonsPerHour="50" unfinishedBaleThreshold="0.95" densityFactor="1.05" nettingDuration="2" />
+    <mrBaler idlePower="12" powerIncreaseWithFeedingKilosPerSecond="3.5" powerIncreaseWithBaleMass="15" maxTonsPerHour="60" grassCapacityFx="1.5" unfinishedBaleThreshold="0.95" densityFactor="1.05" nettingDuration="2" />
 
     <!-- 5325kg
 

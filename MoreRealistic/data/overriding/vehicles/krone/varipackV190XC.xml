@@ -3,7 +3,7 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="14" powerIncreaseWithFeedingKilosPerSecond="4" powerIncreaseWithBaleMass="17" maxTonsPerHour="55" unfinishedBaleThreshold="0.95" densityFactor="1.1" nettingDuration="5" />
+    <mrBaler idlePower="14" powerIncreaseWithFeedingKilosPerSecond="4" powerIncreaseWithBaleMass="17" maxTonsPerHour="60" unfinishedBaleThreshold="0.95" densityFactor="1.1" nettingDuration="5" />
 
     <!-- about 5000kg with xcut + 600/50R22.5 + 3 net rolls
 

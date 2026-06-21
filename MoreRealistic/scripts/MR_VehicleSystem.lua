@@ -26,6 +26,7 @@ VehicleSystem.mrNew = function(mission, superFunc, customMt)
     local self = superFunc(mission, customMt)
     if mission:getIsServer() then
         addConsoleCommand("mrVehicleRecover", "try to recover the currently entered vehicle at the current position by lifting it", "mrConsoleCommandRecoverVehicle", self)
+        addConsoleCommand("mrVehicleMorePower", "double the engine output of the entered vehicle", "mrConsoleCommandVehicleMorePower", self)
     end
     return self
 end
@@ -35,6 +36,7 @@ VehicleSystem.new = Utils.overwrittenFunction(VehicleSystem.new, VehicleSystem.m
 VehicleSystem.mrDelete = function(self, superFunc)
     superFunc(self)
     removeConsoleCommand("mrVehicleRecover")
+    removeConsoleCommand("mrConsoleCommandVehicleMorePower")
 end
 VehicleSystem.delete = Utils.overwrittenFunction(VehicleSystem.delete, VehicleSystem.mrDelete)
 
@@ -51,3 +53,16 @@ VehicleSystem.mrConsoleCommandRecoverVehicle = function(self)
         end
     end
 end
+
+VehicleSystem.mrConsoleCommandVehicleMorePower = function(self)
+    local playerVehicle = g_localPlayer:getCurrentVehicle()
+    if playerVehicle~=nil then
+        if playerVehicle.mrMorePowerModeActive then
+            playerVehicle.mrMorePowerModeActive = false
+        else
+            playerVehicle.mrMorePowerModeActive = true
+        end
+    end
+end
+
+

@@ -9,6 +9,7 @@ Baler.mrLoadMrValues = function(self, xmlFile)
         self.mrBalerPowerIncreaseWithFeedingKilosPerSecond = getXMLFloat(xmlFile, "vehicle.mrBaler#powerIncreaseWithFeedingKilosPerSecond") or 2
         self.mrBalerPowerIncreaseWithBaleMass = getXMLFloat(xmlFile, "vehicle.mrBaler#powerIncreaseWithBaleMass") or 0
         self.mrBalerMaxTonsPerHour = getXMLFloat(xmlFile, "vehicle.mrBaler#maxTonsPerHour") or 50
+        self.mrBalerGrassCapacityFx = getXMLFloat(xmlFile, "vehicle.mrBaler#grassCapacityFx") or 1.5
         self.mrBalerUnfinishedBaleThreshold = getXMLFloat(xmlFile, "vehicle.mrBaler#unfinishedBaleThreshold")
         self.mrBalerDensityFactor = getXMLFloat(xmlFile, "vehicle.mrBaler#densityFactor") or 1
 
@@ -51,9 +52,6 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
             desc = g_fillTypeManager:getFillTypeByIndex(fillUnit.fillType)
         end
 
-        --idle power
-        neededPower = self.mrBalerIdlePower
-
         --power to "rotate" the bale
         if desc~=nil and self.mrBalerPowerIncreaseWithBaleMass>0 then
             local mass = fillUnit.fillLevel * desc.massPerLiter
@@ -78,11 +76,17 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
             self.mrBalerLitersBufferTime = g_time + maxTime
         end
 
+        local currentMaxBalerTonsPerHour = self.mrBalerMaxTonsPerHour
+        local powerFx = 1
         local currentKilosPerSecond = 0
         --local currentKilosPerSecondS = 0
         if desc~=nil then
             currentKilosPerSecond = self.mrBalerLitersPerSecond * desc.massPerLiter * 1000 -- 1000 => massPerLiter is in tons, we want kilos
-            --currentKilosPerSecondS = self.mrBalerLitersPerSecondS * desc.massPerLiter * 1000
+            if desc.name=="GRASS_WINDROW" or desc.name=="GRASS" then
+                currentKilosPerSecond = currentKilosPerSecond * RealisticMain.BALER_GRASS_MASS_FX
+                currentMaxBalerTonsPerHour = currentMaxBalerTonsPerHour * self.mrBalerGrassCapacityFx
+                powerFx = math.sqrt(1 / self.mrBalerGrassCapacityFx)
+            end
         end
 
         self.mrBalerLastTonsPerHour = currentKilosPerSecond * 3.6  --3.6 = kilos per seconds to tons per hour
@@ -90,15 +94,20 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
 
         --power of the feeding system
         if desc~=nil and self.mrBalerPowerIncreaseWithFeedingKilosPerSecond>0 then
-            neededPower = neededPower + currentKilosPerSecond * self.mrBalerPowerIncreaseWithFeedingKilosPerSecond
+            neededPower = neededPower + currentKilosPerSecond * self.mrBalerPowerIncreaseWithFeedingKilosPerSecond * powerFx
         end
+
+        --idle power
+        neededPower = neededPower + self.mrBalerIdlePower
 
         if self.mrBalerSpeedLimit==999 then
             self.mrBalerSpeedLimit = self.speedLimit
         end
 
         --0.9 factor to prevent going above "mrBalerMaxTonsPerHour" most of the time. "mrBalerMaxTonsPerHour" should really be a "high" limit.
-        local invCapacityFx = 0.9*self.mrBalerMaxTonsPerHour/math.max(1, math.max(self.mrBalerLastTonsPerHour,self.mrBalerLastTonsPerHourAvg))
+
+
+        local invCapacityFx = 0.9*currentMaxBalerTonsPerHour/math.max(1, math.max(self.mrBalerLastTonsPerHour,self.mrBalerLastTonsPerHourAvg))
 
         --**************
         --PROBLEM : when using the "lastSpeedReal" = if we are not working, but pto is on, when making a turn, the baler "lastSpeedReal" is lower than the tractor speed = we limit the tractor speed for nothing

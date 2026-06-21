@@ -3,7 +3,7 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="13" powerIncreaseWithFeedingKilosPerSecond="3.6" powerIncreaseWithBaleMass="17" maxTonsPerHour="50" unfinishedBaleThreshold="0.95" densityFactor="1" nettingDuration="5" />
+    <mrBaler idlePower="13" powerIncreaseWithFeedingKilosPerSecond="3.6" powerIncreaseWithBaleMass="17" maxTonsPerHour="60" unfinishedBaleThreshold="0.95" densityFactor="1" nettingDuration="5" />
 
     <!--
 

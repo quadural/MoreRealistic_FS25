@@ -3,7 +3,7 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="10" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="13" maxTonsPerHour="30" unfinishedBaleThreshold="0.95" densityFactor="0.9" nettingDuration="6" />
+    <mrBaler idlePower="10" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="13" maxTonsPerHour="40" grassCapacityFx="1.35" unfinishedBaleThreshold="0.95" densityFactor="0.9" nettingDuration="6" />
 
     <!-- 2800-3700kg
     ingame = opticut 14 + wide tires => close to 3700kg

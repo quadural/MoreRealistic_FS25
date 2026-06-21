@@ -288,6 +288,13 @@ Motorized.mrUpdateMotorProperties=function(self)
         end
     end
 
+    --MR : cheating the power for test purpose
+    if self.mrIsMrVehicle and self.mrMorePowerModeActive then
+        for i=1, #torques do
+            torques[i] = 2*torques[i]
+        end
+    end
+
     setMotorProperties(spec.motorizedNode, motor.mrMinRot, motor.mrMaxRot, motor:getRotInertia(), dampingRateFullThrottle, dampingRateZeroThrottleClutchEngaged, dampingRateZeroThrottleClutchDisengaged, rotationSpeeds, torques)
 
  end

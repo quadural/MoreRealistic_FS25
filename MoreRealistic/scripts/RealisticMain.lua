@@ -17,6 +17,8 @@ RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC = 1.5 -- default factor applied to e
 
 RealisticMain.SPRAYER_EMPTYSPEED_FX = 1.5 --default factor applied to dischargeNode#emptySpeed for sprayer
 
+RealisticMain.BALER_GRASS_MASS_FX = 0.8 -- in game, there is no difference between "forage harvester direct cut grass silage" and "mower cut and then baling silage". IRL, we do not bale just after the mower job. there is some time between the mower and the baler jobs. so that the grass can loose some "water".
+
 --VehicleDebug.setState(VehicleDebug.DEBUG_PHYSICS)
 
 local version = g_modManager:getModByName(g_currentModName).version

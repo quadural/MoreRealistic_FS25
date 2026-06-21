@@ -3,11 +3,11 @@
 
     <MR>true</MR>
 
-    <mrBaler idlePower="5" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="70" maxTonsPerHour="35" unfinishedBaleThreshold="0.95" densityFactor="0.9" nettingDuration="9" />
+    <mrBaler idlePower="5" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="70" maxTonsPerHour="40" grassCapacityFx="2" unfinishedBaleThreshold="0.95" densityFactor="0.9" nettingDuration="9" />
 
     <!-- 5580kg
 
-        fixed chamber (rollers) baler = more power with bale mass / les density and less productivity (we have to slow down to get heavy bales)
+        fixed chamber (rollers) baler = more power with bale mass / less density and less productivity (we have to slow down to get heavy bales)
 
         total time to unload and close the door = 5s (125cm diameter bales)
         netting time IRL = 10-11s (125cm diameter bales)
