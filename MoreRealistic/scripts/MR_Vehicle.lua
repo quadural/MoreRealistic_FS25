@@ -165,6 +165,8 @@ Vehicle.mrLoadComponentFromXML = function(self, superFunc, component, xmlFile, k
         component.mrDefaultMass = getMass(component.node)
         component.mrDefaultMassBAK = component.mrDefaultMass
 
+        component.mrAdditionalMassWithCOM = {}
+
         local mrDisableTerrainDisplacementCollision = xmlFile:getValue(key.."#mrDisableTerrainDisplacementCollision")
         if mrDisableTerrainDisplacementCollision~=nil then
             setCollisionFilter(component.node, CollisionFlag.TERRAIN_DISPLACEMENT, 0)
@@ -258,17 +260,22 @@ Vehicle.mrUpdateMass = function(self, superFunc)
         if component.mass == math.huge then
             Logging.devError("%s: Setting component '%d' mass to inf!", self.configFileName, k)
         elseif component.mass <=0.001 then
-            Logging.devError("%s: Setting component '%d' mass to loawer than 1kg!", self.configFileName, k)
+            Logging.devError("%s: Setting component '%d' mass to lower than 1kg!", self.configFileName, k)
         end
 
         self.serverMass = self.serverMass + component.mass
 
         if component.mrCenterOfMassIsDirty then
             component.mrCenterOfMassIsDirty = false
+            component.mrCenterOfMassUpdating = true
             if component.mrAnimatedVehicleWantedCOM~=nil then
-                setCenterOfMass(component.node, component.mrAnimatedVehicleWantedCOM.x, component.mrAnimatedVehicleWantedCOM.y, component.mrAnimatedVehicleWantedCOM.z)
+                component.mrWwantedCOMx = component.mrAnimatedVehicleWantedCOM.x
+                component.mrWwantedCOMy = component.mrAnimatedVehicleWantedCOM.y
+                component.mrWwantedCOMz = component.mrAnimatedVehicleWantedCOM.z
             else
-                setCenterOfMass(component.node, component.mrDefaultCOMx, component.mrDefaultCOMy, component.mrDefaultCOMz)
+                component.mrWwantedCOMx = component.mrDefaultCOMx
+                component.mrWwantedCOMy = component.mrDefaultCOMy
+                component.mrWwantedCOMz = component.mrDefaultCOMz
             end
         end
 
@@ -291,27 +298,58 @@ Vehicle.mrUpdateMass = function(self, superFunc)
 --             component.mass = component.mass / maxFactor
 --         end
 
-        -- only update physically mass if difference to last mass is greater 20kg
-        if self.isServer and component.isDynamic and math.abs(component.lastMass-component.mass) > 0.02 then
-            setMass(component.node, component.mass)
-            component.lastMass = component.mass
+        -- only update physically mass if difference to last mass is greater than 20kg
+        if self.isServer and component.isDynamic then
 
-            --20250501 - manage varying center of mass
-            --see "FillUnit.mrGetAdditionalComponentMass"
-            if component.mrAdditionalMassWithCOM~=nil and component.mrAdditionalMassWithCOM>0.02 then --no need to vary the center of mass of the component if there are less than 20kg of additional mass
+            if math.abs(component.lastMass-component.mass) > 0.02 then
+
+                setMass(component.node, component.mass)
+                component.lastMass = component.mass
+
+                --20250501 - manage varying center of mass
+                --see "FillUnit.mrGetAdditionalComponentMass"
+                --see "TensionBelts.mrGetAdditionalComponentMass"
+                --see"DynamicMountAttacher.mrGetAdditionalComponentMass"
+
                 local newX, newY, newZ
-                local baseMass = component.mrDefaultMass
-                local addMass = component.mrAdditionalMassWithCOM
-                newX = (baseMass*component.mrDefaultCOMx+addMass*component.mrAdditionalMassWithCOMx)/(baseMass+addMass)
-                newY = (baseMass*component.mrDefaultCOMy+addMass*component.mrAdditionalMassWithCOMy)/(baseMass+addMass)
-                newZ = (baseMass*component.mrDefaultCOMz+addMass*component.mrAdditionalMassWithCOMz)/(baseMass+addMass)
-                setCenterOfMass(component.node, newX, newY, newZ)
-                component.mrAdditionalMassWithCOMmodified = true
-            elseif component.mrAdditionalMassWithCOMmodified then
-                --reset to default center of mass
-                setCenterOfMass(component.node, component.mrDefaultCOMx, component.mrDefaultCOMy, component.mrDefaultCOMz)
-                component.mrAdditionalMassWithCOMmodified = false
+                local totalAddMassWithCOM = 0
+
+                if component.mrAdditionalMassWithCOM~=nil then
+                    for _, addMassWithCOM in pairs(component.mrAdditionalMassWithCOM) do
+                        if addMassWithCOM.mass>0.02 then
+                            if totalAddMassWithCOM==0 then
+                                newX = addMassWithCOM.x
+                                newY = addMassWithCOM.y
+                                newZ = addMassWithCOM.z
+                                totalAddMassWithCOM = addMassWithCOM.mass
+                            else
+                                local previousTotalMass = totalAddMassWithCOM
+                                totalAddMassWithCOM = totalAddMassWithCOM + addMassWithCOM.mass
+                                newX = (previousTotalMass*newX+addMassWithCOM.mass*addMassWithCOM.x)/(totalAddMassWithCOM)
+                                newY = (previousTotalMass*newY+addMassWithCOM.mass*addMassWithCOM.y)/(totalAddMassWithCOM)
+                                newZ = (previousTotalMass*newZ+addMassWithCOM.mass*addMassWithCOM.z)/(totalAddMassWithCOM)
+                            end
+                        end
+                    end
+                end
+
+                if totalAddMassWithCOM>0 then
+                    local baseMass = component.mrDefaultMass
+                    component.mrWwantedCOMx = (baseMass*component.mrDefaultCOMx+totalAddMassWithCOM*newX)/(baseMass+totalAddMassWithCOM)
+                    component.mrWwantedCOMy = (baseMass*component.mrDefaultCOMy+totalAddMassWithCOM*newY)/(baseMass+totalAddMassWithCOM)
+                    component.mrWwantedCOMz = (baseMass*component.mrDefaultCOMz+totalAddMassWithCOM*newZ)/(baseMass+totalAddMassWithCOM)
+                    component.mrCenterOfMassUpdating = true
+                    component.mrAdditionalMassWithCOMmodified = true
+                elseif component.mrAdditionalMassWithCOMmodified then
+                    component.mrWwantedCOMx = component.mrDefaultCOMx
+                    component.mrWwantedCOMy = component.mrDefaultCOMy
+                    component.mrWwantedCOMz = component.mrDefaultCOMz
+                    component.mrCenterOfMassUpdating = true
+                    component.mrAdditionalMassWithCOMmodified = false
+                end
+
             end
+
         end
     end
 
@@ -407,7 +445,43 @@ Vehicle.mrUpdateTick = function(self, superFunc, dt)
 
     superFunc(self, dt)
 
-    if self.isServer then
+    if self.isServer and self.finishedFirstUpdate then
+
+        --update centerOfmass "slowly" : the game engine can get "crazy" when we change the centerofmass by too much in a short time
+        for _, component in ipairs(self.components) do
+            if component.isDynamic and component.mrCenterOfMassUpdating then
+
+                local x, y, z = getCenterOfMass(component.node)
+                local newX, newY, newZ = x, y, z
+                local rate = 0.05
+
+                if component.mrWwantedCOMx>x then
+                    newX = math.min(x+rate, component.mrWwantedCOMx)
+                elseif component.mrWwantedCOMx<x then
+                    newX = math.max(x-rate, component.mrWwantedCOMx)
+                end
+
+                if component.mrWwantedCOMy>y then
+                    newY = math.min(y+rate, component.mrWwantedCOMy)
+                elseif component.mrWwantedCOMy<y then
+                    newY = math.max(y-rate, component.mrWwantedCOMy)
+                end
+
+                if component.mrWwantedCOMz>z then
+                    newZ = math.min(z+rate, component.mrWwantedCOMz)
+                elseif component.mrWwantedCOMz<z then
+                    newZ = math.max(z-rate, component.mrWwantedCOMz)
+                end
+
+                if newX==component.mrWwantedCOMx and newY==component.mrWwantedCOMy and newZ==component.mrWwantedCOMz then
+                    component.mrCenterOfMassUpdating = false
+                end
+
+                setCenterOfMass(component.node, newX, newY, newZ)
+
+            end
+        end
+
         if self.mrSuspensionActive then
             --check mass compared to mrSuspensionReferenceMass
             --more than 5% difference = update spring value

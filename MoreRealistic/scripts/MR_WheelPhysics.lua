@@ -5,6 +5,7 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrTireGroundRollingResistanceCoeff = 0.01
     self.mrLastTireLoad = 0
     self.mrLastTireLoadS = 0
+    self.mrLastTireLoadS2 = 0
     self.mrLastWheelSpeed = 0
     self.mrLastWheelSpeedS = 0
     self.mrLastLongSlip = 0
@@ -25,6 +26,10 @@ WheelPhysics.mrNew = function(wheel, superFunc)
     self.mrNoGroundDisplacementWhenLowered = false --should be set to true for implement's wheels that are touching the ground in working position and are part of the workarea of the implement (example : vaderstad nz extreme 1425)
     self.mrLastEngineBrakeForce = 0
 
+    self.mrAdvancedSpringLastAvgLoad = 0
+    self.mrAdvancedSpringCurveFx = 0.5
+    self.mrAdvancedSpringExpectedLoad = 0
+
     return self
 
 end
@@ -41,6 +46,9 @@ WheelPhysics.mrRegisterXMLPaths = function(schema, superFunc, key)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrScaleRR", "Allow to apply a scale factor to the rolling resistance of this wheel", 1)
     schema:register(XMLValueType.FLOAT, key .. ".physics#mrTrackFx", "Allow to specify a factor for the track surface area. Can also be used to cheat a wheel")
     schema:register(XMLValueType.BOOL, key .. ".physics#mrNoGroundDisplacementWhenLowered", "should be set to true for implement's wheels that are touching the ground in working position and are part of the workarea of the implement (example : vaderstad nz extreme 1425)")
+
+    schema:register(XMLValueType.FLOAT, key .. ".physics#mrAdvancedSpringExpectedLoad", "load at which we apply the spring value of the xml. Value in tons")
+    schema:register(XMLValueType.FLOAT, key .. ".physics#mrAdvancedSpringCurveFx", "pow function factor, when modifying spring according to current load vs expected load")
 
 end
 WheelPhysics.registerXMLPaths = Utils.overwrittenFunction(WheelPhysics.registerXMLPaths, WheelPhysics.mrRegisterXMLPaths)
@@ -112,6 +120,11 @@ WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
         end
 
         self.mrNoGroundDisplacementWhenLowered = xmlObject:getValue(".physics#mrNoGroundDisplacementWhenLowered", false)
+
+        self.mrAdvancedSpringExpectedLoad = 9.81*(xmlObject:getValue(".physics#mrAdvancedSpringExpectedLoad") or 0) --tons in xml to KN in lua
+        self.mrAdvancedSpringCurveFx = xmlObject:getValue(".physics#mrAdvancedSpringCurveFx") or 0.5
+
+
 
         return true
     end
@@ -426,7 +439,7 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
             local wheelSpeed = 0
 
             if tireLoad==nil then
-                tireLoad =0
+                tireLoad = 0
             end
 
             if self.hasGroundContact then
@@ -482,6 +495,11 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
             end
             self.mrLastTireLoad = tireLoad --KN
             self.mrLastTireLoadS = 0.99*self.mrLastTireLoadS + 0.01*tireLoad
+            if self.mrLastTireLoadS2==0 then
+                self.mrLastTireLoadS2 = tireLoad
+            else
+                self.mrLastTireLoadS2 = 0.999*self.mrLastTireLoadS2 + 0.001*tireLoad
+            end
             self.mrLastWheelSpeedS = 0.9*self.mrLastWheelSpeedS + 0.1*wheelSpeed
             self.mrLastWheelSpeed = wheelSpeed
 
@@ -692,3 +710,29 @@ WheelPhysics.mrUpdateBase = function(self, superFunc)
     end
 end
 WheelPhysics.updateBase = Utils.overwrittenFunction(WheelPhysics.updateBase, WheelPhysics.mrUpdateBase)
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+-- 20260623 - manage advanced spring
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WheelPhysics.mrServerUpdate = function(self, superFunc, dt, currentUpdateIndex, groundWetness)
+    superFunc(self, dt, currentUpdateIndex, groundWetness)
+    if self.vehicle.isActive then
+        if currentUpdateIndex == self.wheel.updateIndex and self.mrAdvancedSpringExpectedLoad>0 then
+            WheelPhysics.mrUpdateWheelAdvancedSpring(self)
+        end
+    end
+end
+WheelPhysics.serverUpdate = Utils.overwrittenFunction(WheelPhysics.serverUpdate, WheelPhysics.mrServerUpdate)
+
+WheelPhysics.mrUpdateWheelAdvancedSpring = function(self)
+    if self.mrLastTireLoadS2>1.1*self.mrAdvancedSpringLastAvgLoad or self.mrLastTireLoadS2<0.9*self.mrAdvancedSpringLastAvgLoad then
+        local factorSpring = math.pow(self.mrLastTireLoadS2/self.mrAdvancedSpringExpectedLoad, self.mrAdvancedSpringCurveFx)
+        local factorDamper = math.sqrt(factorSpring)
+        self:setSuspensionMultipliers(factorSpring, factorDamper)
+        self.mrAdvancedSpringLastAvgLoad = self.mrLastTireLoadS2
+    end
+end

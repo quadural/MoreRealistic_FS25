@@ -30,10 +30,10 @@ FillUnit.mrGetAdditionalComponentMass = function(self, superFunc0, superFunc, co
     local additionalMass = superFunc(self, component)
     local spec = self.spec_fillUnit
 
-    component.mrAdditionalMassWithCOMx = nil
-    component.mrAdditionalMassWithCOMy = nil
-    component.mrAdditionalMassWithCOMz = nil
-    component.mrAdditionalMassWithCOM = nil
+    local comTable = {}
+    comTable.mass = 0
+
+    component.mrAdditionalMassWithCOM["FillUnit"] = nil
 
     for _, fillUnit in ipairs(spec.fillUnits) do
         if fillUnit.updateMass and fillUnit.fillMassNode == component.node and fillUnit.fillType ~= nil and fillUnit.fillType ~= FillType.UNKNOWN then
@@ -41,21 +41,26 @@ FillUnit.mrGetAdditionalComponentMass = function(self, superFunc0, superFunc, co
             local mass = fillUnit.fillLevel * desc.massPerLiter
 
             if fillUnit.mrCenterOfMassX~=nil then
-                if component.mrAdditionalMassWithCOM==nil or component.mrAdditionalMassWithCOM==0 then
-                    component.mrAdditionalMassWithCOMx = fillUnit.mrCenterOfMassX
-                    component.mrAdditionalMassWithCOMy = fillUnit.mrCenterOfMassY
-                    component.mrAdditionalMassWithCOMz = fillUnit.mrCenterOfMassZ
-                    component.mrAdditionalMassWithCOM = mass
+                if comTable.mass==0 then
+                    comTable.x = fillUnit.mrCenterOfMassX
+                    comTable.y = fillUnit.mrCenterOfMassY
+                    comTable.z = fillUnit.mrCenterOfMassZ
+                    comTable.mass = mass
                 elseif mass>0 then
-                    component.mrAdditionalMassWithCOMx = (component.mrAdditionalMassWithCOM*component.mrAdditionalMassWithCOMx+mass*fillUnit.mrCenterOfMassX)/(component.mrAdditionalMassWithCOM+mass)
-                    component.mrAdditionalMassWithCOMy = (component.mrAdditionalMassWithCOM*component.mrAdditionalMassWithCOMy+mass*fillUnit.mrCenterOfMassY)/(component.mrAdditionalMassWithCOM+mass)
-                    component.mrAdditionalMassWithCOMz = (component.mrAdditionalMassWithCOM*component.mrAdditionalMassWithCOMz+mass*fillUnit.mrCenterOfMassZ)/(component.mrAdditionalMassWithCOM+mass)
-                    component.mrAdditionalMassWithCOM = component.mrAdditionalMassWithCOM + mass
+                    local newMass = comTable.mass+mass
+                    comTable.x = (comTable.mass*comTable.x+mass*fillUnit.mrCenterOfMassX)/newMass
+                    comTable.y = (comTable.mass*comTable.y+mass*fillUnit.mrCenterOfMassY)/newMass
+                    comTable.z = (comTable.mass*comTable.z+mass*fillUnit.mrCenterOfMassZ)/newMass
+                    comTable.mass = newMass
                 end
             end
 
             additionalMass = additionalMass + mass
         end
+    end
+
+    if comTable.mass>0 then
+        component.mrAdditionalMassWithCOM["FillUnit"] = comTable
     end
 
     return additionalMass

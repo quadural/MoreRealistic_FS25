@@ -51,3 +51,48 @@ DynamicMountAttacher.mrLoadDynamicLockPositionFromXML = function(self, superFunc
 
 end
 DynamicMountAttacher.loadDynamicLockPositionFromXML = Utils.overwrittenFunction(DynamicMountAttacher.loadDynamicLockPositionFromXML, DynamicMountAttacher.mrLoadDynamicLockPositionFromXML)
+
+
+
+--takes into account object center of mass when "mounting" it
+-- TODO = NOT TESTED
+DynamicMountAttacher.mrGetAdditionalComponentMass = function(self, superFunc0, superFunc, component)
+    local additionalMass = superFunc(self, component)
+    local spec = self.spec_dynamicMountAttacher
+
+    if spec.dynamicMountAttacherTrigger ~= nil and spec.transferMass then
+        if spec.dynamicMountAttacherTrigger.component == component.node then
+
+            component.mrAdditionalMassWithCOM["DynamicMountAttacher"] = nil
+
+            local comTable = {}
+            comTable.mass = 0
+
+            for object, _ in pairs(spec.dynamicMountedObjects) do
+                if object.getAllowComponentMassReduction ~= nil and object:getAllowComponentMassReduction() then
+                    local objectMassToAdd = object:getDefaultMass() - 0.1
+                    additionalMass = additionalMass + objectMassToAdd
+                    local objX, objY, objZ = localToLocal(object, component.node, getCenterOfMass(object))
+                    if comTable.mass==0 then
+                        comTable.x, comTable.y, comTable.z = objX, objY, objZ
+                        comTable.mass = objectMassToAdd
+                    else
+                        local newMass = comTable.mass+objectMassToAdd
+                        comTable.x = (comTable.mass*comTable.x+objectMassToAdd*objX)/newMass
+                        comTable.y = (comTable.mass*comTable.y+objectMassToAdd*objY)/newMass
+                        comTable.z = (comTable.mass*comTable.z+objectMassToAdd*objZ)/newMass
+                        comTable.mass = newMass
+                    end
+                end
+            end
+
+            if comTable.mass>0 then
+                component.mrAdditionalMassWithCOM["DynamicMountAttacher"] = comTable
+            end
+
+        end
+    end
+
+    return additionalMass
+end
+DynamicMountAttacher.getAdditionalComponentMass = Utils.overwrittenFunction(DynamicMountAttacher.getAdditionalComponentMass, DynamicMountAttacher.mrGetAdditionalComponentMass)

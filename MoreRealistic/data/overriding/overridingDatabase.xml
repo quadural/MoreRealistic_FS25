@@ -99,6 +99,10 @@
     <vehicle fileNameToOverride="data/vehicles/amazone/zgts10001/zgts10001.xml">vehicles/amazone/zgts10001.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/streumaster/fw212tdProfi/fw212tdProfi.xml">vehicles/streumaster/fw212tdProfi.xml</vehicle>
 
+    <!-- flatbed trailers -->
+    <vehicle fileNameToOverride="data/vehicles/farmtech/dpw1800/dpw1800.xml">vehicles/farmtech/dpw1800.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kroeger/pwo24/pwo24.xml">vehicles/kroeger/pwo24.xml</vehicle>
+
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
 

@@ -473,4 +473,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add converted Kuhn VB3190 round baler
             - add converted Krone VariPack V190XC Plus
             - MR Balers are now compatible with grass (output, power and bale mass)
+            - add converted Farmtech dpw1800 flatbed trailer
+            - add converted Kroeger pwo24 flatbed trailer
+            - new advanced spring system (takes into account the load to get a non linear response) => see bale trailers
+            - new "variable center of mass" system to takes into account "tension belted" objects (now we get the same load on wheels when attached or not attached by tension belts)
 
