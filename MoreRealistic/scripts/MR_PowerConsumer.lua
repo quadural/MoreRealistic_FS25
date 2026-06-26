@@ -571,6 +571,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = Combine.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrBaler then--mr baler
                 neededPtoPower = Baler.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrMower then--mr baler
+                neededPtoPower = Mower.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)

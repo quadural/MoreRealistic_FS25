@@ -132,6 +132,13 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         renderText(0.8, 0.64, textSize, string.format("Pto power=%1.2f", self.mrBalerLastNeededPower))
     end
 
+    if self.mrIsMrMower then
+        setTextAlignment(RenderText.ALIGN_LEFT)
+        renderText(0.8, 0.64, textSize, string.format("Liters per s=%1.2f", self.mrMowerLitersPerSecondS))
+        renderText(0.8, 0.62, textSize, string.format("Pto power=%1.2f", self.mrMowerLastNeededPower))
+
+    end
+
     if self.spec_woodCrusher then
         --20250619 - display woodcrusher power consumption
         if self.mrWoodCrusherPowerConsumption~=nil then

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="mower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <!-- <mrPowerConsumer forcePointY="0.2" /> -->
+    <mrMower cuttingWidth="3.2" />
+
+    <!--
+
+        745kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/gmd3123F/gmd3123F.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="27" />
+
+            <set path="vehicle.storeData.specs.neededPower" value="80" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="200" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 -0.2" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="545" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.40 0" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 100" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="1" />--> <!-- should be something like working width divide by 2. But the "component" is already sliding on the ground (no wheelshape), and so, there is already a draftforce present -->
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="10" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value = "0.5" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

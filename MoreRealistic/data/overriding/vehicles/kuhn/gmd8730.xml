@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="mower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <!-- <mrPowerConsumer forcePointY="0.2" /> -->
+    <mrMower cuttingWidth="6.2" powerFx="0.9" /> <!-- 2x 310cm // better efficiency since there is some overlap with the front mower working width-->
+
+    <!--
+
+        1910kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/gmd8730/gmd8730.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="27" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="830" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 0.3" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="540" /> <!-- left -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 -0.1" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="540" /> <!-- right -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.2 -0.1" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 100" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
+
+            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="1000 1000 100" />
+            <set path="vehicle.base.components.joint(1)#rotLimitDamping" value="100 100 100" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="1" />--> <!-- should be something like working width divide by 2. But the "component" is already sliding on the ground (no wheelshape), and so, there is already a draftforce present -->
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="0" />
+
+            <set path="vehicle.animations.animation(0).part(0)#startRotLimit" value="0 0 5" />
+
+            <remove path="vehicle.animations.animation(0).part(0)#startTransLimit" />
+            <set path="vehicle.animations.animation(0).part(0)#startTransMinLimit" value="0 -0.5 0" />
+            <set path="vehicle.animations.animation(0).part(0)#startTransMaxLimit" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(1).part(0)#startRotLimit" value="0 0 5" />
+
+            <remove path="vehicle.animations.animation(1).part(0)#startTransLimit" />
+            <set path="vehicle.animations.animation(1).part(0)#startTransMinLimit" value="0 -0.5 0" />
+            <set path="vehicle.animations.animation(1).part(0)#startTransMaxLimit" value="0 0 0" />
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

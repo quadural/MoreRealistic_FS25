@@ -75,6 +75,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         PowerConsumer.mrLoadMrValues(self, xmlFile)
         Combine.mrLoadMrValues(self, xmlFile)
         Baler.mrLoadMrValues(self, xmlFile)
+        Mower.mrLoadMrValues(self, xmlFile)
         MRConveyorLoaderVehicle.mrLoadMrValues(self, xmlFile)
 
         self.mrForcePtoRpm = false
