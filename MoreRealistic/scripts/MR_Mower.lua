@@ -6,6 +6,12 @@ Mower.mrLoadMrValues = function(self, xmlFile)
         self.mrMowerCuttingWidth = getXMLFloat(xmlFile, "vehicle.mrMower#cuttingWidth") or 3 --default working width if not specified = 3m (but should be specified)
         self.mrMowerIdlePower = getXMLFloat(xmlFile, "vehicle.mrMower#idlePower") or self.mrMowerCuttingWidth --default idle power = witdh in meters
         self.mrMowerPowerFx = getXMLFloat(xmlFile, "vehicle.mrMower#powerFx") or 1 --efficiency affects the cutting power at work
+        self.mrMowerHasConditioner = getXMLBool(xmlFile, "vehicle.mrMower#hasConditioner") or false --conditioner = more power required at work
+
+        if self.mrMowerHasConditioner then
+            self.mrMowerIdlePower = self.mrMowerIdlePower * 2
+            self.mrMowerPowerFx = self.mrMowerPowerFx * 1.5
+        end
 
         self.mrMowerSampleTime = 1000
         self.mrMowerLitersPerSecond = 0

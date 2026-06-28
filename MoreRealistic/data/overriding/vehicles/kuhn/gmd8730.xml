@@ -26,10 +26,10 @@
             <set path="vehicle.base.components.component(2)#mass" value="540" /> <!-- right -->
             <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.2 -0.1" />
 
-            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 100" />
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 1000" />
             <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
 
-            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="1000 1000 100" />
+            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="1000 1000 1000" />
             <set path="vehicle.base.components.joint(1)#rotLimitDamping" value="100 100 100" />
 
             <remove path="vehicle.powerConsumer" />

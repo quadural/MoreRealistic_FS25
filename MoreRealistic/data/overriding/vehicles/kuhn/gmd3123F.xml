@@ -25,7 +25,7 @@
             <set path="vehicle.base.components.component(1)#mass" value="545" />
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.40 0" />
 
-            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 100" />
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 1000" />
             <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
 
             <remove path="vehicle.powerConsumer" />

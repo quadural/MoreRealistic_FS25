@@ -478,4 +478,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - new advanced spring system (takes into account the load to get a non linear response) => see bale trailers
             - new "variable center of mass" system to takes into account "tension belted" objects (now we get the same load on wheels when attached or not attached by tension belts)
             - add kuhn gmd3123F and gmd8730 discs cutters (mowers)
+            - add Samasz XT390 disc cutter
+            - add Samasz KDF341S disc cutter
 

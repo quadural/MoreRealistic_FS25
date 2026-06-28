@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="mower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <!-- <mrPowerConsumer forcePointY="0.2" /> -->
+
+    <!-- conditioner = more idel power and more power at work-->
+    <mrMower cuttingWidth="3.4" hasConditioner="true" />
+
+    <!--
+
+        S model = tine conditioner
+        1450kg
+
+        63cm suspension travel
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/samasz/kdf341S/kdf341S.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="27" />
+
+            <set path="vehicle.storeData.specs.neededPower" value="120" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="300" /> <!-- chassis -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.85 0.3" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="1150" /> <!-- mower unit -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 -0.1" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 1000" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="1" />--> <!-- should be something like working width divide by 2. But the "component" is already sliding on the ground (no wheelshape), and so, there is already a draftforce present -->
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="5" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value="0 0 0" />
+
+
+            <set path="vehicle.animations.animation(0).part(0)#endTransMaxLimit" value="0 0.085 0" />
+            <set path="vehicle.animations.animation(0).part(0)#endTransMinLimit" value="0 -0.52 0" />
+            <set path="vehicle.animations.animation(1).part(15)#upperRotationOffsetStart" value="0" />
+            <set path="vehicle.animations.animation(1).part(15)#upperRotationOffsetEnd" value="5" />
+            <set path="vehicle.animations.animation(1).part(15)#lowerDistanceToGroundEnd" value="1" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

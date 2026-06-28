@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="mower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <!-- <mrPowerConsumer forcePointY="0.2" /> -->
+    <mrMower cuttingWidth="3.9" />
+
+    <!--
+
+        1290kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/samasz/xt390/xt390.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="27" />
+
+            <set path="vehicle.storeData.specs.neededPower" value="120" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="590" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 0.2" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="700" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0.26 0 0.15" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 1000" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="1" />--> <!-- should be something like working width divide by 2. But the "component" is already sliding on the ground (no wheelshape), and so, there is already a draftforce present -->
+
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.5" />
+
+            <set path="vehicle.animations.animation(1).part(1)#endTime" value="1.0" />
+            <set path="vehicle.animations.animation(1).part(1)#endTransMaxLimit" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#startRotMinLimit" value="0 0 -30" />
+            <set path="vehicle.animations.animation(1).part(1)#startRotMaxLimit" value="0 0 3" />
+            <set path="vehicle.animations.animation(1).part(1)#endRotMinLimit" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#endRotMaxLimit" value="0 0 0" />
+
+
+            <set path="vehicle.animations.animation(1).part(2)#startTime" value="1.0" />
+            <set path="vehicle.animations.animation(1).part(2)#endTime" value="2.0" />
+            <set path="vehicle.animations.animation(1).part(2)#startTransMaxLimit" value="0 0 0" />
+            <set path="vehicle.animations.animation(1).part(2)#startRotMaxLimit" value="0 0 0" />
+
+            <set path="vehicle.animations.animation(1).part(7)#upperRotationOffsetStart" value="0" />
+            <set path="vehicle.animations.animation(1).part(7)#upperRotationOffsetEnd" value="5" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

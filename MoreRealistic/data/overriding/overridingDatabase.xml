@@ -112,6 +112,8 @@
     <!-- mower -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/gmd3123F/gmd3123F.xml">vehicles/kuhn/gmd3123F.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kuhn/gmd8730/gmd8730.xml">vehicles/kuhn/gmd8730.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/samasz/xt390/xt390.xml">vehicles/samasz/xt390.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/samasz/kdf341S/kdf341S.xml">vehicles/samasz/kdf341S.xml</vehicle>
 
     <!-- mulcher -->
     <vehicle fileNameToOverride="data/vehicles/knoche/speedmax300/speedmax300.xml">vehicles/knoche/speedmax300.xml</vehicle>
