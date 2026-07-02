@@ -33,6 +33,20 @@
             <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 1000" />
             <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
 
+            <set path="vehicle.base.components.joint(0)#transDrivePosition" value="0 0.5 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(0)#maxTransDriveForce" value="0 6.38 0" /> <!-- we want to lift about 650kg => 6.38Kn -->
+
+            <set path="vehicle.base.components.joint(0)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotDriveSpring" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(0)#rotDriveDamping" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(0)#maxRotDriveForce" value="0 0 2" />
+
+
+
+
+
             <remove path="vehicle.powerConsumer" />
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />
             <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->

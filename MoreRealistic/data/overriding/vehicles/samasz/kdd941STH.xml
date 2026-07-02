@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="mower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <!-- <mrPowerConsumer forcePointY="0.2" /> -->
+    <mrMower cuttingWidth="6.8" powerFx="0.9" hasConditioner="true" > <!-- 2x 340cm // better efficiency since there is some overlap with the front mower working width-->
+        <!-- mergers power - same order as genuine xml workModes -->
+        <workMode idlePower="0" />
+        <workMode idlePower="10" powerFx="1.1" />
+        <workMode idlePower="5"  powerFx="1.05" />
+        <workMode idlePower="5"  powerFx="1.05" />
+    </mrMower>
+
+    <!--
+
+        4310kg + hydraulic suspension
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/samasz/kdd941STH/kdd941STH.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="27" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="1200" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 0.3" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="1600" /> <!-- left -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="-0.15 -0.1 -0.1" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="1600" /> <!-- right -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0.15 -0.1 -0.1" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="1000 1000 1000" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="100 100 100" />
+
+            <set path="vehicle.base.components.joint(1)#rotLimitSpring" value="1000 1000 1000" />
+            <set path="vehicle.base.components.joint(1)#rotLimitDamping" value="100 100 100" />
+
+            <set path="vehicle.base.components.joint(0)#transDrivePosition" value="0 0 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(0)#maxTransDriveForce" value="0 10.8 0" /> <!-- we want to lift about 1100kg => 10.8Kn -->
+
+            <set path="vehicle.base.components.joint(1)#transDrivePosition" value="0 0 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(1)#maxTransDriveForce" value="0 10.8 0" /> <!-- we want to lift about 1100kg => 10.8Kn -->
+
+            <set path="vehicle.base.components.joint(0)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotDriveSpring" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(0)#rotDriveDamping" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(0)#maxRotDriveForce" value="0 0 2" />
+
+            <set path="vehicle.base.components.joint(1)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.components.joint(1)#rotDriveSpring" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(1)#rotDriveDamping" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(1)#maxRotDriveForce" value="0 0 2" />
+
+
+
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="1" />--> <!-- should be something like working width divide by 2. But the "component" is already sliding on the ground (no wheelshape), and so, there is already a draftforce present -->
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="4" />
+
+            <!-- fold animation speed -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.7" />
+
+
+            <!-- <set path="vehicle.animations.animation(0).part(0)#startRotLimit" value="0 0 5" /> -->
+
+            <!-- <remove path="vehicle.animations.animation(0).part(0)#startTransLimit" /> -->
+            <!-- <set path="vehicle.animations.animation(0).part(0)#startTransMinLimit" value="0 -0.5 0" /> -->
+            <!-- <set path="vehicle.animations.animation(0).part(0)#startTransMaxLimit" value="0 0 0" /> -->
+
+            <!-- <set path="vehicle.animations.animation(1).part(0)#startRotLimit" value="0 0 5" /> -->
+
+            <!-- <remove path="vehicle.animations.animation(1).part(0)#startTransLimit" /> -->
+            <!-- <set path="vehicle.animations.animation(1).part(0)#startTransMinLimit" value="0 -0.5 0" /> -->
+            <!-- <set path="vehicle.animations.animation(1).part(0)#startTransMaxLimit" value="0 0 0" /> -->
+
+            <set path="vehicle.animations.animation(0).part(2)#endTime" value="0.7" />
+            <set path="vehicle.animations.animation(0).part(3)#endTime" value="0.7" />
+
+            <set path="vehicle.animations.animation(0).part(4)#startTime" value="0.7" />
+            <set path="vehicle.animations.animation(0).part(5)#startTime" value="0.7" />
+            <set path="vehicle.animations.animation(0).part(6)#startTime" value="0.7" />
+            <set path="vehicle.animations.animation(0).part(7)#startTime" value="0.7" />
+
+            <set path="vehicle.animations.animation(0).part(2)#startTransLimit" value="0 0.3 0" />
+            <set path="vehicle.animations.animation(0).part(3)#startTransLimit" value="0 0.3 0" />
+
+            <set path="vehicle.animations.animation(0).part(2)#startRotLimit" value="0 0 10" />
+            <set path="vehicle.animations.animation(0).part(3)#startRotLimit" value="0 0 10" />
+
+            <set path="vehicle.animations.animation(0).part(10)#upperRotationOffsetStart" value="0" />
+            <set path="vehicle.animations.animation(0).part(10)#upperRotationOffsetEnd" value="4" />
+
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(0).animation(0)#speed" value="-0.28" />
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(0).animation(1)#speed" value="-0.3" />
+
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(1).animation(0)#speed" value="0.28" />
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(1).animation(1)#speed" value="0.3" />
+
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(2).animation(0)#speed" value="0.28" />
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(2).animation(1)#speed" value="-0.3" />
+
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(3).animation(0)#speed" value="-0.28" />
+            <set path="vehicle.workModes.workModeConfigurations.workModeConfiguration(0).workMode(3).animation(1)#speed" value="0.3" />
+
+
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

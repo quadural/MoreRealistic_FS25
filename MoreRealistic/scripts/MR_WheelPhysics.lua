@@ -567,7 +567,8 @@ WheelPhysics.mrUpdateFriction = function(self, superFunc, dt, groundWetness)
             groundWetness = groundWetness^0.5
         end
 
-        local groundType, groundSubType = WheelsUtil.mrGetGroundType(isOnField, self.contact ~= WheelContactType.GROUND, self.groundDepth, self.densityType, self.lastTerrainAttribute)
+        local isRoad = self.contact ~= WheelContactType.GROUND and self.contact ~= WheelContactType.GROUND_HEIGHT
+        local groundType, groundSubType = WheelsUtil.mrGetGroundType(isOnField, isRoad, self.groundDepth, self.densityType, self.lastTerrainAttribute)
         local coeff = WheelsUtil.getTireFriction(self.tireType, groundType, groundWetness, snowScale)
 
         self.mrLastGroundSubType = groundSubType

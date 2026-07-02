@@ -10,7 +10,27 @@ Mower.mrLoadMrValues = function(self, xmlFile)
 
         if self.mrMowerHasConditioner then
             self.mrMowerIdlePower = self.mrMowerIdlePower * 2
-            self.mrMowerPowerFx = self.mrMowerPowerFx * 1.5
+            self.mrMowerPowerFx = self.mrMowerPowerFx * 1.6
+        end
+
+        --only for mower-grouper units (embedded merger with conveyor belts) ?
+        local i = 0
+        local xmlKey = ""
+        while true do
+            xmlKey = string.format("vehicle.mrMower.workMode(%d)", i)
+            if not hasXMLProperty(xmlFile, xmlKey) then
+                break
+            end
+
+            if self.mrMowerWorkModes==nil then
+                self.mrMowerWorkModes = {}
+            end
+
+            self.mrMowerWorkModes[i+1] = {}
+            self.mrMowerWorkModes[i+1].idlePower = getXMLFloat(xmlFile, xmlKey .. "#idlePower") or 0
+            self.mrMowerWorkModes[i+1].powerFx = getXMLFloat(xmlFile, xmlKey .. "#powerFx") or 1
+
+            i = i + 1
         end
 
         self.mrMowerSampleTime = 1000
@@ -35,6 +55,16 @@ Mower.mrGetActiveConsumedPtoPower = function(self)
 
         neededPower = self.mrMowerIdlePower
 
+        local workModeFx = 1
+
+        --check workModes
+        if self.spec_workMode~=nil and self.mrMowerWorkModes~=nil then
+            if self.mrMowerWorkModes[self.spec_workMode.state]~=nil then
+                neededPower = neededPower + self.mrMowerWorkModes[self.spec_workMode.state].idlePower
+                workModeFx = self.mrMowerWorkModes[self.spec_workMode.state].powerFx
+            end
+        end
+
         local sampleTime = g_time-self.mrMowerLastLitersTime
         if sampleTime>self.mrMowerSampleTime then
             self.mrMowerLitersPerSecond = 1000*self.mrMowerLitersBuffer/sampleTime --liters / second
@@ -44,7 +74,7 @@ Mower.mrGetActiveConsumedPtoPower = function(self)
         end
 
         if self.spec_mower.isCutting then
-            neededPower = neededPower + self.mrMowerPowerFx * 0.5 * (self.mrMowerCuttingWidth * (2 + 0.3*self.lastSpeedReal*3600) + self.mrMowerLitersPerSecondS/6.5)
+            neededPower = neededPower + workModeFx * self.mrMowerPowerFx * (0.3 * self.mrMowerCuttingWidth * (2 + 0.3*self.lastSpeedReal*3600) + 0.7 * self.mrMowerLitersPerSecondS/6.5)
         end
 
     end
