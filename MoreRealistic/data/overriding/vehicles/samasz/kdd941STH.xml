@@ -20,7 +20,7 @@
     <parentFile xmlFilename="$data/vehicles/samasz/kdd941STH/kdd941STH.xml">
         <attributes>
 
-            <set path="vehicle.base.speedLimit#value" value="27" />
+            <set path="vehicle.base.speedLimit#value" value="30" />
 
 
             <set path="vehicle.base.components.component(0)#mass" value="1200" /> <!-- main -->

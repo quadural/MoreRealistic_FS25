@@ -115,6 +115,7 @@
     <vehicle fileNameToOverride="data/vehicles/samasz/xt390/xt390.xml">vehicles/samasz/xt390.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/samasz/kdf341S/kdf341S.xml">vehicles/samasz/kdf341S.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/samasz/kdd941STH/kdd941STH.xml">vehicles/samasz/kdd941STH.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/vermeer/tm1410/tm1410.xml">vehicles/vermeer/tm1410.xml</vehicle>
 
     <!-- mulcher -->
     <vehicle fileNameToOverride="data/vehicles/knoche/speedmax300/speedmax300.xml">vehicles/knoche/speedmax300.xml</vehicle>

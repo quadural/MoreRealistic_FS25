@@ -14,7 +14,7 @@
     <parentFile xmlFilename="$data/vehicles/kuhn/gmd8730/gmd8730.xml">
         <attributes>
 
-            <set path="vehicle.base.speedLimit#value" value="27" />
+            <set path="vehicle.base.speedLimit#value" value="30" />
 
 
             <set path="vehicle.base.components.component(0)#mass" value="830" /> <!-- main -->

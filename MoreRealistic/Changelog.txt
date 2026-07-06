@@ -481,4 +481,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
 202607XX    - add Samasz XT390 disc cutter
             - add Samasz KDF341S disc cutter
+            - add Vermeer TM1410 disc cutter
 

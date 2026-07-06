@@ -74,7 +74,7 @@ Mower.mrGetActiveConsumedPtoPower = function(self)
         end
 
         if self.spec_mower.isCutting then
-            neededPower = neededPower + workModeFx * self.mrMowerPowerFx * (0.3 * self.mrMowerCuttingWidth * (2 + 0.3*self.lastSpeedReal*3600) + 0.7 * self.mrMowerLitersPerSecondS/6.5)
+            neededPower = neededPower + workModeFx * self.mrMowerPowerFx * (0.3 * self.mrMowerCuttingWidth * (2 + 0.3*self.lastSpeedReal*3600) + 0.7 * self.mrMowerLitersPerSecondS/5)
         end
 
     end
@@ -102,7 +102,7 @@ Mower.processMowerArea = Utils.overwrittenFunction(Mower.processMowerArea, Mower
 --we want to get an idea of the liters per second "mowed"
 Mower.mrGetDropArea = function(self, superFunc, workArea)
 
-    if self.mrMowerProcessingMowerArea then
+    if self.mrIsMrMower and self.mrMowerProcessingMowerArea then
         self.mrMowerLitersBuffer = self.mrMowerLitersBuffer + workArea.lastPickupLiters
     end
 

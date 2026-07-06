@@ -14,7 +14,7 @@
     <parentFile xmlFilename="$data/vehicles/samasz/xt390/xt390.xml">
         <attributes>
 
-            <set path="vehicle.base.speedLimit#value" value="27" />
+            <set path="vehicle.base.speedLimit#value" value="30" />
 
             <set path="vehicle.storeData.specs.neededPower" value="120" />
 
