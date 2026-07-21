@@ -116,6 +116,8 @@
     <vehicle fileNameToOverride="data/vehicles/samasz/kdf341S/kdf341S.xml">vehicles/samasz/kdf341S.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/samasz/kdd941STH/kdd941STH.xml">vehicles/samasz/kdd941STH.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/vermeer/tm1410/tm1410.xml">vehicles/vermeer/tm1410.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/elho/duett7300/duett7300.xml">vehicles/elho/duett7300.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/krone/bigM450/bigM450.xml">vehicles/krone/bigM450.xml</vehicle>
 
     <!-- mulcher -->
     <vehicle fileNameToOverride="data/vehicles/knoche/speedmax300/speedmax300.xml">vehicles/knoche/speedmax300.xml</vehicle>
@@ -208,6 +210,9 @@
     <vehicle fileNameToOverride="data/vehicles/amityTechnology/hrv12R/hrv12R.xml">vehicles/amity/hrv12R.xml</vehicle>
 
     <vehicle fileNameToOverride="data/vehicles/ropa/maus5/maus5.xml">vehicles/ropa/maus5.xml</vehicle>
+
+    <!-- tedders -->
+    <vehicle fileNameToOverride="data/vehicles/poettinger/alpinHit44/alpinHit44.xml">vehicles/poettinger/alpinHit44.xml</vehicle>
 
     <!-- tractors -->
     <vehicle fileNameToOverride="data/vehicles/caseIH/farmall120C/farmall120C.xml">vehicles/caseIH/farmall120C.xml</vehicle>

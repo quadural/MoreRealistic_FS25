@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="tedder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!-- light construction tedder for hillside farming -->
+    <mrTedder teddingWidth="4.4" powerFx="0.9" />
+
+    <!--
+
+        245kg
+
+        manual folding = remove hydraulic sounds
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/poettinger/alpinHit44/alpinHit44.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="205" /> <!-- chassis -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 0.05" />
+
+            <!-- correct wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/trelleborg/T510/15x6_00R6.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/trelleborg/T510/15x6_00R6.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/trelleborg/T510/15x6_00R6.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/trelleborg/T510/15x6_00R6.xml"/>
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="420" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="-2" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="5" />
+
+            <remove path="vehicle.animations.animation(1).sound(0)" />
+            <remove path="vehicle.animations.animation(1).sound(0)" />
+            <remove path="vehicle.animations.animation(1).sound(0)" />
+            <remove path="vehicle.animations.animation(1).sound(0)" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

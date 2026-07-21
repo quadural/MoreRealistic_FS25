@@ -136,7 +136,12 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         setTextAlignment(RenderText.ALIGN_LEFT)
         renderText(0.8, 0.64, textSize, string.format("Liters per s=%1.2f", self.mrMowerLitersPerSecondS))
         renderText(0.8, 0.62, textSize, string.format("Pto power=%1.2f", self.mrMowerLastNeededPower))
+    end
 
+    if self.mrIsMrTedder then
+        setTextAlignment(RenderText.ALIGN_LEFT)
+        renderText(0.8, 0.64, textSize, string.format("Liters per s=%1.2f", self.mrTedderLitersPerSecondS))
+        renderText(0.8, 0.62, textSize, string.format("Pto power=%1.2f", self.mrTedderLastNeededPower))
     end
 
     if self.spec_woodCrusher then

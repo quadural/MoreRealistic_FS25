@@ -4,7 +4,7 @@
     <MR>true</MR>
     <!-- <mrPowerConsumer forcePointY="0.2" /> -->
 
-    <!-- conditioner = more idel power and more power at work-->
+    <!-- conditioner = more idle power and more power at work-->
     <mrMower cuttingWidth="3.4" hasConditioner="true" />
 
     <!--

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="mower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <!-- <mrPowerConsumer forcePointY="0.2" /> -->
+    <mrMower cuttingWidth="7.3" powerFx="1" hasConditioner="true" />
+
+
+
+    <!--
+
+        2700kg
+
+        140-180KW PTO engine required (190-245Hp)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/elho/duett7300/duett7300.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="30" />
+            <set path="vehicle.storeData.specs.neededPower" value="190" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="700" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 0" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="1000" /> <!-- left -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0.05 -0.05 -0.2" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="1000" /> <!-- right -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="-0.05 -0.05 -0.2" />
+
+
+            <set path="vehicle.base.components.joint(0)#transDrivePosition" value="0 0 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(0)#maxTransDriveForce" value="0 6.9 0" /> <!-- we want to lift about 700kg => 6.9Kn -->
+
+            <set path="vehicle.base.components.joint(1)#transDrivePosition" value="0 0 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(1)#maxTransDriveForce" value="0 6.9 0" /> <!-- we want to lift about 700kgkg => 6.9Kn -->
+
+            <set path="vehicle.base.components.joint(0)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotDriveSpring" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(0)#rotDriveDamping" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(0)#maxRotDriveForce" value="0 0 2" />
+
+            <set path="vehicle.base.components.joint(1)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.components.joint(1)#rotDriveSpring" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(1)#rotDriveDamping" value="0 0 1000" />
+            <set path="vehicle.base.components.joint(1)#maxRotDriveForce" value="0 0 2" />
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+            <!-- <set path="vehicle.powerConsumer#forceNode" value="gmd3123F_main_component1" /> -->
+            <!-- <set path="vehicle.powerConsumer#maxForce" value="1" />--> <!-- should be something like working width divide by 2. But the "component" is already sliding on the ground (no wheelshape), and so, there is already a draftforce present -->
+
+
+            <!-- fold animation speed -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.8" />
+
+            <set path="vehicle.animations.animation(0).part(0)#startRotLimit" value="0 0 5" />
+            <set path="vehicle.animations.animation(0).part(1)#startRotLimit" value="0 0 5" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
