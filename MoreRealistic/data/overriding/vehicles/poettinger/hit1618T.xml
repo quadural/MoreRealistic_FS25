@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="tedder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrTedder teddingWidth="17" />
+
+    <!--
+
+        3850kg with no option and 380/55R17 wheels
+        => 3950kg in-game spec
+
+        no brakes in game
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/poettinger/hit1618T/hit1618T.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="1900" /> <!-- chassis -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 2.4" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="700" /> <!-- back arm -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 -0.1" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="150" /> <!-- left inner wing -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0.4 -0.05 0.1" />
+
+            <set path="vehicle.base.components.component(3)#mass" value="170" /> <!-- left middle wing -->
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="1 0.05 0.1" />
+
+            <set path="vehicle.base.components.component(4)#mass" value="100" /> <!-- left outer wing -->
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="0.9 0.05 0.1" />
+
+            <set path="vehicle.base.components.component(5)#mass" value="150" /> <!-- right inner wing -->
+            <set path="vehicle.base.components.component(5)#centerOfMass" value="-0.4 -0.05 0.1" />
+
+            <set path="vehicle.base.components.component(6)#mass" value="170" /> <!-- right middle wing -->
+            <set path="vehicle.base.components.component(6)#centerOfMass" value="-1 0.05 0.1" />
+
+            <set path="vehicle.base.components.component(7)#mass" value="100" /> <!-- right outer wing -->
+            <set path="vehicle.base.components.component(7)#centerOfMass" value="-0.9 0.05 0.1" />
+
+
+            <!-- correct wheels -->
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(7)#filename" value="$data/shared/wheels/tires/trelleborg/T510/220_45R8.xml"/>
+            <set path="vehicle.wheels.dynamicallyLoadedWheels.dynamicallyLoadedWheel(8)#filename" value="$data/shared/wheels/tires/trelleborg/T510/220_45R8.xml"/>
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="50"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0.03"/>
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="420" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+
+            <!-- more pitch at work -->
+            <set path="vehicle.animations.animation(1).part(9)#startRot" value="0 0 0" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

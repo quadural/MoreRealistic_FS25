@@ -213,6 +213,9 @@
 
     <!-- tedders -->
     <vehicle fileNameToOverride="data/vehicles/poettinger/alpinHit44/alpinHit44.xml">vehicles/poettinger/alpinHit44.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/krone/vendroKW820Highland/vendroKW820Highland.xml">vehicles/krone/vendroKW820Highland.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/samasz/p8890Tedder/p8890Tedder.xml">vehicles/samasz/p8890Tedder.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/hit1618T/hit1618T.xml">vehicles/poettinger/hit1618T.xml</vehicle>
 
     <!-- tractors -->
     <vehicle fileNameToOverride="data/vehicles/caseIH/farmall120C/farmall120C.xml">vehicles/caseIH/farmall120C.xml</vehicle>

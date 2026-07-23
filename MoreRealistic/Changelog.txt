@@ -485,4 +485,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add elho Duett 7300 disc cutter
             - add Krone BigM 450 self propelled mower
             - add Poettinger AlpinHit tedder
+            - add Krone Vendro KW820 Highland tedder
+            - add Samasz P8-890 tedder
+            - add Poettinger Hit 16.18T tedder
 

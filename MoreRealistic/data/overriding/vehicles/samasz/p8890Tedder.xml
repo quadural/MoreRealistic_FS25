@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="tedder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrTedder teddingWidth="8.9" />
+
+    <!--
+
+        1320kg
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/samasz/p8890Tedder/p8890Tedder.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="80" />
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="300" /> <!-- chassis -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.9 0.1" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="290" /> <!-- attacher -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -0.05" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="220" /> <!-- left inner wing -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0.8 0 0" />
+
+            <set path="vehicle.base.components.component(3)#mass" value="90" /> <!-- left outer wing -->
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0.2 -0.1 0" />
+
+            <set path="vehicle.base.components.component(4)#mass" value="220" /> <!-- right inner wing -->
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="-0.8 0 0" />
+
+            <set path="vehicle.base.components.component(5)#mass" value="90" /> <!-- right outer wing -->
+            <set path="vehicle.base.components.component(5)#centerOfMass" value="-0.2 -0.1 0" />
+
+            <set path="vehicle.base.components.joint(0)#rotLimitSpring" value="10000 10000 10000" />
+            <set path="vehicle.base.components.joint(0)#rotLimitDamping" value="1000 1000 1000" />
+
+            <set path="vehicle.base.components.joint(0)#rotDriveRotation" value="0 0 0" />
+            <set path="vehicle.base.components.joint(0)#rotDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(0)#rotDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(0)#maxRotDriveForce" value="0 2 0" />
+
+
+
+            <!-- correct wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/trelleborg/T510/18x8_50R8.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/trelleborg/T510/18x8_50R8.xml"/>
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="40"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0"/>
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="420" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="10" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

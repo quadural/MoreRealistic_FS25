@@ -31,13 +31,18 @@ Tedder.mrGetActiveConsumedPtoPower = function(self)
 
         local sampleTime = g_time-self.mrTedderLastLitersTime
         if sampleTime>self.mrTedderSampleTime then
-            self.mrTedderLitersPerSecond = 1000*self.mrTedderLitersBuffer/sampleTime --liters / second
-            self.mrTedderLitersPerSecondS = 0.75*self.mrTedderLitersPerSecondS + 0.25*self.mrTedderLitersPerSecond
+            if self.mrTedderLitersBuffer==0 then
+                self.mrTedderLitersPerSecond = 0
+                self.mrTedderLitersPerSecondS = 0.5*self.mrTedderLitersPerSecondS
+            else
+                self.mrTedderLitersPerSecond = 1000*self.mrTedderLitersBuffer/sampleTime --liters / second
+                self.mrTedderLitersPerSecondS = 0.75*self.mrTedderLitersPerSecondS + 0.25*self.mrTedderLitersPerSecond
+            end
             self.mrTedderLitersBuffer = 0
             self.mrTedderLastLitersTime = g_time
         end
 
-        neededPower = neededPower + self.mrTedderPowerFx * (self.mrTedderWidth * self.lastSpeedReal*360 + self.mrTedderLitersPerSecondS/20)
+        neededPower = neededPower + self.mrTedderPowerFx * self.mrTedderLitersPerSecondS/10
 
     else
         self.mrTedderLitersBuffer = 0
@@ -51,17 +56,14 @@ Tedder.mrGetActiveConsumedPtoPower = function(self)
 
 end
 
-
-
 --we want to get an idea of the liters per second "tedded"
-Tedder.mrProcessTedderArea = function(self, superFunc, workArea, dt)
+Tedder.mrOnEndWorkAreaProcessing = function(self, superFunc, dt, hasProcessed)
 
-    local workAreaChanged, workAreaTotal = superFunc(self, workArea, dt)
+    superFunc(self, dt, hasProcessed)
 
     if self.mrIsMrTedder then
         self.mrTedderLitersBuffer = self.mrTedderLitersBuffer + self.spec_tedder.lastDroppedLiters
     end
 
-    return workAreaChanged, workAreaTotal
 end
-Tedder.processTedderArea = Utils.overwrittenFunction(Tedder.processTedderArea, Tedder.mrProcessTedderArea)
+Tedder.onEndWorkAreaProcessing = Utils.overwrittenFunction(Tedder.onEndWorkAreaProcessing, Tedder.mrOnEndWorkAreaProcessing)
