@@ -61,7 +61,7 @@ Tedder.mrOnEndWorkAreaProcessing = function(self, superFunc, dt, hasProcessed)
 
     superFunc(self, dt, hasProcessed)
 
-    if self.mrIsMrTedder then
+    if hasProcessed and self.isServer and self.mrIsMrTedder then
         self.mrTedderLitersBuffer = self.mrTedderLitersBuffer + self.spec_tedder.lastDroppedLiters
     end
 

@@ -268,7 +268,12 @@
     <vehicle fileNameToOverride="data/vehicles/volvo/l120H/l120H.xml">vehicles/volvo/l120H.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/volvo/l120HHighTipShovel/l120HHighTipShovel.xml">vehicles/volvo/l120HHighTipShovel.xml</vehicle>
 
-    <!-- wood crusher -->
+    <!-- windrowers/rakes -->
+    <vehicle fileNameToOverride="data/vehicles/krone/swadroS350Highland/swadroS350Highland.xml">vehicles/krone/swadroS350Highland.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kuhn/ga4731/ga4731.xml">vehicles/kuhn/ga4731.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/samasz/z2840/z2840.xml">vehicles/samasz/z2840.xml</vehicle>
+
+    <!-- wood crushers -->
     <vehicle fileNameToOverride="data/vehicles/heizomat/hm10500KF/hm10500KF.xml">vehicles/heizomat/hm10500KF.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/jenz/cobraHybrid/cobraHybrid.xml">vehicles/jenz/cobraHybrid.xml</vehicle>
 

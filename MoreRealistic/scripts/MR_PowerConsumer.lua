@@ -575,6 +575,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = Mower.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrTedder then--mr tedder
                 neededPtoPower = Tedder.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrWindrower then--mr windrower
+                neededPtoPower = Windrower.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)

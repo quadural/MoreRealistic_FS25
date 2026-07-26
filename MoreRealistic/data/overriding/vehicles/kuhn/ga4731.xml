@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="windrower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrWindrower rakingWidth="3.65" />
+
+    <!--
+
+        750kg
+
+        bug : the head is fixed to the body, not up/down movement possible like IRL (or like the krone swadro 350)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/ga4731/ga4731.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="45" />
+            <set path="vehicle.base.speedLimit#value" value="12" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="530" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 0.3" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="100" /> <!-- attacher -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0.2 -0.1" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="70" /> <!-- axle -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 0.05" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="20"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="3"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="20"/>
+
+
+            <!-- <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#rotationDamping" value="0.0001" /> -->
+            <!-- <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#rotationDamping" value="0.0001" /> -->
+            <!-- <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0001" /> -->
+            <!-- <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0001" /> -->
+            <!-- <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#rotationDamping" value="0.0001" /> -->
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="380" />
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="13" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value="0.52" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value="0.8" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0 0 0.2" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -488,4 +488,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Krone Vendro KW820 Highland tedder
             - add Samasz P8-890 tedder
             - add Poettinger Hit 16.18T tedder
+            - add Krone Swadro s350 Highland (windrower/rake)
+            - add Kuhn GA4731 (windrower/rake)
+            - add Samasz Z2-840H (windrower/rake)
 
