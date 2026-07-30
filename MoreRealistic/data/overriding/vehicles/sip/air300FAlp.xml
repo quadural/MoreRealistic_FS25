@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="windrower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrWindrower rakingWidth="3" powerFx="1.3" /> <!-- hydraulic driven merger = more power needed -->
+
+    <!--
+
+        650kg
+
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/sip/air300FAlp/air300FAlp.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="60" />
+            <set path="vehicle.base.speedLimit#value" value="15" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="500" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.45 -0.1" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="150" /> <!-- attacher -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.1 0.05" />
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="380" />
+
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="27" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#lower" value="0.6" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0).distanceToGround#upper" value="0.9" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerTransLimitScale" value="0 0 0" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="0 0 0.3" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -493,4 +493,9 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Samasz Z2-840H (windrower/rake)
             - add Krone Swadro TS 970 (windrower/rake)
             - add Poettinger Top 14.03 (windrower/rake)
+            - add Anderson merge pro 915 (merger)
+            - add Oxbo 2340 (merger)
+            - add Reiter Respiro R7 RD (merger)
+            - add SIP Favorit 250 (belt rake)
+            - add SIP air 300F ALP (merger)
 

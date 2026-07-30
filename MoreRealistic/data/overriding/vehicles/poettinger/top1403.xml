@@ -16,7 +16,6 @@
 
             <set path="vehicle.base.speedLimit#value" value="12" />
 
-            <remove path="vehicle.base.components.component(0)#inertiaScale" />
             <set path="vehicle.base.components.component(0)#mass" value="3600" /> <!-- main -->
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.05 -0.2" />
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="windrower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrWindrower rakingWidth="12" powerFx="1.3" /> <!-- 354cm + 2x422cm // all hydraulic merger = less power efficient-->
+
+    <!--
+
+        8183kg
+
+        high max working speed (12mph/19kph)
+
+        no brakes
+
+        correct tires = 480/55R22.5
+        not present in game => we choose 560/45R22.5 to get something similar in diameter but wider
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/oxbo/windrower2340/windrower2340.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="19" />
+
+            <remove path="vehicle.base.components.component(0)#inertiaScale" />
+            <remove path="vehicle.base.components.component(1)#inertiaScale" />
+            <remove path="vehicle.base.components.component(2)#inertiaScale" />
+            <remove path="vehicle.base.components.component(3)#inertiaScale" />
+            <remove path="vehicle.base.components.component(4)#inertiaScale" />
+
+
+            <set path="vehicle.base.components.component(0)#mass" value="4580" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.1 -1.6" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="300" /> <!-- attacher -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0.15 0.05" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="800" /> <!-- center wing -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.2 0" />
+
+            <set path="vehicle.base.components.component(3)#mass" value="1100" /> <!-- left wing -->
+            <set path="vehicle.base.components.component(3)#centerOfMass" value="0.01 -0.2 0" />
+
+            <set path="vehicle.base.components.component(4)#mass" value="1100" /> <!-- right wing -->
+            <set path="vehicle.base.components.component(4)#centerOfMass" value="-0.01 -0.2 0" />
+
+
+
+            <set path="vehicle.base.components.joint(1)#transDrivePosition" value="0 1 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(1)#maxTransDriveForce" value="0 5.89 0" /> <!-- we want to lift about 600kg => 5.89Kn -->
+
+            <set path="vehicle.base.components.joint(2)#transDrivePosition" value="0 1 0" />
+            <set path="vehicle.base.components.joint(2)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(2)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(2)#maxTransDriveForce" value="0 7.85 0" /> <!-- we want to lift about 800kg => 7.85Kn -->
+
+            <set path="vehicle.base.components.joint(3)#transDrivePosition" value="0 1 0" />
+            <set path="vehicle.base.components.joint(3)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(3)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(3)#maxTransDriveForce" value="0 7.85 0" /> <!-- we want to lift about 800kg => 7.85Kn -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" value="560_45R22_5" />
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" value="560_45R22_5" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="25"/>
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="380" />
+
+            <remove path="vehicle.attachable.brakeForce#force" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

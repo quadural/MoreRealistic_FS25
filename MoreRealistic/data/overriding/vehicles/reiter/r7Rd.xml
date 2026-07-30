@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="windrower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrWindrower rakingWidth="7" powerFx="1.5" idlePower="16" /> <!-- 2x350cm // all hydraulic merger = less power efficient + feeding roller -->
+
+    <!--
+
+        3380kg
+
+        180Hp recommended = mainly to get a decent sized tractor (6 cylinders wheelbase, strong 3pt hitch) and a good hydraulic pump (160L/min required !)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/reiter/r7Rd/r7Rd.xml">
+        <attributes>
+
+            <set path="vehicle.storeData.specs.neededPower" value="180" />
+            <set path="vehicle.base.speedLimit#value" value="15" />
+
+            <set path="vehicle.base.components.component(0)#mass" value="1000" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.8 -1.05" />
+
+            <set path="vehicle.base.components.component(1)#mass" value="1200" /> <!-- left wing -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.05 0" />
+
+            <set path="vehicle.base.components.component(2)#mass" value="1200" /> <!-- right wing -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.05 0" />
+
+
+
+            <set path="vehicle.base.components.joint(0)#transDrivePosition" value="0 1 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(0)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(0)#maxTransDriveForce" value="0 8.83 0" /> <!-- we want to lift about 900kg => 8.83Kn -->
+
+            <set path="vehicle.base.components.joint(1)#transDrivePosition" value="0 1 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveSpring" value="0 1000 0" />
+            <set path="vehicle.base.components.joint(1)#transDriveDamping" value="0 100 0" />
+            <set path="vehicle.base.components.joint(1)#maxTransDriveForce" value="0 8.83 0" /> <!-- we want to lift about 900kg => 8.83Kn -->
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="380" />
+
+            <!-- remove moving center of mass -->
+            <remove path="vehicle.animations.animation(1).part(16)" />
+            <remove path="vehicle.animations.animation(1).part(16)" />
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#mrLowerRotationOffset" value="3" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#upperRotationOffset" value="0" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

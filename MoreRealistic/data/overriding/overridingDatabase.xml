@@ -274,6 +274,11 @@
     <vehicle fileNameToOverride="data/vehicles/samasz/z2840/z2840.xml">vehicles/samasz/z2840.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/krone/swadroTS970/swadroTS970.xml">vehicles/krone/swadroTS970.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/top1403/top1403.xml">vehicles/poettinger/top1403.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/andersonGroup/mergePro915/mergePro915.xml">vehicles/andersonGroup/mergePro915.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/oxbo/windrower2340/windrower2340.xml">vehicles/oxbo/windrower2340.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/reiter/r7Rd/r7Rd.xml">vehicles/reiter/r7Rd.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/sip/favorit254/favorit254.xml">vehicles/sip/favorit254.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/sip/air300FAlp/air300FAlp.xml">vehicles/sip/air300FAlp.xml</vehicle>
 
     <!-- wood crushers -->
     <vehicle fileNameToOverride="data/vehicles/heizomat/hm10500KF/hm10500KF.xml">vehicles/heizomat/hm10500KF.xml</vehicle>
