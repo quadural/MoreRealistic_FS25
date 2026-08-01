@@ -499,3 +499,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add SIP Favorit 250 (belt rake)
             - add SIP air 300F ALP (merger)
 
+202608XX    - add Pottinger Boss Alpin (self-Loading wagon)
+            - add Pottinger Faro 4010D (self loading wagon)
+            - add Schuitemaker Rapide 580V (self loading wagon)
+

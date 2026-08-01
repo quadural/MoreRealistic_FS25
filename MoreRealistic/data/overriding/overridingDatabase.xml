@@ -103,6 +103,11 @@
     <vehicle fileNameToOverride="data/vehicles/farmtech/dpw1800/dpw1800.xml">vehicles/farmtech/dpw1800.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kroeger/pwo24/pwo24.xml">vehicles/kroeger/pwo24.xml</vehicle>
 
+    <!-- forage/loader wagon -->
+    <vehicle fileNameToOverride="data/vehicles/poettinger/bossAlpin251/bossAlpin251.xml">vehicles/poettinger/bossAlpin251.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/faro4010D/faro4010D.xml">vehicles/poettinger/faro4010D.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/schuitemaker/rapide580V/rapide580V.xml">vehicles/schuitemaker/rapide580V.xml</vehicle>
+
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
 

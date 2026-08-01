@@ -577,6 +577,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = Tedder.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrWindrower then--mr windrower
                 neededPtoPower = Windrower.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrForageWagon then--mr forage wagon
+                neededPtoPower = ForageWagon.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)
