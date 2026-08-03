@@ -62,6 +62,7 @@
 
             <!-- drawbar protection against tractor's wheel -->
             <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.9 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="25" />
 
             <!-- unloading does consume engine power (hydraulics) even if PTO is turned off -->
             <set path="vehicle.dischargeable#consumePower" value="true" />

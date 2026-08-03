@@ -502,4 +502,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 202608XX    - add Pottinger Boss Alpin (self-Loading wagon)
             - add Pottinger Faro 4010D (self loading wagon)
             - add Schuitemaker Rapide 580V (self loading wagon)
+            - add Pottinger Jumbo 8450DB (self loading wagon)
+            - fix bug with "MR_DynamicMountAttacher" (example : combine header trailers)
 

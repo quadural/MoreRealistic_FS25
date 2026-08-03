@@ -107,6 +107,8 @@
     <vehicle fileNameToOverride="data/vehicles/poettinger/bossAlpin251/bossAlpin251.xml">vehicles/poettinger/bossAlpin251.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/faro4010D/faro4010D.xml">vehicles/poettinger/faro4010D.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/schuitemaker/rapide580V/rapide580V.xml">vehicles/schuitemaker/rapide580V.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/fendt/tigo75VR/tigo75VR.xml">vehicles/fendt/tigo75VR.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/poettinger/jumbo8450DB/jumbo8450DB.xml">vehicles/poettinger/jumbo8450DB.xml</vehicle>
 
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>

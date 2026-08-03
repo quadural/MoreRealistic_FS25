@@ -72,16 +72,19 @@ DynamicMountAttacher.mrGetAdditionalComponentMass = function(self, superFunc0, s
                 if object.getAllowComponentMassReduction ~= nil and object:getAllowComponentMassReduction() then
                     local objectMassToAdd = object:getDefaultMass() - 0.1
                     additionalMass = additionalMass + objectMassToAdd
-                    local objX, objY, objZ = localToLocal(object, component.node, getCenterOfMass(object))
-                    if comTable.mass==0 then
-                        comTable.x, comTable.y, comTable.z = objX, objY, objZ
-                        comTable.mass = objectMassToAdd
-                    else
-                        local newMass = comTable.mass+objectMassToAdd
-                        comTable.x = (comTable.mass*comTable.x+objectMassToAdd*objX)/newMass
-                        comTable.y = (comTable.mass*comTable.y+objectMassToAdd*objY)/newMass
-                        comTable.z = (comTable.mass*comTable.z+objectMassToAdd*objZ)/newMass
-                        comTable.mass = newMass
+                    local coordinateNode, objX, objY, objZ = RealisticUtils.getCenterOfMass(object)
+                    if coordinateNode~=nil then
+                        objX, objY, objZ = localToLocal(coordinateNode, component.node, objX, objY, objZ)
+                        if comTable.mass==0 then
+                            comTable.x, comTable.y, comTable.z = objX, objY, objZ
+                            comTable.mass = objectMassToAdd
+                        else
+                            local newMass = comTable.mass+objectMassToAdd
+                            comTable.x = (comTable.mass*comTable.x+objectMassToAdd*objX)/newMass
+                            comTable.y = (comTable.mass*comTable.y+objectMassToAdd*objY)/newMass
+                            comTable.z = (comTable.mass*comTable.z+objectMassToAdd*objZ)/newMass
+                            comTable.mass = newMass
+                        end
                     end
                 end
             end

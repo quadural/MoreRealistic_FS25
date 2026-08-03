@@ -208,3 +208,34 @@ end
 RealisticUtils.linearFx3 = function(param, minParam, maxParam, minVal, maxVal)
     return minVal + (maxVal-minVal)*(param-minParam)/(maxParam-minParam)
 end
+
+--return centerofmass (x,y,z) and "coordinate node" of the object
+RealisticUtils.getCenterOfMass = function(object)
+    local cx, cy, cz
+    local coordinateNode
+    if object.nodeId~=nil then
+        coordinateNode = object.nodeId
+        cx, cy, cz = getCenterOfMass(coordinateNode)
+    elseif object.components~=nil then
+        coordinateNode = object.components[1].node
+        cx, cy, cz = getCenterOfMass(coordinateNode)
+        if #object.components>1 then
+            local currentTotalMass = object.components[1].mrDefaultMass
+            for i=2, #object.components do
+                local cNode = object.components[i].node
+                local componentMass = object.components[i].mrDefaultMass
+                local totalMass = currentTotalMass + componentMass
+                local comX, comY, comZ = getCenterOfMass(cNode)
+                comX, comY, comZ = localToLocal(cNode, coordinateNode, comX, comY, comZ) --we want all the center of masses coordinates in the "first component coordinate system"
+
+                cx = (currentTotalMass*cx+componentMass*comX)/totalMass
+                cy = (currentTotalMass*cy+componentMass*comY)/totalMass
+                cz = (currentTotalMass*cz+componentMass*comZ)/totalMass
+
+                currentTotalMass = totalMass
+            end
+        end
+    end
+    return coordinateNode, cx, cy, cz
+end
+
