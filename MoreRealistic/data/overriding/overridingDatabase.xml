@@ -19,6 +19,9 @@
     <vehicle fileNameToOverride="data/vehicles/kuhn/vb3190/vb3190.xml">vehicles/kuhn/vb3190.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/krone/varipackV190XC/varipackV190XC.xml">vehicles/krone/varipackV190XC.xml</vehicle>
 
+    <!-- baler (square) -->
+    <vehicle fileNameToOverride="data/vehicles/claas/quadrant5300/quadrant5300.xml">vehicles/claas/quadrant5300.xml</vehicle>
+
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/international/series200/series200.xml">vehicles/international/series200.xml</vehicle>
@@ -109,6 +112,7 @@
     <vehicle fileNameToOverride="data/vehicles/schuitemaker/rapide580V/rapide580V.xml">vehicles/schuitemaker/rapide580V.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/fendt/tigo75VR/tigo75VR.xml">vehicles/fendt/tigo75VR.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/poettinger/jumbo8450DB/jumbo8450DB.xml">vehicles/poettinger/jumbo8450DB.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/bergmann/shuttle490S/shuttle490S.xml">vehicles/bergmann/shuttle490S.xml</vehicle>
 
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>

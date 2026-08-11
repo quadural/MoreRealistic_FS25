@@ -615,7 +615,9 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
 
             --MR = 2s to reach power needed
             if self.mrLastNeededPtoPower~=neededPtoPower then
-                neededPtoPower = math.min(neededPtoPower, self.mrLastNeededPtoPower + neededPtoPower*dt/self.mrPowerConsumerPtoPowerStartingTime)
+                if not self.mrPowerConsumerAllowPowerSurge then
+                    neededPtoPower = math.min(neededPtoPower, self.mrLastNeededPtoPower + neededPtoPower*dt/self.mrPowerConsumerPtoPowerStartingTime)
+                end
                 self.mrLastNeededPtoPower = neededPtoPower
             end
 
@@ -623,6 +625,7 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
         end
     else
         --not turned on
+        self.mrPowerConsumerAllowPowerSurge = false
         self.mrPtoCurrentRpm = 0
         self.mrPtoCurrentRpmRatio = 1
         if self.mrLastNeededPtoPower>0 then --prevent going from full load to zero load in not time when desengaging the pto (example : combine)

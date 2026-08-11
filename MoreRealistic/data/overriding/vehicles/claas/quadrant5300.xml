@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+
+    <mrBaler idlePower="15" powerIncreaseWithFeedingKilosPerSecond="4" maxTonsPerHour="65" grassCapacityFx="3" densityFactor="1.4" strokesPerMinute="46" strokePower="400" feedingChamberMinRequiredLevel="170" strokeAnimationName="balingAnimation" strokeAnimationStrokeTime="0.46" strokeAnimationSoundStartTime="0.7" />
+
+
+    <!--
+
+    14750kg with 620/50R22.5
+
+    46 strokes per minutes => 0.766667 strokes per second
+    baling animation => endTime = 1 => scaleSpeed should be set to 0.76667 instead of 0.4
+
+
+    FIX in the lua code to get a "moreRealistic" large square baler =
+    1. pto power function of the stroke (and the load on the baler)
+    2. bale moving animation function of the stroke (and the feeding chamber level)
+    3. synchronize the "stroke animation" with the "stroke sound"
+
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/claas/quadrant5300/quadrant5300.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="25" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 0.4" />
+            <set path="vehicle.base.components.component(0)#mass" value="12850" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.1 0" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="250" />
+            <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" value="620_50R22_5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" value="620_50R22_5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#dimensions" value="620_50R22_5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" value="620_50R22_5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.015"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+
+            <!-- air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1.5" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.9 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="25" />
+
+            <!-- correct strokes per minutes -->
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation#speedScale" value="0.76667" />
+
+            <!-- sound pitch to get 46 strokes per minutes
+            sound file = data\sounds\tools\baler\attBalerWrappingLoop_02.ogg => exactely 4 strokes in 5 seconds
+            to get 46 strokes per minutes (0.766667 strokes per second) => picthscale = 0.9583333333333333
+
+            -->
+            <set path="vehicle.baler.sounds.work#pitchScale" value="0.9583333333333333" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -241,6 +241,18 @@ Motorized.mrControlVehicle = function(self, superFunc, acceleratorPedal, maxSpee
         end
     end
 
+    --20260808- Test = limit the torque delivered to the wheels according to the clutch pedal position.
+    --to do that : we have to vary the "neededPtoTorque" here. (not realistic, but this is the only way I found for testing that)
+    --manualClutchValue==1 means clutch pedal fully depressed
+    --manualClutchValue==0 means clutch pedal is fully released
+    --not a good solution since the engine is "struggling" under the virtual load applied to limit the output torque (just for testing purpose)
+--     if spec.motor.manualClutchValue>0.01 then
+--         if spec.motor.lastMotorAvailableTorque>neededPtoTorque then
+--             local limitingTorque = (spec.motor.lastMotorAvailableTorque-neededPtoTorque) * spec.motor.manualClutchValue^0.25
+--             neededPtoTorque = neededPtoTorque + limitingTorque
+--         end
+--     end
+
     superFunc(self, acceleratorPedal, maxSpeed, maxAcceleration, minMotorRotSpeed, maxMotorRotSpeed, maxMotorRotAcceleration, minGearRatio, maxGearRatio, maxClutchTorque, neededPtoTorque)
 
 end

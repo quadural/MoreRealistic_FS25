@@ -483,15 +483,16 @@ VehicleMotor.mrUpdate = function(self, superFunc, dt)
 
         local clutchPedal = self:getClutchPedal()
         self.lastSmoothedClutchPedal = self.lastSmoothedClutchPedal * 0.9 + clutchPedal * 0.1
+        --MR fix visual bug = left foot keeps going from pedal clutch to idle
+        if self.lastSmoothedClutchPedal<0.01 then
+            self.lastSmoothedClutchPedal = 0
+        end
+    else
+        self.lastSmoothedClutchPedal = 0
     end
 
     self.lastModulationTimer = self.lastModulationTimer + dt * -0.0009 --MODULATION_SPEED
     self.lastModulationPercentage = math.sin(self.lastModulationTimer) * math.sin((self.lastModulationTimer + 2) * 0.3) * 0.8 + math.cos(self.lastModulationTimer * 5) * 0.2
-
-    --MR fix visual bug = left foot keeps going from pedal clutch to idle
-    if self.lastSmoothedClutchPedal<0.01 then
-        self.lastSmoothedClutchPedal = 0
-    end
 
 end
 VehicleMotor.update = Utils.overwrittenFunction(VehicleMotor.update, VehicleMotor.mrUpdate)

@@ -85,7 +85,7 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
 --         end
 --         self.mrSlipSmoothed = self.mrSlipSmoothed==nil and 0 or (0.99*self.mrSlipSmoothed + slip) --0.01*slip*100
 
-        local str3 = "Acc pedal:\nBrake pedal:\nEngine braking:\nSlipS:\nDyn Mass:\nSlope:\n"
+        local str3 = "Acc pedal:\nBrake pedal:\nEngine braking:\nSlipS:\nDyn Mass:\nSlope:\nClutch pedal:\n"
 
         local accPedal = self.wheelsUtilSmoothedAcceleratorPedal or 0
         local brakePedal = self.wheelsUtilSmoothedBrakePedal or 0
@@ -104,7 +104,7 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
             slopePercent = 100 * verticalDist / horizontalDist
         end
 
-        local str4 = string.format("%1.2f\n", accPedal) .. string.format("%1.2f\n", brakePedal) .. string.format("%s\n",self.spec_motorized.mrLastEngineIsBraking) .. string.format("%1.1f%%\n", 100*self.spec_wheels.mrAvgDrivenWheelsSlip) .. string.format("%1.1fT\n", totalDynamicMass) .. string.format("%1.1f%%\n", slopePercent)
+        local str4 = string.format("%1.2f\n", accPedal) .. string.format("%1.2f\n", brakePedal) .. string.format("%s\n",self.spec_motorized.mrLastEngineIsBraking) .. string.format("%1.1f%%\n", 100*self.spec_wheels.mrAvgDrivenWheelsSlip) .. string.format("%1.1fT\n", totalDynamicMass) .. string.format("%1.1f%%\n", slopePercent) .. string.format("%1.0f%%\n",100*self.spec_motorized.motor.manualClutchValue)
         Utils.renderMultiColumnText(0.17, 0.574, textSize, {str3,str4}, 0.008, {RenderText.ALIGN_RIGHT,RenderText.ALIGN_LEFT})
 
         --20250222 - display fuel liter per hour smoothed
