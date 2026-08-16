@@ -505,4 +505,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Pottinger Jumbo 8450DB (self loading wagon)
             - fix bug with "MR_DynamicMountAttacher" (example : combine header trailers)
             - add Claas Quadrant 5300FC (big square baler) => pto power with "surge" at stroke time, bale animation synchronized with stroke, stroke sound synchronized with actual stroke time.
+            - add Kuhn SB1290ID (big square baler)
 

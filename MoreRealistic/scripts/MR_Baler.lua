@@ -17,6 +17,8 @@ Baler.mrLoadMrValues = function(self, xmlFile)
         self.mrBalerStrokePower = getXMLFloat(xmlFile, "vehicle.mrBaler#strokePower") or 0
         self.mrBalerStrokeAnimationName = getXMLString(xmlFile, "vehicle.mrBaler#strokeAnimationName") or ""
         self.mrBalerStrokeAnimationStrokeTime = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeAnimationStrokeTime") or 0
+        self.mrBalerStrokeAnimationMultipleStrokesStep = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeAnimationMultipleStrokesStep") or 0
+
         self.mrBalerStrokesPerMinute = getXMLFloat(xmlFile, "vehicle.mrBaler#strokesPerMinute") or 0
         if self.mrBalerStrokePower>0 and self.mrBalerStrokeAnimationName~="" and self.mrBalerStrokesPerMinute>0 then
             self.mrBalerIsSquareBaler = true
@@ -25,6 +27,8 @@ Baler.mrLoadMrValues = function(self, xmlFile)
             self.mrBalerFeedingChamberLiters = 0
             self.mrBalerFeedingChamberMinRequiredLevel = getXMLFloat(xmlFile, "vehicle.mrBaler#feedingChamberMinRequiredLevel") or 0
             self.mrBalerStrokeAnimationSoundStartTime = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeAnimationSoundStartTime") or self.mrBalerStrokeAnimationStrokeTime
+
+            self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerStrokeAnimationStrokeTime
 
             self.mrBalerWorkSoundNeedPlaying = true
             self.mrBalerWorkSoundNeedPlayingWaiting = false
@@ -124,14 +128,22 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
             self.mrPowerConsumerAllowPowerSurge = false
             local strokeAnimTime = self:getAnimationTime(self.mrBalerStrokeAnimationName)
 
-            if not self.mrBalerWaitingForStrokeTime and strokeAnimTime<=self.mrBalerStrokeAnimationStrokeTime then
+            if not self.mrBalerWaitingForStrokeTime and strokeAnimTime<=self.mrBalerNextStrokeAnimationStrokeTime then
                 self.mrBalerWaitingForStrokeTime = true
             end
 
             local fx = 1
-            if self.mrBalerWaitingForStrokeTime and strokeAnimTime>=self.mrBalerStrokeAnimationStrokeTime then
+            if self.mrBalerWaitingForStrokeTime and strokeAnimTime>=self.mrBalerNextStrokeAnimationStrokeTime then
                 applyStrokePower = true
                 self.mrBalerWaitingForStrokeTime = false
+                if self.mrBalerStrokeAnimationMultipleStrokesStep==0 then
+                    self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerStrokeAnimationStrokeTime
+                else
+                    self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerNextStrokeAnimationStrokeTime + self.mrBalerStrokeAnimationMultipleStrokesStep
+                    if self.mrBalerNextStrokeAnimationStrokeTime>1 then
+                        self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerStrokeAnimationStrokeTime
+                    end
+                end
                 self.mrBalerStrokePowerEndTime = g_time + self.mrBalerStrokePowerDuration
 
                 --empty the feeding chamber
