@@ -27,3 +27,4 @@ AnimatedVehicle.mrRegisterAnimationValueType = function(self, superFunc, name, s
 
 end
 AnimatedVehicle.registerAnimationValueType = Utils.overwrittenFunction(AnimatedVehicle.registerAnimationValueType, AnimatedVehicle.mrRegisterAnimationValueType)
+

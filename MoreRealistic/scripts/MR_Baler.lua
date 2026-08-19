@@ -15,20 +15,18 @@ Baler.mrLoadMrValues = function(self, xmlFile)
 
         self.mrBalerIsSquareBaler = false
         self.mrBalerStrokePower = getXMLFloat(xmlFile, "vehicle.mrBaler#strokePower") or 0
-        self.mrBalerStrokeAnimationName = getXMLString(xmlFile, "vehicle.mrBaler#strokeAnimationName") or ""
-        self.mrBalerStrokeAnimationStrokeTime = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeAnimationStrokeTime") or 0
-        self.mrBalerStrokeAnimationMultipleStrokesStep = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeAnimationMultipleStrokesStep") or 0
-
+        self.mrBalerStrokeSoundOffset = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeSoundOffset") or 0
         self.mrBalerStrokesPerMinute = getXMLFloat(xmlFile, "vehicle.mrBaler#strokesPerMinute") or 0
-        if self.mrBalerStrokePower>0 and self.mrBalerStrokeAnimationName~="" and self.mrBalerStrokesPerMinute>0 then
+
+        if self.mrBalerStrokePower>0 and self.mrBalerStrokesPerMinute>0 then
             self.mrBalerIsSquareBaler = true
             self.mrBalerStrokePowerDuration = 0.4*60*1000/self.mrBalerStrokesPerMinute
             self.mrBalerStrokePowerEndTime = 0
             self.mrBalerFeedingChamberLiters = 0
             self.mrBalerFeedingChamberMinRequiredLevel = getXMLFloat(xmlFile, "vehicle.mrBaler#feedingChamberMinRequiredLevel") or 0
-            self.mrBalerStrokeAnimationSoundStartTime = getXMLFloat(xmlFile, "vehicle.mrBaler#strokeAnimationSoundStartTime") or self.mrBalerStrokeAnimationStrokeTime
 
-            self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerStrokeAnimationStrokeTime
+            self.mrBalerNextStrokeTime = 0
+            self.mrBalerTimeBetweenEachStroke = 60000/self.mrBalerStrokesPerMinute --ms between each stroke
 
             self.mrBalerWorkSoundNeedPlaying = true
             self.mrBalerWorkSoundNeedPlayingWaiting = false
@@ -48,7 +46,6 @@ Baler.mrLoadMrValues = function(self, xmlFile)
         self.mrBalerLastTonsPerHourAvg = 0
         self.mrBalerLastNeededPower = 0
         self.mrBalerSpeedLimit = 999
-
 
         self.mrBalerNettingTimer = 0
         self.mrBalerNettingDuration = 1000 * (getXMLFloat(xmlFile, "vehicle.mrBaler#nettingDuration") or 0) --seconds to milliseconds
@@ -126,24 +123,12 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
         if self.mrBalerIsSquareBaler then
 
             self.mrPowerConsumerAllowPowerSurge = false
-            local strokeAnimTime = self:getAnimationTime(self.mrBalerStrokeAnimationName)
 
-            if not self.mrBalerWaitingForStrokeTime and strokeAnimTime<=self.mrBalerNextStrokeAnimationStrokeTime then
-                self.mrBalerWaitingForStrokeTime = true
-            end
+            local fx = 0.25
 
-            local fx = 1
-            if self.mrBalerWaitingForStrokeTime and strokeAnimTime>=self.mrBalerNextStrokeAnimationStrokeTime then
+            if g_time>self.mrBalerNextStrokeTime then
                 applyStrokePower = true
-                self.mrBalerWaitingForStrokeTime = false
-                if self.mrBalerStrokeAnimationMultipleStrokesStep==0 then
-                    self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerStrokeAnimationStrokeTime
-                else
-                    self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerNextStrokeAnimationStrokeTime + self.mrBalerStrokeAnimationMultipleStrokesStep
-                    if self.mrBalerNextStrokeAnimationStrokeTime>1 then
-                        self.mrBalerNextStrokeAnimationStrokeTime = self.mrBalerStrokeAnimationStrokeTime
-                    end
-                end
+                self.mrBalerNextStrokeTime = self.mrBalerNextStrokeTime + self.mrBalerTimeBetweenEachStroke--
                 self.mrBalerStrokePowerEndTime = g_time + self.mrBalerStrokePowerDuration
 
                 --empty the feeding chamber
@@ -151,17 +136,23 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
                     local deltaTime = self:getTimeFromLevel(self.mrBalerFeedingChamberLiters)
                     self:moveBales(deltaTime)
                     self:addFillUnitFillLevel(self:getOwnerFarmId(), self.spec_baler.fillUnitIndex, self.mrBalerFeedingChamberLiters, fillUnit.fillType, ToolType.UNDEFINED)
+                    self.mrBalerPowerFx = 3  --3x more power at stroke time when the feeding system is actually feeding the plunger
+                    if self.mrBalerFeedingChamberMinRequiredLevel>0 then
+                        self.mrBalerPowerFx = self.mrBalerPowerFx * math.pow(self.mrBalerFeedingChamberLiters / self.mrBalerFeedingChamberMinRequiredLevel, 0.5) --the greater the "flake", the more power required
+                    end
                     self.mrBalerFeedingChamberLiters = 0
                 end
 
             elseif g_time<self.mrBalerStrokePowerEndTime then
                 applyStrokePower = true
-                fx = (self.mrBalerStrokePowerEndTime-g_time)/self.mrBalerStrokePowerDuration -- fx to scale the power => less and less power required after the "stroke"
+                fx = fx * (self.mrBalerStrokePowerEndTime-g_time)/self.mrBalerStrokePowerDuration -- fx to scale the power => less and less power required after the "stroke"
+            else
+                self.mrBalerPowerFx = 1
             end
 
             if applyStrokePower then
                 self.mrPowerConsumerAllowPowerSurge = true
-                fx = fx * (1 + self.mrBalerLastTonsPerHourAvg/currentMaxBalerTonsPerHour)
+                fx = fx * self.mrBalerPowerFx * (1 + self.mrBalerLastTonsPerHourAvg/currentMaxBalerTonsPerHour)
                 neededPower = neededPower + self.mrBalerStrokePower * fx
             end
 
@@ -288,23 +279,6 @@ Baler.mrOnUpdateTick = function(self, superFunc, dt, isActiveForInput, isActiveF
         end
     end
 
-    if self.isClient and self.mrBalerIsSquareBaler then
-        if self.mrBalerWorkSoundNeedPlaying then
-            --check if this is the right time (synchronize stroke time with stroke animation)
-            local strokeAnimTime = self:getAnimationTime(self.mrBalerStrokeAnimationName)
-            if not self.mrBalerWorkSoundNeedPlayingWaiting and strokeAnimTime<=self.mrBalerStrokeAnimationSoundStartTime then
-                self.mrBalerWorkSoundNeedPlayingWaiting = true
-            end
-
-            if self.mrBalerWorkSoundNeedPlayingWaiting and strokeAnimTime>=self.mrBalerStrokeAnimationSoundStartTime then
-                g_soundManager:playSample(self.spec_baler.samples.work)
-                self.mrBalerWorkSoundNeedPlaying = false
-            end
-        else
-            self.mrBalerWorkSoundNeedPlayingWaiting = false
-        end
-    end
-
     superFunc(self, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
 
 end
@@ -356,38 +330,17 @@ Baler.onEndWorkAreaProcessing = Utils.overwrittenFunction(Baler.onEndWorkAreaPro
 
 
 --we want to synchronize the "stroke" sound with the "stroke" animation
+--20260819 - we don't rely on the animation time anymore : can't keep the synchronization right
 Baler.mrOnTurnedOn = function(self, superFunc)
 
-    if self.isClient and self.mrBalerIsSquareBaler then
+    superFunc(self)
 
-        if self.setFoldState ~= nil then
-            if #self.spec_foldable.foldingParts > 0 then
-                self:setFoldState(self.spec_foldable.turnOnFoldDirection, false, true)
-            end
-        end
-        if self.isClient then
-            local spec = self.spec_baler
-            g_animationManager:startAnimations(spec.animationNodes)
-            self.mrBalerWorkSoundNeedPlaying = true
-        end
-
-        self:raiseActive()
-
-    else
-        superFunc(self)
+    if self.isServer and self.mrBalerIsSquareBaler then
+        self.mrBalerNextStrokeTime = g_time + self.mrBalerStrokeSoundOffset
     end
 
 end
 Baler.onTurnedOn = Utils.overwrittenFunction(Baler.onTurnedOn, Baler.mrOnTurnedOn)
-
---we want to synchronize the "stroke" sound with the "stroke" animation
-Baler.mrOnTurnedOff = function(self, superFunc)
-
-    self.mrBalerWorkSoundNeedPlaying = false
-    superFunc(self)
-
-end
-Baler.onTurnedOff = Utils.overwrittenFunction(Baler.onTurnedOff, Baler.mrOnTurnedOff)
 
 
 

@@ -22,6 +22,10 @@
     <!-- baler (square) -->
     <vehicle fileNameToOverride="data/vehicles/claas/quadrant5300/quadrant5300.xml">vehicles/claas/quadrant5300.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/kuhn/sb1290ID/sb1290ID.xml">vehicles/kuhn/sb1290ID.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/baler2370UHD/baler2370UHD.xml">vehicles/masseyFerguson/baler2370UHD.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/fendt/squadra1290/squadra1290.xml">vehicles/fendt/squadra1290.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/krone/bigPack1290HDPVC/bigPack1290HDPVC.xml">vehicles/krone/bigPack1290HDPVC.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/baler1840/baler1840.xml">vehicles/masseyFerguson/baler1840.xml</vehicle>
 
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>

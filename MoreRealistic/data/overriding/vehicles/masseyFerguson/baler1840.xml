@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+    <mrBaler idlePower="7" powerIncreaseWithFeedingKilosPerSecond="5" maxTonsPerHour="15" grassCapacityFx="2" densityFactor="1" strokesPerMinute="100" strokePower="80" feedingChamberMinRequiredLevel="10" />
+
+
+    <!--
+
+    1588kg
+
+    100 strokes per minutes
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/baler1840/baler1840.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="12" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.85 0.25" />
+            <set path="vehicle.base.components.component(0)#mass" value="1310" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="150" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/lizard/implement/320_70R15.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/lizard/implement/320_70R15.xml"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0.03"/>
+
+            <!-- no brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 1 1" />
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#attacherHeight" value="0.55" />
+
+
+            <!-- correct plunger strokes per minute -->
+            <set path="vehicle.baler.animationNodes.animationNode(8)#rotSpeed" value="-600" /> <!-- 600 degrees per seconds = 100 strokes per minute -->
+
+            <!-- sound pitch to get 100 strokes per minutes
+            sound file = data\sounds\tools\baler\attBalerWrappingLoop_02.ogg => there are 4 strokes in 5.0554 seconds which means 126.385 seconds for 100 strokes
+            to get 100 strokes per minutes => we have to raise the speed of the sound
+            -->
+            <set path="vehicle.baler.sounds.work#pitchScale" value="2.1064166666666666666666666666667" /> <!-- we want the exact same stroke per minute than the "strokesPerMinute" value of the mrBaler -->
+
+            <!-- pickup raise state -->
+            <set path="vehicle.animations.animation(1).part(0)#startRot" value="-25 0 0" />
+            <set path="vehicle.animations.animation(1).part(1)#endRotLimit" value="15 0 0" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

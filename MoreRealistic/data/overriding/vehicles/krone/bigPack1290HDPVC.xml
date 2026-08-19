@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+
+    <mrBaler idlePower="20" powerIncreaseWithFeedingKilosPerSecond="4" maxTonsPerHour="85" grassCapacityFx="2.5" densityFactor="1.65" strokesPerMinute="45" strokePower="400" feedingChamberMinRequiredLevel="265" />
+
+
+    <!--
+
+    about 17400kg empty with 620/55R26.5
+    with 710/50R26.5 => about 17500kg
+
+    45 strokes per minutes
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/krone/bigPack1290HDPVC/bigPack1290HDPVC.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="25" />
+
+            <!-- default config -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#centerOfMass" value="0 1.7 0.6" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#mass" value="16200" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#centerOfMass" value="0 -0.3 0.2" /> <!-- pickup -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#mass" value="250" />
+
+            <!-- bale accumulator config -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#centerOfMass" value="0 1.7 0.6" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#mass" value="16200" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#centerOfMass" value="0 -0.3 0.2" /> <!-- pickup -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#mass" value="250" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#centerOfMass" value="0 -0.1 -0.6" /> <!-- bale accumulator -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#mass" value="1200" />
+
+
+
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+
+            <!-- default config -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.015"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+
+            <!-- bale accumulator config -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(4).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(5).physics#mass" value="0.015"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#suspTravel" value="0.15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(3).physics#damper" value="5"/>
+
+
+            <!-- air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1.5" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.88 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="30" />
+
+            <!-- correct strokes per minutes - animation endTime = 2 , we want 1.33333333333s for the full animation => we have to raise the animation speed -->
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation#speedScale" value="1.5" />
+
+            <!-- sound pitch to get 45 strokes per minutes
+            sound file = data\sounds\tools\baler\attBalerWrappingLoop_02.ogg => there are 4 strokes in 5.0554 seconds which means 56.87325 seconds for 45 strokes
+            to get 45 strokes per minutes => we have to reduce the speed of the sound
+            -->
+            <set path="vehicle.baler.balerConfigurations.balerConfiguration(0).sounds.work#pitchScale" value="0.9478875" />
+            <set path="vehicle.baler.balerConfigurations.balerConfiguration(1).sounds.work#pitchScale" value="0.9478875" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

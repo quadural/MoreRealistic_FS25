@@ -506,4 +506,9 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - fix bug with "MR_DynamicMountAttacher" (example : combine header trailers)
             - add Claas Quadrant 5300FC (big square baler) => pto power with "surge" at stroke time, bale animation synchronized with stroke, stroke sound synchronized with actual stroke time.
             - add Kuhn SB1290ID (big square baler)
+            - add Massey Ferguson 2370UHD (big square baler)
+            - add Fendt Squadra 1290 (big square baler)
+            - add Massey Ferguson 1840 (small square baler)
+            - "powered" implements are now turned off when the engine speed is too low
+            - "animationTime" is not reliable for synchronizing sound and bale moving => get ride of it. Only rely on "strokesPerMinute" value now.
 

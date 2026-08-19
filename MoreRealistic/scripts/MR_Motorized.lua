@@ -524,3 +524,25 @@ end
 --getMotorRpmPercentage = used by sound manager for modifier type = "MOTOR_RPM"
 --vehicle:getGearInfoToDisplay => call motorized:getGearInfoToDisplay => call motor:getGearInfoToDisplay
 
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+--MR : turn off implement when the engine rev is too low
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Motorized.mrGetIsPowered = function(self, superFunc1, superFunc0)
+    local isPowered = superFunc1(self, superFunc0)
+
+    if isPowered then
+        --check rpm
+        local motor = self.spec_motorized.motor
+        if motor.mrLastMotorObjectRotSpeed<(motor.mrMinRot-1) then
+            isPowered = false
+        end
+    end
+
+    return isPowered
+
+end
+Motorized.getIsPowered = Utils.overwrittenFunction(Motorized.getIsPowered, Motorized.mrGetIsPowered)

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+
+    <mrBaler idlePower="25" powerIncreaseWithFeedingKilosPerSecond="5" maxTonsPerHour="80" grassCapacityFx="2.5" densityFactor="1.7" strokesPerMinute="50" strokePower="400" feedingChamberMinRequiredLevel="275" />
+
+
+    <!--
+
+    same as Massey Ferguson 2370UHD
+
+    about 13400kg empty with 620/50R22.5 (no rotor on the version in the game)
+    with 710/50R26.5 => 13700-13800kg
+
+    50 strokes per minutes
+
+
+    this baler is not sold anymore : too much problem with it ("self-explode", too much forces for the components)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/baler2370UHD/baler2370UHD.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="25" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 0.6" />
+            <set path="vehicle.base.components.component(0)#mass" value="12500" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.2 0.3" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="250" />
+
+            <remove path="vehicle.powerConsumer" />
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.015"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.015"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="60"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#xOffset" value="0.13"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#xOffset" value="0.13"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#xOffset" value="0.13"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#xOffset" value="0.13"/>
+
+            <!-- air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1.5" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.88 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="30" />
+
+            <!-- correct strokes per minutes - animation endTime = 2 but there are 2 full rotation per animation, we want 2.4s for the full animation => we have to slow down the animation speed -->
+            <set path="vehicle.turnOnVehicle.turnedOnAnimation#speedScale" value="0.83333333333333333333333333333333" />
+
+            <!-- sound pitch to get 50 strokes per minutes
+            sound file = data\sounds\tools\baler\attBalerWrappingLoop_02.ogg => there are 4 strokes in 5.0554 seconds which means 63.1925 seconds for 50 strokes
+            to get 50 strokes per minutes => we have to raise the speed of the sound
+            -->
+            <set path="vehicle.baler.sounds.work#pitchScale" value="1.0532083333333333333333333333333" /> <!-- we want the exact same stroke per minute than the "strokesPerMinute" value of the mrBaler -->
+
+
+            <!-- GIANTS -->
+            <set path="vehicle.storeData.name" value="Squadra 1290 N UD"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/fendt/squadra1290/store_squadra1290.png"/>
+            <set path="vehicle.storeData.brand" value="FENDT"/>
+
+            <set path="vehicle.wheels.hubMaterial#materialTemplateName" value="FENDT_GREY2"/>
+
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="true"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isDefault"    value="true"/>
+
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(1)#isSelectable" value="true"/>
+            <set path="vehicle.rimColorConfigurations.rimColorConfiguration(1)#isDefault"    value="true"/>
+
+        </attributes>
+    </parentFile>
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>Squadra 1290 N UD</name>
+        <image>$data/vehicles/fendt/squadra1290/store_squadra1290.png</image>
+        <brand>FENDT</brand>
+        <category>balersSquare</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+
+</vehicle>
