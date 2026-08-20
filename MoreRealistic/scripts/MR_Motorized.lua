@@ -534,7 +534,7 @@ end
 Motorized.mrGetIsPowered = function(self, superFunc1, superFunc0)
     local isPowered = superFunc1(self, superFunc0)
 
-    if isPowered then
+    if self.isServer and isPowered then
         --check rpm
         local motor = self.spec_motorized.motor
         if motor.mrLastMotorObjectRotSpeed<(motor.mrMinRot-1) then
