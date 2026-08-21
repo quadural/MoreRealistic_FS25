@@ -10,38 +10,48 @@ TensionBelts.mrGetAdditionalComponentMass = function(self, superFunc0, superFunc
         local comTable = {}
         comTable.mass = 0
 
-        for _, objectData in pairs(spec.objectsToJoint) do
+        for objectId, objectData in pairs(spec.objectsToJoint) do
             local object = objectData.object
+            local cx, cy, cz
+            local attachedObjectId
+            local objectMassToAdd
             if object ~= nil then
                 if object.getAllowComponentMassReduction ~= nil and object:getAllowComponentMassReduction() then
                     --additionalMass = additionalMass + math.max((object:getDefaultMass() - 0.1), 0)
 
                     --MR takes into acount center of mass
-                    local objectMassToAdd = math.max((object:getDefaultMass() - 0.1), 0)
+                    objectMassToAdd = math.max((object:getDefaultMass() - 0.1), 0)
                     additionalMass = additionalMass + objectMassToAdd
 
                     if object.nodeId~=nil then
-                        local cx, cy, cz = getCenterOfMass(object.nodeId)
-                        local objX, objY, objZ = localToLocal(object.nodeId, component.node, cx, cy, cz)
-                        if comTable.mass==0 then
-                            comTable.x, comTable.y, comTable.z = objX, objY, objZ
-                            comTable.mass = objectMassToAdd
-                        else
-                            local newMass = comTable.mass+objectMassToAdd
-                            comTable.x = (comTable.mass*comTable.x+objectMassToAdd*objX)/newMass
-                            comTable.y = (comTable.mass*comTable.y+objectMassToAdd*objY)/newMass
-                            comTable.z = (comTable.mass*comTable.z+objectMassToAdd*objZ)/newMass
-                            comTable.mass = newMass
-                        end
+                        cx, cy, cz = getCenterOfMass(object.nodeId)
+                        attachedObjectId = object.nodeId
                     end
 
                 end
+            elseif objectData.objectMass ~= nil then --splitshape
+                objectMassToAdd = objectData.objectMass - 0.01
+                additionalMass = additionalMass + objectMassToAdd
+                --MR takes into acount center of mass
+                cx, cy, cz = getCenterOfMass(objectId)
+                attachedObjectId = objectId
             end
 
-            if objectData.objectMass ~= nil then
-                additionalMass = additionalMass + (objectData.objectMass - 0.01)
+            if attachedObjectId~=nil and objectMassToAdd~=nil and cx~=nil and cy~=nil and cz~=nil then
+                local objX, objY, objZ = localToLocal(attachedObjectId, component.node, cx, cy, cz)
+                if comTable.mass==0 then
+                    comTable.x, comTable.y, comTable.z = objX, objY, objZ
+                    comTable.mass = objectMassToAdd
+                else
+                    local newMass = comTable.mass+objectMassToAdd
+                    comTable.x = (comTable.mass*comTable.x+objectMassToAdd*objX)/newMass
+                    comTable.y = (comTable.mass*comTable.y+objectMassToAdd*objY)/newMass
+                    comTable.z = (comTable.mass*comTable.z+objectMassToAdd*objZ)/newMass
+                    comTable.mass = newMass
+                end
             end
-        end
+
+        end--end for
 
         if comTable.mass>0 then
             component.mrAdditionalMassWithCOM["TensionBelts"] = comTable

@@ -2,7 +2,7 @@
 <vehicle type="baler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
 
     <MR>true</MR>
-    <mrBaler idlePower="7" powerIncreaseWithFeedingKilosPerSecond="5" maxTonsPerHour="15" grassCapacityFx="2" densityFactor="1" strokesPerMinute="100" strokePower="80" feedingChamberMinRequiredLevel="10" />
+    <mrBaler idlePower="7" powerIncreaseWithFeedingKilosPerSecond="5" maxTonsPerHour="12" grassCapacityFx="2" densityFactor="1" strokesPerMinute="100" strokePower="80" feedingChamberMinRequiredLevel="10" />
 
 
     <!--

@@ -30,6 +30,8 @@ Baler.mrLoadMrValues = function(self, xmlFile)
 
             self.mrBalerWorkSoundNeedPlaying = true
             self.mrBalerWorkSoundNeedPlayingWaiting = false
+
+            self.mrBalerPowerFx = 1
         end
 
         if self.mrBalerUnfinishedBaleThreshold~=nil then
@@ -130,7 +132,7 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
                 applyStrokePower = true
                 self.mrBalerNextStrokeTime = self.mrBalerNextStrokeTime + self.mrBalerTimeBetweenEachStroke--
                 self.mrBalerStrokePowerEndTime = g_time + self.mrBalerStrokePowerDuration
-
+                self.mrBalerPowerFx = 1
                 --empty the feeding chamber
                 if not self.spec_baler.hasUnloadingAnimation and self.mrBalerFeedingChamberLiters > self.mrBalerFeedingChamberMinRequiredLevel then
                     local deltaTime = self:getTimeFromLevel(self.mrBalerFeedingChamberLiters)

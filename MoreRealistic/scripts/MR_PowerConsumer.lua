@@ -198,6 +198,10 @@ end
 -- then, apply force against the moving direction
 PowerConsumer.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
 
+    if not self.isServer then
+        return
+    end
+
     --reset mrPtoPowerFx
     if self.mrPowerConsumerPtoForSoilWork then
         self.mrPtoPowerFx = self.mrPtoPowerFxMin --10% at idle
