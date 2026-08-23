@@ -40,10 +40,15 @@
             <remove path="vehicle.powerConsumer" />
             <set path="vehicle.powerConsumer#ptoRpm" value="540" />
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" value="620_50R22_5"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" value="620_50R22_5"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#dimensions" value="620_50R22_5"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" value="620_50R22_5"/>
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#dimensions" />
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#dimensions" />
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#dimensions" />
+            <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/620_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/620_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/620_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/620_50R22_5.xml"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#mass" value="0.015"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#mass" value="0.015"/>

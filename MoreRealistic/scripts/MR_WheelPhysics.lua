@@ -55,6 +55,7 @@ WheelPhysics.registerXMLPaths = Utils.overwrittenFunction(WheelPhysics.registerX
 
 
 WheelPhysics.mrLoadFromXML = function(self, superFunc, xmlObject)
+
     --MR : wheels masses are a little bit "off" from Giants.
     --Example : 650/85R38, tyre + rim = 320kg + 180kg = about 530kg IRL (we can verify that by looking at https://shop.deere.com/ , or reading nebraska test reports
     --but base game mass of the whole wheel = 398kg
