@@ -524,19 +524,27 @@ Vehicle.mrUpdate = function(self, superFunc, dt)
     if self.isServer then
 
         if self.mrRecoveryModeActive then
+            local maxTime = 10000
+
             if self.mrRecoveryModeTimer==nil or self.mrRecoveryModeTimer==0 then
                 self.mrRecoveryModeTimer = dt
             else
                 self.mrRecoveryModeTimer = self.mrRecoveryModeTimer + dt
             end
 
-            if self.mrRecoveryModeTimer>10000 then --10s to try recovering
+            if self.mrRecoveryModeTimer>maxTime then --10s to try recovering
                 --stop recovry process
                 self.mrRecoveryModeTimer=0
                 self.mrRecoveryModeActive = false
             else
-                local fx = math.pow(self.mrRecoveryModeTimer/10000, 0.5)
-                addForce(self.components[1].node, 0, fx*7*self.serverMass, 0, 0, 5, 0, true)
+                local fx
+                local middleTime = 0.5*maxTime
+                if self.mrRecoveryModeTimer<middleTime then
+                    fx = 2 + 8*self.mrRecoveryModeTimer/middleTime
+                else
+                    fx = 10 - 5*(self.mrRecoveryModeTimer-middleTime)/middleTime
+                end
+                addForce(self.components[1].node, 0, fx*self.serverMass, 0, 0, 5, 0, true)
                 local wx, wy, wz = localToWorld(self.components[1].node, 0, 5, 0)
                 DebugGizmo.renderAtPosition(wx, wy, wz, 0, 1, 0, 0, 0, 1, "RecoveryTractionPoint")
             end

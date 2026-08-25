@@ -36,10 +36,10 @@
             <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#dimensions" />
             <remove path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#dimensions" />
 
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/680_50R22_5.xml"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/680_50R22_5.xml"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/680_50R22_5.xml"/>
-            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/vredestein/flotationPro/680_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0)#filename" value="$data/shared/wheels/tires/vredestein/flotationTrac/680_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1)#filename" value="$data/shared/wheels/tires/vredestein/flotationTrac/680_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2)#filename" value="$data/shared/wheels/tires/vredestein/flotationTrac/680_50R22_5.xml"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3)#filename" value="$data/shared/wheels/tires/vredestein/flotationTrac/680_50R22_5.xml"/>
 
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.15"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.15"/>

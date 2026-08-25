@@ -26,3 +26,31 @@ Drivable.mrGetAccelerationAxis = function(self, superFunc)
 
 end
 Drivable.getAccelerationAxis = Utils.overwrittenFunction(Drivable.getAccelerationAxis, Drivable.mrGetAccelerationAxis)
+
+
+Drivable.mrOnRegisterActionEvents = function(self, superFunc, isActiveForInput, isActiveForInputIgnoreSelection)
+
+    superFunc(self, isActiveForInput, isActiveForInputIgnoreSelection)
+
+    if self.isClient then
+        local spec = self.spec_drivable
+
+        local entered = true
+        if self.getIsEntered ~= nil then
+            entered = self:getIsEntered()
+        end
+
+        if self:getIsActiveForInput(true, true) and entered then
+            if not self:getIsAIActive() then
+                local _, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.MR_RECOVER_VEHICLE, self, Drivable.mrActionEventRecovervehicle, false, true, false, true, nil)
+                g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_VERY_LOW)
+            end
+        end
+    end
+
+end
+Drivable.onRegisterActionEvents = Utils.overwrittenFunction(Drivable.onRegisterActionEvents, Drivable.mrOnRegisterActionEvents)
+
+Drivable.mrActionEventRecovervehicle = function(self, actionName, inputValue, callbackState, isAnalog)
+    VehicleSystem.mrConsoleCommandRecoverVehicle(self)
+end

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="110"> <!-- v1.20 -->
     <author>Dural</author>
-    <version>0.26.08.23</version>
+    <version>0.26.08.25</version>
     <multiplayer supported="true" />
     <title>
         <en>MoreRealistic game engine</en>
@@ -16,4 +16,22 @@
         <sourceFile filename="scripts/RealisticMain.lua"/>
         <!-- <sourceFile filename="scripts/DEBUG.lua"/> -->
     </extraSourceFiles>
+
+    <actions>
+        <action name="MR_RECOVER_VEHICLE" category="VEHICLE" />
+    </actions>
+
+    <inputBinding>
+        <actionBinding action="MR_RECOVER_VEHICLE">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_r" /> <!-- Ctrl + Shift + R -->
+        </actionBinding>
+    </inputBinding>
+
+    <l10n>
+        <text name="input_MR_RECOVER_VEHICLE">
+            <en>Recover vehicle</en>
+            <fr>Rétablissement du véhicle</fr>
+        </text>
+    </l10n>
+
 </modDesc>
