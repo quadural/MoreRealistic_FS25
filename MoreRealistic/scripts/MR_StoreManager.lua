@@ -1,6 +1,25 @@
 StoreManager.mrLoadItem = function(self, superFunc, rawXMLFilename, baseDir, customEnvironment, isMod, isBundleItem, dlcTitle, extraContentId, ignoreAdd)
 
-    if baseDir=="" or dlcTitle~="" then -- this is a base game vehicle (or DLC) = we want to check if we ovveride it with a MR version
+    if isMod then
+        --loading databank items
+        if g_modIsLoaded["moreRealisticXmlDatabank"] then
+            local fullFileName = baseDir .. rawXMLFilename
+            local databankXmlPath = RealisticUtils.getDatabankVehiclePath(fullFileName)
+            if fileExists(databankXmlPath) then
+                print("-------- Found xml file in the MR 'databank' :  " .. databankXmlPath)
+
+                if RealisticUtils.databankVehiclesModifiedData[fullFileName]==nil then
+                    RealisticUtils.databankVehiclesModifiedData[fullFileName] = {}
+                    RealisticUtils.databankVehiclesModifiedData[fullFileName].newFileName = databankXmlPath
+                end
+
+                RealisticUtils.databankVehicleMrFilenameToGenuineFilename[string.lower(databankXmlPath)] = fullFileName
+                RealisticUtils.vehiclesKeepEnvironmentTable[databankXmlPath] = fullFileName
+                rawXMLFilename = "$" .. databankXmlPath -- $ tells the game not to concatenate baseDir and xmlfile path
+            end
+        end
+
+    elseif baseDir=="" or dlcTitle~="" then -- this is a base game vehicle (or DLC) = we want to check if we override it with a MR version
 
         local item = RealisticUtils.getOverridingXmlFileNameData(rawXMLFilename)
 
@@ -19,7 +38,7 @@ StoreManager.mrLoadItem = function(self, superFunc, rawXMLFilename, baseDir, cus
 
             --20250613 - we want to keep "cutomEnvironment" and "baseDir" (function Vehicle:setFileName // Utils.getModNameAndBaseDirectory)
             if item.keepEnvironment then
-                RealisticUtils.defaultVehiclesKeepEnvironmentTable[mrConfigFileName] = fullFileName
+                RealisticUtils.vehiclesKeepEnvironmentTable[mrConfigFileName] = fullFileName
                 rawXMLFilename = "$" .. mrConfigFileName -- $ tells the game not to concatenate baseDir and xmlfile path
             else
                 rawXMLFilename = mrConfigFileName
@@ -106,3 +125,17 @@ StoreManager.mrGetItemsByCombinationData = function(self, superFunc, combination
 
 end
 StoreManager.getItemsByCombinationData = Utils.overwrittenFunction(StoreManager.getItemsByCombinationData, StoreManager.mrGetItemsByCombinationData)
+
+
+ConfigurationUtil.saveConfigurationsToXMLFile = function(configFileName, xmlFile, key, configurations, boughtConfigurations, configurationData)
+    local item = g_storeManager:getItemByXMLFilename(configFileName)
+    if item.configurations ~= nil then
+        local xmlIndex = 0
+        for configName, configsToSave in pairs(boughtConfigurations) do
+            for index, _ in pairs(configsToSave) do
+                local isActive = configurations[configName] == index
+                xmlIndex = ConfigurationUtil.saveConfigurationToXMLFile(item.configurations, configName, index, xmlFile, key, isActive, configurationData, xmlIndex)
+            end
+        end
+    end
+end

@@ -42,15 +42,23 @@ end
 
 MR_RecoverVehicleEvent.mrRecoverVehicle = function(vehicleToRecover)
     if vehicleToRecover~=nil then
-        vehicleToRecover.mrRecoveryModeActive = true
-        vehicleToRecover.mrRecoveryModeTimer = 0
+        MR_RecoverVehicleEvent.mrRecoverVehicleSwitchState(vehicleToRecover)
         if vehicleToRecover.getAttachedImplements~=nil then
             local attachedImplements = vehicleToRecover:getAttachedImplements()
             for _, implement in pairs(attachedImplements) do
-                implement.object.mrRecoveryModeActive = true
-                implement.object.mrRecoveryModeTimer = 0
+                MR_RecoverVehicleEvent.mrRecoverVehicleSwitchState(implement.object)
             end
         end
     end
+end
+
+MR_RecoverVehicleEvent.mrRecoverVehicleSwitchState = function(vehicle)
+    if vehicle.mrRecoveryModeActive then
+        --already active => stop it
+        vehicle.mrRecoveryModeActive = false
+    else
+        vehicle.mrRecoveryModeActive = true
+    end
+     vehicle.mrRecoveryModeTimer = 0
 end
 

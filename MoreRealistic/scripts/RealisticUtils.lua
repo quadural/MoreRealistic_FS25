@@ -3,6 +3,9 @@ RealisticUtils = {}
 RealisticUtils.defaultVehiclesModifiedData = {}
 RealisticUtils.defaultVehicleMrFilenameToGenuineFilename = {}
 
+RealisticUtils.databankVehiclesModifiedData = {}
+RealisticUtils.databankVehicleMrFilenameToGenuineFilename = {}
+
 
 RealisticUtils.nameToGroundType = {
     ["GROUND_ROAD"] = WheelsUtil.GROUND_ROAD,
@@ -18,7 +21,7 @@ RealisticUtils.groundTypeToName = {
 
 RealisticUtils.terrainAttributeToName = {}
 
-RealisticUtils.defaultVehiclesKeepEnvironmentTable = {}
+RealisticUtils.vehiclesKeepEnvironmentTable = {}
 
 --***************************************************************************************************
 RealisticUtils.loadDefaultVehiclesModifiedData = function(folderPath, databaseFileName)
@@ -26,6 +29,9 @@ RealisticUtils.loadDefaultVehiclesModifiedData = function(folderPath, databaseFi
     --reset vehicles data
     RealisticUtils.defaultVehiclesModifiedData = {}
     RealisticUtils.defaultVehicleMrFilenameToGenuineFilename = {}
+    -- reset databank items too
+    RealisticUtils.databankVehiclesModifiedData = {}
+    RealisticUtils.databankVehicleMrFilenameToGenuineFilename = {}
 
     --loading database file
     local xmlFile = loadXMLFile("realisticDefaultVehicleDatabase.xml", folderPath .. "/" .. databaseFileName)
@@ -37,16 +43,6 @@ RealisticUtils.loadDefaultVehiclesModifiedData = function(folderPath, databaseFi
         local vehicleFilePath = getXMLString(xmlFile, vehicleXmlPath)
         local fileNameToOverride = getXMLString(xmlFile, vehicleXmlPath .. "#fileNameToOverride")
         local keepEnvironment = getXMLString(xmlFile, vehicleXmlPath .. "#keepGenuineEnvironment")
-        --local overridedVehicleTypeName = getXMLString(xmlFile, vehicleXmlPath .. "#newVehicleType")
-
-        --replace $pdlcdir by the full path
---         if string.sub(fileNameToOverride,1,8):lower()=="$pdlcdir" then
---             --required for steam users
---             fileNameToOverride = Utils.convertFromNetworkFilename(fileNameToOverride)
---         elseif string.sub(fileNameToOverride,1,7):lower()=="$moddir" then
---             fileNameToOverride = Utils.convertFromNetworkFilename(fileNameToOverride)
---         end
-
         local newFileName = folderPath .. "/" .. vehicleFilePath
 
         RealisticUtils.defaultVehiclesModifiedData[fileNameToOverride] = {}
@@ -54,17 +50,8 @@ RealisticUtils.loadDefaultVehiclesModifiedData = function(folderPath, databaseFi
         if keepEnvironment~=nil then
             RealisticUtils.defaultVehiclesModifiedData[fileNameToOverride].keepEnvironment = keepEnvironment
         end
---         if overridedVehicleTypeName~=nil then
---             RealisticUtils.defaultVehiclesModifiedData[fileNameToOverride].newVehicleTypeName = overridedVehicleTypeName
---         end
 
         RealisticUtils.defaultVehicleMrFilenameToGenuineFilename[string.lower(newFileName)] = fileNameToOverride
-
-        --print("RealisticUtils.loadDefaultVehiclesModifiedData - fileNameToOverride="..tostring(fileNameToOverride) .. " - vehicleFilePath="..tostring(folderPath .. "/" .. vehicleFilePath))
-
-        --load the modified store data
-        --2017/11/24 - replace by "RealisticUtils.reloadStoreDataWithMR" to take into account mrDatabank data in the store too
-        --RealisticUtils.loadModifiedStoreData(fileNameToOverride, folderPath .. "/" .. vehicleFilePath);
 
         i = i + 1
     end
@@ -79,7 +66,17 @@ end
 --** return mr new filename for vehicle xml
 RealisticUtils.getOverridingXmlFileNameData = function(itemName)
 
-    local item = RealisticUtils.defaultVehiclesModifiedData[itemName]
+    local item
+
+    --check DataBank
+    if g_modIsLoaded["moreRealisticXmlDatabank"] then
+        item = RealisticUtils.databankVehiclesModifiedData[itemName]
+    end
+
+    if item==nil then
+        item = RealisticUtils.defaultVehiclesModifiedData[itemName]
+    end
+
     if item==nil then
         item = RealisticUtils.defaultVehiclesModifiedData[string.gsub(itemName, "%$", "")]
     end
@@ -89,10 +86,46 @@ RealisticUtils.getOverridingXmlFileNameData = function(itemName)
 end
 
 --***************************************************************************************************
---** return vanilla game vehicle xml filename
+--** return vanilla game vehicle xml filename (or vanilla mod xml filename)
 RealisticUtils.getOverridedXmlFileName = function(itemName)
-    local genuineFileName = RealisticUtils.defaultVehicleMrFilenameToGenuineFilename[string.lower(itemName)]
+
+    local genuineFileName
+    if g_modIsLoaded["moreRealisticXmlDatabank"] then
+        genuineFileName = RealisticUtils.databankVehicleMrFilenameToGenuineFilename[string.lower(itemName)]
+    end
+
+    if genuineFileName==nil then
+        genuineFileName = RealisticUtils.defaultVehicleMrFilenameToGenuineFilename[string.lower(itemName)]
+    end
+
     return genuineFileName
+end
+
+
+--**********************************************************************************************************************************************************
+-- return the full path to the "dataBank" file of a given vehicle
+-- use the mod named : "moreRealisticXmlDatabank"
+RealisticUtils.getDatabankVehiclePath = function(configFileName)
+
+    local databankPath = g_modsDirectory .. "moreRealisticXmlDatabank/convertedXml/"   --getUserProfileAppPath() .. "mrXmlDatabank/"
+    local splitXmlPath = configFileName:split("/")
+    local xmlNameOnly = splitXmlPath[#splitXmlPath] --get the last "word" in the full xml file path
+
+    local modFolderName = "default" --we can override default vehicle too by using the "default" prefix
+    local _, baseDirectory = Utils.getModNameAndBaseDirectory(configFileName)
+
+    if baseDirectory~="" then
+        local splitDirectoryPath = baseDirectory:split("/")
+        --print("test base directory - splitDirectoryPath num=".. table.getn(splitDirectoryPath) .." .. modDirectory="..splitDirectoryPath[#splitDirectoryPath-1])
+        modFolderName = splitDirectoryPath[#splitDirectoryPath-1] --  remove 1 because the last character is "/" for baseDirectory
+    end
+
+    local mrXmlDatabankFilepath = databankPath .. modFolderName .. "_MR_" .. xmlNameOnly
+
+    --print("test - " .. mrXmlDatabankFilepath .. " - baseDirectory="..baseDirectory)
+
+    return mrXmlDatabankFilepath
+
 end
 
 

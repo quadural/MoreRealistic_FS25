@@ -18,7 +18,7 @@ Vehicle.mrSetFilename = function(self, superFunc, filename)
     self.configFileName = filename
     self.configFileNameClean = Utils.getFilenameInfo(filename, true)
 
-    local genuineConfigFilenameWanted = RealisticUtils.defaultVehiclesKeepEnvironmentTable[filename]
+    local genuineConfigFilenameWanted = RealisticUtils.vehiclesKeepEnvironmentTable[filename]
     if genuineConfigFilenameWanted~=nil then
         self.customEnvironment, self.baseDirectory = Utils.getModNameAndBaseDirectory(genuineConfigFilenameWanted)
     else
@@ -534,7 +534,7 @@ Vehicle.mrUpdate = function(self, superFunc, dt)
 
             if self.mrRecoveryModeTimer>maxTime then --10s to try recovering
                 --stop recovry process
-                self.mrRecoveryModeTimer=0
+                self.mrRecoveryModeTimer = 0
                 self.mrRecoveryModeActive = false
             else
                 local fx

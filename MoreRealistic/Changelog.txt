@@ -512,4 +512,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - "powered" implements are now turned off when the engine speed is too low
             - "animationTime" is not reliable for synchronizing sound and bale moving => get ride of it. Only rely on "strokesPerMinute" value now.
             - "mrVehicleRecover" console command is now multiplayer ready (default binding = CTRL + SHIFT + R)
+            - support moreRealisticXmlDatabank
 
