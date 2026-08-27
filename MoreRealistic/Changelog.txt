@@ -513,4 +513,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - "animationTime" is not reliable for synchronizing sound and bale moving => get ride of it. Only rely on "strokesPerMinute" value now.
             - "mrVehicleRecover" console command is now multiplayer ready (default binding = CTRL + SHIFT + R)
             - support moreRealisticXmlDatabank
+            - new "mrFindBestGearCombination" function to replace "mrFindGearChangeTargetGearPrediction" and "mrManageUpdateGroup" to better handle semi-powershift transmission
 

@@ -68,12 +68,12 @@
             <wheelConfiguration name="$l10n_configuration_valueDefault" saveId="DEFAULT" numDynamicConfigurations="1">
                 <wheels autoRotateBackSpeed="2.3">
                     <wheel dimensions="600_65R28" isLeft="true" hasTireTracks="true" hasParticles="true">
-                        <physics rotSpeed="1" restLoad="1.48" repr="wheelFrontLeftReprPhys"  driveNode="wheelFrontLeft"  forcePointRatio="0.3" initialCompression="22" suspTravel="0.1" spring="65" damper="20" transRatio="0" xOffset="-0.0" yOffset="0.035"/>
+                        <physics rotSpeed="1" restLoad="1.48" repr="wheelFrontLeftReprPhys"  driveNode="wheelFrontLeft"  forcePointRatio="0.3" initialCompression="22" suspTravel="0.1" spring="65" damper="20" transRatio="0" xOffset="-0.01" yOffset="0.035"/>
                         <steering node="steeringBarCenter" nodeMinTransX="0.097" nodeMaxTransX="-0.097"/>
                         <innerRim filename="$data/shared/wheels/rims/rim006.i3d" node="1|0"/>
                     </wheel>
                     <wheel dimensions="600_65R28" isLeft="false" hasTireTracks="true" hasParticles="true">
-                        <physics rotSpeed="1" restLoad="1.48" repr="wheelFrontRightReprPhys" driveNode="wheelFrontRight" forcePointRatio="0.3" initialCompression="22" suspTravel="0.1" spring="65" damper="20" transRatio="0" xOffset="-0.0" yOffset="0.035"/>
+                        <physics rotSpeed="1" restLoad="1.48" repr="wheelFrontRightReprPhys" driveNode="wheelFrontRight" forcePointRatio="0.3" initialCompression="22" suspTravel="0.1" spring="65" damper="20" transRatio="0" xOffset="-0.01" yOffset="0.035"/>
                         <innerRim filename="$data/shared/wheels/rims/rim006.i3d" node="1|1"/>
                     </wheel>
                     <wheel dimensions="650_65R42" isLeft="true" hasTireTracks="true" hasParticles="true">
