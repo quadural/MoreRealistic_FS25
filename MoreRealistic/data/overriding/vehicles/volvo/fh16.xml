@@ -247,7 +247,7 @@
 
             <!-- ATO3812 + axle ratio=5.41  wheels=315/80R22.5 => 0.53775 radius. Normalized wheels = 1m radius => 5.41/0.53775=10.06 -->
             <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission" />
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#axleRatio" value="10.06"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGear" value="true"/>
