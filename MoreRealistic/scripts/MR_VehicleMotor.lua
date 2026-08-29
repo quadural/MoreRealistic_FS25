@@ -85,6 +85,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
 
 
     newMotor.mrBestStartGearSelected = 0
+    newMotor.mrBestStartGearWaitingForStandstill = true
     newMotor.mrTransmissionLastShiftGlobalRatio = 0
     newMotor.mrTransmissionLastShiftDirection = 0
     newMotor.mrTransmissionLastShiftDirectionTimer = 0
@@ -568,7 +569,7 @@ VehicleMotor.mrGetStartInGearFactor = function(self, superFunc, ratio)
     local slipFx = rimPull / (self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels)
 
     --we only want gear ratios that nearly allow the tractor to slip without moving
-    if slipFx<0.8 then
+    if slipFx<0.87 then
         return self.startGearThreshold+1/absRatio --we return a value greater than self.startGearThreshold and the larger the ratio, the smaller the value so that, if no correct gear ratio is found for starting, we would take the gear with the highest ratio possible (usually, the first gear)
     end
 
@@ -721,7 +722,12 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                         self.mrTransmissionLugTime = 0
 
                         if acceleratorPedal==0 or justChangedDirection or self.mrBestStartGearSelected==0 then
-                            newGear = VehicleMotor.mrManageUpdateStartGear(self, gearSign, justChangedDirection)
+                            local force = justChangedDirection
+                            if self.mrBestStartGearWaitingForStandstill and self.differentialRotSpeed==0 then
+                                force = true
+                                self.mrBestStartGearWaitingForStandstill = false
+                            end
+                            newGear = VehicleMotor.mrManageUpdateStartGear(self, gearSign, force)
                             if newGear==self.previousGear then
                                 --do not change gear if getBestStartGear return the same gear as previousGear
                                 newGear = self.gear
@@ -831,6 +837,8 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                     self.groupChangeTimer = -1
                     self.directionChangeTimer = -1
                 end
+            else
+                self.mrBestStartGearWaitingForStandstill = true
             end
 
         end
@@ -909,7 +917,7 @@ VehicleMotor.mrManageUpdateStartGear = function(self, gearSign, force)
         trySelectBestGear = true
     elseif self.mrBestStartGearSelected==0 then
         trySelectBestGear = true
-    elseif self.mrBestStartGearSelected~=0 then
+    elseif self.mrBestStartGearSelected~=0 and not force then
         return self.mrBestStartGearSelected
     end
 
