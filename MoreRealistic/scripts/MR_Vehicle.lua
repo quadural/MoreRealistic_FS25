@@ -80,6 +80,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         Windrower.mrLoadMrValues(self, xmlFile)
         ForageWagon.mrLoadMrValues(self, xmlFile)
         MRConveyorLoaderVehicle.mrLoadMrValues(self, xmlFile)
+        BaleWrapper.mrLoadMrValues(self, xmlFile)
 
         self.mrForcePtoRpm = false
 

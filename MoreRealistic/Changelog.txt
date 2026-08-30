@@ -514,4 +514,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - "mrVehicleRecover" console command is now multiplayer ready (default binding = CTRL + SHIFT + R)
             - support moreRealisticXmlDatabank
             - new "mrFindBestGearCombination" function to replace "mrFindGearChangeTargetGearPrediction" and "mrManageUpdateGroup" to better handle semi-powershift transmission
+            - add Goweil g5020 (bale wrapper)
 

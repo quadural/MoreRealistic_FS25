@@ -583,6 +583,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = Windrower.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrForageWagon then--mr forage wagon
                 neededPtoPower = ForageWagon.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrWrapper then--mr bale wrapper
+                neededPtoPower = BaleWrapper.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)

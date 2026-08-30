@@ -300,6 +300,9 @@
     <vehicle fileNameToOverride="data/vehicles/heizomat/hm10500KF/hm10500KF.xml">vehicles/heizomat/hm10500KF.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/jenz/cobraHybrid/cobraHybrid.xml">vehicles/jenz/cobraHybrid.xml</vehicle>
 
+    <!-- wrappers -->
+    <vehicle fileNameToOverride="data/vehicles/goeweil/g5020/g5020.xml">vehicles/goeweil/g5020.xml</vehicle>
+
     <!-- objects -->
     <vehicle fileNameToOverride="data/objects/bigBag/lime/bigBag_lime.xml">objects/bigBag_lime.xml</vehicle>
     <vehicle fileNameToOverride="data/objects/bigBag/lime/multiPurchaseBigBag_lime.xml">objects/multiPurchaseBigBag_lime.xml</vehicle>

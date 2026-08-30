@@ -156,7 +156,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(9)#torque" value="0.532"/>
 
             <!-- transmission -->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.85"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGear" value="true"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#reverseGearIndex" value="6"/>
@@ -246,7 +246,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(9)#torque" value="0.587"/>
 
             <!-- transmission -->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission#autoGearChangeTime" value="0.85"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission#gearChangeTime" value="0"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.directionChange#useGear" value="true"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).transmission.directionChange#reverseGearIndex" value="6"/>
@@ -338,7 +338,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(10)#torque" value="0.664"/>
 
             <!-- transmission -->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission#autoGearChangeTime" value="0.85"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission#gearChangeTime" value="0"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.directionChange#useGear" value="true"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).transmission.directionChange#reverseGearIndex" value="7"/>
@@ -432,7 +432,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(8)#torque" value="0.733"/>
 
             <!-- transmission ***********************************************************************************************-->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission#autoGearChangeTime" value="0.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission#autoGearChangeTime" value="0.85"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission#gearChangeTime" value="0"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.directionChange#useGear" value="true"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).transmission.directionChange#reverseGearIndex" value="7"/>
