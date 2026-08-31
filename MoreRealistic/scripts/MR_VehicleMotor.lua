@@ -1320,7 +1320,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                         gearFound = true
                         newGear1 = curGear1-1
                     end
-                elseif gearbox2active and curGear2>1 and curGear2Sign==math.sign(gearbox1[curGear2-1].ratio) then
+                elseif gearbox2active and curGear2>1 and curGear2Sign==math.sign(gearbox2[curGear2-1].ratio) then
                     for i=0, #gearbox1-1 do
                         if curGear1Sign==math.sign(gearbox1[curGear1+i].ratio) then
                             local newEngineRpmTmp = math.abs(engineRpm * gearbox1[curGear1+i].ratio * gearbox2[curGear2-1].ratio/curGlobalRatio)
