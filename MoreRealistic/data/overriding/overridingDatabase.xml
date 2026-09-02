@@ -122,6 +122,9 @@
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
 
+    <!-- manure spreader -->
+    <vehicle fileNameToOverride="data/vehicles/brantner/ta12050/ta12050.xml">vehicles/brantner/ta12050.xml</vehicle>
+
     <!-- misc -->
     <vehicle fileNameToOverride="data/vehicles/kaercher/hds9184M/hds9184M.xml">vehicles/kaercher/hds9184M.xml</vehicle>
 

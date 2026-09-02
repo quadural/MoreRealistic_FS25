@@ -1,4 +1,5 @@
 <fillTypes>
+
     <fillType name="DIESEL" density="0.83" /> <!-- premium diesel ("GNR" in france for farming industry) -->
     <fillType name="FERTILIZER" density="1.04" /> <!-- nitrate solid fertilizer. Good ones are above 1 to enable 36m wide spreading or more -->
     <fillType name="LIQUIDFERTILIZER" density="1.3" /> <!-- N39 solution -->
@@ -38,5 +39,6 @@
     <fillType name="BALE_NET" density="43" /> <!-- 4500m net roll => 43kg -->
     <fillType name="BALE_TWINE" density="13" /> <!-- 13kg -->
 
+    <fillType name="MANURE" density="0.75" /> <!-- medium density cow manure -->
 
 </fillTypes>

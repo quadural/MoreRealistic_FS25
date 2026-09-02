@@ -585,6 +585,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = ForageWagon.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrWrapper then--mr bale wrapper
                 neededPtoPower = BaleWrapper.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrManureSpreader then--mr manure spreader
+                neededPtoPower = MR_ManureSpreader.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)

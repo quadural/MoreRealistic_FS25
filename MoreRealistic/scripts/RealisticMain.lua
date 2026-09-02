@@ -48,6 +48,7 @@ source(Utils.getFilename("scripts/MR_FruitTypeManager.lua", g_currentModDirector
 source(Utils.getFilename("scripts/MR_GroundReference.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_HandToolHands.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Lights.lua", g_currentModDirectory))
+source(Utils.getFilename("scripts/MR_ManureSpreader.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Motorized.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Mower.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_ObjectChangeUtil.lua", g_currentModDirectory))
