@@ -124,6 +124,10 @@
 
     <!-- manure spreader -->
     <vehicle fileNameToOverride="data/vehicles/brantner/ta12050/ta12050.xml">vehicles/brantner/ta12050.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/hawe/dst16/dst16.xml">vehicles/hawe/dst16.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/farmtech/variofex750/variofex750.xml">vehicles/farmtech/variofex750.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/bergmann/tsw6240w/tsw6240w.xml">vehicles/bergmann/tsw6240w.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/samsonAgro/us235/us235.xml">vehicles/samsonAgro/us235.xml</vehicle>
 
     <!-- misc -->
     <vehicle fileNameToOverride="data/vehicles/kaercher/hds9184M/hds9184M.xml">vehicles/kaercher/hds9184M.xml</vehicle>

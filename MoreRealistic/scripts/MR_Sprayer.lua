@@ -13,13 +13,7 @@ Sprayer.mrGetSprayerUsage = function(self, superFunc, fillType, dt)
             liters = liters * 2
         end
 
-        if dt>0 then
-            self.mrSprayerLastLitersPerSecondAtSpeedLimit = liters*1000/dt
-            self.mrSprayerLastLitersPerSecond = self.mrSprayerLastLitersPerSecondAtSpeedLimit * factor
-        end
-
-        liters = liters * factor
-        return liters
+        return liters * factor
     end
 
     return 0
@@ -49,5 +43,37 @@ end
 --remove the double amount limited speed
 --with Mr, the usage already take into account the "double amount"
 Sprayer.getRawSpeedLimit = function(self, superFunc)
+    if not self.mrIsMrManureSpreader then
+        local spec = self.spec_sprayer
+        local sprayType
+        if spec.workAreaParameters ~= nil then
+            sprayType = spec.workAreaParameters.sprayType
+        end
+
+        if self:getSprayerDoubledAmountActive(sprayType) and self:getIsTurnedOn() then
+            return spec.doubledAmountSpeed
+        end
+    end
     return superFunc(self)
+end
+
+
+--optimized
+Sprayer.getIsSprayTypeActive = function(self, sprayType)
+    if sprayType.fillTypes ~= nil then
+        local retValue = false
+
+        local currentFillType = self:getFillUnitFillType(sprayType.fillUnitIndex or self.spec_sprayer.fillUnitIndex)
+        for _, fillType in ipairs(sprayType.fillTypes) do
+            if currentFillType == g_fillTypeManager:getFillTypeIndexByName(fillType) then
+                retValue = true
+                break --MR
+            end
+        end
+
+        return retValue --MR
+
+    end
+
+    return true
 end

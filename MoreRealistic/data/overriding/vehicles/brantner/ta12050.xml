@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+<vehicle type="manureSpreader" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
 
     <MR inlineAxleNumber="2">true</MR>
 
@@ -7,7 +7,7 @@
 
     <!--
         maxLiterPerSecond = spread unit passage clearance width x height * 1.6 * FX (FX = 1 when no spread unit cover, FX = 0.8 when cover + discs)
-        powerFx = 1 when no spread unit cover, powerFx = 1.4 when cover + discs
+        powerFx = (simplified formula to take into account spreading technology) = (width/3)^0.6
 
         options in game =
         - low drawbar
@@ -17,8 +17,8 @@
     -->
 
     <mrManureSpreader>
-        <config workareaIndex="1" idlePower="1" powerFx="1" maxLiterPerSecond="62" /> <!-- F4V -->
-        <config workareaIndex="2" idlePower="1" powerFx="1.4" maxLiterPerSecond="50" /> <!-- CL2-2 = more working width but lower peak output = lower maximum working speed -->
+        <config workareaIndex="1" idlePower="1" powerFx="1.8" maxLiterPerSecond="62" /> <!-- F4V // 8m width -->
+        <config workareaIndex="2" idlePower="1" powerFx="2.3" maxLiterPerSecond="50" /> <!-- CL2-2 // 12m width = more working width but lower peak output = lower maximum working speed -->
     </mrManureSpreader>
 
 
@@ -68,8 +68,14 @@
             <set path="vehicle.animations.animation(1).part(0)#startTrans" value="0 1.1 0" />
 
             <!-- animation speed -->
-            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.5" />
-            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).foldingParts.foldingPart(0)#speedScale" value="0.5" />
+            <set path="vehicle.animations.animation(0).part(1)#startTime" value="0.1" />
+            <set path="vehicle.animations.animation(0).part(1)#endTime" value="2.2" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(0).foldingParts.foldingPart(0)#speedScale" value="0.7" />
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).foldingParts.foldingPart(0)#speedScale" value="0.7" />
+
+            <!-- remove unneeded param -->
+            <remove path="vehicle.sprayer.sprayTypes.sprayType(0).usageScales#workingWidth" />
+            <remove path="vehicle.sprayer.sprayTypes.sprayType(1).usageScales#workingWidth" />
 
         </attributes>
     </parentFile>

@@ -517,4 +517,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Goweil g5020 (bale wrapper)
 
 202609XX    - add Brantner TA12050 (manure spreader)
+            - add Hawe DST16 (manure spreader)
+            - add Farmtech variofex 750 (manure spreader)
+            - add Bergmann TSW6240W (manure psreader)
+            - add Samson US235 (manure spreader)
 

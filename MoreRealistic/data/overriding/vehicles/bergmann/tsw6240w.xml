@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="manureSpreader" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+    <mrSuspension referenceMass="30000" />
+
+    <!--
+
+        options in game =
+        high volume extension / hydraulic left side extension (not working in game = fixed)
+        710/50R30.5 tires
+        150x150 axles
+        universal spreading unit with 3 beaters
+        border hydraulic deflector
+
+        about 10200kg empty
+
+    -->
+
+    <mrManureSpreader idlePower="2" powerFx="2.6" maxLiterPerSecond="120" />
+
+
+
+    <parentFile xmlFilename="$data/vehicles/bergmann/tsw6240w/tsw6240w.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="20" /> <!-- MR engine will regulate the speed limit according to the "maxLiterPerSecond" of the spreader unit -->
+
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.8 -0.2"/>
+            <set path="vehicle.base.components.component(0)#mass" value="8940"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="3.3"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.25"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.25"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="70"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="70"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="6"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrABS" value="true"/>
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="490" /> <!-- pto -->
+
+            <!-- correct capacity according to ingame config -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="28000"/>
+
+            <!-- fill center of mass -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.6 -0.4"/>
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.91 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="35" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#speedDependent" value="true" />
+
+            <!-- animation -->
+            <set path="vehicle.animations.animation(0).part(0)#startTime" value="0.5" />
+            <set path="vehicle.animations.animation(0).part(1)#startTime" value="0.5" />
+
+            <set path="vehicle.animations.animation(0).sound(6)#startTime" value="0.51" />
+            <set path="vehicle.animations.animation(0).sound(7)#startTime" value="0.51" />
+            <set path="vehicle.animations.animation(0).sound(8)#startTime" value="0.51" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>
