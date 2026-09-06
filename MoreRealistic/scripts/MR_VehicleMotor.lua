@@ -123,8 +123,8 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     newMotor.mrLastMinRotForPTO = 0
     newMotor.mrLastPtoPower = 0
 
-    newMotor.mrNewGearPrev1 = 0
-    newMotor.mrNewGearPrev2 = 0
+    --newMotor.mrNewGearPrev1 = 0
+    --newMotor.mrNewGearPrev2 = 0
 
     return newMotor
 
@@ -1312,12 +1312,12 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                         newGear1 = curGear1-1
                     end
                 elseif gearbox2active and curGear2>1 and curGear2Sign==math.sign(gearbox2[curGear2-1].ratio) then
-                    for i=0, #gearbox1-1 do
-                        if curGear1Sign==math.sign(gearbox1[curGear1+i].ratio) then
-                            local newEngineRpmTmp = math.abs(engineRpm * gearbox1[curGear1+i].ratio * gearbox2[curGear2-1].ratio/curGlobalRatio)
+                    for i=#gearbox1, 1, -1 do
+                        if curGear1Sign==math.sign(gearbox1[i].ratio) then
+                            local newEngineRpmTmp = math.abs(engineRpm * gearbox1[i].ratio * gearbox2[curGear2-1].ratio/curGlobalRatio)
                             if newEngineRpmTmp<1.05*maxRpmNotGoverned then
                                 gearFound = true
-                                newGear1 = curGear1+i
+                                newGear1 = i
                                 newGear2 = curGear2-1
                                 break
                             end
@@ -1382,13 +1382,13 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
             elseif gearbox2active and curGear2>1 and curGear2Sign==math.sign(gearbox2[curGear2-1].ratio) then
                 --check gearbox2
                 local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
-                for i=0, #gearbox1-1 do
-                    if curGear1Sign==math.sign(gearbox1[curGear1+i].ratio) then
-                        local newEngineRpmTmp = math.abs(engineRpm * gearbox1[curGear1+i].ratio * gearbox2[curGear2-1].ratio/curGlobalRatio)
+                for i=#gearbox1, 1, -1 do
+                    if curGear1Sign==math.sign(gearbox1[i].ratio) then
+                        local newEngineRpmTmp = math.abs(engineRpm * gearbox1[i].ratio * gearbox2[curGear2-1].ratio/curGlobalRatio)
                         if newEngineRpmTmp<maxRpmNotGoverned then
                             local newPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
                             if accPedalIdle or newPowerFx>currentPowerFx then --only shift down if we got more power doing so
-                                newGear1 = curGear1+i
+                                newGear1 = i
                                 newGear2 = curGear2-1
                                 gearFound = true
                                 break
@@ -1488,13 +1488,13 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                 local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
                 local maxPowerFx = 0
 
-                for i=0, #gearbox1-1 do
-                    if curGear1Sign==math.sign(gearbox1[#gearbox1-i].ratio) then
-                        local newEngineRpmTmp = math.abs(engineRpm * gearbox1[#gearbox1-i].ratio * gearbox2[curGear2+1].ratio/curGlobalRatio)
+                for i=#gearbox1, 1, -1 do
+                    if curGear1Sign==math.sign(gearbox1[i].ratio) then
+                        local newEngineRpmTmp = math.abs(engineRpm * gearbox1[i].ratio * gearbox2[curGear2+1].ratio/curGlobalRatio)
                         if newEngineRpmTmp<maxRpmNotGoverned then
                             maxPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
                             if maxPowerFx>(0.55+reserve+0.5*currentLoadFx)*currentPowerFx then --only shift up if we got more power doing so
-                                newGear1 = #gearbox1-i
+                                newGear1 = i
                                 newGear2 = curGear2+1
                                 break
                             end
