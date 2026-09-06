@@ -716,7 +716,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
 
                     --if math.abs(self.vehicle.lastSpeed) < 0.0003 or Vehicle.mrGetIdleTurningActive(self.vehicle) or justChangedDirection then --0.0003 = 1.08kph
                     --20250529 - use differentialRotSpeed instead of vehicle.lastSpeed => if slipping a lot, prevent starting in 3, shifting in 4, but losing all speed (while wheels are still slipping a lot) and shift back in 3 etc etc etc
-                    if math.abs(self.differentialRotSpeed) < 0.0003 or Vehicle.mrGetIdleTurningActive(self.vehicle) or justChangedDirection then --0.0003 = 1.08kph
+                    if math.abs(self.differentialRotSpeed) < 0.03 or Vehicle.mrGetIdleTurningActive(self.vehicle) or justChangedDirection then --0.03 = 1.08kph
 
                         --reset lug time
                         self.mrTransmissionLugTime = 0
@@ -728,7 +728,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                                 self.mrBestStartGearWaitingForStandstill = false
                             end
                             newGear = VehicleMotor.mrManageUpdateStartGear(self, gearSign, force)
-                            if newGear==self.previousGear then
+                            if not force and newGear==self.previousGear then
                                 --do not change gear if getBestStartGear return the same gear as previousGear
                                 newGear = self.gear
                                 --timer to allow some time for the current gear to get more rpm
@@ -736,33 +736,11 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                             else
                                 applyStartGearNeeded = true
                             end
-                        --[[elseif false and self.mrBestStartGearSelected~=0 then --acceleratorPedal~=0
-                            newGear = VehicleMotor.mrManageUpdateStartGear(self, gearSign)
---                             if self.gear>0 then
---                                 if newGear>self.gear then
---                                     newGear = self.gear --we keep bestStartGear except if new gear is lower
---                                 elseif newGear<self.gear then
---                                     newGear = self.gear - 1 --only allow one gear less
---                                 end
---                             end
-                        elseif false and self.gear~=0 then --self.mrBestStartGearSelected==0
-                            --typical case =
-                            --1. start working in 3th gear
-                            --2. the speed raises to 3kph => bestStartGearSelected is reset to 0
-                            --3. the auto shift tries to shift up to 4th gear (no powershift)
-                            --4. the speed returns below 1kph while shifting	
-                            --in such a case, we don't want to call "getBestStartGear" and shift back to 3th
-                            newGear = VehicleMotor.mrManageUpdateStartGear(self, gearSign)
-                            if newGear==self.previousGear then
-                                --do not change gear if getBestStartGear return the same gear as previousGear
-                                newGear = self.gear
-                                --timer to allow some time for the current gear to get more rpm
-                                self.mrPreventAutoGearShiftTimer = self.mrPreventAutoGearShiftTime
-                            end--]]
+
                         end
 
                     else
-                        if math.abs(self.vehicle.lastSpeed) > 0.0003 then --0.0003 = 1.08kph // avoid shifting up gears while not moving (against a wall/tree for example)
+                        if math.abs(self.vehicle.lastSpeed) > 0.03 then --0.03 = 1.08kph // avoid shifting up gears while not moving (against a wall/tree for example)
                             if self.mrBestStartGearSelected~=0 then
                                 self.autoGearChangeTimer = self.autoGearChangeTime --avoid changing gears right after switching from standstill to moving
                                 self.mrBestStartGearSelected = 0
@@ -787,17 +765,30 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                                 elseif self.mrPreventAutoGearShiftTimer<=0 then
                                     --we want to store 3 "newGear" and look at the avg before shifting
                                     --local wantedNewGear = VehicleMotor.mrFindGearChangeTargetGearPrediction(self, self.gear, self.currentGears, curGroupRatio, acceleratorPedal, dt)
-                                    local wantedNewGear, _ = VehicleMotor.mrFindBestGearCombination(self, self.gear, self.currentGears, true, nil, nil, false, acceleratorPedal, dt)
+                                    newGear, _ = VehicleMotor.mrFindBestGearCombination(self, self.gear, self.currentGears, true, nil, nil, false, acceleratorPedal, dt)
 
-                                    if self.mrNewGearPrev1==0 then
-                                        self.mrNewGearPrev1 = wantedNewGear
-                                    elseif self.mrNewGearPrev2==0 then
-                                        self.mrNewGearPrev2 = wantedNewGear
-                                    else
-                                        newGear = math.floor((self.mrNewGearPrev1 + self.mrNewGearPrev2 + wantedNewGear)/3)
-                                        self.mrNewGearPrev1 = 0
-                                        self.mrNewGearPrev2 = 0
-                                    end
+
+
+
+--                                     if self.mrNewGearPrev1==0 then
+--                                         self.mrNewGearPrev1 = wantedNewGear
+--                                     elseif self.mrNewGearPrev2==0 then
+--                                         self.mrNewGearPrev2 = wantedNewGear
+--                                         if wantedNewGear~=self.gear then
+--                                             local test = 1
+--                                         end
+--                                     else
+--                                         newGear = math.floor((self.mrNewGearPrev1 + self.mrNewGearPrev2 + wantedNewGear)/3)
+--                                         if self.mrNewGearPrev1==self.mrNewGearPrev2 and self.mrNewGearPrev1==wantedNewGear then
+--
+
+--                                         if newGear~=self.gear then
+--                                             local test = 1
+--                                         end
+
+--                                         self.mrNewGearPrev1 = 0
+--                                         self.mrNewGearPrev2 = 0
+--                                     end
 
                                 end
                             end
@@ -809,7 +800,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
         end
         if newGear ~= self.gear then
 
-            if newGear<self.gear and math.abs(self.vehicle.lastSpeed) < 0.0003 then --0.0003 = 1.08kph
+            if newGear<self.gear and math.abs(self.vehicle.lastSpeed) < 0.03 then --0.03 = 1.08kph
                 self.mrBestStartGearSelected = newGear
             end
 
@@ -858,7 +849,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
             local ratio = 0
             if self.currentGears[self.gear] ~= nil then
                 local tarRatio = self.currentGears[self.gear].ratio * self:getGearRatioMultiplier()
-                local differentialRotSpeed = math.max(math.abs(self.differentialRotSpeed), 0.0001)
+                local differentialRotSpeed = math.max(math.abs(self.differentialRotSpeed), 0.01)
                 local curRatio = math.min(self.motorRotSpeed / differentialRotSpeed, 2*math.abs(tarRatio))
                 --curRatio = math.min(self.motorRotSpeed / math.max(self.differentialRotSpeed, 0.00001), 5000)
                 ratio = MathUtil.lerp(math.abs(tarRatio), math.abs(curRatio), math.min(self.manualClutchValue^0.5, 0.9) / 0.9 * 0.5) * math.sign(tarRatio)
@@ -1354,7 +1345,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
         --increment "lug" time
         if forceLug then
             self.mrTransmissionLugTime = self.mrTransmissionLugTime + 3*dt --forcelug = 3 times faster to shift down
-        elseif self.motorRotAcceleration<10 then --less than 100rpm/s
+        elseif self.motorRotAcceleration<10 or engineRpm/minRpmWanted<0.75 then --less than 100rpm/s
             self.mrTransmissionLugTime = self.mrTransmissionLugTime + dt
         end
 
