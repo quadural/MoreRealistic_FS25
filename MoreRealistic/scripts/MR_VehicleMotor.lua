@@ -1367,17 +1367,23 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                         maxNewPowerFx = newPowerFx
                     end
 
-                    --check another gear down, just in case
-                    if curGear1>2 and curGear1Sign==math.sign(gearbox1[curGear1-2].ratio) then
-                        newEngineRpmTmp = math.abs(engineRpm * curGear2Ratio * gearbox1[curGear1-2].ratio/curGlobalRatio)
-                        if newEngineRpmTmp<maxRpmNotGoverned then
-                            newPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
-                            if accPedalIdle or newPowerFx>maxNewPowerFx then
-                                newGear1 = curGear1-2
-                                gearFound = true
+                    --check 3 more gear down if necessary
+                    for i=2, 4 do
+                        if not gearFound then
+                            break
+                        elseif curGear1>i and curGear1Sign==math.sign(gearbox1[curGear1-i].ratio) then
+                            newEngineRpmTmp = math.abs(engineRpm * curGear2Ratio * gearbox1[curGear1-i].ratio/curGlobalRatio)
+                            if newEngineRpmTmp<maxRpmNotGoverned then
+                                newPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
+                                if accPedalIdle or newPowerFx>1.05*maxNewPowerFx then
+                                    newGear1 = curGear1-i
+                                    gearFound = true
+                                    maxNewPowerFx = newPowerFx
+                                end
                             end
                         end
                     end
+
                 end
             elseif gearbox2active and curGear2>1 and curGear2Sign==math.sign(gearbox2[curGear2-1].ratio) then
                 --check gearbox2
