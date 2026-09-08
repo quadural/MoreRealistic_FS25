@@ -587,6 +587,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = BaleWrapper.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrManureSpreader then--mr manure spreader
                 neededPtoPower = MR_ManureSpreader.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrStrawBlower then--mr straw blower
+                neededPtoPower = StrawBlower.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)

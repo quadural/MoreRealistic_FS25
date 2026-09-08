@@ -8,7 +8,7 @@ MR_ManureSpreader.mrLoadMrValues = function(self, xmlFile)
     if self.mrIsMrManureSpreader then
 
         self.mrManureSpreaderIdlePower = getXMLFloat(xmlFile, "vehicle.mrManureSpreader#idlePower") or 1
-        self.mrManureSpreaderPowerFx = getXMLFloat(xmlFile, "vehicle.mrManureSpreader#powerFx") or 1 --powerFx (simplfied formula to take into account spreading technology) = (width/3)^0.6
+        self.mrManureSpreaderPowerFx = getXMLFloat(xmlFile, "vehicle.mrManureSpreader#powerFx") or 1 --powerFx (simplified formula to take into account spreading technology) = (width/3)^0.6
         self.mrManureSpreaderMaxLiterPerSecond = getXMLFloat(xmlFile, "vehicle.mrManureSpreader#maxLiterPerSecond") or 100 --maxLiterPerSecond = spread unit passage clearance width x height * 1.6 * FX (FX = 1 when no spread unit cover, FX = 0.75 when cover + discs)
 
         --Brantner TA 12050 = 2 configurations with different spreading unit
@@ -34,6 +34,7 @@ MR_ManureSpreader.mrLoadMrValues = function(self, xmlFile)
             end
         end
 
+        --Farmtech varioflex 750 : narrow and wide work mode
         if self.spec_workMode~=nil then
             local i = 0
             local xmlKey = ""

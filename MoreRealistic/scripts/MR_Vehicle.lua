@@ -82,6 +82,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         MRConveyorLoaderVehicle.mrLoadMrValues(self, xmlFile)
         BaleWrapper.mrLoadMrValues(self, xmlFile)
         MR_ManureSpreader.mrLoadMrValues(self, xmlFile)
+        StrawBlower.mrLoadMrValues(self, xmlFile)
 
         self.mrForcePtoRpm = false
 
@@ -152,6 +153,8 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
             self.mrSuspensionMinChangeForUpdate = 0.05*self.mrSuspensionReferenceMass --only update suspension if there is more than 5% difference in mass
             self.mrSuspensionLastMass = 0
         end
+
+        self.mrPreventAutoShiftTimer = 0
 
         delete(xmlFile)
 
@@ -455,6 +458,10 @@ Vehicle.mrUpdateTick = function(self, superFunc, dt)
     superFunc(self, dt)
 
     if self.isServer and self.finishedFirstUpdate then
+
+        if self.mrPreventAutoShiftTimer>0 then
+            self.mrPreventAutoShiftTimer = math.max(0, self.mrPreventAutoShiftTimer - dt)
+        end
 
         --update centerOfmass "slowly" : the game engine can get "crazy" when we change the centerofmass by too much in a short time
         for _, component in ipairs(self.components) do

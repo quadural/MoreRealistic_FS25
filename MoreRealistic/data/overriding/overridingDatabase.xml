@@ -218,6 +218,9 @@
     <vehicle fileNameToOverride="data/vehicles/caseIH/patriot50/patriot50.xml">vehicles/caseIH/patriot50.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/agrio/dinoII/dinoII.xml">vehicles/agrio/dinoII.xml</vehicle>
 
+    <!-- straw blower -->
+    <vehicle fileNameToOverride="data/vehicles/kuhn/primor15070/primor15070.xml">vehicles/kuhn/primor15070.xml</vehicle>
+
     <!-- sub soilers -->
     <vehicle fileNameToOverride="data/vehicles/agrisem/combiplow/combiplow.xml">vehicles/agrisem/combiplow.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/alpego/kForce400/kForce400.xml">vehicles/alpego/kForce400.xml</vehicle>

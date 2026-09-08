@@ -55,7 +55,7 @@
             <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(0)#maxSpeedRatio" value="2" />
             <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(1)#maxSpeedRatio" value="3" />
             <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#maxSpeedRatio" value="1.5" />
-            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#torqueRatio" value="0.85" />
+            <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#torqueRatio" value="0.9" />
 
             <!-- cummins turbocharged 8.3L 6CTA 8.3 // 45.5L/h @1900rpm and 183KW-->
             <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="45.5"/>

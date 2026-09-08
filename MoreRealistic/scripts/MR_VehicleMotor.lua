@@ -1416,6 +1416,11 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
         self.mrTransmissionLugTime = 0
     end
 
+    --20260908  - check if there is a "moveDown" action running (implement lowering into the ground)
+    if self.vehicle.mrPreventAutoShiftTimer~=nil and self.vehicle.mrPreventAutoShiftTimer>0 then
+        gearFound = true
+    end
+
     if not gearFound and absAccPedal>0.7 and engineRpm>0.5*(minRpmWanted+maxRpmWanted)*(0.5+0.5*absAccPedal)  then --only try changing gear up if acc above 70%
         --check one gear up
 

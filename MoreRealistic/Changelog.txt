@@ -521,4 +521,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Farmtech variofex 750 (manure spreader)
             - add Bergmann TSW6240W (manure psreader)
             - add Samson US235 (manure spreader)
+            - add Kuhn Primor 15070 (straw blower)
 

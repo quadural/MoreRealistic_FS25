@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="strawBlower" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+
+<mrStrawBlower idlePower="10" activePower="30" cutterPosition="0 1.9 2.1" />
+
+    <!--
+
+        IRL bales capacity =
+        4 big squares (up to 120x130x270cm)
+        or 3 round bales (up to 120x200cm)
+
+        5400kg empty weight
+
+
+        hydraulique brakes = 5T, 40% brake efficiency => 5*0.4/2 = 1
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/kuhn/primor15070/primor15070.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#mass" value="5000"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 0"/>
+
+            <set path="vehicle.base.components.component(1)#mass" value="250"/>
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.5 0.2"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="120"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="480" /> <!-- pto -->
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.98 1" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -59,16 +59,26 @@ Attachable.onFoldStateChanged = Utils.overwrittenFunction(Attachable.onFoldState
 
 
 Attachable.mrManagedLoweredEvent = function(self, lowered)
+    if self.isServer then
 
-    if self.isServer and self.spec_wheels~=nil then
-        for _, wheel in ipairs(self.spec_wheels.wheels) do
-            if wheel.physics.supportsWheelSink and wheel.physics.mrNoGroundDisplacementWhenLowered then
-                wheel.physics:setDisplacementAllowed(not lowered)
-                --wheel.physics:setDisplacementCollisionEnabled(not lowered)
+        if self.spec_wheels~=nil then
+            for _, wheel in ipairs(self.spec_wheels.wheels) do
+                if wheel.physics.supportsWheelSink and wheel.physics.mrNoGroundDisplacementWhenLowered then
+                    wheel.physics:setDisplacementAllowed(not lowered)
+                    --wheel.physics:setDisplacementCollisionEnabled(not lowered)
+                end
             end
         end
-    end
 
+        -- MR : prevent auto shifting gear up when lowering an implement
+        if lowered then
+            local attacherVehicle = self:getAttacherVehicle()
+            if attacherVehicle~=nil then
+                attacherVehicle.mrPreventAutoShiftTimer = 2000
+            end
+        end
+
+     end
 end
 
 
