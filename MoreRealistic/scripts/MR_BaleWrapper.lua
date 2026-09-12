@@ -1,7 +1,7 @@
 
 
 BaleWrapper.mrRegisterOverwrittenFunctions = function(vehicleType)
-    SpecializationUtil.registerOverwrittenFunction(vehicleType, "getDoConsumePtoPower", BaleWrapper.getDoConsumePtoPower)
+    SpecializationUtil.registerOverwrittenFunction(vehicleType, "getDoConsumePtoPower", BaleWrapper.mrGetDoConsumePtoPower)
 end
 BaleWrapper.registerOverwrittenFunctions = Utils.appendedFunction(BaleWrapper.registerOverwrittenFunctions, BaleWrapper.mrRegisterOverwrittenFunctions)
 
@@ -47,7 +47,7 @@ BaleWrapper.mrGetIsActive = function(self)
     end
 end
 
-BaleWrapper.getDoConsumePtoPower = function(self, superFunc)
+BaleWrapper.mrGetDoConsumePtoPower = function(self, superFunc)
 
     local doConsume = superFunc(self)
     if not doConsume then

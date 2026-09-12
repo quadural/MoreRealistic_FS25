@@ -83,6 +83,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         BaleWrapper.mrLoadMrValues(self, xmlFile)
         MR_ManureSpreader.mrLoadMrValues(self, xmlFile)
         StrawBlower.mrLoadMrValues(self, xmlFile)
+        ManureBarrel.mrLoadMrValues(self, xmlFile)
 
         self.mrForcePtoRpm = false
 
@@ -397,12 +398,12 @@ Vehicle.mrGetRawSpeedLimit = function(self, superFunc)
     local spdLimit = superFunc(self)
     if self.mrIsMrCombine then
         spdLimit = math.min(spdLimit, self.mrCombineSpeedLimit)
-    end
-    if self.mrIsMrBaler then
+    elseif self.mrIsMrBaler then
         spdLimit = math.min(spdLimit, self.mrBalerSpeedLimit)
-    end
-    if self.mrIsMrManureSpreader then
+    elseif self.mrIsMrManureSpreader then
         spdLimit = math.min(spdLimit, self.mrManureSpreaderSpeedLimit)
+    elseif self.mrIsMrManureBarrel then
+        spdLimit = math.min(spdLimit, self.mrManureBarrelSpeedLimit)
     end
     return spdLimit
 end

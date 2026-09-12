@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="manureBarrel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+<MR>true</MR>
+
+<mrSuspension referenceMass="11000" />
+
+<!-- slurry tanker specific settings -->
+<mrManureBarrel pumpingPower="12" pumpingLitersPerMinute="5500" workingPower="9" workingMaxLitersPerMinute="2950" workingPumpIsVacuum="true" noRegulation="true" pumpingPtoRpm="540" workingPtoRpm="400"  />
+
+    <!--
+        2.6T
+        8200L
+        hydraulic suspended drawbar
+        air brakes
+
+        vacuum pump = Jurop PN84M (9000L/min free air // 8100L/min 60% vacuum)
+        11KW/15Hp pump, 3000L/min @350pto speed
+
+        loading rate = about 5000 L/min // IRL, this value depend on the fill level since this is a vaccum pump (it also depends on slurry source depth == meters to "lift", and slurry "viscocity")
+
+        6" Möscha Verteiler S68N => 2400L/min at nominal pressure of 1 bar // 2950L/min at max pressure of 1.5bar
+
+        running gear = 12.5T, 40% brake efficiency => 12.5*0.4/2 = 2.5
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/farmtech/supercis800/supercis800.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.2 1"/>
+            <set path="vehicle.base.components.component(0)#mass" value="2200"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2.5"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="120"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="120"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="4"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="4"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrABS" value="true"/>
+
+            <!-- correct broad wheels -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(0)#dimensions" value="800_45R26_5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(1).wheels.wheel(1)#dimensions" value="800_45R26_5"/>
+
+
+            <set path="vehicle.fillTriggerVehicle#litersPerSecond" value="50" /> <!-- about 3000L/min when unloading -->
+
+            <set path="vehicle.dischargeable.dischargeNode#emptySpeed" value="50" /> <!-- about 3000L/min when unloading -->
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.55 0.9"/>
+
+            <!-- more usage for a "splash plate" spreader -->
+            <set path="vehicle.sprayer.usageScales#scale" value="1.15" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.9 1" />
+
+
+            <!-- match the working width with the spreading effect (10m instead of 15m) -->
+            <set path="vehicle.storeData.specs.workingWidth" value="10" />
+            <set path="vehicle.sprayer.usageScales#workingWidth" value="10" />
+
+            <set path="vehicle.base.objectChanges.objectChange(1)#node" value="workAreaWidth" />
+            <set path="vehicle.base.objectChanges.objectChange(1)#translationActive" value="5 0 -5" />
+
+            <set path="vehicle.base.objectChanges.objectChange(2)#node" value="workAreaHeight" />
+            <set path="vehicle.base.objectChanges.objectChange(2)#translationActive" value="-5 0 -5" />
+
+            <set path="vehicle.base.objectChanges.objectChange(3)#node" value="aiMarkerLeft" />
+            <set path="vehicle.base.objectChanges.objectChange(3)#translationActive" value="5 0 -4.8" />
+
+            <set path="vehicle.base.objectChanges.objectChange(4)#node" value="aiMarkerRight" />
+            <set path="vehicle.base.objectChanges.objectChange(4)#translationActive" value="-5 0 -4.8" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

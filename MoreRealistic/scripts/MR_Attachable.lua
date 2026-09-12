@@ -74,7 +74,7 @@ Attachable.mrManagedLoweredEvent = function(self, lowered)
         if lowered then
             local attacherVehicle = self:getAttacherVehicle()
             if attacherVehicle~=nil then
-                attacherVehicle.mrPreventAutoShiftTimer = 2000
+                attacherVehicle.mrPreventAutoShiftTimer = 1200
             end
         end
 

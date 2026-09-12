@@ -4,8 +4,13 @@ Sprayer.mrGetSprayerUsage = function(self, superFunc, fillType, dt)
 
     --2024/11/24 - this function is called for each frame in the game (even when we are in the shop, purchasing the equipment)
     if self:getIsTurnedOn() then
-        local factor = self:getLastSpeed()/self.speedLimit
-        factor = math.clamp(factor, 0.1, 1.2)
+        local factor
+        if self.mrManureBarrelNoRegulation then
+            factor = math.min(1.2, self.mrManureBarrelSpeedLimit/self.speedLimit)
+        else
+            factor = self:getLastSpeed()/self.speedLimit
+            factor = math.clamp(factor, 0.1, 1.2)
+        end
     --    print("test sprayer usage factor : ".. factor)
         local liters = superFunc(self, fillType, dt)
 
@@ -43,7 +48,7 @@ end
 --remove the double amount limited speed
 --with Mr, the usage already take into account the "double amount"
 Sprayer.getRawSpeedLimit = function(self, superFunc)
-    if not self.mrIsMrManureSpreader then
+    if not self.mrIsMrManureSpreader and not self.mrIsMrManureBarrel then
         local spec = self.spec_sprayer
         local sprayType
         if spec.workAreaParameters ~= nil then

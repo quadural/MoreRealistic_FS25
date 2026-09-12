@@ -128,6 +128,34 @@ RealisticUtils.getDatabankVehiclePath = function(configFileName)
 
 end
 
+--**********************************************************************************************************************************************************
+-- return the full path to the "dataBank" file of a given vehicle
+-- look into the "modSettings" folder
+RealisticUtils.getDatabankVehiclePath2 = function(configFileName)
+
+    local modSettingsDir = getUserProfileAppPath() .. "modSettings/"
+
+    local databankPath = modSettingsDir .. "moreRealisticXmlDatabank/convertedXml/"   --getUserProfileAppPath() .. "mrXmlDatabank/"
+    local splitXmlPath = configFileName:split("/")
+    local xmlNameOnly = splitXmlPath[#splitXmlPath] --get the last "word" in the full xml file path
+
+    local modFolderName = "default" --we can override default vehicle too by using the "default" prefix
+    local _, baseDirectory = Utils.getModNameAndBaseDirectory(configFileName)
+
+    if baseDirectory~="" then
+        local splitDirectoryPath = baseDirectory:split("/")
+        --print("test base directory - splitDirectoryPath num=".. table.getn(splitDirectoryPath) .." .. modDirectory="..splitDirectoryPath[#splitDirectoryPath-1])
+        modFolderName = splitDirectoryPath[#splitDirectoryPath-1] --  remove 1 because the last character is "/" for baseDirectory
+    end
+
+    local mrXmlDatabankFilepath = databankPath .. modFolderName .. "_MR_" .. xmlNameOnly
+
+    --print("test - " .. mrXmlDatabankFilepath .. " - baseDirectory="..baseDirectory)
+
+    return mrXmlDatabankFilepath
+
+end
+
 
 
 --***************************************************************************************************

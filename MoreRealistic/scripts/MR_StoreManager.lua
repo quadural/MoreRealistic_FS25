@@ -5,7 +5,17 @@ StoreManager.mrLoadItem = function(self, superFunc, rawXMLFilename, baseDir, cus
         if g_modIsLoaded["moreRealisticXmlDatabank"] then
             local fullFileName = baseDir .. rawXMLFilename
             local databankXmlPath = RealisticUtils.getDatabankVehiclePath(fullFileName)
-            if fileExists(databankXmlPath) then
+            local fileFound = false
+
+            if fileExists(databankXmlPath) then --try to find the file in the "mods/moreRealisticXmlDatabank/convertedXml" folder
+                fileFound = true
+            else
+                --try to load the file from the "modSettings/moreRealisticXmlDatabank/convertedXml" folder
+                databankXmlPath = RealisticUtils.getDatabankVehiclePath2(fullFileName)
+                fileFound = fileExists(databankXmlPath)
+            end
+
+            if fileFound then
                 print("-------- Found xml file in the MR 'databank' :  " .. databankXmlPath)
 
                 if RealisticUtils.databankVehiclesModifiedData[fullFileName]==nil then

@@ -40,5 +40,7 @@
     <fillType name="BALE_TWINE" density="13" /> <!-- 13kg -->
 
     <fillType name="MANURE" density="0.75" /> <!-- medium density cow manure -->
+    <fillType name="LIQUIDMANURE" density="1.02" /> <!-- cow/pig slurry -->
+    <fillType name="DIGESTATE" density="1.04" /> <!-- biogas digestate -->
 
 </fillTypes>

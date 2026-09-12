@@ -122,7 +122,10 @@
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
 
-    <!-- manure spreader -->
+    <!-- manure barrel -->
+    <vehicle fileNameToOverride="data/vehicles/farmtech/supercis800/supercis800.xml">vehicles/farmtech/supercis800.xml</vehicle>
+
+    <!-- manure spreader / slurry tanker -->
     <vehicle fileNameToOverride="data/vehicles/brantner/ta12050/ta12050.xml">vehicles/brantner/ta12050.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/hawe/dst16/dst16.xml">vehicles/hawe/dst16.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/farmtech/variofex750/variofex750.xml">vehicles/farmtech/variofex750.xml</vehicle>

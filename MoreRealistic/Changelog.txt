@@ -522,4 +522,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Bergmann TSW6240W (manure psreader)
             - add Samson US235 (manure spreader)
             - add Kuhn Primor 15070 (straw blower)
+            - add Farmtech Supercis800 (slurry tank)
+            - MR engine now also handles the "modSettings\moreRealisticXmlDatabank\convertedXml" folder to load xml of converted mod vehicles
 
