@@ -31,7 +31,9 @@ Bale.mrComputeMass = function(self)
 
             --apply factor for grass (see RealisticMain.lua for explanation)
             if desc.name=="GRASS_WINDROW" or desc.name=="GRASS" then
-                newMass = newMass * RealisticMain.BALER_GRASS_MASS_FX
+                newMass = newMass * RealisticMain.BALE_GRASS_MASS_FX
+            elseif desc.name=="SILAGE" then
+                newMass = newMass * RealisticMain.BALE_SILAGE_MASS_FX
             end
 
             setMass(self.nodeId, newMass)

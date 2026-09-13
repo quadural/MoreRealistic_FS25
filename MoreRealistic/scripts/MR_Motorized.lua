@@ -534,7 +534,7 @@ end
 Motorized.mrGetIsPowered = function(self, superFunc1, superFunc0)
     local isPowered = superFunc1(self, superFunc0)
 
-    if self.isServer and isPowered then
+    if self.isServer and isPowered and not self:getIsAIActive() then --20260913 - disable this feature when the vehicle is AI driven
         --check rpm
         local motor = self.spec_motorized.motor
         if motor.mrLastMotorObjectRotSpeed<(motor.mrMinRot-1) then

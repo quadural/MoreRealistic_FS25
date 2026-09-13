@@ -308,6 +308,12 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         self:brake(brakePedal)
         local tRot = motor.mrMinRot
         --if clutchPedalDepressed then
+
+        if motor:getUseAutomaticGearShifting() and (motor.gearChangeTimer>0 or motor.groupChangeTimer>0) then
+            --limit accpedal while autoshifting gear
+            accPedal = 0
+        end
+
         tRot = tRot + accPedal * (motor.mrMaxRot-motor.mrMinRot)
         --end
         tRot = math.max(minRotForPTOidle, tRot)
@@ -455,8 +461,8 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     if lastRatio==0 then
         if math.abs(motor.differentialRotSpeed)<0.5 then
             lastRatio = motor.mrLastMotorObjectRotSpeed * 4
-        elseif motor.differentialRotSpeed>0.5 then
-            lastRatio = motor.mrLastMotorObjectRotSpeed / motor.differentialRotSpeed
+        --elseif motor.differentialRotSpeed>0.5 then
+        --    lastRatio = motor.mrLastMotorObjectRotSpeed / motor.differentialRotSpeed
         else --<-0.5
             lastRatio = motor.mrLastMotorObjectRotSpeed / motor.differentialRotSpeed
         end

@@ -17,7 +17,8 @@ RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC = 1.5 -- default factor applied to e
 
 RealisticMain.SPRAYER_EMPTYSPEED_FX = 1.5 --default factor applied to dischargeNode#emptySpeed for sprayer
 
-RealisticMain.BALER_GRASS_MASS_FX = 0.6 -- in game, there is no difference between "forage harvester direct cut grass silage" and "mower cut and then baling silage". IRL, we do not bale just after the mower job. there is some time between the mower and the baler jobs. so that the grass can loose some "water".
+RealisticMain.BALE_GRASS_MASS_FX = 0.6 -- in game, there is no difference between "forage harvester direct cut grass silage" and "mower cut and then baling silage". IRL, we do not bale just after the mower job. there is some time between the mower and the baler jobs. so that the grass can loose some "water".
+RealisticMain.BALE_SILAGE_MASS_FX = 0.24 -- there is no magic in real world => if the bale is weighing 1000kg at the wrapping time, it means we will get 1000kg of silage. and so, we have to take into account the BALE_GRASS_MASS_FX just above and the difference betwwen grass density and silage density
 
 --VehicleDebug.setState(VehicleDebug.DEBUG_PHYSICS)
 
@@ -52,6 +53,7 @@ source(Utils.getFilename("scripts/MR_LoadTrigger.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_ManureBarrel.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_ManureSpreader.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Motorized.lua", g_currentModDirectory))
+source(Utils.getFilename("scripts/MR_MountableObject.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Mower.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_ObjectChangeUtil.lua", g_currentModDirectory))
 source(Utils.getFilename("scripts/MR_Plow.lua", g_currentModDirectory))

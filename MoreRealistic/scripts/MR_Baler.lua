@@ -104,7 +104,7 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
         if desc~=nil then
             currentKilosPerSecond = self.mrBalerLitersPerSecond * desc.massPerLiter * 1000 -- 1000 => massPerLiter is in tons, we want kilos
             if desc.name=="GRASS_WINDROW" or desc.name=="GRASS" then
-                currentKilosPerSecond = currentKilosPerSecond * RealisticMain.BALER_GRASS_MASS_FX
+                currentKilosPerSecond = currentKilosPerSecond * RealisticMain.BALE_GRASS_MASS_FX
                 currentMaxBalerTonsPerHour = currentMaxBalerTonsPerHour * self.mrBalerGrassCapacityFx
                 powerFx = math.sqrt(1 / self.mrBalerGrassCapacityFx)
             end
@@ -217,6 +217,8 @@ Baler.mrGetActiveConsumedPtoPower = function(self)
 
     if self.mrBalerLastNeededPower==0 or applyStrokePower then
         self.mrBalerLastNeededPower = neededPower
+    elseif self.mrBalerNettingTimer>0 then
+        self.mrBalerLastNeededPower = neededPower --reset power consumption function of liters per second when unloading bale (allows more engine power available for reversing if needed)
     else
         self.mrBalerLastNeededPower = 0.99*self.mrBalerLastNeededPower + 0.01*neededPower
     end
@@ -302,6 +304,8 @@ Baler.mrSetIsUnloadingBale = function(self, superFunc, isUnloadingBale, noEventS
 
     if self.mrBalerHasNettingDuration and isUnloadingBale and self.mrBalerNettingTimer==0 and not noEventSend then
         self.mrBalerNettingTimer = self.mrBalerNettingDuration
+        --reset power consumption function of liters per second when unloading bale (allows more engine power available for reversing if needed)
+        self.mrBalerLitersBuffer = 0
     else
         superFunc(self, isUnloadingBale, noEventSend)
     end

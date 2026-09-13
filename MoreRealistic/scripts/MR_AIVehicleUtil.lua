@@ -29,7 +29,8 @@ AIVehicleUtil.mrDriveToPoint = function(self, superFunc, dt, acceleration, allow
             local rotFx = math.abs(self.rotatedTime)
             if rotFx>0.1 then
                 rotFx = rotFx/math.max(self.maxRotTime, -self.minRotTime)
-                maxSpeed = math.min(12-rotFx*7, maxSpeed) -- from 12 to 6
+                rotFx = rotFx^1.25
+                maxSpeed = math.min(12-rotFx*6, maxSpeed) -- from 12 to 6
             else
                 maxSpeed = math.min(12, maxSpeed)
             end
