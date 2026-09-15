@@ -223,6 +223,7 @@
 
     <!-- straw blower -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/primor15070/primor15070.xml">vehicles/kuhn/primor15070.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/elmersMfg/ravage/ravage.xml">vehicles/elmer/ravage.xml</vehicle>
 
     <!-- sub soilers -->
     <vehicle fileNameToOverride="data/vehicles/agrisem/combiplow/combiplow.xml">vehicles/agrisem/combiplow.xml</vehicle>

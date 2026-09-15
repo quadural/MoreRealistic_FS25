@@ -12,6 +12,9 @@ StrawBlower.mrLoadMrValues = function(self, xmlFile)
             self.mrStrawBlowerCutterDirection = getXMLString(xmlFile, "vehicle.mrStrawBlower#cutterDirection") or "0 0 1"
         end
 
+        self.mrStrawBlowerLastDischargedLiters = 0
+        self.mrStrawBlowerCurrentActivePower = 0
+
     end
 
 end
@@ -25,10 +28,16 @@ StrawBlower.mrGetActiveConsumedPtoPower = function(self)
 
         neededPower = self.mrStrawBlowerIdlePower
 
-        local fillLevel = self:getFillUnitFillLevel(self.spec_strawBlower.fillUnitIndex)
-        if fillLevel>0 then
-            neededPower = neededPower + self.mrStrawBlowerActivePower
+        if self.mrStrawBlowerLastDischargedLiters>0 then
+            self.mrStrawBlowerCurrentActivePower = self.mrStrawBlowerActivePower
+            self.mrStrawBlowerLastDischargedLiters = 0
+        elseif self.mrStrawBlowerCurrentActivePower>0 then
+            self.mrStrawBlowerCurrentActivePower = math.max(0, self.mrStrawBlowerCurrentActivePower - self.mrStrawBlowerActivePower*g_physicsDtLastValidNonInterpolated/1000)
+        end
+
+        if self.mrStrawBlowerCurrentActivePower>0 then
             self.mrPowerConsumerForcePtoRpm = true
+            neededPower = neededPower + self.mrStrawBlowerCurrentActivePower
         end
 
     end
@@ -122,4 +131,14 @@ StrawBlower.mrUpdateFirstBale = function(self)
 
 end
 
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+-- MR : we want to know when the "dischargeable" vehicle is actually discharging (example : strawblower power consumption is increased when actually discharging)
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+StrawBlower.mrHandleDischarge = function(self, dischargeNode, dischargedLiters, minDropReached, hasMinDropFillLevel)
+    if self.mrIsMrStrawBlower then
+        self.mrStrawBlowerLastDischargedLiters = -dischargedLiters
+    end
+end
+Dischargeable.handleDischarge = Utils.appendedFunction(Dischargeable.handleDischarge, StrawBlower.mrHandleDischarge)
