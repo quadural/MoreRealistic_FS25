@@ -153,16 +153,21 @@ PowerConsumer.mrGetForceMultiplier = function(self)
             --check if this is a crop (growing, ripe or harvested or withered)
             local fruitTypeIndex, growState = FSDensityMapUtil.getFruitTypeIndexAtWorldPos(wx, wz)
             if fruitTypeIndex~=nil and growState~=nil then
-                --check growstate : above 1 = no already worked bonus
-                local fruitType = g_fruitTypeManager.indexToFruitType[fruitTypeIndex]
-                if fruitType and fruitType.allowsSeeding then -- we want to remove the "meadow" for example
-                    --max grow state for loosen soil
-                    local maxGrowState = math.max(fruitType.maxWeederHoeState, fruitType.maxWeederState)
-                    if fruitType.minWheelDestructionState then
-                        maxGrowState = math.max(maxGrowState, fruitType.minWheelDestructionState)
-                    end
-                    if growState<=maxGrowState then
-                        multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                --20260923 - growstate==1 means that it has just been seeded => the soil is "loosened"
+                if growState<=1 then
+                    multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                else
+                    local fruitType = g_fruitTypeManager.indexToFruitType[fruitTypeIndex]
+                    if fruitType and fruitType.allowsSeeding then -- we want to remove the "meadow" for example
+
+                        --max grow state for loosen soil
+                        local maxGrowState = math.max(fruitType.maxWeederHoeState, fruitType.maxWeederState)
+                        if fruitType.minWheelDestructionState then
+                            maxGrowState = math.max(maxGrowState, fruitType.minWheelDestructionState)
+                        end
+                        if growState<=maxGrowState then
+                            multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
+                        end
                     end
                 end
             else

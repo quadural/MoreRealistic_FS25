@@ -40,6 +40,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     newMotor.mrMinRot = newMotor.minRpm * math.pi / 30
     newMotor.mrMaxRot = newMotor.maxRpm * math.pi / 30
     newMotor.mrMinEcoRot = 0
+    newMotor.mrMinEcoRpm = 0
     newMotor.lowBrakeForceLocked = true
     newMotor.mrClutchingMaxRot = (newMotor.mrMinRot+newMotor.mrMaxRot)/2.6
 
@@ -52,6 +53,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     while rpm<maxRpm do
         local tq = torqueCurve:get(rpm)
         if newMotor.mrMinEcoRot==0 and tq>0.93*newMotor.peakMotorTorque then
+            newMotor.mrMinEcoRpm = rpm
             newMotor.mrMinEcoRot = rpm*math.pi/30
         end
 
@@ -189,7 +191,11 @@ VehicleMotor.mrChangeDirection = function(self, superFunc, direction, force)
 
             self.currentDirection = targetDirection
 
-            if self.directionChangeTime > 0 then
+            if self.directionChangeTime == 0 then
+                if self:getUseAutomaticGearShifting() then
+                    self.directionChangeTimer = 0
+                end
+            elseif self.directionChangeTime > 0 then
                 self.directionChangeTimer = self.directionChangeTime
                 self.gear = 0
                 self.minGearRatio = 0
@@ -207,20 +213,26 @@ VehicleMotor.mrChangeDirection = function(self, superFunc, direction, force)
                     self.currentGears = self.backwardGears or self.forwardGears
                 elseif self.directionChangeUseGroup then
                     self.directionLastGroup = self.activeGearGroupIndex
-                    self.activeGearGroupIndex = self.directionChangeGroupIndex
+                    if not self:getUseAutomaticGearShifting() then
+                        self.activeGearGroupIndex = self.directionChangeGroupIndex
+                    end
                 end
             else
                 if self.directionChangeUseGear then
-                    if not self:getUseAutomaticGearShifting() or not self.lastManualGearShifterActive then
+                    if not self:getUseAutomaticGearShifting() and not self.lastManualGearShifterActive then
                         if self.directionLastGear > 0 then
-                            self.targetGear = not self:getUseAutomaticGearShifting() and self.directionLastGear or self.defaultForwardGear
+                            if self.mrDirectionKeepCurrentGear or not self:getUseAutomaticGearShifting() then
+                                self.targetGear = self.directionLastGear
+                            else
+                                self.targetGear = self.defaultForwardGear
+                            end
                         else
                             self.targetGear = self.defaultForwardGear
                         end
                     end
 
                     self.currentGears = self.forwardGears
-                elseif self.directionChangeUseGroup then
+                elseif self.directionChangeUseGroup and not self:getUseAutomaticGearShifting() then
                     if self.directionLastGroup > 0 then
                         self.activeGearGroupIndex = self.directionLastGroup
                     else
@@ -229,18 +241,17 @@ VehicleMotor.mrChangeDirection = function(self, superFunc, direction, force)
                 end
             end
 
-            SpecializationUtil.raiseEvent(self.vehicle, "onGearDirectionChanged", self.currentDirection)
+            if not self:getUseAutomaticGearShifting() then
+                SpecializationUtil.raiseEvent(self.vehicle, "onGearDirectionChanged", self.currentDirection)
 
-            local directionMultiplier = self.directionChangeUseGear and self.currentDirection or 1
-            SpecializationUtil.raiseEvent(self.vehicle, "onGearChanged", self.gear * directionMultiplier, self.targetGear * directionMultiplier, self.directionChangeTime, self.previousGear)
+                local directionMultiplier = self.directionChangeUseGear and self.currentDirection or 1
+                SpecializationUtil.raiseEvent(self.vehicle, "onGearChanged", self.gear * directionMultiplier, self.targetGear * directionMultiplier, self.directionChangeTime, self.previousGear)
 
-            if self.activeGearGroupIndex ~= oldGearGroupIndex then
-                SpecializationUtil.raiseEvent(self.vehicle, "onGearGroupChanged", self.activeGearGroupIndex, self.directionChangeTime)
+                if self.activeGearGroupIndex ~= oldGearGroupIndex then
+                    SpecializationUtil.raiseEvent(self.vehicle, "onGearGroupChanged", self.activeGearGroupIndex, self.directionChangeTime)
+                end
             end
 
-            if self.directionChangeTime == 0 then
-                self:applyTargetGear()
-            end
         end
     end
 
@@ -538,57 +549,6 @@ VehicleMotor.getSpeedLimit = Utils.overwrittenFunction(VehicleMotor.getSpeedLimi
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
--- VehicleMotor:getStartInGearFactor => can be called a lot of time = it needs to be very "fast" computing wise
---we don't take into account the slope factor or pull factor or implement draftforce
---we only care about available power and mass on driven wheels
---for starting gear, we want the "smaller" (highest gear) allowing the tractor to slip without moving
---once moving, the "updateGear" function will take care of finding the best gear for the job
---
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VehicleMotor.mrGetStartInGearFactor = function(self, superFunc, ratio)
-
-    --no need to compute anything if driven wheels are not touching the ground
-    if self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels<0.1 then
-        return math.huge
-    end
-
-    --we don't want a start gear that runs at more than 2m.s-1 @1000rpm (7.2kph) => ratio = 52
-    local absRatio = math.abs(ratio)
-    if absRatio<52 then
-        return math.huge
-    end
-
-    -- if we cannot run the gear with at least 25% rpm with the current speed limit we skip it
-    if self:getRequiredRpmAtSpeedLimit(ratio) < (self.minRpm + (self.maxRpm - self.minRpm) * 0.25) then
-        return math.huge
-    end
-
-    --local maxAvailableTorque = self.peakMotorTorque - self.lastMotorExternalTorque
-    --local rimPull = absRatio*self.startGearValues.availablePower/self.peakMotorPowerRotSpeed
-    local rimPull = absRatio * (self.peakMotorTorque - self.lastMotorExternalTorque)
-    local slipFx = rimPull / (self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels)
-
-    --we only want gear ratios that nearly allow the tractor to slip without moving
-    --20260911 - take into account the current speed
-    --if slipFx<0.87 then
-    local lastSpd = self.vehicle:getLastSpeed()
-    lastSpd = math.min(20, lastSpd)
-    if slipFx<(0.87-0.015*lastSpd) then --10kph = 0.72 // 20kph = 0.57
-        return self.startGearThreshold+1/absRatio --we return a value greater than self.startGearThreshold and the larger the ratio, the smaller the value so that, if no correct gear ratio is found for starting, we would take the gear with the highest ratio possible (usually, the first gear)
-    end
-
-    --the higher the gear (small ratio), the higher factor we return (but we want to be enough small to be under startGearThreshold)
-    return 1/absRatio
-
-end
-VehicleMotor.getStartInGearFactor = Utils.overwrittenFunction(VehicleMotor.getStartInGearFactor, VehicleMotor.mrGetStartInGearFactor)
-
-
-
-
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---
 -- simplified version for MR with sub-function to enhance readability
 -- 20250427 - not so "simple" once every case are managed
 --
@@ -624,7 +584,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
             needShifting = true
         end
     end
-    if self.directionChangeTimer >= 0 then --there is a timer for dirction change running
+    if self.directionChangeTimer >= 0 then --there is a timer for direction change running
         self.directionChangeTimer = self.directionChangeTimer - dt --updating the timer (decrease remaining time)
         waitingForTimer = true
         if self.directionChangeTimer<0 then
@@ -752,8 +712,6 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                         end
                         if self.gear ~= 0 then
                             if self.autoGearChangeTimer == 0 then
-                                --local curGroupRatio = math.abs(self:getGearRatioMultiplier())
-                                --local allowSpecial = (g_time - self.mrLastGearRatioChangeTime)>1500 --at least 1500ms since last gear change
                                 if self:getUseAutomaticGroupShifting() and self.gearGroups ~= nil then
                                     local newGroup
                                     if self.gearChangeTime<=self.groupChangeTime then
@@ -767,33 +725,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                                     end
 
                                 elseif self.mrPreventAutoGearShiftTimer<=0 then
-                                    --we want to store 3 "newGear" and look at the avg before shifting
-                                    --local wantedNewGear = VehicleMotor.mrFindGearChangeTargetGearPrediction(self, self.gear, self.currentGears, curGroupRatio, acceleratorPedal, dt)
                                     newGear, _ = VehicleMotor.mrFindBestGearCombination(self, self.gear, self.currentGears, true, nil, nil, false, acceleratorPedal, dt)
-
-
-
-
---                                     if self.mrNewGearPrev1==0 then
---                                         self.mrNewGearPrev1 = wantedNewGear
---                                     elseif self.mrNewGearPrev2==0 then
---                                         self.mrNewGearPrev2 = wantedNewGear
---                                         if wantedNewGear~=self.gear then
---                                             local test = 1
---                                         end
---                                     else
---                                         newGear = math.floor((self.mrNewGearPrev1 + self.mrNewGearPrev2 + wantedNewGear)/3)
---                                         if self.mrNewGearPrev1==self.mrNewGearPrev2 and self.mrNewGearPrev1==wantedNewGear then
---
-
---                                         if newGear~=self.gear then
---                                             local test = 1
---                                         end
-
---                                         self.mrNewGearPrev1 = 0
---                                         self.mrNewGearPrev2 = 0
---                                     end
-
                                 end
                             end
                         end
@@ -912,7 +844,7 @@ VehicleMotor.mrManageUpdateStartGear = function(self, gearSign, force)
         trySelectBestGear = true
     elseif self.mrBestStartGearSelected==0 then
         trySelectBestGear = true
-    elseif self.mrBestStartGearSelected~=0 and not force then
+    elseif self.mrBestStartGearSelected~=0 and not force and self.mrPreventAutoGearShiftTimer<=0 then
         return self.mrBestStartGearSelected
     end
 
@@ -951,6 +883,11 @@ VehicleMotor.mrGetBestStartGear = function(self, gears)
 
     local maxFactor = 0
     local maxFactorGear, maxFactorGroup = 1, 1 -- use min gear in min group as default return value
+
+    --20260919 - this function can be called while the tractor is already moving (changing direction at high speed for example)
+    local minRatioWanted = self.mrClutchingMaxRot / math.max(4.444, math.abs(self.differentialRotSpeed)) --16kph = 4.444m/s => we want to limit the ratio at about 16kph @max engine rpm
+    local maxRatioWanted = self.mrMaxRot / math.max(0.5, math.abs(self.differentialRotSpeed)) --we don't want to "block" the wheels/transmission
+
     if self.gearGroups ~= nil and self:getUseAutomaticGroupShifting() then
 
         --check if 1 group = right direction, otherwise, find the first one matching the current direction
@@ -972,7 +909,7 @@ VehicleMotor.mrGetBestStartGear = function(self, gears)
 
             if not self.directionChangeUseGroup or math.sign(groupRatio) == self.currentDirection then
                 for i=1, #gears do
-                    local factor = self:getStartInGearFactor(gears[i].ratio * groupRatio)
+                    local factor = VehicleMotor.mrGetStartGearFactor(self, gears[i].ratio * groupRatio, minRatioWanted, maxRatioWanted)
                     if factor < self.startGearThreshold then
                         if factor > maxFactor then
                             maxFactor = factor
@@ -992,7 +929,7 @@ VehicleMotor.mrGetBestStartGear = function(self, gears)
     else
         local gearRatioMultiplier = self:getGearRatioMultiplier()
         for i=1, #gears do
-            local factor = self:getStartInGearFactor(gears[i].ratio * gearRatioMultiplier)
+            local factor = VehicleMotor.mrGetStartGearFactor(self, gears[i].ratio * gearRatioMultiplier, minRatioWanted, maxRatioWanted)
             if factor < self.startGearThreshold then
                 if factor > maxFactor then
                     maxFactor = factor
@@ -1013,6 +950,52 @@ VehicleMotor.mrGetBestStartGear = function(self, gears)
     end
 
     return maxFactorGear, maxFactorGroup
+end
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+-- VehicleMotor:getStartInGearFactor => can be called a lot of time = it needs to be very "fast" computing wise
+--we don't take into account the slope factor or pull factor or implement draftforce
+--we only care about available power and mass on driven wheels
+--for starting gear, we want the "smaller" (highest gear) allowing the tractor to slip without moving
+--once moving, the "updateGear" function will take care of finding the best gear for the job
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+VehicleMotor.mrGetStartGearFactor = function(self, ratio, minRatioWanted, maxRatioWanted)
+
+    --no need to compute anything if driven wheels are not touching the ground
+    if self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels<0.1 then
+        return math.huge
+    end
+
+    local absRatio = math.abs(ratio)
+
+    if absRatio<minRatioWanted or absRatio>maxRatioWanted then
+        return 1000+absRatio
+    end
+
+    -- if we cannot run the gear with at least 25% rpm with the current speed limit we skip it
+    if self:getRequiredRpmAtSpeedLimit(ratio) < (self.minRpm + (self.maxRpm - self.minRpm) * 0.25) then
+        return math.huge
+    end
+
+    --local maxAvailableTorque = self.peakMotorTorque - self.lastMotorExternalTorque
+    --local rimPull = absRatio*self.startGearValues.availablePower/self.peakMotorPowerRotSpeed
+    local rimPull = absRatio * (self.peakMotorTorque - self.lastMotorExternalTorque)
+    local slipFx = rimPull / (self.vehicle.spec_wheels.mrTotalWeightOnDrivenWheels)
+
+    --we only want gear ratios that nearly allow the tractor to slip without moving
+    --20260911 - take into account the current speed
+    --if slipFx<0.87 then
+    local lastSpd = self.vehicle:getLastSpeed()
+    lastSpd = math.min(20, lastSpd)
+    if slipFx<(0.87-0.015*lastSpd) then --10kph = 0.72 // 20kph = 0.57
+        return self.startGearThreshold+1/absRatio --we return a value greater than self.startGearThreshold and the larger the ratio, the smaller the value so that, if no correct gear ratio is found for starting, we would take the gear with the highest ratio possible (usually, the first gear)
+    end
+
+    --the higher the gear (small ratio), the higher factor we return (but we want to be enough small to be under startGearThreshold)
+    return 1/absRatio
+
 end
 
 
@@ -1038,6 +1021,7 @@ VehicleMotor.updateStartGearValues = Utils.overwrittenFunction(VehicleMotor.upda
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 VehicleMotor.mrApplyTargetGear = function(self, superFunc)
+
     local gearRatioMultiplier = self:getGearRatioMultiplier()
     self.gear = self.targetGear
     if self.gearShiftMode ~= VehicleMotor.SHIFT_MODE_MANUAL_CLUTCH then
@@ -1069,12 +1053,14 @@ VehicleMotor.mrApplyTargetGear = function(self, superFunc)
         end
 
         self.startDebug = 0
+        self.mrPreventAutoGearShiftTimer = self.autoGearChangeTime
     end
 
     self.gearChangeTime = self.gearChangeTimeOrig
 
     local directionMultiplier = self.directionChangeUseGear and self.currentDirection or 1
     SpecializationUtil.raiseEvent(self.vehicle, "onGearChanged", self.gear * directionMultiplier, self.targetGear * directionMultiplier, 0, self.previousGear)
+
 end
 VehicleMotor.applyTargetGear = Utils.overwrittenFunction(VehicleMotor.applyTargetGear, VehicleMotor.mrApplyTargetGear)
 
@@ -1445,69 +1431,84 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                     reserve = 0.05 --in pto mode, we want to be sure we have plenty power to shift up a gear
                 end
 
-                local newGlobalRatio = curGear2Ratio * gearbox1[curGear1+1].ratio
-                if newGlobalRatio>minTotalGearRatioPossible then
 
-                    local newEngineRpm = math.abs(engineRpm * newGlobalRatio/curGlobalRatio)
-                    --only shift gear up when we get more power
-                    local currentLoadFx = 1
-                    if absAccPedal<0.99 then
-                        currentLoadFx = self.smoothedLoadPercentage
-                    end
-                    local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
-                    local newPowerFx = self.torqueCurve:get(newEngineRpm)*newEngineRpm
+                local newGlobalRatio
+                local newEngineRpmTmp
+                local currentLoadFx = 1
+                if absAccPedal<0.99 then
+                    currentLoadFx = self.smoothedLoadPercentage
+                end
+                local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
+                local newPowerFx
+                local selectedNewEngineRpm = 100000
+                local bestScore = 0
 
-                    if newPowerFx>(0.55+reserve+0.5*currentLoadFx)*currentPowerFx then --1.05
-                        newGear1 = curGear1+1
-                        local selectedNewEngineRpm = newEngineRpm
-                        --check another gear up, just in case
-                        if curGear1<(#gearbox1-1) and curGear1Sign==math.sign(gearbox1[curGear1+2].ratio) then
-                            newGlobalRatio = curGear2Ratio*gearbox1[curGear1+2].ratio
-                            if newGlobalRatio>minTotalGearRatioPossible then
-                                local ratioComparison = math.abs(newGlobalRatio/curGlobalRatio)
-                                --if ratioComparison>0.49 then --do not allow shifting 2 gears up if there is a factor greater than 2 between the current gear and the new gear
-                                    newEngineRpm = engineRpm * ratioComparison
-                                    newPowerFx = self.torqueCurve:get(newEngineRpm)*newEngineRpm
-                                    --if (ptoMode==false or newEngineRpm>0.9*minRpmWanted) and newPowerFx>(1.15+reserve)*currentPowerFx then --2 gears up only if it provides more than 15% increased power
-                                    local rpmMinFx = math.min(3, newPowerFx/currentPowerFx)
-                                    if newEngineRpm>(1-0.08*rpmMinFx)*minRpmWanted and newPowerFx>(1.15+reserve)*currentPowerFx then --2 gears up only if it provides more than 15% increased power
-                                        newGear1 = curGear1+2
-                                        selectedNewEngineRpm = newEngineRpm
-                                        --check again another gear up, just in case
-                                        if curGear1<(#gearbox1-2) and curGear1Sign==math.sign(gearbox1[curGear1+3].ratio) then
-                                            newGlobalRatio = curGear2Ratio*gearbox1[curGear1+3].ratio
-                                            if newGlobalRatio>minTotalGearRatioPossible then
-                                                ratioComparison = math.abs(newGlobalRatio/curGlobalRatio)
-                                                --if ratioComparison>0.44 then --do not allow shifting 3 gears up if there is a factor greater than 2.25 between the current gear and the new gear
-                                                    newEngineRpm = engineRpm * ratioComparison
-                                                    newPowerFx = self.torqueCurve:get(newEngineRpm)*newEngineRpm
-                                                    rpmMinFx = math.min(3, newPowerFx/currentPowerFx)
-                                                    --if (ptoMode==false or newEngineRpm>0.9*minRpmWanted) and newPowerFx>(1.25+reserve)*currentPowerFx then  --3 gears up only if it provides more than 25% increased power
-                                                    if newEngineRpm>(1-0.08*rpmMinFx)*minRpmWanted and newPowerFx>(1.25+reserve)*currentPowerFx then  --3 gears up only if it provides more than 25% increased power
-                                                        newGear1 = curGear1+3
-                                                        selectedNewEngineRpm = newEngineRpm
-                                                    end
-                                                --end
-                                            end
-                                        end
+                for i=curGear1+1, #gearbox1 do
+                    if curGear1Sign ~= math.sign(gearbox1[i].ratio) then
+                        break
+                    else
+                        newGlobalRatio = curGear2Ratio * gearbox1[i].ratio
+                        if newGlobalRatio<minTotalGearRatioPossible then
+                            break
+                        else
+                            newEngineRpmTmp = math.abs(engineRpm * newGlobalRatio/curGlobalRatio)
+                            newPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
+                            local score
+
+                            if newPowerFx>=(0.5+reserve+0.5*currentLoadFx)*currentPowerFx then --powershift logic = shift up as soon as we get more power
+
+                                --we don't want too "harsh" shift up
+                                --Example : challenger MT665 going from 10 to 15th gear
+                                --But we want to be able to skip several gears is needed => example : MF 5700S dyna6, starting in 1A and then shiftup all the way to 1F
+                                --Solution = limit the difference in "kph" between the current gear and the target gear
+                                --speed(m/s) = engine rot (rad/s) / ratio
+                                --speed1 - speed2 = engine rot * (1/ratio1 - 1/ratio2)
+                                --diffSpeed = maxEngineRpmNotGoverned * (1/ratio1 - 1/ratio2)
+
+                                --only work when we check higher gears - skip the first one that is correct (we don't want to remain in a gear because of the "diffSpeed" check)
+                                if bestScore~=0 then
+                                    local diffSpeed = maxRpmNotGoverned * 0.10472 * (1/newGlobalRatio - 1/curGlobalRatio) --pi / 30 = 0.10472
+                                    if diffSpeed>2 then --2m/s = 7.2kph
+                                        break
                                     end
-                                --end
-                            end
-                        end
+                                end
 
-                        --20250422 - check if we are under wantedRpmMin
-                        if selectedNewEngineRpm<minRpmWanted then
-                            --timer to allow the engine to rev up (it should since we give it more power)
-                            self.mrTransmissionLastShiftDirection = 1
-                            self.mrTransmissionLastShiftDirectionTimer = self.mrTransmissionLastShiftDirectionTime
+                                if newEngineRpmTmp>=self.mrPowerBandMinRpm then
+                                    score = 100 + i --10 + gearNumber => we want the highest gear possible to avoid shift up each gear if not required
+                                elseif newEngineRpmTmp>=self.mrMinEcoRpm then
+                                    --in case we don't find a "maxPowerBand" gear, we can use an "ecoRpm" gear
+                                    if newPowerFx>=2*currentPowerFx then
+                                        score = 100 + i
+                                    else
+                                        score = 10 + i
+                                    end
+                                else
+                                    score = i --in case no "maxPowerBand" gear is found, no "ecoRpm" gear is found, we can take any gear, provided the new powerFx is greater than the current one
+                                end
+                                if score>=bestScore then
+                                    bestScore = score
+                                    newGear1 = i
+                                    selectedNewEngineRpm = newEngineRpmTmp
+                                elseif bestScore~=0 then --we got a worse score than the previous one (score<bestScore and bestScore not 0) = no need to proceed further
+                                    break
+                                end
+                            end
+
                         end
                     end
+                end --end for
+
+                --20250422 - check if we are under wantedRpmMin
+                if selectedNewEngineRpm<minRpmWanted then
+                    --timer to allow the engine to rev up (it should since we give it more power)
+                    self.mrTransmissionLastShiftDirection = 1
+                    self.mrTransmissionLastShiftDirectionTimer = self.mrTransmissionLastShiftDirectionTime
                 end
 
             end
 
         elseif gearbox2active and curGear2<#gearbox2 and curGear2Sign==math.sign(gearbox2[curGear2+1].ratio) then
-
+            --gearbox2 is the "slower" gearbox => shift up logic here
             self.mrTransmissionNeedShiftUpTime = self.mrTransmissionNeedShiftUpTime + dt
             if self.mrTransmissionNeedShiftUpTime>self.mrTransmissionNeedShiftUpMaxTime then
                 local reserve = 0
@@ -1521,26 +1522,48 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                     currentLoadFx = self.smoothedLoadPercentage
                 end
                 local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
-                local maxPowerFx = 0
+                local newPowerFx = 0
+                local bestScore = 0
 
-                for i=#gearbox1, 1, -1 do
-                    if curGear1Sign==math.sign(gearbox1[i].ratio) then
+                for i=curGear1, 1, -1 do
+                    if curGear1Sign~=math.sign(gearbox1[i].ratio) then
+                        break
+                    else
                         local newGlobalRatio = gearbox1[i].ratio * gearbox2[curGear2+1].ratio
-                        if newGlobalRatio>minTotalGearRatioPossible then
+                        if newGlobalRatio>=minTotalGearRatioPossible then
                             local newEngineRpmTmp = math.abs(engineRpm * newGlobalRatio/curGlobalRatio)
-                            if newEngineRpmTmp<maxRpmNotGoverned then
-                                maxPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
-                                if maxPowerFx>(0.55+reserve+0.5*currentLoadFx)*currentPowerFx then --only shift up if we got more power doing so
-                                    newGear1 = i
-                                    newGear2 = curGear2+1
-                                    break
-                                end
-                            else
+                            if newEngineRpmTmp>=maxRpmNotGoverned then
                                 break
+                            else
+                                newPowerFx = self.torqueCurve:get(0.9*newEngineRpmTmp)*0.9*newEngineRpmTmp --0.9 factor because this is the slow gearbox => we loose speed while shifting gear, the "landing" rpm will be lower than expected
+                                local score
+
+                                if newPowerFx>=(0.55+reserve+0.5*currentLoadFx)*currentPowerFx then
+                                    if newEngineRpmTmp>=self.mrPowerBandMinRpm then
+                                        score = 100 + i --10 + gearNumber => we want the highest gear possible to avoid shift up each gear if not required
+                                    elseif newEngineRpmTmp>=self.mrMinEcoRpm then
+                                        --in case we don't find a "maxPowerBand" gear, we can use an "ecoRpm" gear
+                                        if newPowerFx>=2*currentPowerFx then
+                                            score = 100 + i
+                                        else
+                                            score = 10 + i
+                                        end
+                                    else
+                                        score = i --in case no "maxPowerBand" gear is found, no "ecoRpm" gear is found, we can take any gear, provided the new powerFx is greater than the current one
+                                    end
+                                    if score>=bestScore then
+                                        bestScore = score
+                                        newGear1 = i
+                                        newGear2 = curGear2+1
+                                    elseif bestScore~=0 then --we got a worse score than the previous one (score<bestScore and bestScore not 0) = no need to proceed further
+                                        break
+                                    end
+                                end
+
                             end
                         end
                     end
-                end
+                end --end for
             end
 
         end

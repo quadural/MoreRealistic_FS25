@@ -36,6 +36,8 @@ AIVehicleUtil.mrDriveToPoint = function(self, superFunc, dt, acceleration, allow
             end
         end
 
+        maxSpeed = math.max(6, maxSpeed)
+
         superFunc(self, dt, acceleration, allowedToDrive, moveForwards, tX, tZ, maxSpeed, doNotSteer)
     end
 

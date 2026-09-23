@@ -154,7 +154,7 @@
             <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission" />
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#name" value="$l10n_info_transmission_manualWithPowerShiftGroups" />
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.85"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0.3"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGear" value="true"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGroup" value="false"/>

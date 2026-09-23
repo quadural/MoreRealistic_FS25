@@ -348,5 +348,33 @@ Baler.mrOnTurnedOn = function(self, superFunc)
 end
 Baler.onTurnedOn = Utils.overwrittenFunction(Baler.onTurnedOn, Baler.mrOnTurnedOn)
 
+--[[
+--fix bug : when a player is joigning the game and another player is already baling. The joigning player can get a "bug" =>
+LUA call stack:
+  =[C]:-1 delete
+  =dataS/scripts/vehicles/specializations/Baler.lua:2256 deleteDummyBale
+  =dataS/scripts/vehicles/specializations/Baler.lua:1994 createBale
+  =dataS/scripts/vehicles/specializations/events/BalerCreateBaleEvent.lua:66 run
+  =dataS/scripts/vehicles/specializations/events/BalerCreateBaleEvent.lua:45 readStream
+  =dataS/scripts/network/Client.lua:504 packetReceived
+  =dataS/scripts/network/ConnectionManager.lua:27 packetReceived
+
+  --]]
+Baler.mrDeleteDummyBale = function(self, superFunc, dummyBaleData)
+    if dummyBaleData ~= nil then
+        if dummyBaleData.currentBale ~= nil then
+            if entityExists(dummyBaleData.currentBale) then --Mr : check if the object actually exist
+                delete(dummyBaleData.currentBale)
+            end
+            dummyBaleData.currentBale = nil
+        end
+        if dummyBaleData.sharedLoadRequestId ~= nil then
+            g_i3DManager:releaseSharedI3DFile(dummyBaleData.sharedLoadRequestId)
+            dummyBaleData.sharedLoadRequestId = nil
+        end
+    end
+end
+Baler.deleteDummyBale = Utils.overwrittenFunction(Baler.deleteDummyBale, Baler.mrDeleteDummyBale)
+
 
 
