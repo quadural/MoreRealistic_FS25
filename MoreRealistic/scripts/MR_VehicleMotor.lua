@@ -206,7 +206,7 @@ VehicleMotor.mrChangeDirection = function(self, superFunc, direction, force)
             if self.currentDirection < 0 then
                 if self.directionChangeUseGear then
                     self.directionLastGear = self.targetGear
-                    if not self:getUseAutomaticGearShifting() or not self.lastManualGearShifterActive then
+                    if not self:getUseAutomaticGearShifting() or not self.lastManualShifterActive then
                         self.targetGear = self.directionChangeGearIndex
                     end
 
@@ -219,7 +219,7 @@ VehicleMotor.mrChangeDirection = function(self, superFunc, direction, force)
                 end
             else
                 if self.directionChangeUseGear then
-                    if not self:getUseAutomaticGearShifting() and not self.lastManualGearShifterActive then
+                    if not self:getUseAutomaticGearShifting() or not self.lastManualShifterActive then
                         if self.directionLastGear > 0 then
                             if self.mrDirectionKeepCurrentGear or not self:getUseAutomaticGearShifting() then
                                 self.targetGear = self.directionLastGear
@@ -250,6 +250,10 @@ VehicleMotor.mrChangeDirection = function(self, superFunc, direction, force)
                 if self.activeGearGroupIndex ~= oldGearGroupIndex then
                     SpecializationUtil.raiseEvent(self.vehicle, "onGearGroupChanged", self.activeGearGroupIndex, self.directionChangeTime)
                 end
+            end
+
+            if self.directionChangeTime == 0 and not self:getUseAutomaticGearShifting() then
+                self:applyTargetGear()
             end
 
         end
