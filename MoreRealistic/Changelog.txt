@@ -526,4 +526,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - MR engine now also handles the "modSettings\moreRealisticXmlDatabank\convertedXml" folder to load xml of converted mod vehicles
             - add Elmer Ravage (straw blower)
             - add Massey Ferguson 5700S (tractor)
+            - better autoshift logic, especially for fullpowershift/semi-powershift gearboxes
+            - add Claas 400 (tractor)
+            - fix problem with AutoDrive using "mrUpdateStartGearValues" (Autodrive can't use MR transmission management)
 

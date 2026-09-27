@@ -1,6 +1,8 @@
 
 WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking)
 
+    self.mrTransmissionManagedByMR = false
+
     --update mrLastUpdateWheelsPhysicsTime
     --useful when automatic motor start/stop is not enabled => when entering a vehicle with engine ON, most of the time the vehicle would drive a little bit because we are controlling the player moving toward the tractor when pressing the "E" key to enter it
     local lastCallTime = self.mrLastUpdateWheelsPhysicsTime
@@ -35,6 +37,8 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
         return superFunc(self, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking)
     end
     -------------------------------------------------
+
+    self.mrTransmissionManagedByMR = true
 
 
     --20250511 - AIVehicleUtil.driveAlongCurvature set the doHandbrake parameter to true as soon as the "maxspeed" is >0

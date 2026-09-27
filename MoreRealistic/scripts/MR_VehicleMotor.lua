@@ -822,10 +822,6 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
 end
 
 
-
-
-
-
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
 --new function to separate code from updateGear
@@ -1011,10 +1007,14 @@ end
 -- No more 32GB+ memory usage by "GIANTS Engine"
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VehicleMotor.mrUpdateStartGearValues = function(self,superFunc, dt)
-    local neededPtoTorque = PowerConsumer.getTotalConsumedPtoTorque(self.vehicle, nil, nil, true) / self:getPtoMotorRpmRatio()
-    local ptoPower = self.peakMotorPowerRotSpeed * neededPtoTorque
-    self.startGearValues.availablePower = self.peakMotorPower - ptoPower
+VehicleMotor.mrUpdateStartGearValues = function(self, superFunc, dt)
+    if self.mrTransmissionManagedByMR then
+        local neededPtoTorque = PowerConsumer.getTotalConsumedPtoTorque(self.vehicle, nil, nil, true) / self:getPtoMotorRpmRatio()
+        local ptoPower = self.peakMotorPowerRotSpeed * neededPtoTorque
+        self.startGearValues.availablePower = self.peakMotorPower - ptoPower
+    else
+        superFunc(self, dt)
+    end
 end
 VehicleMotor.updateStartGearValues = Utils.overwrittenFunction(VehicleMotor.updateStartGearValues, VehicleMotor.mrUpdateStartGearValues)
 
