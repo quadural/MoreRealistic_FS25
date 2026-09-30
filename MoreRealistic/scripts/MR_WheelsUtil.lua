@@ -3,6 +3,9 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
 
     self.mrTransmissionManagedByMR = false
 
+    self.spec_motorized.mrEngineIsBraking = true --reset engineBraking
+    self.spec_motorized.mrEngineBrakingPowerToApply = 0
+
     --update mrLastUpdateWheelsPhysicsTime
     --useful when automatic motor start/stop is not enabled => when entering a vehicle with engine ON, most of the time the vehicle would drive a little bit because we are controlling the player moving toward the tractor when pressing the "E" key to enter it
     local lastCallTime = self.mrLastUpdateWheelsPhysicsTime
@@ -72,9 +75,6 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     if motor.clutchSlippingTimer<=0 then
        motor.mrLastMinMotorRot = 0
     end
-
-    self.spec_motorized.mrEngineIsBraking = true --reset engineBraking
-    self.spec_motorized.mrEngineBrakingPowerToApply = 0
 
     local neededPtoTorque, ptoTorqueVirtualMultiplicator = 0,0
 

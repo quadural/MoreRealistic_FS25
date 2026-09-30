@@ -1008,7 +1008,7 @@ end
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 VehicleMotor.mrUpdateStartGearValues = function(self, superFunc, dt)
-    if self.mrTransmissionManagedByMR then
+    if self.mrTransmissionManagedByMR then --20260927 - AutoDrive can't use MR transmission autoshift logic.
         local neededPtoTorque = PowerConsumer.getTotalConsumedPtoTorque(self.vehicle, nil, nil, true) / self:getPtoMotorRpmRatio()
         local ptoPower = self.peakMotorPowerRotSpeed * neededPtoTorque
         self.startGearValues.availablePower = self.peakMotorPower - ptoPower

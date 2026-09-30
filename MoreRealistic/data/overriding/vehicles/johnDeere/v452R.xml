@@ -65,6 +65,10 @@
 
             <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.8 -1"/>
 
+            <!-- fix pickup missing a few spot sometimes -->
+            <set path="vehicle.base.objectChanges.objectChange(2)#node" value="workAreaHeight" />
+            <set path="vehicle.base.objectChanges.objectChange(2)#translationActive" value="1.4 0 0.032" />
+
         </attributes>
     </parentFile>
 

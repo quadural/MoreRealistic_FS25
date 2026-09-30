@@ -529,4 +529,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - better autoshift logic, especially for fullpowershift/semi-powershift gearboxes
             - add Claas 400 (tractor)
             - fix problem with AutoDrive using "mrUpdateStartGearValues" (Autodrive can't use MR transmission management)
+            - add Rudolph tdk301RA/RP and DK280RP trailers
 
