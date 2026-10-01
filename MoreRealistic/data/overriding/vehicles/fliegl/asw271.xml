@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="trailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+    <mrSuspension referenceMass="24000" />
+
+    <!--
+
+        about 6600kg empty weight with 385/65r22.5
+        ingame = 2m sides, ready for rear tool unit (pto shaft), 710/50R26.5 => about 7250kg default and 7700kg with spreading unit
+
+        running gears = BPW, 2x9T
+        braking = 410x120 + load balancing ALB
+
+    -->
+
+    <mrManureSpreader idlePower="3" powerFx="2.5" maxLiterPerSecond="80" /> <!-- less output than dedicated manure spreader -->
+
+
+
+    <parentFile xmlFilename="$data/vehicles/fliegl/asw271/asw271.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="20" /> <!-- MR engine will regulate the speed limit according to the "maxLiterPerSecond" of the spreader unit -->
+
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.7 -0.5"/>
+            <set path="vehicle.base.components.component(0)#mass" value="6250"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="3"/>
+
+            <!-- correct tires -->
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.15"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.15"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="110"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="110"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="6"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="6"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#yOffset" value="0.032"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#yOffset" value="0.032"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#yOffset" value="0.035"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#yOffset" value="0.035"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrABS" value="true"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrABS" value="true"/>
+
+
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="490" /> <!-- pto -->
+
+            <!-- fill center of mass - default -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.4 -1.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="35000"/>
+
+            <!-- fill center of mass - manure spreader unit -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.5 -1.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#capacity" value="32000"/>
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJointConfigurations.inputAttacherJointConfiguration(0).inputAttacherJoint#lowerRotLimitScale" value="1 0.93 1" />
+            <set path="vehicle.attachable.inputAttacherJointConfigurations.inputAttacherJointConfiguration(1).inputAttacherJoint#lowerRotLimitScale" value="1 0.93 1" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#endSpeed" value="40" />
+            <set path="vehicle.attachable.steeringAxleAngleScale#speedDependent" value="true" />
+
+            <!-- empty speed -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="1600"/> <!-- back -->
+            <set path="vehicle.trailer.trailerConfigurations.trailerConfiguration(0).trailer.tipSide(0).animation#speedScale" value="0.75" />
+
+            <set path="vehicle.dischargeable.dischargeNode(1)#emptySpeed" value="400"/> <!-- grain door -->
+            <set path="vehicle.trailer.trailerConfigurations.trailerConfiguration(0).trailer.tipSide(1).animation#speedScale" value="0.4" />
+
+            <!-- manure spreader unit additional weight -->
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(12)#node" value="asw271_main_component1" />
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(12)#mrAddMassActive" value="450" />
+            <set path="vehicle.vehicleTypeConfigurations.vehicleTypeConfiguration(1).objectChange(12)#mrAddMassCOMActive" value="0 2.2 -4" />
+
+            <!-- manure spreader unit opening door speed -->
+            <set path="vehicle.foldable.foldingConfigurations.foldingConfiguration(1).foldingParts.foldingPart(0)#speedScale" value="0.6" />
+
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

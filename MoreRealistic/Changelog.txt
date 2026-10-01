@@ -531,3 +531,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - fix problem with AutoDrive using "mrUpdateStartGearValues" (Autodrive can't use MR transmission management)
             - add Rudolph tdk301RA/RP and DK280RP trailers
 
+202610XX    - add fliegl ASW 271 trailer/manure spreader
+

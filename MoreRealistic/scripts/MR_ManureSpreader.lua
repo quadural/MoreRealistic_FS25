@@ -65,7 +65,11 @@ end
 
 MR_ManureSpreader.mrGetActiveConsumedPtoPower = function(self)
 
-    local isTurnedOn = self:getIsTurnedOn()
+    local isTurnedOn = false
+    if self.getIsTurnedOn~=nil then
+        isTurnedOn = self:getIsTurnedOn()
+    end
+
     local neededPower = 0
 
     self.mrManureSpreaderSpeedLimit = 999

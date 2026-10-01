@@ -276,6 +276,7 @@
     <vehicle fileNameToOverride="data/vehicles/rudolphSohn/tdk301RA/tdk301RA.xml">vehicles/rudolphSohn/tdk301RA.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/rudolphSohn/tdk301RP/tdk301RP.xml">vehicles/rudolphSohn/tdk301RP.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/rudolphSohn/dk280RP/dk280RP.xml">vehicles/rudolphSohn/dk280RP.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/fliegl/asw271/asw271.xml">vehicles/fliegl/asw271.xml</vehicle>
 
     <!-- trucks -->
     <vehicle fileNameToOverride="data/vehicles/volvo/fh16/fh16.xml">vehicles/volvo/fh16.xml</vehicle>
