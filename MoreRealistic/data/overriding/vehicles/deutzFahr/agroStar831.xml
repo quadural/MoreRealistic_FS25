@@ -143,6 +143,9 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(8)#maxSpeed" value="11.824"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(8)#name" value="R9"/>
 
+            <!-- fix visual bug = driver using it left foot to use the clutch when shifting gears (powershift here) -->
+            <set path="vehicle.motorized.dashboards.dashboard(3)#groups" value="MOTOR_STARTING" />
+
 
 
          </attributes>
