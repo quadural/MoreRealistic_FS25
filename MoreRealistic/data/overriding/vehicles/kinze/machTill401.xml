@@ -28,7 +28,7 @@
         <attributes>
 
             <set path="vehicle.base.components.component(0)#mass" value="14600" /> <!-- main -->
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -1.4" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.8 0.9" /> <!-- folded state -->
 
             <!-- remove unrealistic tube roller config -->
             <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="false"/>

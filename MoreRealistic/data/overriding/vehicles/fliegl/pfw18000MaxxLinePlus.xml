@@ -60,6 +60,12 @@
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#mrABS" value="true"/>
             <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#mrABS" value="true"/>
 
+            <!-- fix visual bug = too much steering angle -->
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).steeringAxle#rotMax" value="11"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).steeringAxle#rotMin" value="-9"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).steeringAxle#rotMax" value="9"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).steeringAxle#rotMin" value="-11"/>
+
 
             <set path="vehicle.fillTriggerVehicle#litersPerSecond" value="130" /> <!-- about 7800L/min when unloading -->
 
