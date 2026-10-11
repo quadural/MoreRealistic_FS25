@@ -535,4 +535,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Krampe HP20 (dump trailer)
             - add Fliegl PFW18000 MAXXLINE PLUS (slurry tanker)
             - fix center of mass bug with Kinze MatchTill401 when loading a savegame and the tool is folded (the center of mass was the one in the unfolded state)
+            - Pottinger aerosem VT 5000 = no more "maxMass" for components
+            - Weather : rewrite of the "wetness" and "dmpness" MR system => do not take into account the "month". Only relies on the current temperatures settings and sun/not sun. (so higly dependant on the map settings now)
 

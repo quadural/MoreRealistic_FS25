@@ -164,6 +164,11 @@ VehicleDebug.mrDrawBaseDebugRendering = function(self, superFunc, x, y)
         end
     end
 
+    if Weather.mrCurrentWetnessMin~=nil then
+        setTextAlignment(RenderText.ALIGN_LEFT)
+        renderText(0.71, 0.913, textSize, string.format("MinWetness: %1.2f / Damp: %1.2f / Wetness: %1.2f", Weather.mrCurrentWetnessMin, Weather.mrCurrentWetnessDamp, Weather.mrCurrentWetness))
+    end
+
     return ret
 
 end

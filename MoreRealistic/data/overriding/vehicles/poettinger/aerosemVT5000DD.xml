@@ -15,6 +15,8 @@
 
             <set path="vehicle.base.speedLimit#value" value="12" /> <!-- power harrow = not suitable for high working speed -->
 
+            <remove path="vehicle.base.components#maxMass" />
+
             <set path="vehicle.base.components.component(0)#mass" value="6400" />
             <set path="vehicle.base.components.component(1)#mass" value="800" />
             <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.5 -0.6" />

@@ -153,8 +153,9 @@ PowerConsumer.mrGetForceMultiplier = function(self)
             --check if this is a crop (growing, ripe or harvested or withered)
             local fruitTypeIndex, growState = FSDensityMapUtil.getFruitTypeIndexAtWorldPos(wx, wz)
             if fruitTypeIndex~=nil and growState~=nil then
-                --20260923 - growstate==1 means that it has just been seeded => the soil is "loosened"
-                if growState<=1 then
+                if growState==0 then
+                    --nothing to do (example : my test map, when working the "grass" of the map - not field) -> no bonus
+                elseif growState==1 then --20260923 - growstate==1 means that it has just been seeded => the soil is "loosened"
                     multiplier = multiplier * PowerConsumer.mrGetAlreadyWorkedDraftForceMultiplier(self.mrStoreCategory)
                 else
                     local fruitType = g_fruitTypeManager.indexToFruitType[fruitTypeIndex]
@@ -356,7 +357,7 @@ PowerConsumer.mrGetDraftForceMultiplier = function(toolCategory, speed, wetness,
         if speed<2 then
             multiplier = 0.8
         else
-            multiplier = 0.7336+0.0333*speed --high horse power needed to go fast
+            multiplier = 0.7336+0.0333*speed --high horse power needed to go fast // 50% more speed = 13% more draft
         end
         --no malus with wetness for plough draftforce
     elseif toolCategory=="cultivators" then
@@ -373,9 +374,9 @@ PowerConsumer.mrGetDraftForceMultiplier = function(toolCategory, speed, wetness,
     elseif toolCategory=="discHarrows" then
         --curve for disc cultivators
         if speed<12 then
-            multiplier = 0.9+0.0084*speed
+            multiplier = 0.9+0.0084*speed -- 50% more speed = 3-4% more draft
         else
-            multiplier = 0.7008+0.025*speed
+            multiplier = 0.7008+0.025*speed --50% more speed = 15% more draft
         end
         --"quick" penalty with wetness for disc harrows
         multiplier = multiplier * (1 + wetness)

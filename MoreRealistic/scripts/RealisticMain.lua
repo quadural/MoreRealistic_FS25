@@ -103,6 +103,14 @@ function RealisticMain:loadMap(name)
     g_currentMission.environment.weather.getGroundWetness = Utils.overwrittenFunction(g_currentMission.environment.weather.getGroundWetness, Weather.mrGetGroundWetness)
 end
 
+function RealisticMain:update(dt)
+    --update weather data once every 2s
+    Weather.mrUpdateTimer = Weather.mrUpdateTimer - dt
+    if Weather.mrUpdateTimer<=0 then
+        g_currentMission.environment.weather:getGroundWetness(true, 2000) --true means we want to update MR values for damp and minWetness
+        Weather.mrUpdateTimer = 2000
+    end
+end
 
 --allow to use the following functions :
 --draw()
