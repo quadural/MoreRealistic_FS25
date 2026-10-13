@@ -172,7 +172,8 @@ Vehicle.mrLoadComponentFromXML = function(self, superFunc, component, xmlFile, k
         component.mrDefaultCOMx = x0
         component.mrDefaultCOMy = y0
         component.mrDefaultCOMz = z0
-        component.mrDefaultMass = getMass(component.node)
+        --20261013 - use component.defaultMass instead of getMass(component.node) to avoid problem with wrong mass for "client side" code. (not server = the component is kinematic, and so, by using the "getMass(node)", we get the i3d mass of the node)
+        component.mrDefaultMass = component.defaultMass --getMass(component.node)
         component.mrDefaultMassBAK = component.mrDefaultMass
 
         component.mrAdditionalMassWithCOM = {}
