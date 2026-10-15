@@ -415,9 +415,9 @@ WheelPhysics.mrGetRrFx = function(width, radius, tireLoad, groundType, groundSub
         --limit max pressure (IRL, there would be no difference between 7bars or 20bars in bad conditions)
         pressureFx = math.min(pressureFx, 7) * inlineAxleFx
         if wetness==0 then
-            rrFx = WheelPhysics.mrGetSoftTerrainDryFx(pressureFx, groundType, groundSubType)
+            rrFx = WheelPhysics.mrGetSoftTerrainDryFx(pressureFx, groundType, groundSubType, isDrivenWheel)
         elseif wetness==1 then
-            rrFx = WheelPhysics.mrGetSoftTerrainWetFx(pressureFx, groundType, groundSubType)
+            rrFx = WheelPhysics.mrGetSoftTerrainWetFx(pressureFx, groundType, groundSubType, isDrivenWheel)
         else --in between wetness
             wetness = wetness^0.5
             rrFx = (1-wetness) * WheelPhysics.mrGetSoftTerrainDryFx(pressureFx, groundType, groundSubType, isDrivenWheel) + wetness * WheelPhysics.mrGetSoftTerrainWetFx(pressureFx, groundType, groundSubType, isDrivenWheel)
