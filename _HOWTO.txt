@@ -1,3 +1,9 @@
-get the latest "MoreRealisticXXXXXX.zip" file
-rename it "MoreRealistic"
-put it into your FS25 mods folder
+Download the playable MoreRealistic.zip file directly:
+https://raw.githubusercontent.com/quadural/MoreRealistic_FS25/main/MoreRealistic.zip
+
+Place the ZIP unchanged into:
+Documents\My Games\FarmingSimulator2025\mods\MoreRealistic.zip
+
+Do not extract it. Do NOT use GitHub's "Code > Download ZIP": that
+downloads the source repository, not a game-ready mod archive.
+The playable ZIP must contain modDesc.xml at its root.
