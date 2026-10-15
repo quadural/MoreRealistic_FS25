@@ -60,7 +60,22 @@ try {
         }
         $checked++
     }
-    if ($checked -lt 50) {
+    # Source-parity by itself is not enough: the ZIP might omit a Lua file
+    # that RealisticMain.lua loads unconditionally at game startup.
+    $mainLua = [IO.File]::ReadAllText((Join-Path $sourceRoot 'scripts\RealisticMain.lua'))
+    $referenced = [regex]::Matches(
+        $mainLua,
+        'source\(Utils\.getFilename\("([^"]+)",\s*g_currentModDirectory\)\)'
+    )
+    if ($referenced.Count -lt 30) {
+        throw "Unexpectedly few startup script references: $($referenced.Count)"
+    }
+    foreach ($match in $referenced) {
+        $required = $match.Groups[1].Value
+        if (-not $names.Contains($required)) {
+            throw "Runtime script referenced in RealisticMain.lua missing from ZIP: $required"
+        }
+    }    if ($checked -lt 50) {
         throw "Unexpectedly small package: $checked files"
     }
     $modDesc = [xml]([IO.File]::ReadAllText((Join-Path $sourceRoot 'modDesc.xml')))
