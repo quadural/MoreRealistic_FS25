@@ -1,0 +1,24 @@
+name: Validate playable FS25 mod ZIP
+
+on:
+  push:
+    paths:
+      - "MoreRealistic.zip"
+      - "MoreRealistic/**"
+      - "tools/Test-ModPackage.ps1"
+      - ".github/workflows/validate-mod-package.yml"
+  pull_request:
+    paths:
+      - "MoreRealistic.zip"
+      - "MoreRealistic/**"
+      - "tools/Test-ModPackage.ps1"
+      - ".github/workflows/validate-mod-package.yml"
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate ZIP structure and source parity
+        shell: pwsh
+        run: ./tools/Test-ModPackage.ps1
