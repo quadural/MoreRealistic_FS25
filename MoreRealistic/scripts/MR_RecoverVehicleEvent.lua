@@ -28,6 +28,20 @@ end
 -- @param Connection connection connection
 function MR_RecoverVehicleEvent:readStream(streamId, connection)
     self.vehicleToRecover = NetworkUtil.readNodeObject(streamId)
+    if self.vehicleToRecover == nil then
+        return
+    end
+
+    -- Client-sent events must not lift other players' equipment.
+    -- Events originating from the server are already authoritative.
+    if not connection:getIsServer() then
+        local player = g_currentMission.playerSystem:getPlayerByConnection(connection)
+        local farmId = player ~= nil and player.farmId or nil
+        if farmId == nil or not g_currentMission.accessHandler:canFarmAccess(farmId, self.vehicleToRecover) then
+            return
+        end
+    end
+
     MR_RecoverVehicleEvent.mrRecoverVehicle(self.vehicleToRecover)
 end
 
