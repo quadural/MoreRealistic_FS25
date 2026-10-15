@@ -9,6 +9,14 @@
 `MoreRealistic.zip`. That source archive is **not** directly installable.
 The correct game mod has `modDesc.xml` at the root of the ZIP file.
 
+**ZIP naming compatibility:** Many FS25 mods follow the `FS25_<name>.zip`
+convention. This package intentionally keeps the existing
+`MoreRealistic.zip` filename for now: integrations such as Advanced Damage
+System 0.10.0.2 check `g_modIsLoaded.MoreRealistic`. Renaming the package to
+`FS25_MoreRealistic.zip` changes the mod ID and may prevent those integrations
+from recognizing MR. A future rename to the standard prefix needs a
+coordinated compatibility transition; do not rename the current game ZIP.
+
 The playable ZIP is checked against the matching `MoreRealistic/` source
 files by `tools/Test-ModPackage.ps1` in CI.
 Changelog is available inside the package
