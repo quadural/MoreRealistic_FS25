@@ -581,9 +581,9 @@ WheelPhysics.mrUpdateFriction = function(self, superFunc, dt, groundWetness)
         if coeff ~= self.tireGroundFrictionCoeff then
             self.tireGroundFrictionCoeff = coeff
             self.isFrictionDirty = true
-            --MR : update rolling resistance coeff too
-            self.mrTireGroundRollingResistanceCoeff = WheelsUtil.mrGetTireRollingResistance(self.tireType, groundType, groundWetness, snowScale)
         end
+        -- Rolling resistance can change with wetness even when tire grip does not.
+        self.mrTireGroundRollingResistanceCoeff = WheelsUtil.mrGetTireRollingResistance(self.tireType, groundType, groundWetness, snowScale)
 
     end
 
