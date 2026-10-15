@@ -367,12 +367,12 @@ WoodCrusher.mrUpdateWoodCrusher = function(self, superFunc, woodCrusher, dt, isT
                 local volumeToDeliver
                 if woodCrusher.mrWaitingFillLevel<5 then
                     volumeToDeliver = woodCrusher.mrWaitingFillLevel
-                    woodCrusher.mrWaitingFillLevel = 0
                 else
                     volumeToDeliver = woodCrusher.mrWaitingFillLevel*dt/1000 --100% per second
-                    woodCrusher.mrWaitingFillLevel = woodCrusher.mrWaitingFillLevel - volumeToDeliver
                 end
-                self:addFillUnitFillLevel(self:getOwnerFarmId(), woodCrusher.fillUnitIndex, volumeToDeliver, FillType.WOODCHIPS, ToolType.UNDEFINED)
+                -- Only remove what the fill unit actually accepted. A full tank returns 0.
+                local appliedVolume = self:addFillUnitFillLevel(self:getOwnerFarmId(), woodCrusher.fillUnitIndex, volumeToDeliver, FillType.WOODCHIPS, ToolType.UNDEFINED) or 0
+                woodCrusher.mrWaitingFillLevel = math.max(0, woodCrusher.mrWaitingFillLevel - math.max(0, appliedVolume))
             end
 
             --before processing the "crushNodes", check if there is a lost volume from the previous cut
