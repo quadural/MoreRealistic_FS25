@@ -1,5 +1,24 @@
-if you want to test the mod from github, you have to download the lastest zip version of the mod, rename the zip file with "MoreRealistic" only (keeping the zip extension if displayed) and copy-paste it to the mods folder of the game.
+## Install the playable MoreRealistic mod
 
+1. **[Download MoreRealistic.zip directly](https://raw.githubusercontent.com/quadural/MoreRealistic_FS25/main/MoreRealistic.zip)** (save the linked ZIP file).
+2. Copy it **without extracting it** to `Documents\My Games\FarmingSimulator2025\mods\MoreRealistic.zip` on Windows.
+3. Select **MoreRealistic** in the Farming Simulator 25 mod selection screen.
+
+**Important:** GitHub's green **Code > Download ZIP** button downloads the
+*repository source archive*, which contains an extra directory and a nested
+`MoreRealistic.zip`. That source archive is **not** directly installable.
+The correct game mod has `modDesc.xml` at the root of the ZIP file.
+
+**ZIP naming compatibility:** Many FS25 mods follow the `FS25_<name>.zip`
+convention. This package intentionally keeps the existing
+`MoreRealistic.zip` filename for now: integrations such as Advanced Damage
+System 0.10.0.2 check `g_modIsLoaded.MoreRealistic`. Renaming the package to
+`FS25_MoreRealistic.zip` changes the mod ID and may prevent those integrations
+from recognizing MR. A future rename to the standard prefix needs a
+coordinated compatibility transition; do not rename the current game ZIP.
+
+The playable ZIP is checked against the matching `MoreRealistic/` source
+files by `tools/Test-ModPackage.ps1` in CI.
 Changelog is available inside the package
 
 ! You do not get any privilege by donating !
