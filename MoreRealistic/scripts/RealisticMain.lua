@@ -100,16 +100,14 @@ print("**********************************************************************")
 
 function RealisticMain:loadMap(name)
     RealisticUtils.loadTerrainIdToName()
-    g_currentMission.environment.weather.getGroundWetness = Utils.overwrittenFunction(g_currentMission.environment.weather.getGroundWetness, Weather.mrGetGroundWetness)
+    MRweather.initialize(g_currentMission.environment.weather)
 end
 
-function RealisticMain:update(dt)
-    --update weather data once every 2s
-    Weather.mrUpdateTimer = Weather.mrUpdateTimer - dt
-    if Weather.mrUpdateTimer<=0 then
-        g_currentMission.environment.weather:getGroundWetness(true, 2000) --true means we want to update MR values for damp and minWetness
-        Weather.mrUpdateTimer = 2000
-    end
+function RealisticMain:deleteMap()
+    MRweather.pending = nil
+    Weather.mrCurrentWetness = nil
+    Weather.mrCurrentWetnessMin = nil
+    Weather.mrCurrentWetnessDamp = nil
 end
 
 --allow to use the following functions :
