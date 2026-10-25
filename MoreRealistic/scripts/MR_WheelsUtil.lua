@@ -464,7 +464,7 @@ WheelsUtil.mrUpdateWheelsPhysics = function(self, superFunc, dt, currentSpeed, a
     local lastRatio = self.spec_motorized.mrLastMinGearRatioSet
     if lastRatio==0 then
         if math.abs(motor.differentialRotSpeed)<0.5 then
-            lastRatio = motor.mrLastMotorObjectRotSpeed * 4
+            lastRatio = math.sign(maxGearRatio) * motor.mrLastMotorObjectRotSpeed * 4
         --elseif motor.differentialRotSpeed>0.5 then
         --    lastRatio = motor.mrLastMotorObjectRotSpeed / motor.differentialRotSpeed
         else --<-0.5

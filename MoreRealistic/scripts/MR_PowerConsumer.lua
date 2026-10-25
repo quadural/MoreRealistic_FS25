@@ -597,6 +597,8 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = StrawBlower.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrManureBarrel then--mr slurry tanker
                 neededPtoPower = ManureBarrel.mrGetActiveConsumedPtoPower(self)
+            elseif self.mrIsMrMixerWagon then--mr mixer wagon
+                neededPtoPower = MixerWagon.mrGetActiveConsumedPtoPower(self)
             else
                 local minPower = self.mrPtoPowerFx * spec.neededMinPtoPower
                 neededPtoPower = minPower + consumingLoad * (spec.neededMaxPtoPower - spec.neededMinPtoPower)

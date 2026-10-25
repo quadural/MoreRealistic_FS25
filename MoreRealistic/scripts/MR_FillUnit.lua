@@ -37,8 +37,14 @@ FillUnit.mrGetAdditionalComponentMass = function(self, superFunc0, superFunc, co
 
     for _, fillUnit in ipairs(spec.fillUnits) do
         if fillUnit.updateMass and fillUnit.fillMassNode == component.node and fillUnit.fillType ~= nil and fillUnit.fillType ~= FillType.UNKNOWN then
-            local desc = g_fillTypeManager:getFillTypeByIndex(fillUnit.fillType)
-            local mass = fillUnit.fillLevel * desc.massPerLiter
+
+            local mass = 0
+            if self.spec_mixerWagon and fillUnit.fillUnitIndex==self.spec_mixerWagon.fillUnitIndex and #self.spec_mixerWagon.mixerWagonFillTypes>0 then --20261022 - takes into account mixer wagon : content mass not depending on fill level because this is a "mix"
+                mass = MixerWagon.mrGetContentMass(self.spec_mixerWagon) --tons
+            else
+                local desc = g_fillTypeManager:getFillTypeByIndex(fillUnit.fillType)
+                mass = fillUnit.fillLevel * desc.massPerLiter
+            end
 
             if fillUnit.mrCenterOfMassX~=nil then
                 if comTable.mass==0 then
@@ -75,10 +81,7 @@ FillUnit.mrAddFillUnitFillLevel = function(self, superFunc, farmId, fillUnitInde
     local appliedDelta = superFunc(self, farmId, fillUnitIndex, fillLevelDelta, fillTypeIndex, toolType, fillPositionData)
 
     if appliedDelta~=0 then
-        local fillUnit = self.spec_fillUnit.fillUnits[fillUnitIndex]
-        if fillUnit.hasDashboards and self.updateDashboardValueType ~= nil then
-            self:updateDashboardValueType("fillUnit.mrFillMass")
-        end
+        FillUnit.mrRefreshFillUnitDashboard(self, fillUnitIndex)
     end
 
     return appliedDelta
@@ -86,6 +89,13 @@ FillUnit.mrAddFillUnitFillLevel = function(self, superFunc, farmId, fillUnitInde
 end
 FillUnit.addFillUnitFillLevel = Utils.overwrittenFunction(FillUnit.addFillUnitFillLevel, FillUnit.mrAddFillUnitFillLevel)
 
+
+FillUnit.mrRefreshFillUnitDashboard = function(self, fillUnitIndex)
+    local fillUnit = self.spec_fillUnit.fillUnits[fillUnitIndex]
+    if fillUnit.hasDashboards and self.updateDashboardValueType ~= nil then
+        self:updateDashboardValueType("fillUnit.mrFillMass")
+    end
+end
 
 
 FillUnit.mrLoadFillUnitFromXML = function(self, superFunc, xmlFile, key, entry, index)
@@ -120,6 +130,9 @@ FillUnit.mrLoadFillUnitFromXML = function(self, superFunc, xmlFile, key, entry, 
                 entry.hasDashboards = true
             end
 
+            --20261023 - take into account mixerWagon "specificity" (we want to get the mass from the current loaded ingredients)
+            entry.mrSpec_mixerWagon = self.spec_mixerWagon --can be nil
+
             return true
         end
 
@@ -127,6 +140,12 @@ FillUnit.mrLoadFillUnitFromXML = function(self, superFunc, xmlFile, key, entry, 
         fillMass:setXMLKey(key)
         fillMass:setValue(entry, function(_fillUnit, dashboard)
             local fillUnit = dashboard.fillUnit or _fillUnit
+
+            --20261023 - take into account mixerWagon "specificity" (we want to get the mass from the current loaded ingredients)
+            if entry.mrSpec_mixerWagon~=nil and fillUnit.fillUnitIndex==entry.mrSpec_mixerWagon.fillUnitIndex and #entry.mrSpec_mixerWagon.mixerWagonFillTypes>0 then
+                return 1000*MixerWagon.mrGetContentMass(entry.mrSpec_mixerWagon)--tons to kilos
+            end
+
             local fillLevel = fillUnit.fillLevel
             if fillLevel>0 then
                 local density = 1

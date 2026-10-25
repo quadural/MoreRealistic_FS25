@@ -1,152 +1,187 @@
---20261110 - doesn't take into account current month anymore. Because it highly depends on the map location IRL
---only take into account current 'minTemprature', 'maxTemperature', and 'currentTemperature' g_currentMission.environment.weather.temperatureUpdater.currentMax VehicleDebug.state // weather:getCurrentTemperature()
---base game settings seem a little bit "OFF".
---there are no settings by month.
---settings are by season.
--- season 1 = spring (march april may)
--- season 2 = summer (june july august)
--- season 3 = autumn (september october november)
--- season 4 = winter (december january february)
---it means player can experience the same weather/temperatures in march and may, or in june and august, or in september and november, or in december and february.
---it doesn't fit my area at all for example (north of france). The temperatures in november are just "crazy" compared to IRL here.
---and it means we can experience a "gap" when changing season (great difference between may and june for example)
---another "flaw" = each base game map has the exact same config (USA, European and Asian map => not realistic at all)
+-- Temperature/sun model, with server-owned persistent dampness.
+-- No forecast, rainfall, time scale or cloud settings are changed here.
+MRweather = {INTERVAL_MS=2000} --update interval
 
-Weather.mrCurrentWetness = 0 --init
-Weather.mrCurrentWetnessMin = 0
-Weather.mrCurrentWetnessDamp = 0
-Weather.mrUpdateTimer = 0
+local function finite(v) return type(v)=="number" and v==v and math.abs(v)<math.huge end
+local function unit(v) return finite(v) and math.max(0,math.min(1,v)) or 0 end
 
 
-Weather.mrGetGroundWetness = function(self, superFunc, updateMR, dt)
+local function state(w)
+    if w.MRwetness==nil then
+        w.MRwetness={damp=0,minimum=0,wetness=0,elapsed=0,drying=0,ready=false}
+    end
+    return w.MRwetness
+end
 
-    if updateMR then
+function MRweather.nightDamp(t)
+    if t>=30 then return 0
+    elseif t>25 then return 0.06-0.012*(t-25)
+    elseif t>20 then return 0.115-0.011*(t-20)
+    elseif t>15 then return 0.165-0.01*(t-15)
+    elseif t>10 then return 0.205-0.008*(t-10)
+    elseif t>5 then return 0.235-0.006*(t-5)
+    elseif t>0 then return 0.25-0.003*t
+    end
+    return 0.25
+end
 
-        local wetness = superFunc(self)
+function MRweather.telemetry(s)
+    Weather.mrCurrentWetness=s.wetness
+    Weather.mrCurrentWetnessMin=s.minimum
+    Weather.mrCurrentWetnessDamp=s.damp
+end
 
-        local minWetness = 0
-        if g_currentMission.environment.weather.temperatureUpdater.currentMax<10 then
-            minWetness = 0.25
-        elseif g_currentMission.environment.weather.temperatureUpdater.currentMax<30 then
-            minWetness = (30 - g_currentMission.environment.weather.temperatureUpdater.currentMax)/80 --10°C = 25% / 30°C = 0%
-        end
+local nativeGroundWetness=Weather.getGroundWetness
 
-        local dampWetness = 0
-        if g_currentMission.environment.isSunOn then
-            if Weather.mrCurrentWetnessDamp>0 then
-                local timeScale = g_currentMission:getEffectiveTimeScale()
-                local fxTemp = math.max(0.1, g_currentMission.environment.weather:getCurrentTemperature()/25)
-                fxTemp = math.pow(fxTemp, 0.7)
-                dampWetness = math.max(0, Weather.mrCurrentWetnessDamp - 0.1*fxTemp*timeScale*dt/3600000) --decrease dampness when the sun is present. 1 hour to go from 10% to 0% dampness when the outdoor temperature is 25°C
-            end
+function MRweather.refresh(w)
+    if g_server==nil then return false end
+    local s=state(w)
+    local maxTemp=w.temperatureUpdater.currentMax
+    local temperature=w:getCurrentTemperature()
+
+    local minimum=math.max(0,math.min(0.25,(30-maxTemp)/80))
+    if g_currentMission.environment.isSunOn then
+        s.damp=math.max(0,s.damp-s.drying)
+    else
+        s.damp=MRweather.nightDamp(temperature)
+    end
+    s.drying=0
+    s.minimum=minimum
+    s.wetness=math.max(minimum,s.damp,nativeGroundWetness(w))
+    s.ready=true
+    MRweather.telemetry(s)
+    return true
+end
+
+function MRweather.apply(w,wetness,minimum,damp)
+    if not finite(wetness) or not finite(minimum) or not finite(damp)
+        or wetness<0 or wetness>1 or minimum<0 or minimum>0.25
+        or damp<0 or damp>0.25 then return end
+    local s=state(w)
+    s.wetness,s.minimum,s.damp=wetness,minimum,damp
+    s.ready=true
+    MRweather.telemetry(s)
+end
+
+
+----------------------------------------------------------------------------------------------------------
+-- MRwetnessEvent ----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+MRwetnessEvent={}
+local eventMt=Class(MRwetnessEvent,Event)
+
+InitEventClass(MRwetnessEvent,"MRwetnessEvent")
+
+function MRwetnessEvent.emptyNew() return Event.new(eventMt) end
+
+function MRwetnessEvent.new(s)
+    local e=MRwetnessEvent.emptyNew()
+    e.wetness,e.minimum,e.damp=s.wetness,s.minimum,s.damp
+    return e
+end
+
+function MRwetnessEvent:writeStream(streamId,connection)
+    streamWriteFloat32(streamId,self.wetness)
+    streamWriteFloat32(streamId,self.minimum)
+    streamWriteFloat32(streamId,self.damp)
+end
+
+function MRwetnessEvent:readStream(streamId,connection)
+    self.wetness=streamReadFloat32(streamId)
+    self.minimum=streamReadFloat32(streamId)
+    self.damp=streamReadFloat32(streamId)
+    self:run(connection)
+end
+
+function MRwetnessEvent:run(connection)
+    -- Clients cannot alter the server's moisture state.
+    if g_server~=nil or not connection or not connection:getIsServer() then return end
+    local w=g_currentMission.environment.weather
+    if w then MRweather.apply(w,self.wetness,self.minimum,self.damp)
+    else MRweather.pending={self.wetness,self.minimum,self.damp} end
+end
+
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+function MRweather.initialize(w)
+    if not w then return end
+    if g_server~=nil then MRweather.refresh(w)
+    elseif MRweather.pending then
+        MRweather.apply(w,unpack(MRweather.pending))
+        MRweather.pending=nil
+    end
+end
+
+Weather.getGroundWetness=Utils.overwrittenFunction(Weather.getGroundWetness,function(w,superFunc,...)
+    local s=state(w)
+    if not s.ready and g_server~=nil then MRweather.refresh(w) end
+    -- Until the initial server snapshot arrives, retain native wetness.
+    if s.ready then return s.wetness end
+    return superFunc(w,...)
+end)
+
+Weather.update=Utils.appendedFunction(Weather.update,function(w,dt)
+    if g_server==nil then return end
+    local m=g_currentMission
+    if not m or not m.environment then return end
+    local s=state(w)
+    local temperature=w:getCurrentTemperature()
+    local scale=m:getEffectiveTimeScale()
+    if scale>=0 then
+        if m.environment.isSunOn then
+            -- Integrate each frame: speed changes and pauses do not retroactively
+            -- apply the latest time scale to the entire two-second interval.
+            local fx=math.max(0.1,temperature/25)^0.7
+            s.drying=s.drying+0.1*fx*scale*dt/3600000
         else
-            local currentTemperature = g_currentMission.environment.weather:getCurrentTemperature()
-            if currentTemperature<30 then
-                if currentTemperature>25 then
-                    dampWetness = 0.06-0.012*(currentTemperature-25)
-                elseif currentTemperature>20 then
-                    dampWetness = 0.115-0.011*(currentTemperature-20)
-                elseif currentTemperature>15 then
-                    dampWetness = 0.165-0.01*(currentTemperature-15)
-                elseif currentTemperature>10 then
-                    dampWetness = 0.205-0.008*(currentTemperature-10)
-                elseif currentTemperature>5 then
-                    dampWetness = 0.235-0.006*(currentTemperature-5)
-                elseif currentTemperature>0 then
-                    dampWetness = 0.25-0.003*currentTemperature
-                else
-                    dampWetness = 0.25
-                end
+            -- Keep the authoritative night state current through sunrise.
+            s.damp=MRweather.nightDamp(temperature)
+            s.drying=0
+        end
+    end
+    s.elapsed=s.elapsed+dt
+    if not s.ready or s.elapsed>=MRweather.INTERVAL_MS then
+        if MRweather.refresh(w) then
+            s.elapsed=0
+            if s.sentWetness~=s.wetness or s.sentMinimum~=s.minimum or s.sentDamp~=s.damp then
+                g_server:broadcastEvent(MRwetnessEvent.new(s),false)
+                s.sentWetness,s.sentMinimum,s.sentDamp=s.wetness,s.minimum,s.damp
             end
         end
-
-        wetness = math.max(minWetness, dampWetness, wetness)
-
-        --telemetry
-        Weather.mrCurrentWetnessMin = minWetness
-        Weather.mrCurrentWetnessDamp = dampWetness
-        Weather.mrCurrentWetness = wetness
-
     end
+end)
 
-    return Weather.mrCurrentWetness
+Weather.sendInitialState=Utils.appendedFunction(Weather.sendInitialState,function(w,connection)
+    if g_server==nil or not connection then return end
+    MRweather.initialize(w)
+    local s=state(w)
+    if s.ready then connection:sendEvent(MRwetnessEvent.new(s)) end
+end)
+
+-- Use the existing weather XML handle; never create/save/delete the game file.
+-- Support native handles and XMLFile objects without owning their lifecycle.
+local function readFloat(handle,key)
+    if type(handle)=="table" and handle.getFloat then return handle:getFloat(key) end
+    return getXMLFloat(handle,key)
 end
 
-
---[[ old function
-Weather.mrGetGroundWetness = function(self, superFunc)
-
-    local wetness = superFunc(self)
-
-    --minimum groundwetness function of month and time
-    -- wetness during night => +0.1
-    -- wetness during winter
-    -- period = month
-    -- season 1 = spring (march april may)
-    -- season 2 = summer (june july august)
-    -- season 3 = autumn (september october november)
-    -- season 4 = winter (december january february)
-    local month = g_currentMission.environment.currentPeriod
-    local minWetness = 0
-    local dampStart=99
-    local dampStop=0
-    if month==11 then --january
-        minWetness = 0.25
-    elseif month==12 then --february
-        minWetness = 0.20
-    elseif month==1 then --march
-        minWetness = 0.15
-        dampStart = 19
-        dampStop = 11
-    elseif month==2 then --april
-        minWetness = 0.1
-        dampStart = 19
-        dampStop = 11
-    elseif month==3 then --may
-        minWetness = 0.05
-        dampStart = 19
-        dampStop = 10
-    elseif month==4 then --june
-        minWetness = 0
-        dampStart = 20
-        dampStop = 10
-    elseif month==5 then --july
-        minWetness = 0
-        dampStart = 21
-        dampStop = 9
-    elseif month==6 then --august
-        minWetness = 0
-        dampStart = 22
-        dampStop = 9
-    elseif month==7 then --september
-        minWetness = 0.1
-        dampStart = 20
-        dampStop = 10
-    elseif month==8 then --october
-        minWetness = 0.15
-        dampStart = 19
-        dampStop = 11
-    elseif month==9 then --november
-        minWetness = 0.2
-    elseif month==10 then --december
-        minWetness = 0.25
-    end
-
-    --damp = can't increase minWetness above 0.2
-    if minWetness<0.2 then
-        local damp = 0
-        local hour = g_currentMission.environment.currentHour + g_currentMission.environment.currentMinute / 60
-        --2hours for damp to fully increase or decrease
-        if hour>dampStart then
-            damp = math.min(0.1, hour-dampStart * 0.05)
-        elseif hour<dampStop then
-            damp = math.min(0.1, dampStop-hour * 0.05)
-        end
-        minWetness = math.min(0.2, minWetness + damp)
-    end
-
-    wetness = math.max(minWetness, wetness)
-
-    return wetness
+local function writeFloat(handle,key,value)
+    if type(handle)=="table" and handle.setFloat then handle:setFloat(key,value)
+    else setXMLFloat(handle,key,value) end
 end
---]]
+
+Weather.loadFromXMLFile=Utils.appendedFunction(Weather.loadFromXMLFile,function(w,handle,key)
+    local s=state(w)
+    local damp=readFloat(handle,key.."#MRdampness")
+    s.damp=math.min(0.25,unit(damp))
+    s.ready,s.elapsed,s.drying=false,0,0
+end)
+
+Weather.saveToXMLFile=Utils.appendedFunction(Weather.saveToXMLFile,function(w,handle,key)
+    if g_server==nil then return end
+    local s=state(w)
+    -- Include drying accumulated since the last published snapshot.
+    writeFloat(handle,key.."#MRdampness",math.max(0,s.damp-s.drying))
+end)

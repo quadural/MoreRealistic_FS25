@@ -27,6 +27,11 @@
     <vehicle fileNameToOverride="data/vehicles/krone/bigPack1290HDPVC/bigPack1290HDPVC.xml">vehicles/krone/bigPack1290HDPVC.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/masseyFerguson/baler1840/baler1840.xml">vehicles/masseyFerguson/baler1840.xml</vehicle>
 
+    <!-- barrels -->
+    <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer550/waterTrailer550.xml">vehicles/abi/waterTrailer550.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer1600/waterTrailer1600.xml">vehicles/abi/waterTrailer1600.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/lizard/mks8/mks8.xml">vehicles/lizard/mks8.xml</vehicle>
+
     <!-- cars -->
     <vehicle fileNameToOverride="data/vehicles/aprilia/rx125/rx125.xml">vehicles/aprilia/rx125.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/international/series200/series200.xml">vehicles/international/series200.xml</vehicle>
@@ -135,6 +140,10 @@
 
     <!-- misc -->
     <vehicle fileNameToOverride="data/vehicles/kaercher/hds9184M/hds9184M.xml">vehicles/kaercher/hds9184M.xml</vehicle>
+
+    <!-- mixer wagon -->
+    <vehicle fileNameToOverride="data/vehicles/kuhn/ra142/ra142.xml">vehicles/kuhn/ra142.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/faresin/pf224/pf224.xml">vehicles/faresin/pf224.xml</vehicle>
 
     <!-- mower -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/gmd3123F/gmd3123F.xml">vehicles/kuhn/gmd3123F.xml</vehicle>
@@ -292,9 +301,6 @@
     <vehicle fileNameToOverride="data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB.xml">vehicles/lodeKing/prestigeSuperB.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB_front.xml">vehicles/lodeKing/prestigeSuperB_front.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/lodeKing/prestigeSuperBTrailer/prestigeSuperB_back.xml">vehicles/lodeKing/prestigeSuperB_back.xml</vehicle>
-
-    <!-- water trailers -->
-    <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer550/waterTrailer550.xml">vehicles/abi/waterTrailer550.xml</vehicle>
 
     <!-- weeders -->
     <vehicle fileNameToOverride="data/vehicles/einboeck/pneumaticstarPro1200/pneumaticstarPro1200.xml">vehicles/einboeck/pneumaticstarPro1200.xml</vehicle>

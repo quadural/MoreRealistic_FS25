@@ -84,6 +84,7 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
         MR_ManureSpreader.mrLoadMrValues(self, xmlFile)
         StrawBlower.mrLoadMrValues(self, xmlFile)
         ManureBarrel.mrLoadMrValues(self, xmlFile)
+        MixerWagon.mrLoadMrValues(self, xmlFile)
 
         self.mrForcePtoRpm = false
 

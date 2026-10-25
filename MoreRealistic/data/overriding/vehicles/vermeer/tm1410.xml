@@ -3,7 +3,7 @@
 
     <MR>true</MR>
     <!-- <mrPowerConsumer forcePointY="0.2" /> -->
-    <mrMower cuttingWidth="6.3" powerFx="1.2" /> <!-- less efficient because more shafts to route the power to the cutter bars
+    <mrMower cuttingWidth="6.3" powerFx="1.2" /> <!-- less efficient because more shafts to route the power to the cutter bars -->
 
     <!--
 

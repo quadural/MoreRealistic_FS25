@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="113"> <!-- v1.23 -->
+<modDesc descVersion="115"> <!-- v1.25 -->
     <author>Dural</author>
-    <version>0.26.10.15</version>
+    <version>0.26.10.25</version>
     <multiplayer supported="true" />
     <title>
         <en>MoreRealistic game engine</en>

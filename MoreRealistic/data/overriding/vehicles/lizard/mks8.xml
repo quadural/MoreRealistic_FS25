@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="waterTrailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+    <mrSuspension referenceMass="14500" />
+
+    <!--
+
+        about 3600kg empty
+        about 11000L
+
+        running gear = 14T, 55% brake efficiency => 14*0.55/4 = 1.925
+
+        this model is not very realistic : high center of gravity and axle width smaller than what we expect (smaller than typical "road" farming or trucking axles)
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/lizard/mks8/mks8.xml">
+        <attributes>
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.6 -0.6"/> <!-- main body -->
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.15 0"/> <!-- front axle -->
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0 -0.35"/> <!-- drawbar -->
+
+            <set path="vehicle.base.components.component(0)#mass" value="2000"/>
+            <set path="vehicle.base.components.component(1)#mass" value="850"/>
+            <set path="vehicle.base.components.component(2)#mass" value="250"/>
+
+            <remove path="vehicle.attachable.brakeForce" />
+            <set path="vehicle.attachable.brakeForce#force" value="2"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="100"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="100"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="8"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="8"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.12"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.12"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#brakeFactor" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#brakeFactor" value="1"/>
+
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2.1 0.08"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#capacity" value="11000"/>
+
+            <!-- empty speed -->
+            <set path="vehicle.fillTriggerVehicle#litersPerSecond" value="100"/> <!-- no pump. Receiving vehicle needs to feature a pump -->
+            <set path="vehicle.waterTrailer#fillLitersPerSecond" value="100"/> <!-- no pump. this trailer should not be able to pump from the river/water plant -->
+            <set path="vehicle.dischargeable.dischargeNode(0)#emptySpeed" value="100"/> <!-- no pump, IRL, the emptySpeed would depend on the elevation difference between the tank level and the destination level  -->
+
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.91 1" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

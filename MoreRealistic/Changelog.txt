@@ -538,4 +538,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - Pottinger aerosem VT 5000 = no more "maxMass" for components
             - Weather : rewrite of the "wetness" and "dmpness" MR system => do not take into account the "month". Only relies on the current temperatures settings and sun/not sun. (so higly dependant on the map settings now)
             - Fix visual bug with incorrect mass displayed on scales when playing in mp (client side only)
+            - add Lizard MKS8 (food grade tanker trailer)
+            - add Abi water trailer 1600
+            - add Kuhn RA142 (Mixer Wagon)
+            - add Faresin TPF224 (Mixer Wagon)
 
