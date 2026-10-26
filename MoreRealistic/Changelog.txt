@@ -542,4 +542,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Abi water trailer 1600
             - add Kuhn RA142 (Mixer Wagon)
             - add Faresin TPF224 (Mixer Wagon)
+            - add SiloKing trailedLine 4.0 System 1000+ 4535 (Mixer Wagon)
 

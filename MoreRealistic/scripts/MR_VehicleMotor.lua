@@ -34,6 +34,9 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     newMotor.mrLastMotorObjectRotSpeed = 0
     newMotor.mrLastMotorObjectRotSpeedPrev1 = 0
     newMotor.mrLastMotorObjectRotSpeedPrev2 = 0
+    newMotor.mrLastClutchRotSpeed = 0
+    newMotor.mrLastClutchRotSpeedPrev1 = 0
+    newMotor.mrLastClutchRotSpeedPrev2 = 0
     newMotor.mrLastMotorObjectGearRatio = 0
     newMotor.mrIsChangingDirection = false
     newMotor.mrLastDirection = newMotor.currentDirection
@@ -123,7 +126,7 @@ VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpe
     newMotor.mrLastMotorExternalTorqueChange = 0
     newMotor.mrLastMinRotForPTOidle = 0
     newMotor.mrLastMinRotForPTO = 0
-    newMotor.mrLastPtoPower = 0
+    --newMotor.mrLastPtoPower = 0
 
     --newMotor.mrNewGearPrev1 = 0
     --newMotor.mrNewGearPrev2 = 0
@@ -1291,6 +1294,12 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
         maxRpmWanted = math.min(maxRpmWanted, maxRpmNotGoverned)
         if engineRpm<minRpmWanted then
             forceLug = true --not enough rpm for the pto tool
+        else
+            local clutchRpm = 10*(self.mrLastClutchRotSpeed + self.mrLastClutchRotSpeedPrev1 + self.mrLastClutchRotSpeedPrev2)/math.pi
+            if clutchRpm<minRpmWanted then
+                forceLug = true --not enough rpm for the pto tool
+                engineRpm = clutchRpm
+            end
         end
     end
 

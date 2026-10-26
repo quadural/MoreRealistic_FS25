@@ -461,8 +461,14 @@ Motorized.mrOnUpdate = function(self, superFunc, dt, isActiveForInput, isActiveF
         --update motorizedNode get values
         spec.motor.mrLastMotorObjectRotSpeedPrev2 = spec.motor.mrLastMotorObjectRotSpeedPrev1
         spec.motor.mrLastMotorObjectRotSpeedPrev1 = spec.motor.mrLastMotorObjectRotSpeed
-        spec.motor.mrLastMotorObjectRotSpeed, _, spec.motor.mrLastMotorObjectGearRatio = getMotorRotationSpeed(spec.motorizedNode)
-        spec.motor.mrLastPtoPower = neededPtoTorque * spec.motor.mrLastMotorObjectRotSpeed --KW
+
+        spec.motor.mrLastClutchRotSpeedPrev2 = spec.motor.mrLastClutchRotSpeedPrev1
+        spec.motor.mrLastClutchRotSpeedPrev1 = spec.motor.mrLastClutchRotSpeed
+
+        local diffRotSpeed
+        spec.motor.mrLastMotorObjectRotSpeed, diffRotSpeed, spec.motor.mrLastMotorObjectGearRatio = getMotorRotationSpeed(spec.motorizedNode)
+        spec.motor.mrLastClutchRotSpeed = math.abs(diffRotSpeed * spec.motor.mrLastMotorObjectGearRatio)
+        --spec.motor.mrLastPtoPower = neededPtoTorque * spec.motor.mrLastMotorObjectRotSpeed --KW
 
         local needUpdate = spec.mrLastEngineIsBraking~=spec.mrEngineIsBraking or spec.motor.mrIsChangingDirection
         if self.mrTransmissionPowerRatio<1 then

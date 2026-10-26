@@ -144,6 +144,7 @@
     <!-- mixer wagon -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/ra142/ra142.xml">vehicles/kuhn/ra142.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/faresin/pf224/pf224.xml">vehicles/faresin/pf224.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/siloking/trailedLine4System1000/trailedLine4System1000.xml">vehicles/siloking/trailedLine4System1000.xml</vehicle>
 
     <!-- mower -->
     <vehicle fileNameToOverride="data/vehicles/kuhn/gmd3123F/gmd3123F.xml">vehicles/kuhn/gmd3123F.xml</vehicle>
