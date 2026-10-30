@@ -153,7 +153,7 @@
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="42"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="42"/>
-                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="3.78"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="4.1"/> <!-- about 4.5m/s2 @ 6T -->
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.7037"/>
 
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="850"/>

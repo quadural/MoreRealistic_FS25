@@ -822,10 +822,13 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
     --tool speed limit
     --take into acount slipping
     local toolSpeed = motor:getSpeedLimit()/3.6
-    if self.spec_wheels.mrAvgDrivenWheelsSlip>0 then
-        toolSpeed = toolSpeed * (1 + self.spec_wheels.mrAvgDrivenWheelsSlip)
+    if toolSpeed~=math.huge then
+        if self.spec_wheels.mrAvgDrivenWheelsSlip>0 then
+            toolSpeed = toolSpeed * (1 + self.spec_wheels.mrAvgDrivenWheelsSlip)
+        end
+        targetSpeed = math.min(targetSpeed, toolSpeed)
     end
-    targetSpeed = math.min(targetSpeed, toolSpeed)
+
 
     --check current engine rpm and gearRatio
     local lastRatio = math.abs(motor.mrLastMotorObjectGearRatio)
@@ -934,7 +937,7 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
             --elseif false and lastSpd>2 and motor.mrLastMotorObjectRotSpeed>(targetMaxRot+1)  then --scenario = power reversing at high speed => engine rpm raises and power reversing again before changing direction. We want to avoid the engine rpm to snap back from "max engine braking rpm" to "max power rpm"
             --    newGearRatioMin = lastMinRatio * (1-dt/3000)
             --    accPedal = 1
-            elseif lastSpd>(targetSpeed-0.02) then
+            elseif lastSpd>0.1 and lastSpd>(targetSpeed-0.02) then
                 if motor.mrLastMotorObjectRotSpeed>targetEcoRot and motor.smoothedLoadPercentage<0.8 then --scenario = target speed reached and engine not @100% load
                     motorRotAccFx = -0.2
                 else
@@ -1023,8 +1026,25 @@ WheelsUtil.mrUpdateWheelsPhysicsCVT = function(self, dt, accPedal, maxAccelerati
         maxRot = math.min(maxRot, targetBrakingRot)
     end
 
-    targetMinRot = motor.mrLastMotorObjectRotSpeed-2
-    targetMinRot = math.min(maxRot-1, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
+    if motor.mrLastMotorObjectRotSpeed<10 then
+        targetMinRot = 0
+    else
+        targetMinRot = motor.mrLastMotorObjectRotSpeed-2
+        targetMinRot = math.min(maxRot-1, targetMinRot) --case : engine at low rev (cruising without load) and engaging the PTO (which means we want a higher "minRot" than the current rpm)
+    end
+
+    --fix for electric vehicle with CVT gearbox (not realistic. Example : base game Merlo EW25)
+    if accPedal==0 and lastSpd<1 then
+        self.spec_motorized.mrEngineIsBraking = true
+        local rpmFactor = 0.2 + 0.8*motor.mrLastMotorObjectRotSpeed/targetBrakingRot
+        self.spec_motorized.mrEngineBrakingPowerToApply = cvtEngineBrakingFx*rpmFactor*motor.mrEngineBrakingPowerFx*motor.peakMotorPower*self.mrTransmissionPowerRatio
+        if neededPtoTorque==0 then
+            targetMinRot = 0
+        end
+        maxRot = math.huge
+    end
+
+
     self:controlVehicle(accPedal, targetSpeed, maxAcceleration, targetMinRot, maxRot, maxMotorRotAcceleration, newGearRatioMin, newGearRatioMax, clutchForce, neededPtoTorque)
 
 end

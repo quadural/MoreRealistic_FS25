@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="baleWrapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrWrapper activePower="6" baleMassDependingPower="4" />
+
+    <!--
+
+
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/goeweil/g1015/g1015.xml">
+        <attributes>
+
+            <!-- main -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#centerOfMass" value="0 0.75 0" />
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#mass" value="985" />
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="340" /> <!-- hydraulics only, no pto -->
+
+            <!-- no brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="0" />
+
+            <!-- wraps rollers -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0).fillMassNode#node" value="g1015_main_component1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.1 0.3"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

@@ -9,6 +9,8 @@
         expedition mass = 5500kg
         DLG test report = 5800kg (2540 front and 3260 rear) => with 460/65R28 + 540/65R38
 
+        DLG Brake report = 5.1m/s2 @5800kg
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/caseIH/vestrum130/vestrum130.xml">
@@ -70,7 +72,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.646"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="43"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="22"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="4.14"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="4.5"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="150"/>
 
             <!-- 100 -->

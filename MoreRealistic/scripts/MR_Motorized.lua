@@ -291,7 +291,7 @@ Motorized.mrUpdateMotorProperties=function(self)
 
     local dampingRateZeroThrottleClutchDisengaged = fx*motor.peakMotorTorque/1000
     local dampingRateZeroThrottleClutchEngaged = dampingRateZeroThrottleClutchDisengaged--clutch engaged means "disengaged" = no link between engine and transmission
-    local dampingRateFullThrottle = 0.000001 -- simplified formula => KW "lost" with damping = damping value * rpm^2 / 95.5
+    local dampingRateFullThrottle = 0.01*(motor.peakMotorTorque+motor.lastMotorExternalTorque)/motor.maxRpm --0.000001 -- simplified formula => KW "lost" with damping = damping value * rpm^2 / 95.5
 
     --MR : limit engine power according to "self.mrTransmissionPowerRatio"
     if self.mrIsMrVehicle and self.mrTransmissionPowerRatio<1 and self.mrLastTurnedOnState==false then

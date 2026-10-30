@@ -23,10 +23,10 @@
     since in the game, the brake force is applied to each wheel and the value in the xml is muliplied by 2 for tractors =>
     value to set in the xml = deceleration * mass / 8
 
-    The DLG result = IRL result, effective deceleration of the vehicle. In our case, the xml value = the brake force at the wheel. We can then set a little higher value => 10% more.
-    value to set in the xml = deceleration * mass * 0.14
+    The DLG result = IRL result, effective deceleration of the vehicle. In our case, the xml value = the brake force at the wheel. We can then set a little higher value => 20% more since there is some slippage while braking
+    value to set in the xml = IRL deceleration * mass * 0.15
 
-    example : case ih vestrum. DLG test report = 5.1m/s2 and 5800kg => value to set in the xml file = 5.1*5.8*0.14 = 4.14
+    example : case ih vestrum. DLG test report = 5.1m/s2 and 5800kg => value to set in the xml file = 5.1*5.8*0.15 = 4.44
 
 
     *************************************************************************************

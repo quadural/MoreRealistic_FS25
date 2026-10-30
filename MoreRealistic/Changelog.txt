@@ -543,4 +543,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Kuhn RA142 (Mixer Wagon)
             - add Faresin TPF224 (Mixer Wagon)
             - add SiloKing trailedLine 4.0 System 1000+ 4535 (Mixer Wagon)
+            - add Goeweil G1015 (Bale wrapper)
+            - add Albutt Bale King F650HX (multibale stacker)
+            - fix for baleWrappers (base game = no weight from the bales being processed)
+            - fix for vehicles with min rpm set to 0 but engine torque curve not starting at 0 (example : base game Merlo EW25 which should be electric but makes use of the same torque curve than most of the game's vehicles. and also use the standard CVT transmission instead of a fixed ratio)
 

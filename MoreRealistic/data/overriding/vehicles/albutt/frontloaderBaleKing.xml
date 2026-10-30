@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="implementDynamicMountAttacher" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!-- model F650HX Bale King (multi bale stacker)
+         capacity = 1800kg
+         weight = 750kg
+
+         IRL = for telehandler / wheel loader (3.5T mini => or 200+HP tractor with loader ?)
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/albutt/frontloaderBaleKing/frontloaderBaleKing.xml">
+        <attributes>
+            <set path="vehicle.base.components.component(0)#mass" value="350"/>
+            <set path="vehicle.base.components.component(1)#mass" value="200"/>
+            <set path="vehicle.base.components.component(2)#mass" value="200"/>
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.6 -0.25" />
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0.8 0.1" />
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 0.8 0.1" />
+
+            <!-- start position = closed wings to keep the center of gravity forward-->
+            <set path="vehicle.cylindered.movingTools.movingTool(0).rotation#startRot" value="120" />
+            <set path="vehicle.cylindered.movingTools.movingTool(1).rotation#startRot" value="-120" />
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

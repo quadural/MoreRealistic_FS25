@@ -27,6 +27,10 @@
     <vehicle fileNameToOverride="data/vehicles/krone/bigPack1290HDPVC/bigPack1290HDPVC.xml">vehicles/krone/bigPack1290HDPVC.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/masseyFerguson/baler1840/baler1840.xml">vehicles/masseyFerguson/baler1840.xml</vehicle>
 
+    <!-- bale wrappers -->
+    <vehicle fileNameToOverride="data/vehicles/goeweil/g5020/g5020.xml">vehicles/goeweil/g5020.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/goeweil/g1015/g1015.xml">vehicles/goeweil/g1015.xml</vehicle>
+
     <!-- barrels -->
     <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer550/waterTrailer550.xml">vehicles/abi/waterTrailer550.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer1600/waterTrailer1600.xml">vehicles/abi/waterTrailer1600.xml</vehicle>
@@ -126,6 +130,7 @@
 
     <!-- frontloader tools -->
     <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderManureGrab/frontloaderManureGrab.xml">vehicles/albutt/frontloaderManureGrab.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/albutt/frontloaderBaleKing/frontloaderBaleKing.xml">vehicles/albutt/frontloaderBaleKing.xml</vehicle>
 
     <!-- manure barrel / slurry tanker -->
     <vehicle fileNameToOverride="data/vehicles/farmtech/supercis800/supercis800.xml">vehicles/farmtech/supercis800.xml</vehicle>
@@ -328,9 +333,6 @@
     <!-- wood crushers -->
     <vehicle fileNameToOverride="data/vehicles/heizomat/hm10500KF/hm10500KF.xml">vehicles/heizomat/hm10500KF.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/jenz/cobraHybrid/cobraHybrid.xml">vehicles/jenz/cobraHybrid.xml</vehicle>
-
-    <!-- wrappers -->
-    <vehicle fileNameToOverride="data/vehicles/goeweil/g5020/g5020.xml">vehicles/goeweil/g5020.xml</vehicle>
 
     <!-- objects -->
     <vehicle fileNameToOverride="data/objects/bigBag/lime/bigBag_lime.xml">objects/bigBag_lime.xml</vehicle>

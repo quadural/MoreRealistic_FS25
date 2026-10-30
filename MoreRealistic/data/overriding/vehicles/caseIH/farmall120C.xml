@@ -18,6 +18,8 @@
         - ratio of 1.3 for center differential
         - torqueRatio of 35% front and 65% rear
 
+
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/caseIH/farmall120C/farmall120C.xml">
@@ -164,7 +166,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.52"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="42"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="42"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="3.7"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="3.3"/> <!-- about 4.6m/s2 @4.7T -->
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="110"/>
 
             <!-- farmall 90C -->

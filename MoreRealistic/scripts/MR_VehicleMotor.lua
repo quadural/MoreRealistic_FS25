@@ -1160,9 +1160,7 @@ VehicleMotor.setLastRpm = Utils.overwrittenFunction(VehicleMotor.setLastRpm, Veh
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 VehicleMotor.mrGetManualClutchPedal = function(self, superFunc)
-
     return self.manualClutchValue
-
 end
 VehicleMotor.getManualClutchPedal = Utils.overwrittenFunction(VehicleMotor.getManualClutchPedal, VehicleMotor.mrGetManualClutchPedal)
 
@@ -1174,11 +1172,14 @@ VehicleMotor.getManualClutchPedal = Utils.overwrittenFunction(VehicleMotor.getMa
 VehicleMotor.mrGetTorqueAndSpeedValues = function(self, superFunc)
     local rotationSpeeds = {}
     local torques = {}
+    local torqueCurve = self:getTorqueCurve()
     if self.gearShiftMode == VehicleMotor.SHIFT_MODE_MANUAL_CLUTCH then
-        table.insert(rotationSpeeds, 0)
-        table.insert(torques, 0)
+        if self.minRpm>0 and torqueCurve.keyframes[1].time>0 then --protection for genuine vehicles with "minrpm" set to zero but no electric torque curve defined in the xml (example : merlo EWS25)
+            table.insert(rotationSpeeds, 0)
+            table.insert(torques, 0)
+        end
     end
-    for _,v in ipairs(self:getTorqueCurve().keyframes) do
+    for _,v in ipairs(torqueCurve.keyframes) do
         table.insert(rotationSpeeds, v.time*math.pi/30)
         table.insert(torques, self:getTorqueCurveValue(v.time))
     end

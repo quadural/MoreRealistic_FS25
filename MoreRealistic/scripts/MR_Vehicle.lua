@@ -313,8 +313,8 @@ Vehicle.mrUpdateMass = function(self, superFunc)
         -- only update physically mass if difference to last mass is greater than 20kg
         if self.isServer and component.isDynamic then
 
-            if math.abs(component.lastMass-component.mass) > 0.02 then
-
+            if math.abs(component.lastMass-component.mass) > 0.02 or component.mrForceMassAndComUpdate then
+                component.mrForceMassAndComUpdate = false
                 setMass(component.node, component.mass)
                 component.lastMass = component.mass
 
