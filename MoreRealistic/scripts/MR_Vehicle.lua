@@ -160,6 +160,8 @@ Vehicle.mrLoad = function(self, superFunc, vehicleLoadingData)
 
         delete(xmlFile)
 
+        self.aaaDebugName = self.configFileNameClean --for debug purpose, in a glance, we can see which vehicle we are "talking of" when hovering the mouse on "self"
+
     end
 
     return result

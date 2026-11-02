@@ -469,7 +469,7 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - pto load can "brake" the vehicle when the engine torque is not sufficient
             - bale mass = computed from fillLevel and fillType density
             - add converted New Holland ProBelt 165/450 and Case IH RB456 round baler
-            - add converetd Goeweil G1 F125 round baler
+            - add converted Goeweil G1 F125 round baler
             - add converted Kuhn VB3190 round baler
             - add converted Krone VariPack V190XC Plus
             - MR Balers are now compatible with grass (output, power and bale mass)
@@ -547,4 +547,8 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Albutt Bale King F650HX (multibale stacker)
             - fix for baleWrappers (base game = no weight from the bales being processed)
             - fix for vehicles with min rpm set to 0 but engine torque curve not starting at 0 (example : base game Merlo EW25 which should be electric but makes use of the same torque curve than most of the game's vehicles. and also use the standard CVT transmission instead of a fixed ratio)
+            - Add some braking force to wheels of detached implements (more force when the wheel features wheelchocks), even if the wheel has no braking system
+
+202611XX    - add Goeweil G1 F125 Kombi (round baler and wrapper combination)
+            - add John Deere C441R (round baler and wrapper combination)
 

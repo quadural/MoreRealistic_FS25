@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="balerWrapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR inlineAxleNumber="2">true</MR>
+
+    <mrBaler idlePower="5" powerIncreaseWithFeedingKilosPerSecond="3" powerIncreaseWithBaleMass="70" maxTonsPerHour="40" grassCapacityFx="2" densityFactor="0.9" nettingDuration="6" />
+    <mrWrapper activePower="6" baleMassDependingPower="4" />
+
+    <!-- 8980kg
+
+        fixed chamber (rollers) baler = more power with bale mass / less density and less productivity (we have to slow down to get heavy bales)
+
+        total time to unload and close the door = 5.5s (125cm diameter bales)
+        netting time IRL = less than 10s when this is only a film
+        bale transfer to wrapper = 4s
+        wrapping time = 22-27s
+
+        IRL = no suspension, this is a "walking beam"
+
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/goeweil/g1F125Kombi/g1F125Kombi.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="20" />
+
+            <!-- no bale turner -->
+            <remove path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#inertiaScale" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#centerOfMass" value="0 1.3 0.9" /> <!-- main -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(0)#mass" value="7900" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#centerOfMass" value="0 0.1 0.25" /> <!-- pickup -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(0).component(1)#mass" value="300" />
+
+            <!-- bale turner config -->
+            <remove path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#inertiaScale" />
+            <remove path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#inertiaScale" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#centerOfMass" value="0 1.3 0.9" /> <!-- main -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(0)#mass" value="7900" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#centerOfMass" value="0 0.1 0.25" /> <!-- pickup -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(1)#mass" value="300" />
+
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#centerOfMass" value="0 0 -0.3" /> <!-- bale turner -->
+            <set path="vehicle.base.componentConfigurations.componentConfiguration(1).component(2)#mass" value="200" />
+            <!-- **********************-->
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#suspTravel" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#suspTravel" value="0.03"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="60"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#spring" value="10"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#spring" value="10"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#damper" value="1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#damper" value="1"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(4).physics#rotationDamping" value="0.0003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(5).physics#rotationDamping" value="0.0003"/>
+
+
+
+            <!-- small air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.79 1" />
+
+
+            <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
+            <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.7 1.1"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 1.7 1.1"/>
+
+            <!-- wrapping time => wrapping arm about 26 rpm -->
+            <set path="vehicle.baleWrapper.roundBaleWrapper#wrappingTime" value="15.3846" /> <!-- 12 /0.78 -->
+            <set path="vehicle.baleWrapper.roundBaleWrapper.baleTypes.baleType(0).animations.wrapBale#animSpeed" value="0.78" />
+
+            <!-- remove bale wrap display from the shop -->
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(2)#showInShop" value="false"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(1).fillUnits.fillUnit(2)#showInShop" value="false"/>
+
+        </attributes>
+    </parentFile>
+
+</vehicle>

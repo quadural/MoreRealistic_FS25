@@ -581,6 +581,9 @@ PowerConsumer.mrUpdatePtoPower = function(self, dt)
                 neededPtoPower = Combine.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrBaler then--mr baler
                 neededPtoPower = Baler.mrGetActiveConsumedPtoPower(self)
+                if self.mrIsMrWrapper then--mr baler and bale wrapper
+                    neededPtoPower = neededPtoPower + BaleWrapper.mrGetActiveConsumedPtoPower(self)
+                end
             elseif self.mrIsMrMower then--mr mower
                 neededPtoPower = Mower.mrGetActiveConsumedPtoPower(self)
             elseif self.mrIsMrTedder then--mr tedder

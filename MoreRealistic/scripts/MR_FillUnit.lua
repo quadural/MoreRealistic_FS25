@@ -177,7 +177,7 @@ FillUnit.loadFillUnitFromXML = Utils.overwrittenFunction(FillUnit.loadFillUnitFr
 
 --take into account baler densityFactor
 FillUnit.mrSetFillUnitCapacity = function(self, superFunc, fillUnitIndex, capacity, noEventSend)
-    if self.mrIsMrBaler then
+    if self.mrIsMrBaler and fillUnitIndex==self.mrBalerDensityFactorFillUnitIndex then
         capacity = self.mrBalerDensityFactor * capacity
     end
     superFunc(self, fillUnitIndex, capacity, noEventSend)

@@ -504,8 +504,17 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
             self.mrLastWheelSpeedS = 0.9*self.mrLastWheelSpeedS + 0.1*wheelSpeed
             self.mrLastWheelSpeed = wheelSpeed
 
-            if brakeForce>0 and self.brakeFactor>0 then
-                bForce = brakeForce * self.brakeFactor
+            bForce = brakeForce * self.brakeFactor
+
+            if bForce==0 then
+                --attachable not attached = apply some brake force even if the brakeFactor is 0
+                if self.vehicle.spec_attachable~=nil and self.vehicle.spec_attachable.detachingInProgress then
+                    if self.wheel.wheelChocks and #self.wheel.wheelChocks>0 then
+                        bForce = self.mrLastTireLoad
+                    else
+                        bForce = 0.1 * self.mrLastTireLoad
+                    end
+                end
             end
 
             if self.mrIsDriven and self.vehicle.spec_motorized.mrEngineBrakingPowerToApply>0 then

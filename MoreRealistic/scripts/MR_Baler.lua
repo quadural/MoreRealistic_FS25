@@ -12,6 +12,7 @@ Baler.mrLoadMrValues = function(self, xmlFile)
         self.mrBalerGrassCapacityFx = getXMLFloat(xmlFile, "vehicle.mrBaler#grassCapacityFx") or 1.5
         self.mrBalerUnfinishedBaleThreshold = getXMLFloat(xmlFile, "vehicle.mrBaler#unfinishedBaleThreshold")
         self.mrBalerDensityFactor = getXMLFloat(xmlFile, "vehicle.mrBaler#densityFactor") or 1
+        self.mrBalerDensityFactorFillUnitIndex = getXMLFloat(xmlFile, "vehicle.mrBaler#densityFactorFillUnitIndex") or 1
 
         self.mrBalerIsSquareBaler = false
         self.mrBalerStrokePower = getXMLFloat(xmlFile, "vehicle.mrBaler#strokePower") or 0

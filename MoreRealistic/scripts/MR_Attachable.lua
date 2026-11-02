@@ -99,3 +99,18 @@ Attachable.mrGetIsPowered = function(self, superFunc1, superFunc0)
     end
 end
 Attachable.getIsPowered = Utils.overwrittenFunction(Attachable.getIsPowered, Attachable.mrGetIsPowered)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--
+--MR : even when there is no brakes on an implement, we want to run the brake function (and the updatePhysics) so that we can apply some rolling resistance and a minimal brake
+--
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Attachable.mrOnDeactivate = function(self)
+    if self.isServer then
+        if self.mrIsMrVehicle and self.forceUpdateWheelPhysics~=nil then --only for mr vehicles
+            self:forceUpdateWheelPhysics(999)
+        end
+    end
+end
+Attachable.onDeactivate = Utils.appendedFunction(Attachable.onDeactivate, Attachable.mrOnDeactivate)
