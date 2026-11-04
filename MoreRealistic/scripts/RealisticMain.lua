@@ -17,8 +17,8 @@ RealisticMain.ENGINE_BRAKING_FX_HYDROSTATIC = 1.5 -- default factor applied to e
 
 RealisticMain.SPRAYER_EMPTYSPEED_FX = 1.5 --default factor applied to dischargeNode#emptySpeed for sprayer
 
-RealisticMain.BALE_GRASS_MASS_FX = 0.6 -- in game, there is no difference between "forage harvester direct cut grass silage" and "mower cut and then baling silage". IRL, we do not bale just after the mower job. there is some time between the mower and the baler jobs. so that the grass can loose some "water".
-RealisticMain.BALE_SILAGE_MASS_FX = 0.45 -- there is no magic in real world => if the bale is weighing 1000kg at the wrapping time, it means we will get 1000kg of silage. and so, we have to take into account the BALE_GRASS_MASS_FX just above and the relation between grass density and silage density
+RealisticMain.BALE_GRASS_MASS_FX = 0.66 -- in game, there is no difference between "forage harvester direct cut grass silage" and "mower cut and then baling silage". IRL, we do not bale just after the mower job. there is some time between the mower and the baler jobs. so that the grass can loose some "water".
+RealisticMain.BALE_SILAGE_MASS_FX = 0.495 -- there is no magic in real world => if the bale is weighing 1000kg at the wrapping time, it means we will get 1000kg of silage. and so, we have to take into account the BALE_GRASS_MASS_FX just above and the relation between grass density and silage density
 
 --RealisticMain.MIXERWAGON_LOOSE_SILAGE_DENSITY = 0.4 -- silage in a mixer wagon is not the same as in the pit or inside a bale => more volume and less density
 --VehicleDebug.setState(VehicleDebug.DEBUG_PHYSICS)

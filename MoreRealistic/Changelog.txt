@@ -551,4 +551,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
 
 202611XX    - add Goeweil G1 F125 Kombi (round baler and wrapper combination)
             - add John Deere C441R (round baler and wrapper combination)
+            - add Massey Ferguson 4160V / Fendt Rotana 160V (round baler and wrapper combination)
 

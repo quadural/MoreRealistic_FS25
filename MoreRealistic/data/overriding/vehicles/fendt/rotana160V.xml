@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="balerWrapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <mrBaler idlePower="10" powerIncreaseWithFeedingKilosPerSecond="3.5" powerIncreaseWithBaleMass="15" maxTonsPerHour="55" grassCapacityFx="1.5" densityFactor="1.05" nettingDuration="8" />
+    <mrWrapper activePower="6" baleMassDependingPower="4" />
+
+    <!--
+        exact same as Massey Ferguson 4160V
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/baler4160V/baler4160V.xml">
+        <attributes>
+
+            <set path="vehicle.base.speedLimit#value" value="20" />
+
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.3 0.35" /> <!-- main -->
+            <set path="vehicle.base.components.component(0)#mass" value="5700" />
+
+            <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 -0.2" /> <!-- pickup -->
+            <set path="vehicle.base.components.component(1)#mass" value="270" />
+            <remove path="vehicle.base.components.component(1)#inertiaScale" />
+
+            <set path="vehicle.base.components.component(2)#centerOfMass" value="0 -0.2 -0.3" /> <!-- bale turner -->
+            <set path="vehicle.base.components.component(2)#mass" value="180" />
+            <remove path="vehicle.base.components.component(2)#inertiaScale" />
+            <!-- **********************-->
+
+            <set path="vehicle.powerConsumer#ptoRpm" value="540" />
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.1"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#suspTravel" value="0.03"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#suspTravel" value="0.03"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="80"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="20"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="20"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="5"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="2"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="2"/>
+
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#rotationDamping" value="0.0003"/>
+            <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#rotationDamping" value="0.0003"/>
+
+
+
+            <!-- small air brakes -->
+            <set path="vehicle.attachable.brakeForce#force" value="1.9" />
+
+            <!-- drawbar -->
+            <set path="vehicle.attachable.inputAttacherJoints.inputAttacherJoint(0)#lowerRotLimitScale" value="1 0.91 1" />
+
+
+            <!-- pickup max feed speed => doesn't seem to be useful except for visual "fillEffect" -->
+            <set path="vehicle.baler#maxPickupLitersPerSecond" value="300" />
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit(0)#mrCenterOfMass" value="0 2 -0.1"/>
+
+            <!-- door closing time : about 3s  -->
+            <set path="vehicle.baler.baleAnimation#closeAnimationSpeed" value="0.38" />
+
+            <!-- door opening time = about 2.5-3s -->
+            <set path="vehicle.baler.baleTypes.baleType(0).animations#unloadAnimationSpeed" value="0.66" />
+            <set path="vehicle.baler.baleTypes.baleType(1).animations#unloadAnimationSpeed" value="0.807" />
+
+            <!-- wrapping time => wrapping arm about 35 rpm. No way to approach that without rewriting the whole animation -->
+            <set path="vehicle.baleWrapper.roundBaleWrapper#wrappingTime" value="20" /> <!-- 12 /0.6 -->
+            <set path="vehicle.baleWrapper.roundBaleWrapper.baleTypes.baleType(0).animations.wrapBale#animSpeed" value="0.6" />
+            <set path="vehicle.baleWrapper.roundBaleWrapper.baleTypes.baleType(1).animations.wrapBale#animSpeed" value="0.6" />
+
+            <!-- bug in the base game = if we forget to raise the pickup before folding the baler => the pickup can't be raised again, and it is scratching the ground since the wheels are removed in folded position -->
+            <remove path="vehicle.pickup#foldMinLimit" />
+            <remove path="vehicle.pickup#foldMaxLimit" />
+
+
+            <!-- BASE GAME parent file config -->
+            <set path="vehicle.storeData.brand" value="FENDT"/>
+            <set path="vehicle.storeData.name" value="Rotana 160 V Combi"/>
+            <set path="vehicle.storeData.image" value="$data/vehicles/fendt/rotana160V/store_rotana160V.png"/>
+
+            <set path="vehicle.designConfigurations.designConfiguration(0)#isSelectable" value="false"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isSelectable" value="true"/>
+            <set path="vehicle.designConfigurations.designConfiguration(1)#isDefault" value="true"/>
+
+            <set path="vehicle.wheels.rimMaterial#materialTemplateName" value="FENDT_RED1"/>
+
+            <set path="vehicle.consumable.consumable2Configurations.consumable2Configuration(0)#name" value="FENDT NETWRAP+"/>
+            <set path="vehicle.consumable.consumable2Configurations.consumable2Configuration(0)#consumableName" value="FENDT_NETWRAP"/>
+
+
+        </attributes>
+    </parentFile>
+
+    <!-- ONLY FOR ICON GENERATION -->
+    <storeData>
+        <name>Rotana 160 V Combi</name>
+        <image>$data/vehicles/fendt/rotana160V/store_rotana160V.png</image>
+        <brand>FENDT</brand>
+        <category>balers</category>
+        <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage>
+        <indexBufferMemoryUsage>0</indexBufferMemoryUsage>
+        <textureMemoryUsage>0</textureMemoryUsage>
+        <audioMemoryUsage>0</audioMemoryUsage>
+        <instanceVertexBufferMemoryUsage>0</instanceVertexBufferMemoryUsage>
+        <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
+    </storeData>
+
+</vehicle>

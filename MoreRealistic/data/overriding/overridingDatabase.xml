@@ -22,6 +22,8 @@
     <!-- baler wrappers -->
     <vehicle fileNameToOverride="data/vehicles/goeweil/g1F125Kombi/g1F125Kombi.xml">vehicles/goeweil/g1F125Kombi.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/johnDeere/c441R/c441R.xml">vehicles/johnDeere/c441R.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/masseyFerguson/baler4160V/baler4160V.xml">vehicles/masseyFerguson/baler4160V.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/fendt/rotana160V/rotana160V.xml">vehicles/fendt/rotana160V.xml</vehicle>
 
     <!-- baler (square) -->
     <vehicle fileNameToOverride="data/vehicles/claas/quadrant5300/quadrant5300.xml">vehicles/claas/quadrant5300.xml</vehicle>
