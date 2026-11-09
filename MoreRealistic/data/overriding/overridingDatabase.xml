@@ -36,6 +36,7 @@
     <!-- bale wrappers -->
     <vehicle fileNameToOverride="data/vehicles/goeweil/g5020/g5020.xml">vehicles/goeweil/g5020.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/goeweil/g1015/g1015.xml">vehicles/goeweil/g1015.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/kuhn/sw4014/sw4014.xml">vehicles/kuhn/sw4014.xml</vehicle>
 
     <!-- barrels -->
     <vehicle fileNameToOverride="data/vehicles/abi/waterTrailer550/waterTrailer550.xml">vehicles/abi/waterTrailer550.xml</vehicle>
