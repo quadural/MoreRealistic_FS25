@@ -4,6 +4,7 @@ Motorized.mrRegisterMotorXMLPaths = function(schema, superFunc, baseKey)
     schema:register(XMLValueType.FLOAT, baseKey .. ".motor#mrInertiaFx", "Engine inertia factor value to apply to auto-compute value", 1)
     schema:register(XMLValueType.FLOAT, baseKey .. ".motor#mrEngineBrakingFx", "Engine braking factor", 1)
     schema:register(XMLValueType.BOOL, baseKey .. ".transmission.directionChange#mrKeepCurrentGear", "keep the same gear while changing direction", false)
+    schema:register(XMLValueType.FLOAT, baseKey .. ".transmission#mrReverseGearsRatio", "in reverse, we get the same gears than forward but with a different ratio")
 end
 Motorized.registerMotorXMLPaths = Utils.overwrittenFunction(Motorized.registerMotorXMLPaths, Motorized.mrRegisterMotorXMLPaths)
 
@@ -21,13 +22,19 @@ Motorized.mrLoadMotor = function(self, superFunc, xmlFile, motorId)
     self.mrLastEngineIsBraking = false
     self.mrEngineBrakingPowerToApply = 0
     self.mrLastFuelUsageS = 0
-    superFunc(self, xmlFile, motorId)
 
     local transmissionKey = key .. ".transmission"
     if not xmlFile:hasProperty(transmissionKey) then
         transmissionKey = fallbackConfigKey .. ".transmission"
     end
+
+    self.spec_motorized.mrReverseGearsRatio = xmlFile:getValue(transmissionKey .. "#mrReverseGearsRatio", nil)
+
+    superFunc(self, xmlFile, motorId)
+
     self.spec_motorized.motor.mrDirectionKeepCurrentGear = xmlFile:getValue(transmissionKey .. ".directionChange#mrKeepCurrentGear", false)
+
+
 
     --try to load inertia from xml or compute its value (we don't especially want the base game inertia value)
     if self.spec_motorized.motor.rotInertia == (self.spec_motorized.motor.peakMotorTorque / 600) then
@@ -534,25 +541,28 @@ end
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
---MR : turn off implement when the engine rev is too low
+--MR : takes into account "mrReverseGearsRatio" to generate reverse gears from the forward gears (example : Zetor Proxima HS)
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---[[20260923 - removed this feature, it is too problematic for those who play with manual clutch
-Motorized.mrGetIsPowered = function(self, superFunc1, superFunc0)
-    local isPowered = superFunc1(self, superFunc0)
 
-    if self.isServer and isPowered and not self:getIsAIActive() then --20260913 - disable this feature when the vehicle is AI driven
-        --check rpm
-        if PowerConsumer.getMaxPtoRpm(self)>300 then
-            local motor = self.spec_motorized.motor
-            if motor.mrLastMotorObjectRotSpeed<(motor.mrMinRot-1) then
-                isPowered = false
+Motorized.mrLoadGears = function(self, superFunc, xmlFile, gearName, key, motorMaxRpm, axleRatio, direction)
+
+    local gears = superFunc(self, xmlFile, gearName, key, motorMaxRpm, axleRatio, direction)
+
+    if self~=nil and gears==nil and gearName=="backwardGear" then --no gears found in reverse => if mrReverseGearsRatio is defined, load reverse gears from forward config
+        local spec = self.spec_motorized
+        if spec.mrReverseGearsRatio~=nil and spec.mrReverseGearsRatio~=1 then
+            gears = superFunc(self, xmlFile, "forwardGear", key, motorMaxRpm, axleRatio*spec.mrReverseGearsRatio, direction)
+            if #gears > 0 then
+                for _, gearEntry in pairs(gears) do
+                    gearEntry.name = "-" .. gearEntry.name
+                end
             end
         end
     end
 
-    return isPowered
+    return gears
 
 end
-Motorized.getIsPowered = Utils.overwrittenFunction(Motorized.getIsPowered, Motorized.mrGetIsPowered)
---]]
+Motorized.loadGears = Utils.overwrittenFunction(Motorized.loadGears, Motorized.mrLoadGears)
+

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="tractor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../shared/xml/schema/vehicle.xsd">
+
+    <MR>true</MR>
+
+    <!--
+
+        fendt 300 vario S4
+
+        weight = about 5.9T with 540/600 tires + front 3pt hitch + driver and fuel/def
+
+        Brake deceleration = 5m/s2 (no front wheels brake)
+        Max mass = 9T => 9 * 5 / 4 /2 = 5.625
+    -->
+
+    <parentFile xmlFilename="$data/vehicles/fendt/vario300/vario300.xml">
+            <attributes>
+
+                <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1 -0.17"/>
+                <set path="vehicle.base.components.component(0)#mass" value="3925"/>
+                <set path="vehicle.base.components.component(1)#centerOfMass" value="0 0 0"/>
+                <set path="vehicle.base.components.component(1)#mass" value="580"/>
+                <remove path="vehicle.base.components.component(1)#inertiaScale" />
+
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#damper" value="20"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#damper" value="20"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#damper" value="15"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#damper" value="15"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#spring" value="60"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#spring" value="60"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#spring" value="80"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#spring" value="80"/>
+
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#suspTravel" value="0.12"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#suspTravel" value="0.12"/>
+
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#initialCompression" value="17"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#initialCompression" value="17"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#initialCompression" value="18"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#initialCompression" value="18"/>
+
+
+                <!-- gsVehicleAnalyze fix -->
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(0).physics#restLoad" value="1.2"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(1).physics#restLoad" value="1.2"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(2).physics#restLoad" value="1.71"/>
+                <set path="vehicle.wheels.wheelConfigurations.wheelConfiguration(0).wheels.wheel(3).physics#restLoad" value="1.71"/>
+
+                <set path="vehicle.attacherJoints.attacherJoint(0)#lowerRotationOffset" value="1.52"/>
+                <set path="vehicle.attacherJoints.attacherJoint(0)#upperRotationOffset" value="1.52"/>
+                <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#lower" value="0.338"/>
+                <set path="vehicle.attacherJoints.attacherJoint(0).distanceToGround#upper" value="1.144"/>
+
+                <set path="vehicle.attacherJoints.attacherJoint(1)#lowerRotationOffset" value="-1.52"/>
+                <set path="vehicle.attacherJoints.attacherJoint(1)#upperRotationOffset" value="-1.52"/>
+                <set path="vehicle.attacherJoints.attacherJoint(1).distanceToGround#lower" value="0.240"/>
+                <set path="vehicle.attacherJoints.attacherJoint(1).distanceToGround#upper" value="0.839"/>
+
+                <set path="vehicle.attacherJoints.attacherJoint(2).distanceToGround#lower" value="0.592"/>
+
+                <set path="vehicle.attacherJoints.attacherJoint(3).distanceToGround#lower" value="0.613"/>
+
+                <!-- end gsVehicleAnalyze -->
+
+
+                <!-- front loader config -->
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(2)#node" value="0>"/>
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(2)#mrAddMassActive" value="250"/>
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(2)#mrAddMassCOMActive" value="0 1.2 0.8"/>
+
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(2)#node" value="0>"/>
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(2)#mrAddMassActive" value="250"/>
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(2)#mrAddMassCOMActive" value="0 1.2 0.8"/>
+
+
+                <!-- differentials -->
+                <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(0)#maxSpeedRatio" value="1.3" />
+                <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(1)#maxSpeedRatio" value="1.3" />
+                <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#maxSpeedRatio" value="1.3" />
+                <set path="vehicle.motorized.differentialConfigurations.differentialConfiguration.differentials.differential(2)#torqueRatio" value="0.35" />
+
+                <!-- attacher joint rot limit -->
+                <set path="vehicle.attacherJoints.attacherJoint(2)#lowerRotLimit" value="25 59 50"/> <!-- trailer high -->
+                <set path="vehicle.attacherJoints.attacherJoint(3)#lowerRotLimit" value="25 63 50"/> <!-- trailer low -->
+
+
+                <!-- engine and transmission -->
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#name" value="Vario" />
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minForwardGearRatio" value="14.65"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#minBackwardGearRatio" value="26"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#maxForwardGearRatio" value="1000"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#maxBackwardGearRatio" value="1000"/>
+
+                <!-- ************************************************************************************************************************-->
+                <!-- 311 S4 4.4L AGCO -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(0)#usage" value="23.5"/> <!-- Max fuel rate @maxPower -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(0).consumer(1)#usage" value="1.7"/>
+
+                <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor" />
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="750"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="150"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="45"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="25"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="5.6"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.4889"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="750"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#torque" value="0.300"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#rpm" value="850"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(1)#torque" value="0.340"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#rpm" value="1000"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(2)#torque" value="0.440"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#rpm" value="1100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(3)#torque" value="0.473"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#rpm" value="1300"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(4)#torque" value="0.494"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#rpm" value="1500"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(5)#torque" value="0.497"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#rpm" value="1700"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(6)#torque" value="0.461"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#rpm" value="1900"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(7)#torque" value="0.418"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#rpm" value="2100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(8)#torque" value="0.338"/>
+
+
+                <!-- 312 -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(1).consumer(0)#usage" value="25.5"/> <!-- Max fuel rate @maxPower -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(1).consumer(1)#usage" value="1.8"/>
+
+                <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor" />
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(0)#rpm" value="750"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(0)#torque" value="0.320"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(1)#rpm" value="850"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(1)#torque" value="0.360"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(2)#rpm" value="1000"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(2)#torque" value="0.470"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(3)#rpm" value="1100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(3)#torque" value="0.510"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(4)#rpm" value="1300"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(4)#torque" value="0.530"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(5)#rpm" value="1500"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(5)#torque" value="0.536"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(6)#rpm" value="1700"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(6)#torque" value="0.500"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(7)#rpm" value="1900"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(7)#torque" value="0.455"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(8)#rpm" value="2100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(1).motor.torque(8)#torque" value="0.380"/>
+
+
+                <!-- 313 -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(0)#usage" value="28"/> <!-- Max fuel rate @maxPower -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(2).consumer(1)#usage" value="2"/>
+
+                <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor" />
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#rpm" value="750"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(0)#torque" value="0.330"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#rpm" value="850"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(1)#torque" value="0.370"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#rpm" value="1000"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(2)#torque" value="0.490"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#rpm" value="1100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(3)#torque" value="0.536"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#rpm" value="1300"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(4)#torque" value="0.562"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#rpm" value="1500"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(5)#torque" value="0.571"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#rpm" value="1700"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(6)#torque" value="0.545"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(7)#rpm" value="1900"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(7)#torque" value="0.495"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(8)#rpm" value="2100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(2).motor.torque(8)#torque" value="0.410"/>
+
+
+                <!-- 314 -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(3).consumer(0)#usage" value="32"/> <!-- Max fuel rate @maxPower -->
+                <set path="vehicle.motorized.consumerConfigurations.consumerConfiguration(3).consumer(1)#usage" value="2.25"/>
+
+                <remove path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor" />
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(0)#rpm" value="750"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(0)#torque" value="0.350"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(1)#rpm" value="850"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(1)#torque" value="0.400"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(2)#rpm" value="1000"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(2)#torque" value="0.540"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(3)#rpm" value="1100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(3)#torque" value="0.610"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#rpm" value="1300"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(4)#torque" value="0.640"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(5)#rpm" value="1500"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(5)#torque" value="0.650"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(6)#rpm" value="1700"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(6)#torque" value="0.627"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(7)#rpm" value="1900"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(7)#torque" value="0.565"/>
+
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(8)#rpm" value="2100"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(3).motor.torque(8)#torque" value="0.475"/>
+
+            </attributes>
+    </parentFile>
+
+</vehicle>

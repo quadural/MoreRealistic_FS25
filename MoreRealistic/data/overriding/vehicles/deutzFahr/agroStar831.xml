@@ -5,6 +5,9 @@
 
     <!--
 
+        Brake deceleration = 3m/s2 (old tractor)
+        Max mass = 12T => 12 * 3 / 4 /2 = 4.5
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/deutzFahr/agroStar831/agroStar831.xml">
@@ -69,7 +72,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="44"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="13"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="6.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="4.5"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.8574"/>
 
 

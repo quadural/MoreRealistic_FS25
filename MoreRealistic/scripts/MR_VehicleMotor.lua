@@ -1430,7 +1430,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
         --check one gear up
 
         local toolSpdLimit = self:getSpeedLimit() --kph
-        local minTotalGearRatioPossible = 0  --we don't want to shift up if we end with a gear to "quick" to keep the speedlimit and the min engine rpm wanted
+        local minTotalGearRatioPossible = 0  --we don't want to shift up if we end with a gear too "quick" to keep the speedlimit and the min engine rpm wanted
         if toolSpdLimit>0 and toolSpdLimit<99 then
             minTotalGearRatioPossible = 0.37699*minRpmWanted/toolSpdLimit -- formula = 3.6 * rpm * pi / (30 * kph)
         end
@@ -1480,7 +1480,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                                 --diffSpeed = maxEngineRpmNotGoverned * (1/ratio1 - 1/ratio2)
 
                                 --only work when we check higher gears - skip the first one that is correct (we don't want to remain in a gear because of the "diffSpeed" check)
-                                if bestScore~=0 then
+                                if bestScore~=0 and i>(curGear1+2) then --allow to skip 2 gears before checking the "diffspeed"
                                     local diffSpeed = maxRpmNotGoverned * 0.10472 * (1/newGlobalRatio - 1/curGlobalRatio) --pi / 30 = 0.10472
                                     if diffSpeed>2 then --2m/s = 7.2kph
                                         break

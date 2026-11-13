@@ -554,4 +554,6 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Massey Ferguson 4160V / Fendt Rotana 160V (round baler and wrapper combination)
             - add Kuhn SW4014 (wrapper)
             - improved Jenz Cobra (8x6, running gears, gearbox)
-
+            - add John Deere 6M
+            - add Fendt 300 vario
+            - add Zetor Proxima HS

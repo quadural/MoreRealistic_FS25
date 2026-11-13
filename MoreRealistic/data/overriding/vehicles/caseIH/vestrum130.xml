@@ -10,6 +10,7 @@
         DLG test report = 5800kg (2540 front and 3260 rear) => with 460/65R28 + 540/65R38
 
         DLG Brake report = 5.1m/s2 @5800kg
+        Max mass = 8.8T => 8.8 * 5.1 / 4 /2 = 5.61
 
     -->
 
@@ -72,7 +73,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.646"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="43"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="22"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="4.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="5.61"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="150"/>
 
             <!-- 100 -->

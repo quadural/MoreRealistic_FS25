@@ -28,6 +28,15 @@
 
     example : case ih vestrum. DLG test report = 5.1m/s2 and 5800kg => value to set in the xml file = 5.1*5.8*0.15 = 4.44
 
+    202611 : DLG report showing us the deceleration with a given mass does not mean the deceleration would be lower with more mass.
+    Ex : case ih vestrum with 5.1m/s2 and 5800kg doesn 't mean the figure would be lower with max mass (8.8T)
+
+    Regulation =
+    Old directive (before 2015) => 2.5m/s2 (up to 40k) and 3.75m/s2 @50k
+    New directive = 3.2m/s2 up to 30k and 5.0m/s2 up to 50k
+
+    Better way = take the deceleration and compute the brake force when at full laden mass (vestrum => 5.1m/s2, 8.8t max mass => 5.1 * 8.8 / 4 / 2 = 5.61)
+
 
     *************************************************************************************
     spring :

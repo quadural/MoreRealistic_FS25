@@ -16,6 +16,9 @@
         - ratio of 1.3 for center differential
         - torqueRatio of 35% front and 65% rear
 
+        Brake deceleration = 3.5m/s2 (old tractor)
+        Max mass = 14T => 14 * 3.5 / 4 /2 = 6.125
+
     -->
 
     <parentFile xmlFilename="$data/vehicles/challenger/mt655/mt655.xml">
@@ -121,7 +124,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="39"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="11"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="7.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="6.2"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.872"/>
 
 

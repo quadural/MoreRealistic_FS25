@@ -4,6 +4,13 @@
 
     <MR>true</MR>
 
+    <!--
+    exact same as case IH puma
+
+    Brake deceleration = 5.2m/s2
+    Max mass = 14T => 14 * 5.2 / 4 /2 = 9.1
+    -->
+
     <parentFile xmlFilename="$data/vehicles/caseIH/puma/puma.xml">
         <attributes>
 
@@ -80,7 +87,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="56"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="35"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="12"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="9.1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.54"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="850"/>

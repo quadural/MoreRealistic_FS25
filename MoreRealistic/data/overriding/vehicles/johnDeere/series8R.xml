@@ -6,6 +6,11 @@
 
     <!-- the front ballast collison shape is missing => there is no collision when we choose the front weight instead of the front 3pt hitch -->
 
+     <!--
+    Brake deceleration = 5.1m/s2
+    Max technical mass = 20T => 20 * 5.1 / 4 /2 = 12.75
+    -->
+
     <parentFile xmlFilename="$data/vehicles/johnDeere/series8R/series8R.xml">
         <attributes>
 
@@ -83,7 +88,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="53"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="22"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="15"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="12.8"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.695"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="800"/>

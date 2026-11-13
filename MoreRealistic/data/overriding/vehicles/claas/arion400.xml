@@ -17,6 +17,7 @@
 
 
     DLG Brake report = 4.4m/s2 @5760kg
+    Max mass = 9T => 9 * 4.4 / 4 /2 = 5
 
     -->
 
@@ -188,7 +189,7 @@
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="45"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="45"/>
-                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="3.8"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="5"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.637"/>
 
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="750"/>

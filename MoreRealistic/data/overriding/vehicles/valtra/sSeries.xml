@@ -8,7 +8,8 @@
     47/53 ratio front/rear  = about 5640kg on the front axle
     => about 12200kg in game with standard tires
 
-
+    Brake deceleration = 5.2m/s2
+    Max mass = 18T => 18 * 5.2 / 4 /2 = 11.7
 
     -->
 
@@ -89,7 +90,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="53"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="38"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="14"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="12"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.4852"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="750"/>

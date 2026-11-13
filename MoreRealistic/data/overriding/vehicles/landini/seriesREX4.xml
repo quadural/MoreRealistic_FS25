@@ -3,24 +3,15 @@
 
     <MR>true</MR>
 
-    <!-- This is not a GT version !!! -->
-    <!-- this is clearly visible by looking at the rear fenders and rear bottom arms for example -->
-    <!-- GT version = 1478mm wide-->
-    <!-- this is a F version (1342mm wide) -->
+    <!--
+    This is not a GT version !!!
 
+    this is clearly visible by looking at the rear fenders and rear bottom arms for example
+    GT version = 1478mm wide
+    this is a F version (1342mm wide)
 
-            <!-- important
-
-        differentials sytem has a hard time to stabilize in game = this is not adviseable to set value of 1 to try simulate a diff-lock.
-        1. you will never obtain the behavior of a diff-lock (both wheels can still rotate at different speeds)
-        2. you will get "stutters" in wheel speed because the differential system is not able to match the demanded 0 difference between both wheels
-        3. you will lose a bunch of engine power when the differential system goes crazy (example : 200Hp tractor cultivating at 12kph and then not able to go past 6kph for unknown reason)
-
-        recommandation for FWA (front wheel assist =most of the tractors) =
-        - ratio of 3 for front wheels
-        - ratio of 2 for rear wheels
-        - ratio of 1.3 for center differential
-        - torqueRatio of 35% front and 65% rear
+    Brake deceleration = 5m/s2
+    Max mass = 5.25T => 5.25 * 5 / 4 /2 = 3.3
 
     -->
 
@@ -207,7 +198,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="900"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="2200"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="110"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="2.5"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="3.3"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="42"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="16"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.6"/>

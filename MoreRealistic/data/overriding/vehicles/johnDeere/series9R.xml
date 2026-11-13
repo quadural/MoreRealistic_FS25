@@ -5,7 +5,11 @@
     <MR>true</MR>
 
     <!-- about 22200kg with duals IF710/70R42 and rear 3pt hitch (or rear ballast)
-    57% front and 43% back-->
+    57% front and 43% back
+
+    Brake deceleration = 5.1m/s2
+    Max mass = 30.4T => 30.4 * 5.1 / 4 /2 = 19.38
+    -->
 
     <parentFile xmlFilename="$data/vehicles/johnDeere/series9R/series9R.xml">
         <attributes>
@@ -112,7 +116,7 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#torqueScale" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="40"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="13.6"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="25"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="20"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.509"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(0)#rpm" value="800"/>
