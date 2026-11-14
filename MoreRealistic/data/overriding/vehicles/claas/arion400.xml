@@ -134,7 +134,7 @@
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGroup" value="false"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="0"/> <!-- powershuttle -->
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#reverseGearIndex" value="2"/>
-                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#mrKeepCurrentGear" value="True"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#mrKeepCurrentGear" value="true"/>
 
 
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.groups#type" value="POWERSHIFT"/>

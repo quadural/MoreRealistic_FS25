@@ -1,5 +1,5 @@
 
-VehicleMotor.mrNew = function (vehicle, superFunc, minRpm, maxRpm, maxForwardSpeed, maxBackwardSpeed, torqueCurve, brakeForce, forwardGears, backwardGears, minForwardGearRatio, maxForwardGearRatio, minBackwardGearRatio, maxBackwardGearRatio, ptoMotorRpmRatio, minSpeed)
+VehicleMotor.mrNew = function(vehicle, superFunc, minRpm, maxRpm, maxForwardSpeed, maxBackwardSpeed, torqueCurve, brakeForce, forwardGears, backwardGears, minForwardGearRatio, maxForwardGearRatio, minBackwardGearRatio, maxBackwardGearRatio, ptoMotorRpmRatio, minSpeed)
 
     --MR : add governor range to the engine torque curve
 
@@ -622,6 +622,13 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
         self.previousGear = 0
         self.mrBestStartGearSelected = 0
         waitingForTimer = false
+
+        if self.mrDirectionKeepCurrentGear and self.directionChangeGearIndex~=0 then
+            --keep the same gear when changing direction
+            justChangedDirection = false
+            self.mrBestStartGearSelected = self.directionChangeGearIndex
+        end
+
     end
 
     if not waitingForTimer then
@@ -795,7 +802,9 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                 local differentialRotSpeed = math.max(math.abs(self.differentialRotSpeed), 0.01)
                 local curRatio = math.min(self.motorRotSpeed / differentialRotSpeed, 2*math.abs(tarRatio))
                 --curRatio = math.min(self.motorRotSpeed / math.max(self.differentialRotSpeed, 0.00001), 5000)
-                ratio = MathUtil.lerp(math.abs(tarRatio), math.abs(curRatio), math.min(self.manualClutchValue^0.5, 0.9) / 0.9 * 0.5) * math.sign(tarRatio)
+                ratio = MathUtil.lerp(math.abs(tarRatio), math.abs(curRatio), math.min(self.manualClutchValue^0.5, 0.9) / 0.9 * 0.5)
+                ratio = ratio * math.sign(tarRatio)
+
             end
 
 
@@ -1283,7 +1292,13 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
     end
 
     local engineRpm = 10*(self.mrLastMotorObjectRotSpeed + self.mrLastMotorObjectRotSpeedPrev1 + self.mrLastMotorObjectRotSpeedPrev2)/math.pi -- avg engine speed over 3 frames to avoid "funny" value (example : when tractor bouncing on windrows)
+    local clutchRpm = 10*(self.mrLastClutchRotSpeed + self.mrLastClutchRotSpeedPrev1 + self.mrLastClutchRotSpeedPrev2)/math.pi -- avg engine speed over 3 frames to avoid "funny" value
     local forceLug = false
+
+    if clutchRpm<0.9*engineRpm then --clutch is slipping => shift gear down to give it a hand
+        engineRpm = 0.5*engineRpm + 0.5*clutchRpm
+        forceLug = true
+    end
 
     if engineRpm<self.minRpm then
         forceLug = true
@@ -1295,12 +1310,9 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
         maxRpmWanted = math.min(maxRpmWanted, maxRpmNotGoverned)
         if engineRpm<minRpmWanted then
             forceLug = true --not enough rpm for the pto tool
-        else
-            local clutchRpm = 10*(self.mrLastClutchRotSpeed + self.mrLastClutchRotSpeedPrev1 + self.mrLastClutchRotSpeedPrev2)/math.pi
-            if clutchRpm<minRpmWanted then
-                forceLug = true --not enough rpm for the pto tool
-                engineRpm = clutchRpm
-            end
+        elseif clutchRpm<minRpmWanted then
+            forceLug = true --not enough rpm for the pto tool
+            engineRpm = clutchRpm
         end
     end
 
@@ -1539,45 +1551,60 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                 local newPowerFx = 0
                 local bestScore = 0
 
-                for i=curGear1, 1, -1 do
-                    if curGear1Sign~=math.sign(gearbox1[i].ratio) then
-                        break
-                    else
-                        local newGlobalRatio = gearbox1[i].ratio * gearbox2[curGear2+1].ratio
-                        if newGlobalRatio>=minTotalGearRatioPossible then
-                            local newEngineRpmTmp = math.abs(engineRpm * newGlobalRatio/curGlobalRatio)
-                            if newEngineRpmTmp>=maxRpmNotGoverned then
-                                break
-                            else
-                                newPowerFx = self.torqueCurve:get(0.9*newEngineRpmTmp)*0.9*newEngineRpmTmp --0.9 factor because this is the slow gearbox => we loose speed while shifting gear, the "landing" rpm will be lower than expected
-                                local score
-
-                                if newPowerFx>=(0.55+reserve+0.5*currentLoadFx)*currentPowerFx then
-                                    if newEngineRpmTmp>=self.mrPowerBandMinRpm then
-                                        score = 100 + i --10 + gearNumber => we want the highest gear possible to avoid shift up each gear if not required
-                                    elseif newEngineRpmTmp>=self.mrMinEcoRpm then
-                                        --in case we don't find a "maxPowerBand" gear, we can use an "ecoRpm" gear
-                                        if newPowerFx>=2*currentPowerFx then
-                                            score = 100 + i
-                                        else
-                                            score = 10 + i
-                                        end
-                                    else
-                                        score = i --in case no "maxPowerBand" gear is found, no "ecoRpm" gear is found, we can take any gear, provided the new powerFx is greater than the current one
-                                    end
-                                    if score>=bestScore then
-                                        bestScore = score
-                                        newGear1 = i
-                                        newGear2 = curGear2+1
-                                    elseif bestScore~=0 then --we got a worse score than the previous one (score<bestScore and bestScore not 0) = no need to proceed further
-                                        break
-                                    end
-                                end
-
-                            end
+                --special case = very low speed, very high rpm = we check if we can shift up 2 gears without touching the current "group" (example : A1 to C1 for a powerquad transmission. // I1 to I3 for a powersynchron transmission)
+                if curGlobalRatio>140 and curGear2<(#gearbox2-1) and curGear2Sign==math.sign(gearbox2[curGear2+2].ratio) and engineRpm>1.02*maxRpmNotGoverned then
+                    local newGlobalRatio = curGear1Ratio * gearbox2[curGear2+2].ratio
+                    if newGlobalRatio>=minTotalGearRatioPossible then
+                        local newEngineRpmTmp = math.abs(engineRpm * newGlobalRatio/curGlobalRatio)
+                        newPowerFx = self.torqueCurve:get(newEngineRpmTmp)*newEngineRpmTmp
+                        if newPowerFx>=2*currentPowerFx then
+                            newGear2 = curGear2+2
+                            bestScore = 1
                         end
                     end
-                end --end for
+                end
+
+                if bestScore==0 then
+                    for i=curGear1, 1, -1 do
+                        if curGear1Sign~=math.sign(gearbox1[i].ratio) then
+                            break
+                        else
+                            local newGlobalRatio = gearbox1[i].ratio * gearbox2[curGear2+1].ratio
+                            if newGlobalRatio>=minTotalGearRatioPossible then
+                                local newEngineRpmTmp = math.abs(engineRpm * newGlobalRatio/curGlobalRatio)
+                                if newEngineRpmTmp>=maxRpmNotGoverned then
+                                    break
+                                else
+                                    newPowerFx = self.torqueCurve:get(0.9*newEngineRpmTmp)*0.9*newEngineRpmTmp --0.9 factor because this is the slow gearbox => we loose speed while shifting gear, the "landing" rpm will be lower than expected
+                                    local score
+
+                                    if newPowerFx>=(0.55+reserve+0.5*currentLoadFx)*currentPowerFx then
+                                        if newEngineRpmTmp>=self.mrPowerBandMinRpm then
+                                            score = 100 + i --10 + gearNumber => we want the highest gear possible to avoid shift up each gear if not required
+                                        elseif newEngineRpmTmp>=self.mrMinEcoRpm then
+                                            --in case we don't find a "maxPowerBand" gear, we can use an "ecoRpm" gear
+                                            if newPowerFx>=2*currentPowerFx then
+                                                score = 100 + i
+                                            else
+                                                score = 10 + i
+                                            end
+                                        else
+                                            score = i --in case no "maxPowerBand" gear is found, no "ecoRpm" gear is found, we can take any gear, provided the new powerFx is greater than the current one
+                                        end
+                                        if score>=bestScore then
+                                            bestScore = score
+                                            newGear1 = i
+                                            newGear2 = curGear2+1
+                                        elseif bestScore~=0 then --we got a worse score than the previous one (score<bestScore and bestScore not 0) = no need to proceed further
+                                            break
+                                        end
+                                    end
+
+                                end
+                            end
+                        end
+                    end --end for
+                end -- end bestScore==0
             end
 
         end

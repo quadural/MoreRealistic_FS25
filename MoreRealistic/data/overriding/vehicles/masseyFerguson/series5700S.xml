@@ -8,7 +8,7 @@
     Max mass = 8.5T => 8.5 * 5 / 4 /2 = 5.3
     -->
 
-    <parentFile xmlFilename="$data/vehicles/zetor/proximaHS120/proximaHS120.xml">
+    <parentFile xmlFilename="$data/vehicles/masseyFerguson/series5700S/series5700S.xml">
             <attributes>
 
                 <set path="vehicle.base.components.component(0)#centerOfMass" value="0 1.1 -0.08"/>
@@ -103,7 +103,7 @@
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#useGroup" value="false"/>
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="0"/> <!-- powershuttle -->
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#reverseGearIndex" value="2"/>
-                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#mrKeepCurrentGear" value="True"/>
+                <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#mrKeepCurrentGear" value="true"/>
 
 
                 <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.groups#type" value="POWERSHIFT"/>
