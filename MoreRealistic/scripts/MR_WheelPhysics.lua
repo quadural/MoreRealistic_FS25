@@ -536,10 +536,15 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
         self.mrLastEngineBrakeForce = engineBrakeForce
         self.mrLastBrakeForce = bForce
 
+        --20261114 - 25% more brake force at still
+        if bForce>0 and self.mrLastWheelSpeed<0.25 then
+            bForce = bForce * 1.25
+        end
+
         local totalForce = rrForce+bForce+engineBrakeForce
 
         --limit brakeforce to normal force * friction to avoid blocking wheel => ALB (auto load balance / anti lock brake regulator)
-        if self.wheelShapeCreated and (self.mrIsDriven or self.mrABS) then
+        if self.wheelShapeCreated and (self.mrIsDriven or self.mrABS) and self.mrLastWheelSpeed>0.5 then --20261114 - full brake power at very low speed
             if totalForce>self.restLoad then --minimum force = restLoad (10% of restLoad weight since normal (vertical) force = 9.81*restload)
                 totalForce = math.min(totalForce, self.mrLastTireLoad*self.tireGroundFrictionCoeff)
                 totalForce = math.max(totalForce, self.restLoad)
