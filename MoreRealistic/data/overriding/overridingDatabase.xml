@@ -290,6 +290,7 @@
     <vehicle fileNameToOverride="data/vehicles/johnDeere/series6M/series6M.xml">vehicles/johnDeere/series6M.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/fendt/vario300/vario300.xml">vehicles/fendt/vario300.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/zetor/proximaHS120/proximaHS120.xml">vehicles/zetor/proximaHS120.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/zetor/forterraHSX140/forterraHSX140.xml">vehicles/zetor/forterraHSX140.xml</vehicle>
 
     <!-- trailers -->
     <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>

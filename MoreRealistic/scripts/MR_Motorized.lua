@@ -59,6 +59,8 @@ Motorized.mrLoadMotor = function(self, superFunc, xmlFile, motorId)
     self.spec_motorized.mrLastMinMotorRotSpeedSet = 0
     self.spec_motorized.mrLastNeutralActive = false
 
+    self.spec_motorized.motor.mrLastMaxSpeedSet = 0
+
     --20250605 - we don't want a "autoGearChangeTime" == 0, this is not "realistic"
     if self.spec_motorized.motor.autoGearChangeTime==0 then
         self.spec_motorized.motor:setAutoGearChangeTime(700) --700ms
@@ -236,6 +238,8 @@ Motorized.mrControlVehicle = function(self, superFunc, acceleratorPedal, maxSpee
     spec.mrLastMaxGearRatioSet = maxGearRatio
     spec.mrLastMaxMotorRotSpeedSet = maxMotorRotSpeed
     spec.mrLastMinMotorRotSpeedSet = minMotorRotSpeed
+
+    spec.motor.mrLastMaxSpeedSet = maxSpeed -- meters per second
 
     spec.mrLastNeutralActive = (minGearRatio==0 and maxGearRatio==0)
 

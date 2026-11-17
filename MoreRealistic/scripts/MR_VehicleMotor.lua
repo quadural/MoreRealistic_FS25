@@ -697,7 +697,7 @@ VehicleMotor.mrUpdateGear = function(self, acceleratorPedal, brakePedal, dt)
                     if math.abs(self.differentialRotSpeed) < 0.03 or Vehicle.mrGetIdleTurningActive(self.vehicle) or justChangedDirection then --0.03 = 1.08kph
 
                         --reset lug time
-                        self.mrTransmissionLugTime = 0
+                        --self.mrTransmissionLugTime = 0
 
                         if acceleratorPedal==0 or justChangedDirection or self.mrBestStartGearSelected==0 then
                             local force = justChangedDirection
@@ -1275,6 +1275,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
     --accPedal 0 means we want to decelerate = we want high rpm
     local minRpmWanted = 0
     local maxRpmWanted = 0
+    local electronicallyLimited = false
 
     if accPedalIdle then
         minRpmWanted = 0.5*(self.mrPowerBandMinRpm+self.mrPowerBandMaxRpm) * math.min(math.abs(self.vehicle.lastSpeed)*1000, 1) --20250416 - no need to shift down up to the first gear when decelerating => max minRpmWanted reached at 3.6kph
@@ -1349,8 +1350,13 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
 
     if not gearFound and not forceLug and engineRpm>=minRpmWanted and engineRpm<=maxRpmWanted then
             --nothing to do, all is good
-        if keepGear or absAccPedal==1 then
+        if keepGear then
             gearFound = true --everything is good, no need to change gear
+        else
+            electronicallyLimited = (1000*math.abs(self.vehicle.lastSpeed))>=self.mrLastMaxSpeedSet
+            if absAccPedal==1 and not electronicallyLimited then
+                gearFound = true --everything is good, no need to change gear
+            end
         end
     end
 
@@ -1461,7 +1467,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
                 local newGlobalRatio
                 local newEngineRpmTmp
                 local currentLoadFx = 1
-                if absAccPedal<0.99 then
+                if absAccPedal<0.99 or electronicallyLimited then
                     currentLoadFx = self.smoothedLoadPercentage
                 end
                 local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm
@@ -1544,7 +1550,7 @@ VehicleMotor.mrFindBestGearCombination = function(self, curGear1, gearbox1, gear
 
                 --only shift gear up when we get more power
                 local currentLoadFx = 1
-                if absAccPedal<0.99 then
+                if absAccPedal<0.99 or electronicallyLimited then
                     currentLoadFx = self.smoothedLoadPercentage
                 end
                 local currentPowerFx = self.torqueCurve:get(engineRpm)*engineRpm

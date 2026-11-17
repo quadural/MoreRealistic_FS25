@@ -300,6 +300,8 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
     -- rolling resistance = coeff * normal force
     -- simplified model for rr
 
+    local startFx = 1
+
     --take into account wheel "crushed" under load => more rr if the wheel is "deformed"
     --this is especially relevant on soft ground
     local rrFx = 1
@@ -308,6 +310,19 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
         local groundWetness = g_currentMission.environment.weather:getGroundWetness()
         rrFx, pressurefx = WheelPhysics.mrGetRrFx(self.mrTotalWidth, self.radius*self.mrTrackFx, self.mrLastTireLoadS, self.mrLastGroundType, self.mrLastGroundSubType, groundWetness, self.vehicle.mrGetGeneralPressureForRrFx, self.mrIsDriven)
         rrFx = rrFx * self.mrScaleRR
+
+        --20261117 - trailer wheels sinking at still on wet ground
+        if not self.mrIsDriven and groundWetness>0 and math.abs(wheelSpeed)<1 then --1m/s = 3.6kph	
+            local fx = 0
+            if self.mrLastGroundType==WheelsUtil.GROUND_FIELD then
+                fx = 0.2
+            elseif self.mrLastGroundType==WheelsUtil.GROUND_SOFT_TERRAIN then
+                fx = 0.1
+            end
+            if fx>0 then
+                startFx = 1 + fx * (1-math.abs(wheelSpeed)) * groundWetness * (1 + 0.1*pressurefx)
+            end
+        end
     end
     rrFx = 0.9*self.mrLastRrFx + 0.1*rrFx --02/04/2026 smooth rrFx
     self.mrLastRrFx = rrFx
@@ -317,8 +332,8 @@ WheelPhysics.mrGetRollingResistance = function(self, wheelSpeed, tireLoad, rrCoe
     --20250514 - only 10% rr at still to avoid strange behavior when tractor is not heavy enough to pull a trailer on hilly road or muddy field => only for not driven wheels
     --full rr @1.782kph
     --at very low speed, we rely on high wheel damping to simulate rolling resistance
-    local startFx = 1
-    if not self.mrIsDriven then
+
+    if not self.mrIsDriven and startFx==1 then
         startFx = math.min(1, 0.1 + 1.8*math.abs(wheelSpeed))
     end
 
@@ -481,9 +496,9 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
                 elseif self.mrIsDriven and self.vehicle.spec_motorized.mrLastNeutralActive then
                     --transmission losses
                     --no reduce damping
-                elseif self.vehicle.lastSpeedReal>0.006 then --6ms = 21.6kph
+                elseif self.vehicle.lastSpeedReal>0.006 then --6m/s = 21.6kph
                     damping = 0
-                elseif self.vehicle.lastSpeedReal>0.002 then --2ms = 7.2kph
+                elseif self.vehicle.lastSpeedReal>0.002 then --2m/s = 7.2kph
                     damping = damping * math.max(0, 1.5-250*self.vehicle.lastSpeedReal) --0.25*1000 = 250
                 end
 
@@ -536,9 +551,9 @@ WheelPhysics.mrUpdatePhysics = function(self, superFunc, brakeForce, torque)
         self.mrLastEngineBrakeForce = engineBrakeForce
         self.mrLastBrakeForce = bForce
 
-        --20261114 - 25% more brake force at still
-        if bForce>0 and self.mrLastWheelSpeed<0.25 then
-            bForce = bForce * 1.25
+        --20261114 - 20% more brake force at still
+        if bForce>0 and self.mrLastWheelSpeed<0.2 and self.vehicle.lastSpeedReal<0.002 then --0.2m/s = 0.72kph
+            bForce = bForce * 1.2
         end
 
         local totalForce = rrForce+bForce+engineBrakeForce

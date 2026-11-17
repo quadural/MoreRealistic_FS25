@@ -684,7 +684,7 @@ WheelsUtil.mrUpdateWheelsPhysicsHydrostaticAutomotive = function(self, dt, accPe
     local minRadsDrop = 5 --50rpm => 50*pi/30 (rpm to rad/s)
 
     --determined target speed m/s
-    local targetSpeed = motor:getMaximumForwardSpeed() --max vehicle speed, or regulator set speed, or working tool max speed
+    local targetSpeed = motor:getMaximumForwardSpeed() --meter per second // max vehicle speed, or regulator set speed, or working tool max speed
     local minGearRatio = motor.minForwardGearRatio
     if math.sign(gearDirection)<0 then
         targetSpeed = motor:getMaximumBackwardSpeed()

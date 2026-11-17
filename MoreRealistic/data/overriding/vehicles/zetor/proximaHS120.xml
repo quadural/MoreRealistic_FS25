@@ -10,6 +10,7 @@
 
     About 4450kg with front 3pt with pto + 460/85R38 tires + all fluids + driver
 
+    wet disc brakes inside the front wheels (missing visual lines in the i3d model)
     Brake deceleration = 5.8m/s2
     Max mass = 6.5T => 6.5 * 5.8 / 4 /2 = 4.71
     -->
@@ -52,11 +53,11 @@
                 <!-- front loader config -->
                 <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(1)#node" value="proximaHS120_main_component1"/>
                 <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(1)#mrAddMassActive" value="250"/>
-                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(1)#mrAddMassCOMActive" value="0 1.1 0.48"/>
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(1).objectChange(1)#mrAddMassCOMActive" value="0 0.8 0.43"/>
 
                 <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(1)#node" value="proximaHS120_main_component1"/>
                 <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(1)#mrAddMassActive" value="250"/>
-                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(1)#mrAddMassCOMActive" value="0 1.1 0.48"/>
+                <set path="vehicle.frontloaderConfigurations.frontloaderConfiguration(2).objectChange(1)#mrAddMassCOMActive" value="0 0.8 0.43"/>
 
 
 
