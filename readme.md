@@ -97,3 +97,12 @@ Fun facts
 * A few times, MR25 has been stopped (nearly aborted) because I didn't achieve to "bend" the base game engine like I wanted
 * With base game engine, when playing with Giants studio attached to debug and "vehicleDebug" active, the game engine is eating your memory (RAM) => this is fixed with MR engine
 * MR is best suited for "hardcore" players who play vanilla game and spend time driving their virtual tractors, not searching for mods => the ones that would never know MR exists
+---
+
+## Licensing and contributions
+
+**License status:** This repository currently does not include an explicit software license. Its public availability on GitHub should not be interpreted as a general grant of permission to modify or redistribute the contents outside of GitHub's applicable terms.
+
+**Maintainer action requested:** Please specify a license for the original MoreRealistic source code, preferably by adding a top-level LICENSE file and a corresponding notice here. Please also clarify which third-party game assets, vehicle configurations, and converted XML files, if any, are excluded from that license and identify their applicable rights holders or terms.
+
+No license or third-party rights are granted by this documentation note.
