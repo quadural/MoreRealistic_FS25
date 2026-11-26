@@ -560,3 +560,5 @@ fix bug : air consumption when going at more than 7.2kph in reverse ("manual dir
             - add Zetor Forterra HSX
             - easier to stuck a trailer in wet fields (narrow wheel + high load + wetness = hard time to take off from still)
             - add Zetor 16045
+            - Improved autoshift logic
+            - add Deutz Fahr 6C and Same Virtus RVshift

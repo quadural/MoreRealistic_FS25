@@ -292,6 +292,8 @@
     <vehicle fileNameToOverride="data/vehicles/zetor/proximaHS120/proximaHS120.xml">vehicles/zetor/proximaHS120.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/zetor/forterraHSX140/forterraHSX140.xml">vehicles/zetor/forterraHSX140.xml</vehicle>
     <vehicle fileNameToOverride="data/vehicles/zetor/crystal16045/crystal16045.xml">vehicles/zetor/crystal16045.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/deutzFahr/series6C/series6C.xml">vehicles/deutzFahr/series6C.xml</vehicle>
+    <vehicle fileNameToOverride="data/vehicles/same/virtus135RVShift/virtus135RVShift.xml">vehicles/same/virtus135RVShift.xml</vehicle>
 
     <!-- trailers -->
     <vehicle fileNameToOverride="data/vehicles/brantner/tr34090/tr34090.xml">vehicles/brantner/tr34090.xml</vehicle>

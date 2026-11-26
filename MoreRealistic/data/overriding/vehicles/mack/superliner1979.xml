@@ -66,8 +66,8 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#minRpm" value="630"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxRpm" value="1950"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#ptoMotorRpmRatio" value="3.52"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="140"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="36"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxForwardSpeed" value="135"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#maxBackwardSpeed" value="33"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#brakeForce" value="10" />
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor#mrGovernorRpmRange" value="250" />
 
@@ -105,12 +105,12 @@
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).motor.torque(10)#torque" value="1.750"/>
 
 
-            <!-- Mack T-2180B Transmission
+            <!-- Mack T-2180B Transmission with 4.42 rear axle
 
             -->
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="0.9"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#autoGearChangeTime" value="1"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#gearChangeTime" value="0.7"/>
-            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#axleRatio" value="8"/>
+            <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission#axleRatio" value="8.447"/>
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.directionChange#changeTime" value="1"/>
 
             <set path="vehicle.motorized.motorConfigurations.motorConfiguration(0).transmission.backwardGear(0)#gearRatio" value="12.88"/>

@@ -18,7 +18,7 @@
         <attributes>
 
             <set path="vehicle.base.components.component(0)#mass" value="3255" /> <!-- main + left and right wings without rollers, without seed ramp -->
-            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 0.9" />
+            <set path="vehicle.base.components.component(0)#centerOfMass" value="0 0.7 0.94" />
             <set path="vehicle.base.components.component(1)#mass" value="840" /> <!-- left roller + left seed ramp -->
             <set path="vehicle.base.components.component(1)#centerOfMass" value="0 -0.4 0" />
             <set path="vehicle.base.components.component(1)#inertiaScale" value="1 1 1" />
